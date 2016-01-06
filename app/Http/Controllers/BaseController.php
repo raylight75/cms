@@ -73,16 +73,14 @@ class BaseController extends Controller {
 
    public function filter()
    {
-      $cat = Request::input('categ');               
+      $cat = Request::input('categ');
+      //echo '<pre>',print_r($cat),'</pre>';
       $parent = Request::segment( 3 );      
       $pid = Product::getParent($parent);     
       $data = Product::prepareFilter();
       $data['properties'] = Product::getAll($pid);      
       $data['parent'] = $parent;
-      $data['products'] = DB::table('products')
-         ->where('cat_id', '=', $cat)
-         ->paginate(6);
-      //echo '<pre>',print_r($data),'</pre>';
+      $data['products'] = Product::pagination($cat);
       return view('frontend/filter_view', $data);
    }
    //test function
@@ -92,9 +90,7 @@ class BaseController extends Controller {
       $data = Product::prepareFilter();
       $data['properties'] = Product::getAll($pid);      
       $data['parent'] = $id;
-      $data['products'] = DB::table('products')
-         ->where('cat_id', '=', $cat)
-         ->paginate(6);      
+      $data['products'] = Product::pagination($cat);
       return view('frontend/filter_view', $data);
    }
 

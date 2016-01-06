@@ -1,0 +1,33 @@
+I found this package useful for generating SEO friendly
+URLs - https://github.com/cocur/slugify You need to convert title of page or post and save these slugs in database.
+Later you can generate SEO friendly URL and lookup your page through router
+
+Route::get('{slug?}', array('uses' => 'PagesController@index'))->where('slug', '.*')
+
+Route::get('/books/{id}/{slug}', 'HomeController@showBook');
+
+Route::get('/some-pretty-seo-url', function() {
+    $id = 2;
+    return App::make('PagesController')->showPage($id);
+});
+
+
+Route::get('test/{one}/{two}', function($one, $two)
+{
+    return 'two: ' . $one . ', ' . $two;
+});
+
+Route::get('test/{one}', function($one)
+{
+    return 'one: ' . $one;
+});
+
+
+
+// routes.php
+Route::get('house/{id}/{town}/{neighborhood}', ['as' => '', 'uses' => 'ExampleController@show']);
+
+// Controller
+public function show($id, $town, $neighborhood) {
+    # code
+}

@@ -1,0 +1,166 @@
+<?php 
+
+namespace App\Models;
+use Request;
+use DB;
+
+class Product {
+
+/**
+ * Ecommerce-CMS
+ *
+ * Copyright (C) 2014 - 2015  Tihomir Blazhev.
+ *
+ * LICENSE
+ *
+ * Ecommerce-cms is released with dual licensing, using the GPL v3 (license-gpl3.txt) and the MIT license (license-mit.txt).
+ * You don't have to do anything special to choose one license or the other and you don't have to notify anyone which license you are using.
+ * Please see the corresponding license file for details of these licenses.
+ * You are free to use, modify and distribute this software, but all copyright information must remain.
+ *
+ * @package     ecommerce-cms
+ * @copyright   Copyright (c) 2014 through 2015, Tihomir Blazhev
+ * @license     http://opensource.org/licenses/MIT  MIT License
+ * @version     1.0.0
+ * @author      Tihomir Blazhev <raylight75@gmail.com>
+ * 
+ * Product Model
+ *  
+ * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
+ */
+
+private static $parent_id = 0;
+
+public function __construct(Request $request)
+    {
+
+    }    
+
+	public static function getMenuData($parent_id)
+	{
+		 $categories = array();
+         $result = DB::table('categories')            
+            ->where('parent_id', '=', $parent_id)
+            ->get();                        
+        foreach ($result as $parentCategory) {
+            $category = array();
+            $category['id'] = $parentCategory->cat_id;
+            $category['name'] = $parentCategory->cat;
+            $category['parent_id'] = $parentCategory->parent_id;
+            $category['banner'] = $parentCategory->m_img;
+            $category['sub_cat'] = self::getMenuData($category['id']);
+            $categories[$parentCategory->cat_id] = $category;
+        }        
+        //echo '<pre>',print_r($categories),'</pre>';
+        return $categories;        
+    }
+
+    public static function getParent($parent_id)
+    {        
+        $result = DB::table('categories')            
+            ->where('parent_id', '=', $parent_id)
+            ->first();
+        return $result->parent_id;        
+    }
+
+    public static function getAll($parent)
+    {        
+        $sqla = '(SELECT count(products.brand_id) as count 
+                            FROM products
+                            WHERE products.brand_id = brand.brand_id
+                            AND products.parent_id = "' . $parent . '") as brand_cnt';
+        $sqlb = '(SELECT count(productcolour.colour_id) as count
+                            FROM productcolour 
+                            LEFT JOIN products
+                            ON products.product_id = productcolour.product_id
+                            WHERE productcolour.colour_id = colour.colour_id
+                            AND products.parent_id = "' . $parent . '") as color_cnt';
+        $result = DB::table('brand')
+            ->select( array('*', DB::raw($sqla), DB::raw($sqlb) ) )
+            ->leftJoin('size', 'brand.brand_id', '=', 'size.size_id')
+            ->leftJoin('colour', 'brand.brand_id', '=', 'colour.colour_id')    
+            ->get();        
+        $data['brand'] = array();
+        $data['colour'] = array();
+        $data['size'] = array();
+        foreach ($result as $val) {
+            $data['brand'][] = $val;
+            $data['colour'][] = $val;
+            $data['size'][] = $val;
+        }
+        return $data;        
+    }
+
+    public static function getBrand()
+    {
+        $result = DB::table('brand')->get();        
+        return $result;        
+    }
+
+    public static function getLatest()
+	{
+		$result = DB::table('products')
+		    ->join('categories', 'categories.cat_id', '=', 'products.cat_id')            
+            ->orderBy('product_id', 'ASC')
+            ->take('6')
+            ->get();        
+        return $result;        
+    }
+
+    public static function getRandom()
+	{
+		$result = DB::table('products')
+		    ->join('categories', 'categories.cat_id', '=', 'products.cat_id')            
+            ->orderBy('product_id', 'RANDOM')
+            ->take('6')
+            ->get();        
+        return $result;        
+    }
+
+    public static function getBanners()
+    {
+        $result = DB::table('products')
+            ->join('categories', 'categories.cat_id', '=', 'products.cat_id')            
+            ->orderBy('product_id', 'RANDOM')
+            ->take('6')
+            ->get();        
+        return $result;        
+    }
+
+    public static function prepareGlobal()
+    {
+        $data = array(            
+            'latest' => self::getLatest(),
+            'products' => self::getRandom(),
+            'menu' => self::getMenuData(self::$parent_id),
+            'title'         => 'EShop eCommerce CMS',
+            'description'  => 'EShop CMS',
+            'keyword'  => 'Eshop',            
+        );
+        return $data;
+    }
+
+    public static function prepareHome()
+    {
+        $data = array(            
+            'latest' => self::getLatest(),
+            'products' => self::getRandom(),
+            'brand_id' => self::getBrand(),                        
+        );
+        return $data;
+    }
+
+    public static function prepareFilter()
+    {
+        $data = array(
+            'banner' => self::getBanners(),
+            'size' => (array)  Request::input('size'),            
+            'color' => (array) Request::input('color'),
+            'brand' => (array) Request::input('brand'),
+            'price' => (array) Request::input('price'),
+            'name' => (array)  Request::input('name'),            
+            'category' => (array) Request::input('categ')
+        );
+        return $data;
+    }
+}

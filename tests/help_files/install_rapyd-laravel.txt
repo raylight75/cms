@@ -1,0 +1,23 @@
+1.install to composer.json
+
+"require": {
+		"laravel/framework": "5.0.*",
+		"illuminate/html": "~5.0",
+		"intervention/image": "2.*",
+		"zofe/rapyd": "dev-master"
+	},
+
+
+
+2.You need to install & enable FileInfo PHP extension,
+which is installed by default starting with PHP 5.3.0.
+Versions prior to 5.3+ may use the discontinued PECL extension.
+To enable FileInfo extension, you need to edit your php.ini and
+change a single line.
+
+Locate the line:
+
+;extension=php_fileinfo.dll
+Remove the starting comment:
+
+extension=php_fileinfo.dll

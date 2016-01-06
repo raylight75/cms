@@ -1,0 +1,157 @@
+Create a currency.php file in your app/Helpers folder.
+
+<?php
+
+use DB;
+
+    if (! function_exists('currency')) {
+        function currency($input)
+        {
+          $var = 'bgn';
+          if (isset($var))
+          {
+          $currency = DB::table('currencies')            
+            ->where('name', '=', $var)
+            ->first();
+            $rate = $currency->rate;
+            }
+            else
+            {
+            $rate = 1;
+        }
+        $total = (double)$input * (double)$rate;
+        return number_format((double)$total, 2); 
+      }
+    } 
+
+
+and load it up with composer:
+
+"autoload": {
+    "classmap": [
+        ...
+    ],
+    "psr-4": {
+        "App\\": "app/"
+    },
+    "files": [
+        "app/Helpers/currency.php" // <---- ADD THIS
+    ]
+},
+After adding that to your composer.json file, run the following command:
+
+composer dump-autoload
+
+
+
+
+
+
+
+
+
+
+If you wanted the variable accessible in all your views, not just your template,
+View::share is a great method (more info on this blog).
+
+Just add the following in app/controllers/BaseController.php
+
+class BaseController extends Controller
+{
+  public function __construct()
+  {                   
+    // Share a var with all views
+    View::share('myvar', 'some value');
+  }
+}
+and now $myvar will be available to all your views -- including your template.
+
+I used this to set environment specific asset URLs for my images.
+
+
+
+
+
+
+
+Create a new file in your app/Helpers directory name it AnythingHelper.php An example of my helper is :
+
+<?php
+function getDomesticCities()
+{
+$result = \App\Package::where('type', '=', 'domestic')
+    ->groupBy('from_city')
+    ->get(['from_city']);
+
+return $result;
+}
+generate a service provider for your helper by following command
+
+php artisan make:provider HelperServiceProvider
+in the register function of your newly generated HelperServiceProvider.php add following code
+
+require base_path().'/app/Helpers/AnythingHelper.php';
+now in your config/app.php load this service provider and you are done
+
+'App\Providers\HelperServiceProvider',
+
+
+
+
+Custom Classes in Laravel 5, the Easy Way
+Step 1: Create your Helpers (or other custom class) file. We're going to place it in:
+
+app\Helpers\Helper.php
+Step 2: Open your file, give it a matching namespace, and write your function:
+
+<?php // Code within app\Helpers\Helper.php
+
+    namespace App\Helpers
+
+    class Helper
+    {
+        public static function prettyJson($inputArray, $statusCode)
+        {
+            return response()->json($inputArray, $statusCode, array('Content-Type' => 'application/json'), JSON_PRETTY_PRINT);
+        }
+    }
+Here all we have is a really simple function to make sure my JSON output is nice and pretty.
+
+Step 3: You're Done. Laravel 5's PSR-4 magic takes care of the rest. If we want to use this class in a Controller,
+ this is all we need to do:
+
+<?php // Code within app\Http\Controllers\TestController.php
+
+    namespace App\Http\Controllers;
+
+    use App\Helpers\Helper;
+
+    class TestController extends Controller
+    {
+        public function getIndex()
+        {
+            return Helper::prettyJson(['asdf' => 'qwerty'], 200);
+        }
+    }
+Seriously, that's all we need to do. No need to add autoload lines within composer.json,
+no need to manually require *.php files or even register our class in the Service Providers.
+I can't believe how easy this is, and how complex the answers above are. Laravel 5 FTW.
+
+
+
+Create a helpers.php file in your app folder and load it up with composer:
+
+"autoload": {
+    "classmap": [
+        ...
+    ],
+    "psr-4": {
+        "App\\": "app/"
+    },
+    "files": [
+        "app/helpers.php" // <---- ADD THIS
+    ]
+},
+After adding that to your composer.json file, run the following command:
+
+composer dump-autoload

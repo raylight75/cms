@@ -1,0 +1,237 @@
+Installation
+Begin by installing this package through Composer. Edit your project's composer.json file to require laravelcollective/html.
+
+"require": {
+    "laravelcollective/html": "5.2.*"
+}
+Next, update Composer from the Terminal:
+
+composer update
+Next, add your new provider to the providers array of config/app.php:
+
+  'providers' => [
+    // ...
+    Collective\Html\HtmlServiceProvider::class,
+    // ...
+  ],
+Finally, add two class aliases to the aliases array of config/app.php:
+
+  'aliases' => [
+    // ...
+      'Form' => Collective\Html\FormFacade::class,
+      'Html' => Collective\Html\HtmlFacade::class,
+    // ...
+  ],
+Looking to install this package in Lumen? First of all, making this package compatible with Lumen will require some core changes to Lumen, which we believe would dampen the effectiveness of having Lumen in the first place. Secondly, it is our belief that if you need this package in your application, then you should be using Laravel anyway.
+
+Opening A Form
+Opening A Form
+{!! Form::open(array('url' => 'foo/bar')) !!}
+    //
+{!! Form::close() !!}
+By default, a POST method will be assumed; however, you are free to specify another method:
+
+echo Form::open(array('url' => 'foo/bar', 'method' => 'put'))
+Note: Since HTML forms only support POST and GET, PUT and DELETE methods will be spoofed by automatically adding a _method hidden field to your form.
+You may also open forms that point to named routes or controller actions:
+
+echo Form::open(array('route' => 'route.name'))
+
+echo Form::open(array('action' => 'Controller@method'))
+You may pass in route parameters as well:
+
+echo Form::open(array('route' => array('route.name', $user->id)))
+
+echo Form::open(array('action' => array('Controller@method', $user->id)))
+If your form is going to accept file uploads, add a files option to your array:
+
+echo Form::open(array('url' => 'foo/bar', 'files' => true))
+
+CSRF Protection
+Adding The CSRF Token To A Form
+Laravel provides an easy method of protecting your application from cross-site request forgeries. First, a random token is placed in your user's session. If you use the Form::open method with POST, PUT or DELETE the CSRF token will be added to your forms as a hidden field automatically. Alternatively, if you wish to generate the HTML for the hidden CSRF field, you may use the token method:
+
+echo Form::token();
+Attaching The CSRF Filter To A Route
+Route::post('profile', array('before' => 'csrf', function()
+{
+    //
+}));
+
+Form Model Binding
+Opening A Model Form
+Often, you will want to populate a form based on the contents of a model. To do so, use the Form::model method:
+
+echo Form::model($user, array('route' => array('user.update', $user->id)))
+Now, when you generate a form element, like a text input, the model's value matching the field's name will automatically be set as the field value. So, for example, for a text input named email, the user model's email attribute would be set as the value. However, there's more! If there is an item in the Session flash data matching the input name, that will take precedence over the model's value. So, the priority looks like this:
+
+Session Flash Data (Old Input)
+Explicitly Passed Value
+Model Attribute Data
+This allows you to quickly build forms that not only bind to model values, but easily re-populate if there is a validation error on the server!
+
+Note: When using Form::model, be sure to close your form with Form::close!
+
+Form Model Accessors
+Laravel's Eloquent Accessor allow you to manipulate a model attribute before returning it. This can be extremely useful for defining global date formats, for example. However, the date format used for display might not match the date format used for form elements. You can solve this by creating two separate accessors: a standard accessor, and/or a form accessor.
+
+To define a form accessor, create a formFooAttribute method on your model where Foo is the "camel" cased name of the column you wish to access. In this example, we'll define an accessor for the date_of_birth attribute. The accessor will automatically be called by the HTML Form Builder when attempting to pre-fill a form field when Form::model() is used.
+
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+
+class User extends Model
+{
+    /**
+     * Get the user's first name.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getDateOfBirthAttribute($value)
+    {
+        return Carbon::parse($value)->format('m/d/Y');
+    }
+
+    /**
+     * Get the user's first name for forms.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function formDateOfBirthAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
+    }
+}
+
+Labels
+Generating A Label Element
+echo Form::label('email', 'E-Mail Address');
+Specifying Extra HTML Attributes
+echo Form::label('email', 'E-Mail Address', array('class' => 'awesome'));
+Note: After creating a label, any form element you create with a name matching the label name will automatically receive an ID matching the label name as well.
+
+Text, Text Area, Password & Hidden Fields
+Generating A Text Input
+echo Form::text('username');
+Specifying A Default Value
+echo Form::text('email', 'example@gmail.com');
+Note: The hidden and textarea methods have the same signature as the text method.
+Generating A Password Input
+echo Form::password('password', array('class' => 'awesome'));
+Generating Other Inputs
+echo Form::email($name, $value = null, $attributes = array());
+echo Form::file($name, $attributes = array());
+
+Checkboxes and Radio Buttons
+Generating A Checkbox Or Radio Input
+echo Form::checkbox('name', 'value');
+
+echo Form::radio('name', 'value');
+Generating A Checkbox Or Radio Input That Is Checked
+echo Form::checkbox('name', 'value', true);
+
+echo Form::radio('name', 'value', true);
+
+Number
+Generating A Number Input
+echo Form::number('name', 'value');
+
+Date
+Generating A Date Input
+echo Form::date('name', \Carbon\Carbon::now());
+
+File Input
+Generating A File Input
+echo Form::file('image');
+Note: The form must have been opened with the files option set to true.
+
+Drop-Down Lists
+Generating A Drop-Down List
+echo Form::select('size', array('L' => 'Large', 'S' => 'Small'));
+Generating A Drop-Down List With Selected Default
+echo Form::select('size', array('L' => 'Large', 'S' => 'Small'), 'S');
+Generating a Drop-Down List With an Empty Placeholder
+This will create an <option> element with no value as the very first option of your drop-down.
+
+echo Form::select('size', array('L' => 'Large', 'S' => 'Small'), null, ['placeholder' => 'Pick a size...']);
+Generating A Grouped List
+echo Form::select('animal', array(
+    'Cats' => array('leopard' => 'Leopard'),
+    'Dogs' => array('spaniel' => 'Spaniel'),
+));
+Generating A Drop-Down List With A Range
+echo Form::selectRange('number', 10, 20);
+Generating A List With Month Names
+echo Form::selectMonth('month');
+
+Buttons
+Generating A Submit Button
+echo Form::submit('Click Me!');
+Note: Need to create a button element? Try the button method. It has the same signature as submit.
+
+Custom Macros
+Registering A Form Macro
+It's easy to define your own custom Form class helpers called "macros". Here's how it works. First, simply register the macro with a given name and a Closure:
+
+Form::macro('myField', function()
+{
+    return '<input type="awesome">';
+});
+Now you can call your macro using its name:
+
+Calling A Custom Form Macro
+echo Form::myField();
+
+Custom Components
+Registering A Custom Component
+Custom Components are similar to Custom Macros, however instead of using a closure to generate the resulting HTML, Components utilize Laravel Blade Templates. Components can be incredibly useful for developers who use Twitter Bootstrap, or any other front-end framework, which requires additional markup to properly render forms.
+
+Let's build a Form Component for a simple Bootstrap text input. You might consider registering your Components inside a Service Provider's boot method.
+
+Form::component('bsText', 'components.form.text', ['name', 'value', 'attributes']);
+Notice how we reference a view path of components.form.text. Also, the array we provided is a sort of method signature for your Component. This defines the names of the variables that will be passed to your view. Your view might look something like this:
+
+// resources/views/components/form/text.blade.php
+<div class="form-group">
+    {{ Form::label($name, null, ['class' => 'control-label']) }}
+    {{ Form::text($name, $value, array_merge(['class' => 'form-control'], $attributes)) }}
+</div>
+Custom Components can also be created on the Html facade in the same fashion as on the Form facade.
+Providing Default Values
+When defining your Custom Component's method signature, you can provide default values simply by giving your array items values, like so:
+
+Form::component('bsText', 'components.form.text', ['name', 'value' => null, 'attributes' => []]);
+Calling A Custom Form Component
+Using our example from above (specifically, the one with default values provided), you can call your Custom Component like so:
+
+{{ Form::bsText('first_name') }}
+This would result in something like the following HTML output:
+
+<div class="form-group">
+    <label for="first_name">First Name</label>
+    <input type="text" name="first_name" value="" class="form-control">
+</div>
+
+Generating URLs
+link_to
+Generate a HTML link to the given URL.
+
+echo link_to('foo/bar', $title = null, $attributes = array(), $secure = null);
+link_to_asset
+Generate a HTML link to the given asset.
+
+echo link_to_asset('foo/bar.zip', $title = null, $attributes = array(), $secure = null);
+link_to_route
+Generate a HTML link to the given named route.
+
+echo link_to_route('route.name', $title = null, $parameters = array(), $attributes = array());
+link_to_action
+Generate a HTML link to the given controller action.
+
+echo link_to_action('HomeController@getIndex', $title = null, $parameters = array(), $attributes = array());

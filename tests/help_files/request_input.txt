@@ -1,0 +1,64 @@
+The error message is due to the call not going through the Request facade.
+
+Change
+
+use Illuminate\Http\Request;
+To
+
+use Request;
+and it should start working.
+
+In the config/app.php file, you can find a list of the class aliases. There, you will see that the base class Request has been aliased to the Illuminate\Support\Facades\Request class. Because of this, to use the Request facade in a namespaced file, you need to specify to use the base class: use Request;.
+
+Edit
+Since this question seems to get some traffic, I wanted to update the answer a little bit since Laravel 5 was officially released.
+
+While the above is still technically correct and will work, the use Illuminate\Http\Request; statement is included in the new Controller template to help push developers in the direction of using dependency injection versus relying on the Facade.
+
+When injecting the Request object into the constructor (or methods, as available in Laravel 5), it is the Illuminate\Http\Request object that should be injected, and not the Request facade.
+
+So, instead of changing the Controller template to work with the Request facade, it is better recommended to work with the given Controller template and move towards using dependency injection (via constructor or methods).
+
+Example via method
+
+<?php namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class UserController extends Controller {
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        $name = $request->input('name');
+    }
+}
+Example via constructor
+
+<?php namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class UserController extends Controller {
+
+    protected $request;
+
+    public function __construct(Request $request) {
+        $this->request = $request;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store() {
+        $name = $this->request->input('name');
+    }
+}

@@ -1,0 +1,202 @@
+div.fancy-select {
+	position: relative;
+	display:inline-block;
+	font-weight: 900;
+	text-transform: uppercase;
+	font-size: 14px;
+	color: #666;
+}
+
+div.fancy-select.disabled {
+	opacity: 0.5;
+}
+
+div.fancy-select div.trigger {
+	position: relative;
+	cursor: pointer;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 13px 30px 13px 8px;
+	background: none;
+	color: #666;
+	width: 90px;
+	height:50px;
+	border:2px solid #ccc;
+	transition: all 240ms ease-out;
+	-webkit-transition: all 240ms ease-out;
+}
+
+div.fancy-select div.trigger:after {
+	content: "\f107";
+	position: absolute;
+	top: 14px;
+	right: 0;
+	display: block;
+	width:30px;
+	height:20px;
+	font-family:FontAwesome;
+	text-align:center;
+	line-height:20px;
+	font-size:13px;
+	color:#999;
+	border-left:1px dashed #999;
+}
+div.fancy-select div.trigger.open:after {
+	color:#333;
+	border-color:#333;
+}
+
+div.fancy-select div.trigger.open {
+	border: 2px solid #333;
+	color: #333;
+}
+
+
+div.fancy-select ul.options {
+	overflow: auto;
+	visibility: hidden;
+	position: absolute;
+	z-index: 50;
+	top: 40px;
+	left: 0;
+	margin: 5px 0 0;
+	opacity: 0;
+	max-height: 300px;
+	background: #333;
+	min-width: 150px;
+	transition: opacity 300ms ease-out, top 300ms ease-out, visibility 300ms ease-out;
+	-webkit-transition: opacity 300ms ease-out, top 300ms ease-out, visibility 300ms ease-out;
+	-moz-transition: opacity 300ms ease-out, top 300ms ease-out, visibility 300ms ease-out;
+	-ms-transition: opacity 300ms ease-out, top 300ms ease-out, visibility 300ms ease-out;
+	-o-transition: opacity 300ms ease-out, top 300ms ease-out, visibility 300ms ease-out;
+}
+
+div.fancy-select ul.options.open {
+	visibility: visible;
+	top: 100%;
+	opacity: 1;
+
+	/* have to use a non-visibility transition to prevent this iOS issue (bug?): */
+	/*http://stackoverflow.com/questions/10736478/css-animation-visibility-visible-works-on-chrome-and-safari-but-not-on-ios*/
+	transition: opacity 300ms ease-out, top 300ms ease-out;
+	-webkit-transition: opacity 300ms ease-out, top 300ms ease-out;
+	-moz-transition: opacity 300ms ease-out, top 300ms ease-out;
+	-ms-transition: opacity 300ms ease-out, top 300ms ease-out;
+	-o-transition: opacity 300ms ease-out, top 300ms ease-out;
+}
+
+div.fancy-select ul.options.overflowing {
+	top: auto;
+	bottom: 40px;
+
+	transition: opacity 300ms ease-out, bottom 300ms ease-out, visibility 300ms ease-out;
+	-webkit-transition: opacity 300ms ease-out, bottom 300ms ease-out, visibility 300ms ease-out;
+	-moz-transition: opacity 300ms ease-out, bottom 300ms ease-out, visibility 300ms ease-out;
+	-ms-transition: opacity 300ms ease-out, bottom 300ms ease-out, visibility 300ms ease-out;
+	-o-transition: opacity 300ms ease-out, bottom 300ms ease-out, visibility 300ms ease-out;
+}
+
+div.fancy-select ul.options.overflowing.open {
+	top: auto;
+	bottom: 50px;
+
+	transition: opacity 300ms ease-out, bottom 300ms ease-out;
+	-webkit-transition: opacity 300ms ease-out, bottom 300ms ease-out;
+	-moz-transition: opacity 300ms ease-out, bottom 300ms ease-out;
+	-ms-transition: opacity 300ms ease-out, bottom 300ms ease-out;
+	-o-transition: opacity 300ms ease-out, bottom 300ms ease-out;
+}
+
+div.fancy-select ul.options li {
+	padding: 8px 12px;
+	color: #fff;
+	cursor: pointer;
+	white-space: nowrap;
+
+	transition: all 150ms ease-out;
+	-webkit-transition: all 150ms ease-out;
+	-moz-transition: all 150ms ease-out;
+	-ms-transition: all 150ms ease-out;
+	-o-transition: all 150ms ease-out;
+}
+
+div.fancy-select ul.options li.selected {background-color:#242424;}
+
+div.fancy-select ul.options li.hover {
+	color: #333;
+	background-color:#fff;
+}
+
+/* Shop Sorting */
+.product_sort .fancy-select {
+	position:relative;
+	vertical-align:top;
+	text-transform:none;
+	font-weight:300;
+	text-align:left;
+	font-weight:300;
+	font-size:14px;
+	color:#666;
+	transition: all 0.3s ease-in-out;
+	-webkit-transition: all 0.3s ease-in-out;
+}
+.product_sort div.fancy-select ul.options li.selected {
+	background:#fff;
+	color:#333;
+}
+.product_sort div.fancy-select div.trigger:after {display:none;}
+.product_sort div.fancy-select div.trigger {
+	padding:0;
+	height:20px;
+	text-transform:none;
+	font-weight:300;
+	font-size:14px;
+	color:#666;
+	border:0;
+	transition: all 0.3s ease-in-out;
+	-webkit-transition: all 0.3s ease-in-out;
+}
+.product_sort div.fancy-select div.trigger:hover {color:#333;}
+.product_sort .fancy-select:before {
+	content: "\f107";
+	position:absolute;
+	z-index:3;
+	right:0;
+	top:3px;
+	width:15px;
+	height:16px;
+	font-family:FontAwesome;
+	font-weight:900;
+	text-align:center;
+	line-height:15px;
+	font-size:12px;
+	color:#333;
+	border:1px solid #ccc;
+	transition: all 0.3s ease-in-out;
+	-webkit-transition: all 0.3s ease-in-out;
+}
+.product_sort .fancy-select:hover:before {border-color:#333;}
+
+.product_sort div.fancy-select ul.options {	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,79 @@
+.clearfix{clear:both}
+.divbox1{margin-left:0!important}
+
+a{font-family:"Helvetica Neue","Helvetica",Arial,Sans-serif;color:#484a4c}
+a:hover{color:#65459b}
+
+
+.mainDiv{margin:0 auto;width:960px}
+.mainDiv .mainDiv{margin:0 -16px 0 -16px;width:auto;display:inline-block}
+
+.divbox{margin:10px 16px 0 16px;float:left;display:inline; position:relative;width:208px;}
+
+
+.image-hover {
+    width: 202px;
+    height: 186px;
+    opacity: 0;
+    filter: alpha(opacity = 0);
+    background: url(../images/zoomicon.png) 58px 42px no-repeat;
+	cursor:pointer;
+}
+.image-hover:hover {
+    opacity: 0.5;
+	border:1px solid #ccc;
+    filter: alpha(opacity = 50);
+}
+
+
+
+.product_name{margin-top:5px;float:left;width:208px}
+.product_name span.productname{height:29px;overflow:hidden;font-size:11px;line-height:14px;font-family:"Helvetica Neue","Helvetica",Arial,Sans-serif;display:block}.product_name .price{margin:0 auto;display:block;height:20px;text-align:center;}.product_name .price span.price_prev{font-size:14px;color:#999;text-decoration:line-through;float:left}
+
+.product_name .price span.product_price{font-size:14px;color:#555;font-weight:bold;margin-right:5px}
+
+.product_name_small{text-align:center;margin:0 auto;float:left}.product_name_small span.name{height:42px;overflow:hidden;font-size:12px;line-height:16px;font-family:"brandon-grotesque",helvetica,arial,sans-serif;text-transform:uppercase;text-align:center;display:block}
+
+
+
+
+
+
+
+
+
+
+.filter1{width:100%;border-bottom:2px solid #000;margin-bottom:15px;display:block;padding-bottom:8px}
+
+.filter2{border:2px solid #f1f1f1;font-size:11px;font-family:"Helvetica Neue","Helvetica",Arial,Sans-serif;padding:1px 3px 1px 5px;color:#666;text-align:left;float:left;margin-right:10px}
+
+.filter1 a.clear_filters{float:left;font-family:"Helvetica Neue","Helvetica",Arial,Sans-serif;font-size:11px;font-weight:bold;margin-top:3px}
+
+
+
+.productCategoryLeftPanel{display:block;margin-top:10px}
+.productCategoryLeftPanel .pro_cat_title{text-transform:capitalize;border-bottom:2px solid #000}
+.productCategoryLeftPanel .pro_cat_title h1{line-height:33px}
+.productCategoryLeftPanel .pro_cat_title h1 a{color:#252525;font-weight:bold;font-family:"Helvetica Neue","Helvetica",Arial,Sans-serif;font-size:15px}
+
+.productCategoryLeftPanel .different_filters_divbox{margin-bottom:20px;margin-top:6px}.productCategoryLeftPanel .different_filters_divbox ul.different_filters{display:block}
+.productCategoryLeftPanel .different_filters_divbox ul.different_filters li{background:0;clear:both;padding:2px 0}.productCategoryLeftPanel .different_filters_divbox ul.different_filters li a,.productCategoryLeftPanel .different_filters_divbox ul.different_filters li p{line-height:12px;font-size:12px;font-family:"Helvetica Neue","Helvetica",Arial,Sans-serif;text-transform:normal;color:#484a4c}
+
+
+
+.productCategoryLeftPanel .different_filters_divbox ul.different_filters li a.active,.productCategoryLeftPanel .different_filters_divbox ul.different_filters li label:hover{color:#252525}.productCategoryLeftPanel .different_filters_divbox ul.different_filters li input[type="checkbox"]{display:block!important;float:left!important;margin:0!important;margin-right:8px!important;margin-top:3px!important}
+
+
+.productCategoryLeftPanel .different_filters_divbox ul.different_filters li label{font-size:12px;font-family:"Helvetica Neue","Helvetica",Arial,Sans-serif;text-transform:normal;color:#484a4c}
+.productCategoryLeftPanel .different_filters_divbox .color_filter{max-height:150px!important;overflow-y:scroll}.productCategoryLeftPanel .different_filters_divbox .color-filter{max-height:150px!important;border-bottom:1px solid #ddd;overflow-y:scroll}
+
+.productCategoryLeftPanel .different_filters_divbox .color_filter,.productCategoryLeftPanel .different_filters_divbox .size-filter{-webkit-column-count:2;-moz-column-count:2;column-count:2;-webkit-column-gap:3;-moz-column-gap:3;column-gap:3}.productCategoryLeftPanel .different_filters::-webkit-scrollbar{-webkit-appearance:none;width:7px}
+
+.filtersshow{margin-top:10px;width:735px;float:right;display:block}
+.filter_search{display:block}
+.filter_search .btn-small{padding:2px 8px}
+
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------------->
+
+    

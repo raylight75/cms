@@ -1,0 +1,25 @@
+I was also getting this error. Adding below in composer.json fixed the issue:
+
+"repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/jamisonvalenta/Laravel-4-Generators.git"
+        }
+    ],
+This is what my composer.json "require-dev" and "repositories" look like now:
+
+"require-dev": {
+        "fzaninotto/faker": "~1.4",
+        "mockery/mockery": "0.9.*",
+        "phpunit/phpunit": "~4.0",
+        "phpspec/phpspec": "~2.1",
+        "xethron/migrations-generator": "dev-l5",
+        "way/generators": "dev-feature/laravel-five-stable"
+    },
+"repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/jamisonvalenta/Laravel-4-Generators.git"
+        }
+    ],
+I hope this helps someone.

@@ -1,0 +1,47 @@
+Generation Shortcuts
+
+The methods mentioned in the previous subheadings are freely available for you to use in your views. Go ahead and take advantage of all of the features that they have to offer.
+
+However, it’s good practice for the logic in your views to be short and neat. Also, it takes some stress off your fingers. This is why Laravel has provided some shortcuts to some of the methods available on the URL class. Let’s take a closer look at what’s available.
+
+First we have the url() function. It accepts identical parameters to the URL::to() method, so I won’t cover them again. Here’s an example of it in action.
+
+<!-- app/views/example.blade.php -->
+
+<a href="{{ url('my/route', array('foo', 'bar'), true) }}">My Route</a>
+Now if we look at the link within the rendered view’s source, we see the following.
+
+<a href="https://demo.dev/my/route/foo/bar">My Route</a>
+The URL has been created in the same manner as the URL::to() method. As before, there is also a shortcut method that can be used to generate a secure URL. It looks like this:
+
+<!-- app/views/example.blade.php -->
+
+<a href="{{ secure_url('my/route', array('foo', 'bar')) }}">My Route</a>
+The secure_url() function accepts the same signature as the URL::secure() method. The first parameter is the route, and the second is an array of route parameters to be appended.
+
+The route() function is a shortcut to the URL::route() method, and be used for generating URLs to named routes. It looks like this:
+
+<!-- app/views/example.blade.php -->
+
+<a href="{{ route('myroute') }}">My Route</a>
+As you might have guessed, there is also a shortcut for the third method of route URL generation. The action() function can be used as a shortcut to the URL::action() method, and can be used to generate links to controller actions.
+
+<!-- app/views/example.blade.php -->
+
+<a href="{{ action('MyController@myAction') }}">My Link</a>
+Just as with the URL::action() method, they can accept second and third parameters for route parameters and secure URL generation.
+
+<!-- app/views/example.blade.php -->
+
+<a href="{{ action('MyController@myAction', array('foo'), true) }}">My Link</a>
+The shortcut to the URL::asset() method is the asset() function, and as with all the other shortcuts, it accepts identical function parameters. Here’s an example:
+
+<!-- app/views/example.blade.php -->
+
+<img src="{{ asset('img/logo.png') }}" />
+Likewise, the shortcut to URL::secureAsset() is the secure_asset() function. It looks like this:
+
+<!-- app/views/example.blade.php -->
+
+<img src="{{ secure_asset('img/logo.png') }}" />
+Feel free to use the shortcuts in your views to simplify their content, and to avoid repetitive strain injury.

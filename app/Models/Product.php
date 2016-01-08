@@ -129,19 +129,28 @@ class Product
         return $result;
     }
 
-    public static function pagination(array $get)
+    public static function pagination(array $get,$parent)
     {
-            $result = DB::table('products')
-                ->leftJoin('categories', 'categories.cat_id', '=', 'products.cat_id')
-                ->leftJoin('productsize', 'productsize.product_id', '=', 'products.product_id')
-                ->leftJoin('productcolour', 'productcolour.product_id', '=', 'products.product_id')
-                //->orderBy('price', 'desc')
-                ->whereIn('productsize.size_id', $get['size'])
-                ->whereIn('productcolour.colour_id', $get['color'])
-                ->whereIn('products.cat_id', $get['categ'])
-                ->whereIn('brand_id', $get['brand'])
-                //->groupBy('products.product_id')
-                ->paginate(6);
+        $query = DB::table('products');
+        $query->leftJoin('categories', 'categories.cat_id', '=', 'products.cat_id');
+        $query->leftJoin('productsize', 'productsize.product_id', '=', 'products.product_id');
+        $query->leftJoin('productcolour', 'productcolour.product_id', '=', 'products.product_id');
+        $query->where('categories.parent_id', '=', $parent);
+        if (!empty($get['size'])) {
+            $query->whereIn('productsize.size_id', $get['size']);
+        }
+        if (!empty($get['color'])) {
+            $query->whereIn('productcolour.colour_id', $get['color']);
+        }
+        if (!empty($get['categ'])) {
+            $query->whereIn('products.cat_id', $get['categ']);
+        }
+        if (!empty($get['brand'])) {
+            $query->whereIn('brand_id', $get['brand']);
+        }
+        $query->orderBy('price', 'desc');
+        $query->groupBy('products.product_id');
+        $result = $query->paginate(6);
         return $result;
     }
 

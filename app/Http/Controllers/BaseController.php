@@ -86,7 +86,7 @@ class BaseController extends Controller {
       $data = Product::prepareFilter();
       $data['properties'] = Product::getAll($pid);      
       $data['parent'] = $parent;
-      $data['products'] = Product::pagination($get);
+      $data['products'] = Product::pagination($get,$parent);
       return view('frontend/filter_view', $data);
    }
    //test function

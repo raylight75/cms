@@ -129,18 +129,19 @@ class Product
         return $result;
     }
 
-    public static function pagination($cat)
+    public static function pagination(array $get)
     {
-        if (!is_array($cat)) {
-        $result = DB::table('products')
-                ->where('cat_id', $cat)
-                ->paginate(6);
-        }else{
             $result = DB::table('products')
-                ->whereIn('cat_id', $cat)
-                ->orderBy('price', 'desc')
+                ->leftJoin('categories', 'categories.cat_id', '=', 'products.cat_id')
+                ->leftJoin('productsize', 'productsize.product_id', '=', 'products.product_id')
+                ->leftJoin('productcolour', 'productcolour.product_id', '=', 'products.product_id')
+                //->orderBy('price', 'desc')
+                ->whereIn('productsize.size_id', $get['size'])
+                ->whereIn('productcolour.colour_id', $get['color'])
+                ->whereIn('products.cat_id', $get['categ'])
+                ->whereIn('brand_id', $get['brand'])
+                //->groupBy('products.product_id')
                 ->paginate(6);
-        }
         return $result;
     }
 

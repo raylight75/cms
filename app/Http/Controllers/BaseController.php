@@ -73,18 +73,24 @@ class BaseController extends Controller {
 
    public function filter()
    {
-      $cat = Request::input('categ');
+      $get = array(
+          'size'=>Input::get('size'),
+          'color'=>Input::get('color'),
+          'categ'=>Input::get('categ'),
+          'brand'=>Input::get('brand'),
+      );
+      //$cat = Request::input('categ');
       //echo '<pre>',print_r($cat),'</pre>';
       $parent = Request::segment( 3 );      
       $pid = Product::getParent($parent);     
       $data = Product::prepareFilter();
       $data['properties'] = Product::getAll($pid);      
       $data['parent'] = $parent;
-      $data['products'] = Product::pagination($cat);
+      $data['products'] = Product::pagination($get);
       return view('frontend/filter_view', $data);
    }
    //test function
-   public function filterTest($parent,$slug, $id, $cat)
+   /*public function filterTest($parent,$slug, $id, $cat)
    {        
       $pid = Product::getParent($id);     
       $data = Product::prepareFilter();
@@ -92,7 +98,7 @@ class BaseController extends Controller {
       $data['parent'] = $id;
       $data['products'] = Product::pagination($cat);
       return view('frontend/filter_view', $data);
-   }
+   }*/
 
    public function userLogin()
    {

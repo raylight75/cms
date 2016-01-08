@@ -1,0 +1,19 @@
+in the doc at this page: http://laravel.com/docs/5.1/pagination we can see that we are not forced to use eloquent.
+
+$users = DB::table('users')->paginate(15);
+but, be sure you don't make a groupBy in your query because, the paginate method uses it.
+
+after i'm no sure you can use paginate with query builder ( select($query) )
+
+--- edit
+
+You can create collection an use the paginator class :
+
+$collection = new Collection($put_your_array_here);
+
+// Paginate
+$perPage = 10; // Item per page
+$currentPage = Input::get('page') - 1; // url.com/test?page=2
+$pagedData = $collection->slice($currentPage * $perPage, $perPage)->all();
+$collection= Paginator::make($pagedData, count($collection), $perPage);
+and in your view just use $collection->render();

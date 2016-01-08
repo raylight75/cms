@@ -101,7 +101,7 @@
 											<ol>
 								        <li>
 											<a href="{{ url('') }}/<?php echo $row['name']."/".$item['name']."/".$item['parent_id'];?>
-												?categ=<?php echo $item['id'];?>"><?php echo $item['name'];?></a></li>
+												?categ[]=<?php echo $item['id'];?>"><?php echo $item['name'];?></a></li>
 											</ol>
 											<?php endforeach; ?>										
 										</li>

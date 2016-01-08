@@ -7,14 +7,9 @@
 		<div class="tovar_item clearfix">
 			<div class="tovar_img">
 				<div class="tovar_img_wrapper">
-				   <img class="img"
-						src="{{ url('images/products') }}/<?php echo $row->a_img;?>"
-						alt="" />
-				   <img class="img_h fancybox fancybox.ajax"
-						href="{{ url('home/frame') }}/<?php echo $row->product_id;?>" 
-				   <img class="img_h"
-						src="{{ url('images/products') }}/<?php echo $row->b_img;?>"
-						alt="" />
+				   <img class="img" src="{{ url('images/products') }}/<?php echo $row->a_img;?>" alt="" />
+				   <img class="img_h fancybox fancybox.ajax" href="{{ url('home/frame') }}/<?php echo $row->product_id;?>">
+				   <img class="img_h" src="{{ url('images/products') }}/<?php echo $row->b_img;?>" alt="" />
 				</div>
 				<div class="tovar_item_btns">
 					<a class="open-project tovar_view"
@@ -44,7 +39,7 @@
 					<!-- //TOVAR1 -->
 	<div class="clearfix">
 		<!-- PAGINATION -->
-					{!! $products->appends(Input::except('page'))->render() !!}				
+					{!! $products->appends(Input::except('page'))->render() !!}
 					<!-- //PAGINATION -->
 	</div>
 	<hr>

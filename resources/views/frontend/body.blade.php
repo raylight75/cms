@@ -36,7 +36,7 @@
 							</div>
 							<div class="tovar_item_btns">
 							  <a class="open-project tovar_view"
-								 href="<?php echo $row->cat."/".$row->slug."/".$row->product_id;?>">
+								 href="{{ url() }}/<?php echo $row->cat."/".$row->slug."/".$row->product_id;?>">
 									<span><?= _('product')?></span> <?= _('view')?>					
 								</a>									
 									
@@ -47,7 +47,7 @@
 						</div>
 						<div class="tovar_description clearfix">
 							<a class="tovar_title"
-							   href="<?php echo $row->cat."/".$row->slug."/".$row->product_id;?>">
+							   href="{{ url() }}/<?php echo $row->cat."/".$row->slug."/".$row->product_id;?>">
 									  <?php echo $row->name;?></a>
 							<span class="tovar_price">{!! Helper::currency($row->price) !!}&nbsp{!! Helper::label() !!}</span> 
 									
@@ -131,11 +131,12 @@
 							<div class="tovar_img">
 						<img src="{{ url('images/products') }}/<?php echo $row->a_img;?>"
 							 alt="" /> <a class="open-project tovar_view"
-							 href="<?php echo $row->cat."/".$row->slug."/".$row->product_id;?>"><?= _('quick view')?></a>
+							 href="{{ url() }}/<?php echo $row->cat."/".$row->slug."/".$row->product_id;?>">
+									<?= _('quick view')?></a>
 						</div>
 							  <div class="tovar_description clearfix">
 								<a class="tovar_title"
-								   href="<?php echo $row->cat."/".$row->slug."/".$row->product_id;?>">
+								   href="{{ url() }}/<?php echo $row->cat."/".$row->slug."/".$row->product_id;?>">
 								<?php echo $row->name;?></a> 
 								
 							</div>

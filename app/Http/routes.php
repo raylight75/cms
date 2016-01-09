@@ -24,14 +24,17 @@ Route::get('/contacts', 'BaseController@contacts');
 
 Route::get('/login', 'BaseController@userlogin');
 
+Route::get('/cache', 'BaseController@write');
+
+Route::get('/filter/{slug}/{id}', 'BaseController@filter');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
-Route::get('role/create_role', 'RolesController@create_role');
 
-Route::get('role/attach_role', 'RolesController@attach_role');
+require app_path().'/Http/Routes/routes.php';
 
-Route::get('{parent}/{slug}/{cat}', 'BaseController@filter');
+//Route::get('role/create_role', 'RolesController@create_role');
 
-//Route::get('{parent}/{slug}/{id}/{cat}', 'BaseController@filter');
+//Route::get('role/attach_role', 'RolesController@attach_role');

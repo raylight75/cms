@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Request;
+use Illuminate\Support\Facades\File;
 use DB;
 
 class Product
@@ -189,5 +190,26 @@ class Product
             'category' => (array)Request::input('categ')
         );
         return $data;
+    }
+
+    public static function writeRoutes()
+    {
+        $cotroller_parent = 'BaseController@filter';
+        $cotroller_sub = 'BaseController@single';
+        $category = self::getMenuData(0);
+        $data[] = "<?php";
+        foreach ($category as $row) {
+            $data[] = "Route::get('". $row['name'] . "/{slug}/{id}' , '". $cotroller_parent ."');";
+            foreach ($row['sub_cat'] as $sub_cat) {
+                $data[] = "Route::get('". $sub_cat['name'] ."/{slug}/{id}' , '". $cotroller_sub ."');";
+            }
+        }
+        $output = implode("\n", $data);
+        $file = app_path().'/Http/Routes/routes.php';
+        $bytes_written = File::put($file, $output);
+        if ($bytes_written === false)
+        {
+            die("Error writing to file");
+        }
     }
 }

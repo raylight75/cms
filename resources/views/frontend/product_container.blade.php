@@ -13,11 +13,11 @@
 				</div>
 				<div class="tovar_item_btns">
 					<a class="open-project tovar_view"
-						href="<?php echo "/".$row->slug."/".$row->product_id;?>">
+						href="{{ url() }}/<?php echo $row->cat."/".$row->slug."/".$row->product_id;?>">
 						<span><?= _('product')?></span> <?= _(' view')?>
 					</a>									
 									<?php if (Auth::check() && Auth::user()->is('user')): ?>
-						<a class="add_bag" href="<?php echo "/".$row->slug."/".$row->product_id;?>">
+						<a class="add_bag" href="{{ url() }}/<?php echo $row->cat."/".$row->slug."/".$row->product_id;?>">
 						<i class="fa fa-shopping-cart"></i></a>
 									<?php else: ?>
 									<a class="add_bag" href="{{ url('user') }}"> 

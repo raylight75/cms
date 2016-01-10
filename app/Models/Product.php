@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Request;
-use Illuminate\Support\Facades\File;
 use DB;
 
 class Product

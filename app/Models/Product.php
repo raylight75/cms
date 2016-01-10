@@ -54,16 +54,7 @@ class Product
             $category['sub_cat'] = self::getMenuData($category['id']);
             $categories[$parentCategory->cat_id] = $category;
         }
-        //echo '<pre>',print_r($categories),'</pre>';
         return $categories;
-    }
-
-    public static function getParent($parent_id)
-    {
-        $result = DB::table('categories')
-            ->where('parent_id', '=', $parent_id)
-            ->first();
-        return $result->parent_id;
     }
 
     public static function getAll($parent)
@@ -123,9 +114,32 @@ class Product
     public static function getBanners()
     {
         $result = DB::table('products')
-            ->join('categories', 'categories.cat_id', '=', 'products.cat_id')
+            ->leftJoin('categories', 'categories.cat_id', '=', 'products.cat_id')
             ->orderBy('product_id', 'RANDOM')
             ->take('6')
+            ->get();
+        return $result;
+    }
+
+    public static function getColor($id)
+    {
+        $result = DB::table('productcolour')
+            ->join('colour', 'colour.colour_id', '=', 'productcolour.colour_id')
+            ->where('productcolour.product_id', '=', $id)
+            ->get();
+        return $result;
+    }
+
+    public static function getProduct($id)
+    {
+        $result = DB::table('products')
+            ->select(array('*', DB::raw("GROUP_CONCAT(size.size SEPARATOR ',') as size")))
+            ->leftJoin('categories', 'categories.cat_id', '=', 'products.cat_id')
+            ->leftJoin('productsize', 'productsize.product_id', '=', 'products.product_id')
+            ->leftJoin('size', 'size.size_id', '=', 'productsize.size_id')
+            ->leftJoin('brand', 'brand.brand_id', '=', 'products.brand_id')
+            ->where('products.product_id', '=', $id)
+            ->groupBy('products.product_id')
             ->get();
         return $result;
     }
@@ -192,24 +206,12 @@ class Product
         return $data;
     }
 
-    public static function writeRoutes()
+    public static function prepareProduct()
     {
-        $cotroller_parent = 'BaseController@filter';
-        $cotroller_sub = 'BaseController@single';
-        $category = self::getMenuData(0);
-        $data[] = "<?php";
-        foreach ($category as $row) {
-            $data[] = "Route::get('". $row['name'] . "/{slug}/{id}' , '". $cotroller_parent ."');";
-            foreach ($row['sub_cat'] as $sub_cat) {
-                $data[] = "Route::get('". $sub_cat['name'] ."/{slug}/{id}' , '". $cotroller_sub ."');";
-            }
-        }
-        $output = implode("\n", $data);
-        $file = app_path().'/Http/Routes/routes.php';
-        $bytes_written = File::put($file, $output);
-        if ($bytes_written === false)
-        {
-            die("Error writing to file");
-        }
+        $data = array(
+            'latest' => self::getLatest(),
+            'random' => self::getRandom(),
+        );
+        return $data;
     }
 }

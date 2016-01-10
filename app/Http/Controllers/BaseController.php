@@ -73,7 +73,7 @@ class BaseController extends Controller
         return view('frontend/contacts');
     }
 
-    public function filter($slug,$id)
+    public function filter($slug,$parent)
     {
         $get = array(
             'size' => Input::get('size'),
@@ -81,30 +81,23 @@ class BaseController extends Controller
             'categ' => Input::get('categ'),
             'brand' => Input::get('brand'),
         );
-        //$cat = Request::input('categ');
-        //echo '<pre>',print_r($cat),'</pre>';
-        $parent = Request::segment(3);
-        $pid = Product::getParent($id);
         $data = Product::prepareFilter();
-        $data['properties'] = Product::getAll($pid);
+        $data['properties'] = Product::getAll($parent);
         $data['parent'] = $parent;
-        $data['products'] = Product::pagination($get, $parent);
+        $data['products'] = Product::pagination($get,$parent);
         return view('frontend/filter_view', $data);
     }
 
-    public function single()
+    public function product($slug,$parent)
     {
-
+        $data = Product::prepareProduct();
+        $data['color'] = Product::getColor($parent);
+        $data['single'] = Product::getProduct($parent);
+        return view('frontend/product_page',$data);
     }
 
     public function userLogin()
     {
         return view('frontend/login');
-    }
-
-    public function write()
-    {
-        Product::writeRoutes();
-        return redirect('cms');
     }
 }

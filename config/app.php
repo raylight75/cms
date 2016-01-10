@@ -148,6 +148,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\RouterServiceProvider::class,
 
     ],
 
@@ -197,11 +198,11 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-        'Cart'      => Gloudemans\Shoppingcart\Facades\Cart::class,         
+        'Cart'      => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
         'Helper'    => App\Helpers\Helper::class,
-
+        'Generate'  => App\Http\Routes\RouteRegister::class,
     ],
 
 ];

@@ -27,7 +27,7 @@
 			</div>
 			<div class="tovar_description clearfix">
 				<a class="tovar_title"
-					href="<?php echo "/".$row->slug."/".$row->product_id;?>">
+					href="{{ url() }}/<?php echo $row->cat."/".$row->slug."/".$row->product_id;?>">
 								<?php echo $row->name;?>
 								</a>
 								<span class="tovar_price">{!! Helper::currency($row->price) !!}&nbsp{!! Helper::label() !!}</span> 

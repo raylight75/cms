@@ -33,7 +33,11 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-require app_path().'/Http/Routes/routes.php';
+Generate::registerRoutes();
+
+//App::make('Helper')->registerRoutes();
+
+//require app_path().'/Http/Routes/routes.php';
 
 //Route::get('role/create_role', 'RolesController@create_role');
 

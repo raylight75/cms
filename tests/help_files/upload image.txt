@@ -1,0 +1,71 @@
+div class="content">
+              <div class="title">Laravel 5</div>
+                {!! Form::open(
+                  array(
+                      'route' => 'upload',
+                      'class' => 'form',
+                      'novalidate' => 'novalidate',
+                      'files' => true)) !!}
+
+
+              <div class="form-group">
+                  {!! Form::label('Image') !!}
+                  {!! Form::file('image', null) !!}
+              </div>
+
+              <div class="form-group">
+                  {!! Form::submit('Upload Image') !!}
+              </div>
+              {!! Form::close() !!}
+              </div>
+Route.php
+
+Route::any('upload', array('as' => 'upload', 'uses' => 'UploadController@upload'));
+
+UploadController.php: Tried 3 different approaches!
+    public function upload()
+    {
+    $imageName = str_random(3) . '.' .
+    Input::file('image')->getClientOriginalExtension();
+
+    /*ONE*/
+    Input::file('image')->move(
+        base_path() . '/public/images/', $imageName
+    );
+/*TWO*/
+    Request::file('image')->move(
+        base_path() . '/public/images/', $imageName
+    );
+/*THree */
+    Storage::disk('local')->put('file.txt', 'Contents');
+
+    return view('welcome');
+    }
+Best Answer school
+guezandy
+guezandy — 5 months ago
+
+I finally found that if I added the AmazonS3FullAccess policy under the user's permission under IAM the application finally worked and I was able to create and upload items to the bucket using:
+    \Storage::disk('s3')->put('file.txt', 'Content');
+
+IsaacBen
+ IsaacBen — 5 months ago
+
+Take a look at my controller, I get the images and store them at /public/files.
+    public function store(Image $image,ImageRequest $request)
+    {
+        if(Input::get('no_email')){
+            return 'Field must be empty';    -->This is just for "Honey Pot"
+        }
+        $filename = Input::file('filename');
+        $change = $filename->getClientOriginalExtension();
+        $newfilename = Auth::id().str_random(10).'.';
+        $filename->move('files', "{$newfilename}" .$change);  
+        $image->filename = 'files' . '/' ."{$newfilename}" .$change;
+        $image->caption = Input::get('caption');
+        $image->user_id = Auth::id();
+        $image->user_name = Auth::user()->name;
+        $image->save();
+        return redirect('home');
+      
+    }

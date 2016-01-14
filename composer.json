@@ -13,6 +13,7 @@
         "zofe/rapyd": "2.1.*",
         "gloudemans/shoppingcart": "~1.3",
         "nesbot/carbon": "^1.21",
+        "nicolaslopezj/searchable": "1.*",
         "bican/roles": "2.1.*"
     },
     "require-dev": {

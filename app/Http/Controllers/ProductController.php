@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateProduct;
+use App\Product;
 use Request;
-
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Book;
 
-class BookController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books=Book::all();
-        return view('books.index',compact('books'));
+        $products=Product::all();
+        $products=Product::paginate(10);
+        return view('product.index',compact('products'));
     }
 
     /**
@@ -28,20 +28,21 @@ class BookController extends Controller
      */
     public function create()
     {
-       return view('books.create');
+       return view('product.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param CreateProduct $request
      * @return Response
      */
     
-    public function store()
+    public function store(CreateProduct $request)
     {
-       $book=Request::all();
-       Book::create($book);
-       return redirect('books');
+       //$products=Request::all();
+       Product::create($request->all());
+       return redirect('product');
     }
 
     /**
@@ -52,8 +53,8 @@ class BookController extends Controller
      */
     public function show($id)
     {
-       $book=Book::find($id);
-       return view('books.show',compact('book'));
+       $product=Product::find($id);
+       return view('product.show',compact('product'));
     }
 
     /**
@@ -65,8 +66,8 @@ class BookController extends Controller
 
     public function edit($id)
     {
-       $book=Book::find($id);
-       return view('books.edit',compact('book'));
+       $product=Product::find($id);
+       return view('product.edit',compact('product'));
     }
 
     /**
@@ -78,10 +79,10 @@ class BookController extends Controller
 
     public function update($id)
     {
-       $bookUpdate=Request::all();
-       $book=Book::find($id);
-       $book->update($bookUpdate);
-       return redirect('books');
+       $ProductsUpdate=Request::all();
+       $products=Product::find($id);
+       $products->update(ProductsUpdate);
+       return redirect('product');
     }
 
     /**

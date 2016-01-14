@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - cms@localhost" uuid="d2eab94e-05c3-4a84-8dac-582a8e7282cc">
+    <database-info product="MySQL" version="5.6.21" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="cms"/>
+    <table name="bl_cat" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="category" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="id" unique="true" columns="id"/>
+    </table>
+    <table name="bl_tag" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="tag" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="id" unique="true" columns="id"/>
+    </table>
+    <table name="brand" schema="" catalog="cms" type="TABLE">
+      <column name="brand_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="brand" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="brand_id"/>
+      <exported-key name="fk_products_brand" table="products" schema="" catalog="cms" columns="brand_id"/>
+    </table>
+    <table name="categories" schema="" catalog="cms" type="TABLE">
+      <column name="cat_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="cat" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="parent_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="m_img" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="f_img" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="cat_id"/>
+      <exported-key name="fk_products_categories" table="products" schema="" catalog="cms" columns="cat_id"/>
+      <index name="fk_categories_categories_idx" unique="false" columns="parent_id"/>
+    </table>
+    <table name="colour" schema="" catalog="cms" type="TABLE">
+      <column name="colour_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="colour" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="web" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="colour_id"/>
+      <exported-key name="fk_productcolour_colour" table="productcolour" schema="" catalog="cms" columns="colour_id"/>
+    </table>
+    <table name="comments" schema="" catalog="cms" type="TABLE">
+      <column name="comments_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="comments" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="created" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="comments_id"/>
+    </table>
+    <table name="countries" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="code" sqlType="CHAR" precision="2" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="vat" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="currencies" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="rate" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="customers" schema="" catalog="cms" type="TABLE">
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="country" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="postcode" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="adress" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="customer_id"/>
+    </table>
+    <table name="images_tmp" schema="" catalog="cms" type="TABLE">
+      <column name="img_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="images" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="img_id"/>
+    </table>
+    <table name="migrations" schema="" catalog="cms" type="TABLE">
+      <column name="migration" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="batch" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+    </table>
+    <table name="order_status" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="status" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="orders" schema="" catalog="cms" type="TABLE">
+      <column name="order_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="order_date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="status" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="product_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="size" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="img" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="color" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="quantity" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="amount" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="order_id"/>
+      <index name="fk_orders_customers_idx" unique="false" columns="user_id"/>
+    </table>
+    <table name="password_resets" schema="" catalog="cms" type="TABLE">
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="token" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <index name="password_resets_email_index" unique="false" columns="email"/>
+      <index name="password_resets_token_index" unique="false" columns="token"/>
+    </table>
+    <table name="payment" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="method" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="img" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="permission_role" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="permission_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="role_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="permission_role_permission_id_foreign" columns="permission_id" ref-table="permissions" ref-schema="" ref-catalog="cms" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="permission_role_role_id_foreign" columns="role_id" ref-table="roles" ref-schema="" ref-catalog="cms" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <index name="permission_role_permission_id_index" unique="false" columns="permission_id"/>
+      <index name="permission_role_role_id_index" unique="false" columns="role_id"/>
+    </table>
+    <table name="permission_user" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="permission_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="permission_user_permission_id_foreign" columns="permission_id" ref-table="permissions" ref-schema="" ref-catalog="cms" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="permission_user_user_id_foreign" columns="user_id" ref-table="users" ref-schema="" ref-catalog="cms" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <index name="permission_user_permission_id_index" unique="false" columns="permission_id"/>
+      <index name="permission_user_user_id_index" unique="false" columns="user_id"/>
+    </table>
+    <table name="permissions" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="slug" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="model" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="permission_role_permission_id_foreign" table="permission_role" schema="" catalog="cms" columns="permission_id"/>
+      <exported-key name="permission_user_permission_id_foreign" table="permission_user" schema="" catalog="cms" columns="permission_id"/>
+      <index name="permissions_slug_unique" unique="true" columns="slug"/>
+    </table>
+    <table name="portfolio" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="priority" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="url" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="title" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+    </table>
+    <table name="posts" schema="" catalog="cms" type="TABLE">
+      <column name="post_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="username" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="title" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="content" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="category" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tags" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="image" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="created" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="post_id"/>
+      <index name="post_id" unique="true" columns="post_id"/>
+      <index name="fk_posts_comments_idx" unique="false" columns="post_id"/>
+      <index name="fk_posts_users_idx" unique="false" columns="user_id"/>
+    </table>
+    <table name="productcolour" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="product_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="colour_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_productcolour_colour" columns="colour_id" ref-table="colour" ref-schema="" ref-catalog="cms" ref-columns="colour_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_productcolour_products" columns="product_id" ref-table="products" ref-schema="" ref-catalog="cms" ref-columns="product_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="fk_productcolour_colour_idx" unique="false" columns="colour_id"/>
+      <index name="fk_productcolour_products_idx" unique="false" columns="product_id"/>
+    </table>
+    <table name="productimg_tmp" schema="" catalog="cms" type="TABLE">
+      <column name="product_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="img_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="fk_images_products" columns="product_id" ref-table="products" ref-schema="" ref-catalog="cms" ref-columns="product_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="fk_images_products_idx" unique="false" columns="product_id"/>
+    </table>
+    <table name="products" schema="" catalog="cms" type="TABLE">
+      <column name="product_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="slug" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="a_img" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="b_img" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="c_img" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="brand_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="cat_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="parent_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="quantity" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="price" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="product_id"/>
+      <foreign-key name="fk_products_brand" columns="brand_id" ref-table="brand" ref-schema="" ref-catalog="cms" ref-columns="brand_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_products_categories" columns="cat_id" ref-table="categories" ref-schema="" ref-catalog="cms" ref-columns="cat_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <exported-key name="fk_productcolour_products" table="productcolour" schema="" catalog="cms" columns="product_id"/>
+      <exported-key name="fk_images_products" table="productimg_tmp" schema="" catalog="cms" columns="product_id"/>
+      <exported-key name="fk_productsize_products" table="productsize" schema="" catalog="cms" columns="product_id"/>
+      <index name="fk_products_brand_idx" unique="false" columns="brand_id"/>
+      <index name="fk_products_categories_idx" unique="false" columns="cat_id"/>
+    </table>
+    <table name="productsize" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="product_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="size_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_productsize_products" columns="product_id" ref-table="products" ref-schema="" ref-catalog="cms" ref-columns="product_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_productsize_size" columns="size_id" ref-table="size" ref-schema="" ref-catalog="cms" ref-columns="size_id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="fk_productsize_products1_idx" unique="false" columns="product_id"/>
+      <index name="fk_productsize_size_idx" unique="false" columns="size_id"/>
+    </table>
+    <table name="role_user" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="role_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="role_user_role_id_foreign" columns="role_id" ref-table="roles" ref-schema="" ref-catalog="cms" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="role_user_user_id_foreign" columns="user_id" ref-table="users" ref-schema="" ref-catalog="cms" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <index name="role_user_role_id_index" unique="false" columns="role_id"/>
+      <index name="role_user_user_id_index" unique="false" columns="user_id"/>
+    </table>
+    <table name="roles" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="slug" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="level" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="permission_role_role_id_foreign" table="permission_role" schema="" catalog="cms" columns="role_id"/>
+      <exported-key name="role_user_role_id_foreign" table="role_user" schema="" catalog="cms" columns="role_id"/>
+      <index name="roles_slug_unique" unique="true" columns="slug"/>
+    </table>
+    <table name="settings" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="keyword" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="description" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="shipping" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="method" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="img" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="rate" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="size" schema="" catalog="cms" type="TABLE">
+      <column name="size_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="size" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="size_id"/>
+      <exported-key name="fk_productsize_size" table="productsize" schema="" catalog="cms" columns="size_id"/>
+    </table>
+    <table name="taxes" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="code" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="discount" sqlType="DECIMAL" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="users" schema="" catalog="cms" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="role" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="60" scale="0" nullable="false" jdbcType="12"/>
+      <column name="remember_token" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="permission_user_user_id_foreign" table="permission_user" schema="" catalog="cms" columns="user_id"/>
+      <exported-key name="role_user_user_id_foreign" table="role_user" schema="" catalog="cms" columns="user_id"/>
+      <index name="users_email_unique" unique="true" columns="email"/>
+    </table>
+  </data-source>
+</component>

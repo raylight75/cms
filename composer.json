@@ -8,10 +8,11 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
         "laravelcollective/html": "5.1.*",
-        "illuminate/html": "~5.0",
+        "illuminate/html": "^5.0",
         "intervention/image": "2.*",
         "zofe/rapyd": "2.1.*",
         "gloudemans/shoppingcart": "~1.3",
+        "nesbot/carbon": "^1.21",
         "bican/roles": "2.1.*"
     },
     "require-dev": {

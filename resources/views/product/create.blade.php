@@ -1,34 +1,35 @@
 @extends('layout.template')
 @section('content')
+    @if(Session::has('flash_message'))
+        <div class="alert alert-success">
+            {{ Session::get('flash_message') }}
+        </div>
+    @endif
     <h1>Create Product</h1>
-    {!! Form::open(['url' => 'products']) !!}
+    {!! Form::open(['url' => 'products', 'files'=> true]) !!}
     <div class="form-group">
-        {!! Form::label('ID', 'ID:') !!}
-        {!! Form::text('id',null,['class'=>'form-control']) !!}
+        {!! Form::label('Slug', 'Slug:') !!}
+        {!! Form::text('slug',null,['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
-        {!! Form::label('Slug', 'Title:') !!}
-        {!! Form::text('title',null,['class'=>'form-control']) !!}
+        {!! Form::label('Name', 'Name:') !!}
+        {!! Form::text('name',null,['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
-        {!! Form::label('Name', 'Author:') !!}
-        {!! Form::text('author',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Description', 'Publisher:') !!}
-        {!! Form::text('publisher',null,['class'=>'form-control']) !!}
+        {!! Form::label('Description', 'Description:') !!}
+        {!! Form::textarea('description',null,['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
         {!! Form::label('Image') !!}
-        {!! Form::file('image', null) !!}
+        {!! Form::file('a_img', null) !!}
     </div>
     <div class="form-group">
         {!! Form::label('Brand', 'Brand:') !!}
-        {!! Form::text('brand',null,['class'=>'form-control']) !!}
+        {!! Form::text('brand_id',null,['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
         {!! Form::label('Category', 'Category:') !!}
-        {!! Form::text('category',null,['class'=>'form-control']) !!}
+        {!! Form::text('cat_id',null,['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
         {!! Form::label('Quantity', 'Quantity:') !!}
@@ -36,10 +37,11 @@
     </div>
     <div class="form-group">
         {!! Form::label('Price', 'Price:') !!}
-        {!! Form::text('Price',null,['class'=>'form-control']) !!}
+        {!! Form::text('price',null,['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
         {!! Form::submit('Save', ['class' => 'btn btn-primary form-control']) !!}
     </div>
     {!! Form::close() !!}
+    @include('errors/error_layout')
 @stop

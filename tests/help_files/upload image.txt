@@ -69,3 +69,9 @@ Take a look at my controller, I get the images and store them at /public/files.
         return redirect('home');
       
     }
+
+//$products=Request::all();
+        /*$destinationPath = base_path() . '/public/images/';
+        $extension = Input::file('image')->getClientOriginalExtension();
+        $fileName = rand(11111,99999).'.'.$extension;
+        Input::file('image')->move($destinationPath, $fileName);*/

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Illuminate\Support\Facades\Input;
 
 class CreateProduct extends Request
 {
@@ -13,7 +14,7 @@ class CreateProduct extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,14 @@ class CreateProduct extends Request
     public function rules()
     {
         return [
-            //
+            'slug' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'a_img' => 'required',
+            'brand_id' => 'required',
+            'cat_id' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
         ];
     }
 }

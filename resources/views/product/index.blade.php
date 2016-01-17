@@ -1,6 +1,6 @@
 @extends('layout/template')
-
 @section('content')
+    @include('messages/flash_message')
  <h1>Products Store</h1>
  <a href="{{url('/products/create')}}" class="btn btn-success">Create Product</a>
  <hr>
@@ -30,7 +30,7 @@
              <td>{{ $p->brand_id }}</td>
              <td>{{ $p->cat_id }}</td>
              <td>{{ $p->quantity }}</td>
-             <td>{{ $p->Price }}</td>
+             <td>{{ $p->price }}</td>
              
 
              <td><img src="{{asset('images/products/'.$p->a_img)}}" height="35" width="30"></td>

@@ -63,17 +63,13 @@ class ProductController extends Controller
 
     /**
      * @param CreateProduct $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CreateProduct $request)
     {
-        $destinationPath = base_path() . '/public/images/';
-        $fileName = $request->file('a_img')->getClientOriginalName();
-        $request->file('a_img')->move($destinationPath, $fileName);
-        $data = $request->all();
-        $data['a_img'] = $request->file('a_img')->getClientOriginalName();
+        $data = $this->proccesData($request);
         Product::create( $data);
-        Session::flash('flash_message', 'Task successfully added!');
+        Session::flash('flash_message', 'Product successfully added!');
         return redirect()->back();
     }
 
@@ -103,28 +99,46 @@ class ProductController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int $id
-     * @return Response
+     * @param $id
+     * @param CreateProduct $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-
-    public function update($id)
+    public function update($id,CreateProduct $request)
     {
-        $ProductsUpdate = Request::all();
+        $data = $this->proccesData($request);
         $products = Product::find($id);
-        $products->update(ProductsUpdate);
-        return redirect('product');
+        $products->update($data);
+        Session::flash('flash_message', 'Product successfully updated!');
+        return redirect()->back();
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete the specified products.
      *
-     * @param  int $id
-     * @return Response
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+        Session::flash('flash_message', 'Product successfully deleted!');
+        return redirect()->back();
+    }
+
+    /**
+     * Process uploaded images and request data.
+     *
+     * @param $request
+     * @return mixed
+     */
+    public function proccesData($request)
+    {
+        $destinationPath = base_path() . '/public/images/';
+        $fileName = $request->file('a_img')->getClientOriginalName();
+        $request->file('a_img')->move($destinationPath, $fileName);
+        $data = $request->all();
+        $data['a_img'] = $request->file('a_img')->getClientOriginalName();
+        return $data;
     }
 }

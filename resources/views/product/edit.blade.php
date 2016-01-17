@@ -1,29 +1,9 @@
 @extends('layout.template')
 @section('content')
-    <h1>Update Book</h1>
-    {!! Form::model($product,['method' => 'PATCH','route'=>['products.update',$product->id]]) !!}
-    <div class="form-group">
-        {!! Form::label('ISBN', 'ISBN:') !!}
-        {!! Form::text('isbn',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Title', 'Title:') !!}
-        {!! Form::text('title',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Author', 'Author:') !!}
-        {!! Form::text('author',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Publisher', 'Publisher:') !!}
-        {!! Form::text('publisher',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Image', 'Image:') !!}
-        {!! Form::text('image',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-    </div>
+    @include('messages/flash_message')
+    <h1>Update Products</h1>
+    {!! Form::model($product,['method' => 'PATCH','route'=>['products.update',$product->product_id],'files'=> true]) !!}
+    @include('product/form')
     {!! Form::close() !!}
+    @include('errors/error_layout')
 @stop

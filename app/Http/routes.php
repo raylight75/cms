@@ -26,6 +26,8 @@ Route::get('/login', 'BaseController@userlogin');
 
 Route::get('/cache', 'BaseController@write');
 
+Route::get('products/search', 'ProductController@search');
+
 Route::resource('products','ProductController');
 
 Route::get('/filter/{slug}/{id}', 'BaseController@filter');

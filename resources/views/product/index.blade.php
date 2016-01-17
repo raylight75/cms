@@ -4,6 +4,7 @@
  <h1>Products Store</h1>
  <a href="{{url('/products/create')}}" class="btn btn-success">Create Product</a>
  <hr>
+    @include('product/search', ['url'=>'/products/search'])
  <table class="table table-striped table-bordered table-hover">
      <thead>
      <tr class="bg-info">

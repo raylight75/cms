@@ -68,7 +68,7 @@ class ProductController extends Controller
     public function store(CreateProduct $request)
     {
         $data = $this->proccesData($request);
-        Product::create( $data);
+        Product::create($data);
         Session::flash('flash_message', 'Product successfully added!');
         return redirect()->back();
     }
@@ -103,7 +103,7 @@ class ProductController extends Controller
      * @param CreateProduct $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($id,CreateProduct $request)
+    public function update($id, CreateProduct $request)
     {
         $data = $this->proccesData($request);
         Product::find($id)->update($data);
@@ -138,5 +138,14 @@ class ProductController extends Controller
         $data = $request->all();
         $data['a_img'] = $request->file('a_img')->getClientOriginalName();
         return $data;
+    }
+
+    public function search()
+    {
+        $search = Request::get('search');
+        $products = Product::where('name', 'like', '%' . $search . '%')
+            ->orderBy('name')
+            ->paginate(5);
+        return view('product.index', compact('products'));
     }
 }

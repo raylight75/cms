@@ -106,8 +106,7 @@ class ProductController extends Controller
     public function update($id,CreateProduct $request)
     {
         $data = $this->proccesData($request);
-        $products = Product::find($id);
-        $products->update($data);
+        Product::find($id)->update($data);
         Session::flash('flash_message', 'Product successfully updated!');
         return redirect()->back();
     }
@@ -120,8 +119,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
-        $product->delete();
+        Product::findOrFail($id)->delete();
         Session::flash('flash_message', 'Product successfully deleted!');
         return redirect()->back();
     }

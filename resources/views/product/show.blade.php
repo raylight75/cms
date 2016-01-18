@@ -42,7 +42,7 @@
         <div class="form-group">
             <label for="publisher" class="col-sm-2 control-label">Brand</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="publisher" placeholder={{$product->brand_id}} readonly>
+                <input type="text" class="form-control" id="publisher" placeholder={{$product->brands->brand}} readonly>
             </div>
         </div>
         <div class="form-group">

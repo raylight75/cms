@@ -4,31 +4,25 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Brands extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'products';
+    protected $table = 'brand';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $primaryKey = 'product_id';
+    protected $primaryKey = 'brand_id';
 
     protected $fillable = [
-        'slug',
-        'name',
-        'description',
-        'a_img',
         'brand_id',
-        'cat_id',
-        'quantity',
-        'price'
+        'brand',
     ];
 
     /**
@@ -39,8 +33,8 @@ class Product extends Model
 
     public $timestamps = false;
 
-    public function brands()
+    public function product()
     {
-        return $this->hasOne('App\Brands', 'brand_id', 'brand_id');
+        return $this->belongsTo('App\Product','brand_id', 'brand_id');
     }
 }

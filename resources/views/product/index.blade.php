@@ -28,7 +28,7 @@
              <td>{{ $p->product_id }}</td>
              <td>{{ $p->slug }}</td>
              <td>{{ $p->name}}</td>
-             <td>{{ $p->brand_id }}</td>
+             <td>{{ $p->brands->brand }}</td>
              <td>{{ $p->cat_id }}</td>
              <td>{{ $p->quantity }}</td>
              <td>{{ $p->price }}</td>

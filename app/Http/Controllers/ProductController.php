@@ -46,8 +46,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('brands')->get();
         $products = Product::paginate(10);
+        //echo '<pre>',print_r($products),'</pre>';
         return view('product.index', compact('products'));
     }
 
@@ -81,7 +82,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::with('brands')->find($id);
         return view('product.show', compact('product'));
     }
 
@@ -94,7 +95,7 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product = Product::find($id);
+        $product = Product::with('brands')->find($id);
         return view('product.edit', compact('product'));
     }
 

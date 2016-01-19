@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Brands;
 use App\Http\Requests\CreateProduct;
 use App\Product;
 use Illuminate\Support\Facades\Session;
@@ -59,7 +60,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $brands  = Brands::lists('brand');
+        return view('product.create')->with('brands', $brands);
     }
 
     /**

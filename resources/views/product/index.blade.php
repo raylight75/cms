@@ -25,7 +25,7 @@
      @foreach ($products as $p)
 
          <tr>
-             <td>{{ $p->product_id }}</td>
+             <td>{{ $p->id }}</td>
              <td>{{ $p->slug }}</td>
              <td>{{ $p->name}}</td>
              <td>{{ $p->brands->brand }}</td>
@@ -37,10 +37,10 @@
              <td><img src="{{asset('images/products/'.$p->a_img)}}" height="35" width="30"></td>
              <td><img src="{{asset('images/products/'.$p->b_img)}}" height="35" width="30"></td>
              <td><img src="{{asset('images/products/'.$p->c_img)}}" height="35" width="30"></td>
-             <td><a href="{{url('products',$p->product_id)}}" class="btn btn-primary">Read</a></td>
-             <td><a href="{{route('products.edit',$p->product_id)}}" class="btn btn-warning">Update</a></td>
+             <td><a href="{{url('products',$p->id)}}" class="btn btn-primary">Read</a></td>
+             <td><a href="{{route('products.edit',$p->id)}}" class="btn btn-warning">Update</a></td>
              <td>
-             {!! Form::open(['method' => 'DELETE', 'route'=>['products.destroy', $p->product_id]]) !!}
+             {!! Form::open(['method' => 'DELETE', 'route'=>['products.destroy', $p->id]]) !!}
              {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
              {!! Form::close() !!}
              </td>

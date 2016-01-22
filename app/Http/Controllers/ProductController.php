@@ -97,8 +97,9 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product = Product::with('brands')->find($id);
-        return view('product.edit', compact('product'));
+        $data['brand'] = Brands::lists('brand','brand_id');
+        $data['product'] = Product::with('brands')->find($id);
+        return view('product.edit',$data);
     }
 
     /**
@@ -109,7 +110,10 @@ class ProductController extends Controller
     public function update($id, CreateProduct $request)
     {
         $data = $this->proccesData($request);
-        Product::find($id)->update($data);
+        $product = Product::find($id);
+        $product->update($data);
+        $product->brands->save($data);
+        //Product::find($id)->update($data);
         Session::flash('flash_message', 'Product successfully updated!');
         return redirect()->back();
     }
@@ -138,8 +142,10 @@ class ProductController extends Controller
         $destinationPath = base_path() . '/public/images/';
         $fileName = $request->file('a_img')->getClientOriginalName();
         $request->file('a_img')->move($destinationPath, $fileName);
-        $data = $request->all();
+        $data = $request->except('a_img','brands');
+        $data['brand_id'] = $request->input('brand_id');
         $data['a_img'] = $request->file('a_img')->getClientOriginalName();
+        echo '<pre>',print_r($data),'</pre>';
         return $data;
     }
 

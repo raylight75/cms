@@ -18,7 +18,6 @@ class Product extends Model
      *
      * @var array
      */
-    protected $primaryKey = 'product_id';
 
     protected $fillable = [
         'slug',

@@ -30,6 +30,8 @@ Route::get('products/search', 'ProductController@search');
 
 Route::resource('products','ProductController');
 
+Route::controller('articles', 'ArticlesController');
+
 Route::get('/filter/{slug}/{id}', 'BaseController@filter');
 
 Route::controllers([

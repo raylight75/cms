@@ -60,8 +60,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $brands  = Brands::lists('brand');
-        return view('product.create')->with('brands', $brands);
+        $brand  = Brands::lists('brand');
+        return view('product.create')->with('brand', $brand);
     }
 
     /**

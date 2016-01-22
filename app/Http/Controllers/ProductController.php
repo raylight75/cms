@@ -60,7 +60,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $brand  = Brands::lists('brand');
+        $brand  = Brands::lists('brand','brand_id');
         return view('product.create')->with('brand', $brand);
     }
 
@@ -71,7 +71,8 @@ class ProductController extends Controller
     public function store(CreateProduct $request)
     {
         $data = $this->proccesData($request);
-        Product::create($data);
+        $product = Product::create($data);
+        $product->brands->save($data);
         Session::flash('flash_message', 'Product successfully added!');
         return redirect()->back();
     }
@@ -113,7 +114,6 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->update($data);
         $product->brands->save($data);
-        //Product::find($id)->update($data);
         Session::flash('flash_message', 'Product successfully updated!');
         return redirect()->back();
     }
@@ -145,10 +145,12 @@ class ProductController extends Controller
         $data = $request->except('a_img','brands');
         $data['brand_id'] = $request->input('brand_id');
         $data['a_img'] = $request->file('a_img')->getClientOriginalName();
-        echo '<pre>',print_r($data),'</pre>';
         return $data;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function search()
     {
         $search = Request::get('search');

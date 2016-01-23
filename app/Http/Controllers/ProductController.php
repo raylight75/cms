@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Brands;
 use App\Http\Requests\CreateProduct;
 use App\Product;
+use App\Psize;
 use Illuminate\Support\Facades\Session;
 use Request;
 use App\Http\Requests;
@@ -47,7 +48,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('brands')->get();
+        $products = Product::with('brands','size')->get();
         $products = Product::paginate(10);
         //echo '<pre>',print_r($products),'</pre>';
         return view('product.index', compact('products'));
@@ -60,8 +61,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $brand  = Brands::lists('brand','brand_id');
-        return view('product.create')->with('brand', $brand);
+        $data['brand']  = Brands::lists('brand','brand_id');
+        $data['sizes']  = Psize::all();
+        return view('product.create',$data);
     }
 
     /**

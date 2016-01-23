@@ -24,8 +24,6 @@ class Product extends Model
         'name',
         'description',
         'a_img',
-        'b_img',
-        'c_img',
         'brand_id',
         'cat_id',
         'quantity',
@@ -43,5 +41,10 @@ class Product extends Model
     public function brands()
     {
         return $this->hasOne('App\Brands', 'brand_id', 'brand_id');
+    }
+
+    public function size()
+    {
+        return $this->hasMany('App\Size');
     }
 }

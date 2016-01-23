@@ -47,4 +47,9 @@ class Product extends Model
     {
         return $this->hasMany('App\Size');
     }
+
+    public function productsize()
+    {
+        return $this->belongsTo('App\Size');
+    }
 }

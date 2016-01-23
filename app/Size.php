@@ -32,8 +32,8 @@ class Size extends Model
 
     public $timestamps = false;
 
-    public function products()
+    public function sizes()
     {
-        return $this->belongsTo('App\Product');
+        return $this->belongsToMany('App\Product');
     }
 }

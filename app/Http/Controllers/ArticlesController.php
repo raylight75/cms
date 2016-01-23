@@ -54,13 +54,14 @@ class ArticlesController extends Controller
      */
     public function getIndex()
     {
-        $grid = DataGrid::source(Product::with('brands'));
+        $grid = DataGrid::source(Product::with('brands','size'));
         $grid->attributes(array("class" => "table table-striped"));
         $grid->add('id', 'ID', true)->style("width:100px");
         $grid->add('slug', 'Slug');
         $grid->add('name', 'Name');
         //$grid->add('description', 'Description');
         $grid->add('brands.brand','Brand');
+        $grid->add('{{ implode(", ", $size->lists("size_id")->all()) }}','Sizes');
         //$grid->add('size.size_id','Size');
         $grid->add('<img src="/images/products/{{ $a_img }}" height="25" width="20">', 'Front');
         //$grid->add('<img src="/images/products/{{ $b_img }}"height="25" width="20">', 'Side');
@@ -83,7 +84,7 @@ class ArticlesController extends Controller
         $edit->add('name', 'Name', 'text')->rule('required|min:3');
         $edit->add('description','Description', 'redactor');
         $edit->add('brand_id','Brand','select')->options(Brands::lists("brand","brand_id")->all());
-        //$edit->add('size','Size','checkboxgroup')->options(Size::lists('size_id', 'id')->all());
+        $edit->add('productsize.size_id','Size','tags');
         $edit->add('a_img','Front', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
         //$edit->add('b_img','Side', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
         //$edit->add('c_img','Back', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);

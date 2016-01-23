@@ -62,7 +62,6 @@ class ArticlesController extends Controller
         //$grid->add('description', 'Description');
         $grid->add('brands.brand','Brand');
         $grid->add('{{ implode(", ", $size->lists("size_id")->all()) }}','Sizes');
-        //$grid->add('size.size_id','Size');
         $grid->add('<img src="/images/products/{{ $a_img }}" height="25" width="20">', 'Front');
         //$grid->add('<img src="/images/products/{{ $b_img }}"height="25" width="20">', 'Side');
         //$grid->add('<img src="/images/products/{{ $c_img }}"height="25" width="20">', 'Back');

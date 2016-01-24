@@ -16,8 +16,14 @@
 </div>
 <div class="form-group">
     {!! Form::label('Brand', 'Brand:') !!}
-    {!! Form::select('brand_id', $brand, null, ['id' => 'brand_id','class'=>'form-control'])!!}
+    {!! Form::select('brand_id', $brands, null, ['id' => 'brand_id','class'=>'form-control'])!!}
 </div>
+{{--<div class="form-group">
+    @foreach ($sizes as $s)
+    {!! Form::label($s->size,$s->size_id) !!}
+    {!! Form::checkbox( 'size[]',$s->size_id, null,['id' => $s->size_id,'class' => 'md-check'])!!}
+    @endforeach
+</div>--}}
 <div class="form-group">
     {!! Form::label('Category', 'Category:') !!}
     {!! Form::text('cat_id',null,['class'=>'form-control']) !!}

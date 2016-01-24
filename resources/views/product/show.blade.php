@@ -1,24 +1,23 @@
 @extends('layout/template')
 @section('content')
     <h1>Book Show</h1>
-
     <form class="form-horizontal">
         <div class="form-group">
             <label for="image" class="col-sm-2 control-label">Front Image</label>
             <div class="col-sm-10">
-                <img src="{{asset('images/products/'.$product->a_img)}}" height="180" width="150" class="img-rounded">
+                <img src="{{asset('images/products/'.$product->a_img)}}" height="120" width="90" class="img-rounded">
             </div>
         </div>
         <div class="form-group">
             <label for="image" class="col-sm-2 control-label">Side Image</label>
             <div class="col-sm-10">
-                <img src="{{asset('images/products/'.$product->b_img)}}" height="180" width="150" class="img-rounded">
+                <img src="{{asset('images/products/'.$product->b_img)}}" height="120" width="90" class="img-rounded">
             </div>
         </div>
         <div class="form-group">
             <label for="image" class="col-sm-2 control-label">Left Image</label>
             <div class="col-sm-10">
-                <img src="{{asset('images/products/'.$product->c_img)}}" height="180" width="150" class="img-rounded">
+                <img src="{{asset('images/products/'.$product->c_img)}}" height="120" width="90" class="img-rounded">
             </div>
         </div>
         <div class="form-group">
@@ -43,6 +42,13 @@
             <label for="publisher" class="col-sm-2 control-label">Brand</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="publisher" placeholder={{$product->brands->brand}} readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="publisher" class="col-sm-2 control-label">Size</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="publisher"
+                       placeholder={{implode(",", $product->size->lists("size_id")->all())}} readonly>
             </div>
         </div>
         <div class="form-group">

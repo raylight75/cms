@@ -61,8 +61,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $data['brand']  = Brands::lists('brand','brand_id');
+        $data['brands']  = Brands::lists('brand','brand_id');
         $data['sizes']  = Psize::all();
+        $data['product'] = Product::with('size')->get();
         return view('product.create',$data);
     }
 
@@ -87,7 +88,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::with('brands')->find($id);
+        $product = Product::with('brands','size')->find($id);
         return view('product.show', compact('product'));
     }
 
@@ -100,8 +101,10 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $data['brand'] = Brands::lists('brand','brand_id');
-        $data['product'] = Product::with('brands')->find($id);
+        $data['brands'] = Brands::lists('brand','brand_id');
+        $data['sizes']  = Psize::all();
+        $data['product'] = Product::all()->find($id);
+        //$data['checkbox'] = Product::with('size')->find($id)->toArray();
         return view('product.edit',$data);
     }
 

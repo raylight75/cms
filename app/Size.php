@@ -34,6 +34,6 @@ class Size extends Model
 
     public function sizes()
     {
-        return $this->belongsToMany('App\Product');
+        return $this->belongsTo('App\Product');
     }
 }

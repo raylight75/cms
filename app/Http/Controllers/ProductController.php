@@ -6,6 +6,7 @@ use App\Brands;
 use App\Http\Requests\CreateProduct;
 use App\Product;
 use App\Psize;
+use App\Size;
 use Illuminate\Support\Facades\Session;
 use Request;
 use App\Http\Requests;
@@ -76,6 +77,10 @@ class ProductController extends Controller
         $data = $this->proccesData($request);
         $product = Product::create($data);
         $product->brands->save($data);
+        $product->size->save($data);
+        $size = new Size();
+        $size->sizes->associate($product);
+        $size->save();
         Session::flash('flash_message', 'Product successfully added!');
         return redirect()->back();
     }
@@ -119,6 +124,8 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->update($data);
         $product->brands->save($data);
+        $size = new Size(array('size_id' => 5,'size_id' => 7));
+        $product->size()->save($size);
         Session::flash('flash_message', 'Product successfully updated!');
         return redirect()->back();
     }
@@ -149,6 +156,7 @@ class ProductController extends Controller
         $request->file('a_img')->move($destinationPath, $fileName);
         $data = $request->except('a_img','brands');
         $data['brand_id'] = $request->input('brand_id');
+        $data['size_id'] = $request->input('size');
         $data['a_img'] = $request->file('a_img')->getClientOriginalName();
         return $data;
     }

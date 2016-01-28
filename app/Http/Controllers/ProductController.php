@@ -49,7 +49,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('brands','size')->get();
+        $products = Product::with('brands', 'size')->get();
         $products = Product::paginate(10);
         //echo '<pre>',print_r($products),'</pre>';
         //dd($data['size_id']);
@@ -63,10 +63,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $data['brands']  = Brands::lists('brand','brand_id');
-        $data['checkbox']  = Psize::all();
+        $data['brands'] = Brands::lists('brand', 'brand_id');
+        $data['checkbox'] = Psize::all();
         $data['product'] = Product::with('size')->get();
-        return view('product.create',$data);
+        return view('product.create', $data);
     }
 
     /**
@@ -78,8 +78,8 @@ class ProductController extends Controller
         $data = $this->proccesData($request);
         $product = Product::create($data);
         $product->brands->save($data);
-        foreach ($data['size_id'] as $value ) {
-            $size = $product->size()->saveMany([
+        foreach ($data['size_id'] as $value) {
+            $product->size()->saveMany([
                 new Size(['size_id' => $value,]),
             ]);
         }
@@ -95,7 +95,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::with('brands','size')->find($id);
+        $product = Product::with('brands', 'size')->find($id);
         return view('product.show', compact('product'));
     }
 
@@ -108,11 +108,11 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $data['brands'] = Brands::lists('brand','brand_id');
-        $data['sizes']  = Psize::all();
+        $data['brands'] = Brands::lists('brand', 'brand_id');
+        $data['sizes'] = Psize::all();
         $data['product'] = Product::all()->find($id);
         $data['checkbox'] = Product::with('size')->find($id);
-        return view('product.edit',$data);
+        return view('product.edit', $data);
     }
 
     /**
@@ -126,9 +126,9 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->update($data);
         $product->brands->save($data);
-        Size::findOrFail($id)->delete();
-        foreach ($data['size_id'] as $value ) {
-            $size = $product->size()->saveMany([
+        $product->size()->delete();
+        foreach ($data['size_id'] as $value) {
+            $product->size()->saveMany([
                 new Size(['size_id' => $value,]),
             ]);
         }
@@ -160,7 +160,7 @@ class ProductController extends Controller
         $destinationPath = base_path() . '/public/images/';
         $fileName = $request->file('a_img')->getClientOriginalName();
         $request->file('a_img')->move($destinationPath, $fileName);
-        $data = $request->except('a_img','brands');
+        $data = $request->except('a_img', 'brands');
         $data['brand_id'] = $request->input('brand_id');
         $data['size_id'] = $request->input('size');
         $data['a_img'] = $request->file('a_img')->getClientOriginalName();

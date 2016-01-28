@@ -52,6 +52,7 @@ class ProductController extends Controller
         $products = Product::with('brands','size')->get();
         $products = Product::paginate(10);
         //echo '<pre>',print_r($products),'</pre>';
+        //dd($data['size_id']);
         return view('product.index', compact('products'));
     }
 
@@ -77,10 +78,11 @@ class ProductController extends Controller
         $data = $this->proccesData($request);
         $product = Product::create($data);
         $product->brands->save($data);
-        $product->size->save($data);
-        $size = new Size();
-        $size->sizes->associate($product);
-        $size->save();
+        foreach ($data['size_id'] as $value ) {
+            $size = $product->size()->saveMany([
+                new Size(['size_id' => $value,]),
+            ]);
+        }
         Session::flash('flash_message', 'Product successfully added!');
         return redirect()->back();
     }
@@ -124,8 +126,12 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->update($data);
         $product->brands->save($data);
-        $size = new Size(array('size_id' => 5,'size_id' => 7));
-        $product->size()->save($size);
+        Size::findOrFail($id)->delete();
+        foreach ($data['size_id'] as $value ) {
+            $size = $product->size()->saveMany([
+                new Size(['size_id' => $value,]),
+            ]);
+        }
         Session::flash('flash_message', 'Product successfully updated!');
         return redirect()->back();
     }

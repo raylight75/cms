@@ -83,7 +83,7 @@ class ArticlesController extends Controller
         $edit->add('name', 'Name', 'text')->rule('required|min:3');
         $edit->add('description','Description', 'redactor');
         $edit->add('brand_id','Brand','select')->options(Brands::lists("brand","brand_id")->all());
-        $edit->add('productsize.size_id','Size','tags');
+        $edit->add('product.size_id','Size','tags');
         $edit->add('a_img','Front', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
         //$edit->add('b_img','Side', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
         //$edit->add('c_img','Back', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);

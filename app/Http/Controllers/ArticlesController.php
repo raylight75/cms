@@ -56,7 +56,7 @@ class ArticlesController extends Controller
     {
         $grid = DataGrid::source(Product::with('brands','size'));
         $grid->attributes(array("class" => "table table-striped"));
-        $grid->add('id', 'ID', true)->style("width:100px");
+        $grid->add('product_id', 'ID', true)->style("width:100px");
         $grid->add('slug', 'Slug');
         $grid->add('name', 'Name');
         //$grid->add('description', 'Description');
@@ -69,7 +69,7 @@ class ArticlesController extends Controller
         $grid->add('price', 'Price');
         $grid->edit('/articles/edit');
         $grid->link('/articles/edit', "New Articles", "TR");
-        $grid->orderBy('id', 'asc');
+        $grid->orderBy('product_id', 'asc');
         $grid->paginate(10);
         return view('grid', compact('grid'));
     }
@@ -83,7 +83,7 @@ class ArticlesController extends Controller
         $edit->add('name', 'Name', 'text')->rule('required|min:3');
         $edit->add('description','Description', 'redactor');
         $edit->add('brand_id','Brand','select')->options(Brands::lists("brand","brand_id")->all());
-        $edit->add('size.product','Size','tags');
+        $edit->add('size.product','Size','text');
         $edit->add('a_img','Front', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
         //$edit->add('b_img','Side', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
         //$edit->add('c_img','Back', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);

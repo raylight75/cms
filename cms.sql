@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2016 at 12:03 PM
+-- Generation Time: Jan 31, 2016 at 11:26 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -190,264 +190,265 @@ CREATE TABLE IF NOT EXISTS `countries` (
 `id` int(5) NOT NULL,
   `code` char(2) NOT NULL DEFAULT '',
   `name` varchar(45) NOT NULL DEFAULT '',
-  `vat` float NOT NULL
+  `vat` float NOT NULL,
+  `images` varchar(45) NOT NULL
 ) ENGINE=MyISAM AUTO_INCREMENT=251 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `countries`
 --
 
-INSERT INTO `countries` (`id`, `code`, `name`, `vat`) VALUES
-(1, 'AD', 'Andorra', 0),
-(2, 'AE', 'United Arab Emirates', 0),
-(3, 'AF', 'Afghanistan', 0),
-(4, 'AG', 'Antigua and Barbuda', 0),
-(5, 'AI', 'Anguilla', 0),
-(6, 'AL', 'Albania', 0),
-(7, 'AM', 'Armenia', 0),
-(8, 'AO', 'Angola', 0),
-(9, 'AQ', 'Antarctica', 0),
-(10, 'AR', 'Argentina', 0),
-(11, 'AS', 'American Samoa', 0),
-(12, 'AT', 'Austria', 0.2),
-(13, 'AU', 'Australia', 0),
-(14, 'AW', 'Aruba', 0),
-(15, 'AX', 'Aland', 0),
-(16, 'AZ', 'Azerbaijan', 0),
-(17, 'BA', 'Bosnia and Herzegovina', 0),
-(18, 'BB', 'Barbados', 0),
-(19, 'BD', 'Bangladesh', 0),
-(20, 'BE', 'Belgium', 0.21),
-(21, 'BF', 'Burkina Faso', 0),
-(22, 'BG', 'Bulgaria', 0.2),
-(23, 'BH', 'Bahrain', 0),
-(24, 'BI', 'Burundi', 0),
-(25, 'BJ', 'Benin', 0),
-(26, 'BL', 'Saint Barthelemy', 0),
-(27, 'BM', 'Bermuda', 0),
-(28, 'BN', 'Brunei', 0),
-(29, 'BO', 'Bolivia', 0),
-(30, 'BQ', 'Bonaire', 0),
-(31, 'BR', 'Brazil', 0),
-(32, 'BS', 'Bahamas', 0),
-(33, 'BT', 'Bhutan', 0),
-(34, 'BV', 'Bouvet Island', 0),
-(35, 'BW', 'Botswana', 0),
-(36, 'BY', 'Belarus', 0),
-(37, 'BZ', 'Belize', 0),
-(38, 'CA', 'Canada', 0),
-(39, 'CC', 'Cocos [Keeling] Islands', 0),
-(40, 'CD', 'Democratic Republic of the Congo', 0),
-(41, 'CF', 'Central African Republic', 0),
-(42, 'CG', 'Republic of the Congo', 0),
-(43, 'CH', 'Switzerland', 0),
-(44, 'CI', 'Ivory Coast', 0),
-(45, 'CK', 'Cook Islands', 0),
-(46, 'CL', 'Chile', 0),
-(47, 'CM', 'Cameroon', 0),
-(48, 'CN', 'China', 0),
-(49, 'CO', 'Colombia', 0),
-(50, 'CR', 'Costa Rica', 0),
-(51, 'CU', 'Cuba', 0),
-(52, 'CV', 'Cape Verde', 0),
-(53, 'CW', 'Curacao', 0),
-(54, 'CX', 'Christmas Island', 0),
-(55, 'CY', 'Cyprus', 0.19),
-(56, 'CZ', 'Czech Republic', 0.21),
-(57, 'DE', 'Germany', 0.19),
-(58, 'DJ', 'Djibouti', 0),
-(59, 'DK', 'Denmark', 0.25),
-(60, 'DM', 'Dominica', 0),
-(61, 'DO', 'Dominican Republic', 0),
-(62, 'DZ', 'Algeria', 0),
-(63, 'EC', 'Ecuador', 0),
-(64, 'EE', 'Estonia', 0.2),
-(65, 'EG', 'Egypt', 0),
-(66, 'EH', 'Western Sahara', 0),
-(67, 'ER', 'Eritrea', 0),
-(68, 'ES', 'Spain', 0.21),
-(69, 'ET', 'Ethiopia', 0),
-(70, 'FI', 'Finland', 0.24),
-(71, 'FJ', 'Fiji', 0),
-(72, 'FK', 'Falkland Islands', 0),
-(73, 'FM', 'Micronesia', 0),
-(74, 'FO', 'Faroe Islands', 0),
-(75, 'FR', 'France', 0.2),
-(76, 'GA', 'Gabon', 0),
-(77, 'GB', 'United Kingdom', 0.2),
-(78, 'GD', 'Grenada', 0),
-(79, 'GE', 'Georgia', 0),
-(80, 'GF', 'French Guiana', 0),
-(81, 'GG', 'Guernsey', 0),
-(82, 'GH', 'Ghana', 0),
-(83, 'GI', 'Gibraltar', 0),
-(84, 'GL', 'Greenland', 0),
-(85, 'GM', 'Gambia', 0),
-(86, 'GN', 'Guinea', 0),
-(87, 'GP', 'Guadeloupe', 0),
-(88, 'GQ', 'Equatorial Guinea', 0),
-(89, 'GR', 'Greece', 0.23),
-(90, 'GS', 'South Georgia and the South Sandwich Islands', 0),
-(91, 'GT', 'Guatemala', 0),
-(92, 'GU', 'Guam', 0),
-(93, 'GW', 'Guinea-Bissau', 0),
-(94, 'GY', 'Guyana', 0),
-(95, 'HK', 'Hong Kong', 0),
-(96, 'HM', 'Heard Island and McDonald Islands', 0),
-(97, 'HN', 'Honduras', 0),
-(98, 'HR', 'Croatia', 0.25),
-(99, 'HT', 'Haiti', 0),
-(100, 'HU', 'Hungary', 0.27),
-(101, 'ID', 'Indonesia', 0),
-(102, 'IE', 'Ireland', 0.23),
-(103, 'IL', 'Israel', 0),
-(104, 'IM', 'Isle of Man', 0),
-(105, 'IN', 'India', 0),
-(106, 'IO', 'British Indian Ocean Territory', 0),
-(107, 'IQ', 'Iraq', 0),
-(108, 'IR', 'Iran', 0),
-(109, 'IS', 'Iceland', 0),
-(110, 'IT', 'Italy', 0.22),
-(111, 'JE', 'Jersey', 0),
-(112, 'JM', 'Jamaica', 0),
-(113, 'JO', 'Jordan', 0),
-(114, 'JP', 'Japan', 0),
-(115, 'KE', 'Kenya', 0),
-(116, 'KG', 'Kyrgyzstan', 0),
-(117, 'KH', 'Cambodia', 0),
-(118, 'KI', 'Kiribati', 0),
-(119, 'KM', 'Comoros', 0),
-(120, 'KN', 'Saint Kitts and Nevis', 0),
-(121, 'KP', 'North Korea', 0),
-(122, 'KR', 'South Korea', 0),
-(123, 'KW', 'Kuwait', 0),
-(124, 'KY', 'Cayman Islands', 0),
-(125, 'KZ', 'Kazakhstan', 0),
-(126, 'LA', 'Laos', 0),
-(127, 'LB', 'Lebanon', 0),
-(128, 'LC', 'Saint Lucia', 0),
-(129, 'LI', 'Liechtenstein', 0),
-(130, 'LK', 'Sri Lanka', 0),
-(131, 'LR', 'Liberia', 0),
-(132, 'LS', 'Lesotho', 0),
-(133, 'LT', 'Lithuania', 0.21),
-(134, 'LU', 'Luxembourg', 0.15),
-(135, 'LV', 'Latvia', 0.21),
-(136, 'LY', 'Libya', 0),
-(137, 'MA', 'Morocco', 0),
-(138, 'MC', 'Monaco', 0),
-(139, 'MD', 'Moldova', 0),
-(140, 'ME', 'Montenegro', 0),
-(141, 'MF', 'Saint Martin', 0),
-(142, 'MG', 'Madagascar', 0),
-(143, 'MH', 'Marshall Islands', 0),
-(144, 'MK', 'Macedonia', 0),
-(145, 'ML', 'Mali', 0),
-(146, 'MM', 'Myanmar [Burma]', 0),
-(147, 'MN', 'Mongolia', 0),
-(148, 'MO', 'Macao', 0),
-(149, 'MP', 'Northern Mariana Islands', 0),
-(150, 'MQ', 'Martinique', 0),
-(151, 'MR', 'Mauritania', 0),
-(152, 'MS', 'Montserrat', 0),
-(153, 'MT', 'Malta', 0.18),
-(154, 'MU', 'Mauritius', 0),
-(155, 'MV', 'Maldives', 0),
-(156, 'MW', 'Malawi', 0),
-(157, 'MX', 'Mexico', 0),
-(158, 'MY', 'Malaysia', 0),
-(159, 'MZ', 'Mozambique', 0),
-(160, 'NA', 'Namibia', 0),
-(161, 'NC', 'New Caledonia', 0),
-(162, 'NE', 'Niger', 0),
-(163, 'NF', 'Norfolk Island', 0),
-(164, 'NG', 'Nigeria', 0),
-(165, 'NI', 'Nicaragua', 0),
-(166, 'NL', 'Netherlands', 0.21),
-(167, 'NO', 'Norway', 0),
-(168, 'NP', 'Nepal', 0),
-(169, 'NR', 'Nauru', 0),
-(170, 'NU', 'Niue', 0),
-(171, 'NZ', 'New Zealand', 0),
-(172, 'OM', 'Oman', 0),
-(173, 'PA', 'Panama', 0),
-(174, 'PE', 'Peru', 0),
-(175, 'PF', 'French Polynesia', 0),
-(176, 'PG', 'Papua New Guinea', 0),
-(177, 'PH', 'Philippines', 0),
-(178, 'PK', 'Pakistan', 0),
-(179, 'PL', 'Poland', 0.23),
-(180, 'PM', 'Saint Pierre and Miquelon', 0),
-(181, 'PN', 'Pitcairn Islands', 0),
-(182, 'PR', 'Puerto Rico', 0),
-(183, 'PS', 'Palestine', 0),
-(184, 'PT', 'Portugal', 0.23),
-(185, 'PW', 'Palau', 0),
-(186, 'PY', 'Paraguay', 0),
-(187, 'QA', 'Qatar', 0),
-(188, 'RE', 'Reunion', 0),
-(189, 'RO', 'Romania', 0.24),
-(190, 'RS', 'Serbia', 0),
-(191, 'RU', 'Russia', 0),
-(192, 'RW', 'Rwanda', 0),
-(193, 'SA', 'Saudi Arabia', 0),
-(194, 'SB', 'Solomon Islands', 0),
-(195, 'SC', 'Seychelles', 0),
-(196, 'SD', 'Sudan', 0),
-(197, 'SE', 'Sweden', 0.25),
-(198, 'SG', 'Singapore', 0),
-(199, 'SH', 'Saint Helena', 0),
-(200, 'SI', 'Slovenia', 0.22),
-(201, 'SJ', 'Svalbard and Jan Mayen', 0),
-(202, 'SK', 'Slovakia', 0.2),
-(203, 'SL', 'Sierra Leone', 0),
-(204, 'SM', 'San Marino', 0),
-(205, 'SN', 'Senegal', 0),
-(206, 'SO', 'Somalia', 0),
-(207, 'SR', 'Suriname', 0),
-(208, 'SS', 'South Sudan', 0),
-(209, 'ST', 'Sao Tome and Principe', 0),
-(210, 'SV', 'El Salvador', 0),
-(211, 'SX', 'Sint Maarten', 0),
-(212, 'SY', 'Syria', 0),
-(213, 'SZ', 'Swaziland', 0),
-(214, 'TC', 'Turks and Caicos Islands', 0),
-(215, 'TD', 'Chad', 0),
-(216, 'TF', 'French Southern Territories', 0),
-(217, 'TG', 'Togo', 0),
-(218, 'TH', 'Thailand', 0),
-(219, 'TJ', 'Tajikistan', 0),
-(220, 'TK', 'Tokelau', 0),
-(221, 'TL', 'East Timor', 0),
-(222, 'TM', 'Turkmenistan', 0),
-(223, 'TN', 'Tunisia', 0),
-(224, 'TO', 'Tonga', 0),
-(225, 'TR', 'Turkey', 0),
-(226, 'TT', 'Trinidad and Tobago', 0),
-(227, 'TV', 'Tuvalu', 0),
-(228, 'TW', 'Taiwan', 0),
-(229, 'TZ', 'Tanzania', 0),
-(230, 'UA', 'Ukraine', 0),
-(231, 'UG', 'Uganda', 0),
-(232, 'UM', 'U.S. Minor Outlying Islands', 0),
-(233, 'US', 'United States', 0),
-(234, 'UY', 'Uruguay', 0),
-(235, 'UZ', 'Uzbekistan', 0),
-(236, 'VA', 'Vatican City', 0),
-(237, 'VC', 'Saint Vincent and the Grenadines', 0),
-(238, 'VE', 'Venezuela', 0),
-(239, 'VG', 'British Virgin Islands', 0),
-(240, 'VI', 'U.S. Virgin Islands', 0),
-(241, 'VN', 'Vietnam', 0),
-(242, 'VU', 'Vanuatu', 0),
-(243, 'WF', 'Wallis and Futuna', 0),
-(244, 'WS', 'Samoa', 0),
-(245, 'XK', 'Kosovo', 0),
-(246, 'YE', 'Yemen', 0),
-(247, 'YT', 'Mayotte', 0),
-(248, 'ZA', 'South Africa', 0),
-(249, 'ZM', 'Zambia', 0),
-(250, 'ZW', 'Zimbabwe', 0);
+INSERT INTO `countries` (`id`, `code`, `name`, `vat`, `images`) VALUES
+(1, 'AD', 'Andorra', 29, 'mobile_1.jpg'),
+(2, 'AE', 'United Arab Emirates', 0, ''),
+(3, 'AF', 'Afghanistan', 0, ''),
+(4, 'AG', 'Antigua and Barbuda', 0, ''),
+(5, 'AI', 'Anguilla', 0, ''),
+(6, 'AL', 'Albania', 0, ''),
+(7, 'AM', 'Armenia', 0, ''),
+(8, 'AO', 'Angola', 0, ''),
+(9, 'AQ', 'Antarctica', 0, ''),
+(10, 'AR', 'Argentina', 0, ''),
+(11, 'AS', 'American Samoa', 0, ''),
+(12, 'AT', 'Austria', 0.2, ''),
+(13, 'AU', 'Australia', 0, ''),
+(14, 'AW', 'Aruba', 0, ''),
+(15, 'AX', 'Aland', 0, ''),
+(16, 'AZ', 'Azerbaijan', 0, ''),
+(17, 'BA', 'Bosnia and Herzegovina', 0, ''),
+(18, 'BB', 'Barbados', 0, ''),
+(19, 'BD', 'Bangladesh', 0, ''),
+(20, 'BE', 'Belgium', 0.21, ''),
+(21, 'BF', 'Burkina Faso', 0, ''),
+(22, 'BG', 'Bulgaria', 0.2, ''),
+(23, 'BH', 'Bahrain', 0, ''),
+(24, 'BI', 'Burundi', 0, ''),
+(25, 'BJ', 'Benin', 0, ''),
+(26, 'BL', 'Saint Barthelemy', 0, ''),
+(27, 'BM', 'Bermuda', 0, ''),
+(28, 'BN', 'Brunei', 0, ''),
+(29, 'BO', 'Bolivia', 0, ''),
+(30, 'BQ', 'Bonaire', 0, ''),
+(31, 'BR', 'Brazil', 0, ''),
+(32, 'BS', 'Bahamas', 0, ''),
+(33, 'BT', 'Bhutan', 0, ''),
+(34, 'BV', 'Bouvet Island', 0, ''),
+(35, 'BW', 'Botswana', 0, ''),
+(36, 'BY', 'Belarus', 0, ''),
+(37, 'BZ', 'Belize', 0, ''),
+(38, 'CA', 'Canada', 0, ''),
+(39, 'CC', 'Cocos [Keeling] Islands', 0, ''),
+(40, 'CD', 'Democratic Republic of the Congo', 0, ''),
+(41, 'CF', 'Central African Republic', 0, ''),
+(42, 'CG', 'Republic of the Congo', 0, ''),
+(43, 'CH', 'Switzerland', 0, ''),
+(44, 'CI', 'Ivory Coast', 0, ''),
+(45, 'CK', 'Cook Islands', 0, ''),
+(46, 'CL', 'Chile', 0, ''),
+(47, 'CM', 'Cameroon', 0, ''),
+(48, 'CN', 'China', 0, ''),
+(49, 'CO', 'Colombia', 0, ''),
+(50, 'CR', 'Costa Rica', 0, ''),
+(51, 'CU', 'Cuba', 0, ''),
+(52, 'CV', 'Cape Verde', 0, ''),
+(53, 'CW', 'Curacao', 0, ''),
+(54, 'CX', 'Christmas Island', 0, ''),
+(55, 'CY', 'Cyprus', 0.19, ''),
+(56, 'CZ', 'Czech Republic', 0.21, ''),
+(57, 'DE', 'Germany', 0.19, ''),
+(58, 'DJ', 'Djibouti', 0, ''),
+(59, 'DK', 'Denmark', 0.25, ''),
+(60, 'DM', 'Dominica', 0, ''),
+(61, 'DO', 'Dominican Republic', 0, ''),
+(62, 'DZ', 'Algeria', 0, ''),
+(63, 'EC', 'Ecuador', 0, ''),
+(64, 'EE', 'Estonia', 0.2, ''),
+(65, 'EG', 'Egypt', 0, ''),
+(66, 'EH', 'Western Sahara', 0, ''),
+(67, 'ER', 'Eritrea', 0, ''),
+(68, 'ES', 'Spain', 0.21, ''),
+(69, 'ET', 'Ethiopia', 0, ''),
+(70, 'FI', 'Finland', 0.24, ''),
+(71, 'FJ', 'Fiji', 0, ''),
+(72, 'FK', 'Falkland Islands', 0, ''),
+(73, 'FM', 'Micronesia', 0, ''),
+(74, 'FO', 'Faroe Islands', 0, ''),
+(75, 'FR', 'France', 0.2, ''),
+(76, 'GA', 'Gabon', 0, ''),
+(77, 'GB', 'United Kingdom', 0.2, ''),
+(78, 'GD', 'Grenada', 0, ''),
+(79, 'GE', 'Georgia', 0, ''),
+(80, 'GF', 'French Guiana', 0, ''),
+(81, 'GG', 'Guernsey', 0, ''),
+(82, 'GH', 'Ghana', 0, ''),
+(83, 'GI', 'Gibraltar', 0, ''),
+(84, 'GL', 'Greenland', 0, ''),
+(85, 'GM', 'Gambia', 0, ''),
+(86, 'GN', 'Guinea', 0, ''),
+(87, 'GP', 'Guadeloupe', 0, ''),
+(88, 'GQ', 'Equatorial Guinea', 0, ''),
+(89, 'GR', 'Greece', 0.23, ''),
+(90, 'GS', 'South Georgia and the South Sandwich Islands', 0, ''),
+(91, 'GT', 'Guatemala', 0, ''),
+(92, 'GU', 'Guam', 0, ''),
+(93, 'GW', 'Guinea-Bissau', 0, ''),
+(94, 'GY', 'Guyana', 0, ''),
+(95, 'HK', 'Hong Kong', 0, ''),
+(96, 'HM', 'Heard Island and McDonald Islands', 0, ''),
+(97, 'HN', 'Honduras', 0, ''),
+(98, 'HR', 'Croatia', 0.25, ''),
+(99, 'HT', 'Haiti', 0, ''),
+(100, 'HU', 'Hungary', 0.27, ''),
+(101, 'ID', 'Indonesia', 0, ''),
+(102, 'IE', 'Ireland', 0.23, ''),
+(103, 'IL', 'Israel', 0, ''),
+(104, 'IM', 'Isle of Man', 0, ''),
+(105, 'IN', 'India', 0, ''),
+(106, 'IO', 'British Indian Ocean Territory', 0, ''),
+(107, 'IQ', 'Iraq', 0, ''),
+(108, 'IR', 'Iran', 0, ''),
+(109, 'IS', 'Iceland', 0, ''),
+(110, 'IT', 'Italy', 0.22, ''),
+(111, 'JE', 'Jersey', 0, ''),
+(112, 'JM', 'Jamaica', 0, ''),
+(113, 'JO', 'Jordan', 0, ''),
+(114, 'JP', 'Japan', 0, ''),
+(115, 'KE', 'Kenya', 0, ''),
+(116, 'KG', 'Kyrgyzstan', 0, ''),
+(117, 'KH', 'Cambodia', 0, ''),
+(118, 'KI', 'Kiribati', 0, ''),
+(119, 'KM', 'Comoros', 0, ''),
+(120, 'KN', 'Saint Kitts and Nevis', 0, ''),
+(121, 'KP', 'North Korea', 0, ''),
+(122, 'KR', 'South Korea', 0, ''),
+(123, 'KW', 'Kuwait', 0, ''),
+(124, 'KY', 'Cayman Islands', 0, ''),
+(125, 'KZ', 'Kazakhstan', 0, ''),
+(126, 'LA', 'Laos', 0, ''),
+(127, 'LB', 'Lebanon', 0, ''),
+(128, 'LC', 'Saint Lucia', 0, ''),
+(129, 'LI', 'Liechtenstein', 0, ''),
+(130, 'LK', 'Sri Lanka', 0, ''),
+(131, 'LR', 'Liberia', 0, ''),
+(132, 'LS', 'Lesotho', 0, ''),
+(133, 'LT', 'Lithuania', 0.21, ''),
+(134, 'LU', 'Luxembourg', 0.15, ''),
+(135, 'LV', 'Latvia', 0.21, ''),
+(136, 'LY', 'Libya', 0, ''),
+(137, 'MA', 'Morocco', 0, ''),
+(138, 'MC', 'Monaco', 0, ''),
+(139, 'MD', 'Moldova', 0, ''),
+(140, 'ME', 'Montenegro', 0, ''),
+(141, 'MF', 'Saint Martin', 0, ''),
+(142, 'MG', 'Madagascar', 0, ''),
+(143, 'MH', 'Marshall Islands', 0, ''),
+(144, 'MK', 'Macedonia', 0, ''),
+(145, 'ML', 'Mali', 0, ''),
+(146, 'MM', 'Myanmar [Burma]', 0, ''),
+(147, 'MN', 'Mongolia', 0, ''),
+(148, 'MO', 'Macao', 0, ''),
+(149, 'MP', 'Northern Mariana Islands', 0, ''),
+(150, 'MQ', 'Martinique', 0, ''),
+(151, 'MR', 'Mauritania', 0, ''),
+(152, 'MS', 'Montserrat', 0, ''),
+(153, 'MT', 'Malta', 0.18, ''),
+(154, 'MU', 'Mauritius', 0, ''),
+(155, 'MV', 'Maldives', 0, ''),
+(156, 'MW', 'Malawi', 0, ''),
+(157, 'MX', 'Mexico', 0, ''),
+(158, 'MY', 'Malaysia', 0, ''),
+(159, 'MZ', 'Mozambique', 0, ''),
+(160, 'NA', 'Namibia', 0, ''),
+(161, 'NC', 'New Caledonia', 0, ''),
+(162, 'NE', 'Niger', 0, ''),
+(163, 'NF', 'Norfolk Island', 0, ''),
+(164, 'NG', 'Nigeria', 0, ''),
+(165, 'NI', 'Nicaragua', 0, ''),
+(166, 'NL', 'Netherlands', 0.21, ''),
+(167, 'NO', 'Norway', 0, ''),
+(168, 'NP', 'Nepal', 0, ''),
+(169, 'NR', 'Nauru', 0, ''),
+(170, 'NU', 'Niue', 0, ''),
+(171, 'NZ', 'New Zealand', 0, ''),
+(172, 'OM', 'Oman', 0, ''),
+(173, 'PA', 'Panama', 0, ''),
+(174, 'PE', 'Peru', 0, ''),
+(175, 'PF', 'French Polynesia', 0, ''),
+(176, 'PG', 'Papua New Guinea', 0, ''),
+(177, 'PH', 'Philippines', 0, ''),
+(178, 'PK', 'Pakistan', 0, ''),
+(179, 'PL', 'Poland', 0.23, ''),
+(180, 'PM', 'Saint Pierre and Miquelon', 0, ''),
+(181, 'PN', 'Pitcairn Islands', 0, ''),
+(182, 'PR', 'Puerto Rico', 0, ''),
+(183, 'PS', 'Palestine', 0, ''),
+(184, 'PT', 'Portugal', 0.23, ''),
+(185, 'PW', 'Palau', 0, ''),
+(186, 'PY', 'Paraguay', 0, ''),
+(187, 'QA', 'Qatar', 0, ''),
+(188, 'RE', 'Reunion', 0, ''),
+(189, 'RO', 'Romania', 0.24, ''),
+(190, 'RS', 'Serbia', 0, ''),
+(191, 'RU', 'Russia', 0, ''),
+(192, 'RW', 'Rwanda', 0, ''),
+(193, 'SA', 'Saudi Arabia', 0, ''),
+(194, 'SB', 'Solomon Islands', 0, ''),
+(195, 'SC', 'Seychelles', 0, ''),
+(196, 'SD', 'Sudan', 0, ''),
+(197, 'SE', 'Sweden', 0.25, ''),
+(198, 'SG', 'Singapore', 0, ''),
+(199, 'SH', 'Saint Helena', 0, ''),
+(200, 'SI', 'Slovenia', 0.22, ''),
+(201, 'SJ', 'Svalbard and Jan Mayen', 0, ''),
+(202, 'SK', 'Slovakia', 0.2, ''),
+(203, 'SL', 'Sierra Leone', 0, ''),
+(204, 'SM', 'San Marino', 0, ''),
+(205, 'SN', 'Senegal', 0, ''),
+(206, 'SO', 'Somalia', 0, ''),
+(207, 'SR', 'Suriname', 0, ''),
+(208, 'SS', 'South Sudan', 0, ''),
+(209, 'ST', 'Sao Tome and Principe', 0, ''),
+(210, 'SV', 'El Salvador', 0, ''),
+(211, 'SX', 'Sint Maarten', 0, ''),
+(212, 'SY', 'Syria', 0, ''),
+(213, 'SZ', 'Swaziland', 0, ''),
+(214, 'TC', 'Turks and Caicos Islands', 0, ''),
+(215, 'TD', 'Chad', 0, ''),
+(216, 'TF', 'French Southern Territories', 0, ''),
+(217, 'TG', 'Togo', 0, ''),
+(218, 'TH', 'Thailand', 0, ''),
+(219, 'TJ', 'Tajikistan', 0, ''),
+(220, 'TK', 'Tokelau', 0, ''),
+(221, 'TL', 'East Timor', 0, ''),
+(222, 'TM', 'Turkmenistan', 0, ''),
+(223, 'TN', 'Tunisia', 0, ''),
+(224, 'TO', 'Tonga', 0, ''),
+(225, 'TR', 'Turkey', 0, ''),
+(226, 'TT', 'Trinidad and Tobago', 0, ''),
+(227, 'TV', 'Tuvalu', 0, ''),
+(228, 'TW', 'Taiwan', 0, ''),
+(229, 'TZ', 'Tanzania', 0, ''),
+(230, 'UA', 'Ukraine', 0, ''),
+(231, 'UG', 'Uganda', 0, ''),
+(232, 'UM', 'U.S. Minor Outlying Islands', 0, ''),
+(233, 'US', 'United States', 0, ''),
+(234, 'UY', 'Uruguay', 0, ''),
+(235, 'UZ', 'Uzbekistan', 0, ''),
+(236, 'VA', 'Vatican City', 0, ''),
+(237, 'VC', 'Saint Vincent and the Grenadines', 0, ''),
+(238, 'VE', 'Venezuela', 0, ''),
+(239, 'VG', 'British Virgin Islands', 0, ''),
+(240, 'VI', 'U.S. Virgin Islands', 0, ''),
+(241, 'VN', 'Vietnam', 0, ''),
+(242, 'VU', 'Vanuatu', 0, ''),
+(243, 'WF', 'Wallis and Futuna', 0, ''),
+(244, 'WS', 'Samoa', 0, ''),
+(245, 'XK', 'Kosovo', 0, ''),
+(246, 'YE', 'Yemen', 0, ''),
+(247, 'YT', 'Mayotte', 0, ''),
+(248, 'ZA', 'South Africa', 0, ''),
+(249, 'ZM', 'Zambia', 0, ''),
+(250, 'ZW', 'Zimbabwe', 0, '');
 
 -- --------------------------------------------------------
 
@@ -814,7 +815,7 @@ CREATE TABLE IF NOT EXISTS `productcolour` (
 `id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `colour_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `productcolour`
@@ -909,7 +910,9 @@ INSERT INTO `productcolour` (`id`, `product_id`, `colour_id`) VALUES
 (86, 66, 7),
 (87, 67, 4),
 (88, 68, 1),
-(89, 69, 1);
+(89, 69, 1),
+(90, 70, 3),
+(91, 79, 5);
 
 -- --------------------------------------------------------
 
@@ -956,7 +959,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `parent_id` int(11) NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `price` float NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `products`
@@ -1026,7 +1029,9 @@ INSERT INTO `products` (`product_id`, `slug`, `name`, `description`, `a_img`, `b
 (66, 'DKNY-Black-Crop-Top', 'DKNY Black Crop Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</span></p>\r\n', 'ee456-image1xxl-1-.jpg', '294b5-image2xxl-2-.jpg', '4a8a8-image4xxl-2-.jpg', 6, 15, 2, 20, 20),
 (67, 'Pepe-Jeans-Mini', 'Pepe Jeans Mini', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>\r\n', '6e71c-image1xxl-2-.jpg', '759f6-image2xxl-3-.jpg', '0a402-image4xxl-3-.jpg', 4, 11, 2, 10, 16),
 (68, 'Fendi-Red-Top', 'Fendi Red Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.</span></p>\r\n', '547c8-image1xxl-4-.jpg', 'd3fdb-image2xxl-4-.jpg', 'ec72c-image4xxl-5-.jpg', 7, 15, 2, 4, 12),
-(69, 'CK-Graphic-Top', 'CK Graphic Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque.</span></p>\r\n', '5ded8-image1xxl-5-.jpg', '372d5-image2xxl-5-.jpg', '74840-image4xxl-6-.jpg', 5, 15, 2, 8, 9);
+(69, 'CK-Graphic-Top', 'CK Graphic Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque.</span></p>\r\n', '5ded8-image1xxl-5-.jpg', '372d5-image2xxl-5-.jpg', '74840-image4xxl-6-.jpg', 5, 15, 2, 8, 9),
+(70, 'Pepe-Jeans-Leather-Shirt', 'Pepe Jeans Shirt', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt rhoncus malesuada. Cras consequat pharetra accumsan. Vivamus condimentum nibh sapien, eget lobortis libero feugiat ultricies. Curabitur ac libero tempus, congue magna sit amet, hendrerit tellus. Curabitur laoreet mattis maximus. In egestas ex in neque molestie, at lobortis odio luctus. Cras porta arcu vel mi commodo sodales. Mauris porttitor ante orci, id gravida lorem rhoncus nec. Praesent dapibus sapien a lacus egestas, vitae dapibus nibh dictum. Integer vel mauris diam. Mauris eleifend pulvinar augue. Mauris sollicitudin ligula id mattis condimentum. Duis ac tristique est. Integer facilisis, diam nec tempor congue, leo massa pulvinar purus, interdum laoreet nibh sem sed felis. Fusce tristique cursus urna a bibendum.', '2f92d-image1xxl-1-.jpg', '', '', 4, 6, 2, 28, 55),
+(79, 'Gucci-Black-Top', 'Gucci Black Top', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur consequat faucibus sollicitudin. Sed nec fringilla nibh. Sed maximus finibus purus, eu volutpat arcu aliquet sit amet. Sed cursus ipsum sit amet elit sagittis, ac faucibus libero ultricies. In tempor velit vel dictum rhoncus. Morbi in ante commodo, condimentum felis in, lobortis ante. Praesent vitae magna ultricies, rutrum lorem et, iaculis nunc. Curabitur finibus neque neque, at consectetur tellus tristique ac. Praesent eu sollicitudin magna, in placerat nisi.', '6e71c-image1xxl-2-.jpg', '', '', 1, 15, 2, 8, 11);
 
 -- --------------------------------------------------------
 
@@ -1038,7 +1043,7 @@ CREATE TABLE IF NOT EXISTS `productsize` (
 `id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `size_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `productsize`
@@ -1114,7 +1119,6 @@ INSERT INTO `productsize` (`id`, `product_id`, `size_id`) VALUES
 (67, 31, 6),
 (68, 32, 3),
 (69, 32, 5),
-(70, 36, 4),
 (71, 36, 5),
 (72, 36, 6),
 (73, 36, 7),
@@ -1122,7 +1126,6 @@ INSERT INTO `productsize` (`id`, `product_id`, `size_id`) VALUES
 (75, 37, 3),
 (76, 38, 5),
 (77, 38, 6),
-(78, 39, 3),
 (79, 39, 5),
 (80, 40, 5),
 (81, 41, 4),
@@ -1188,7 +1191,13 @@ INSERT INTO `productsize` (`id`, `product_id`, `size_id`) VALUES
 (141, 68, 5),
 (142, 68, 2),
 (143, 69, 3),
-(144, 69, 5);
+(144, 69, 5),
+(145, 70, 1),
+(146, 70, 5),
+(147, 70, 7),
+(151, 79, 1),
+(152, 79, 5),
+(153, 79, 7);
 
 -- --------------------------------------------------------
 
@@ -1204,7 +1213,15 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `level` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `slug`, `description`, `level`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', 'admin', 'adminrole', 1, '2016-01-03 11:05:22', '2016-01-03 11:05:22'),
+(2, 'User', 'user', 'userrole', 2, '2016-01-03 11:07:22', '2016-01-03 11:07:22');
 
 -- --------------------------------------------------------
 
@@ -1218,7 +1235,15 @@ CREATE TABLE IF NOT EXISTS `role_user` (
   `user_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `role_user`
+--
+
+INSERT INTO `role_user` (`id`, `role_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2016-01-03 11:05:38', '2016-01-03 11:05:38'),
+(2, 2, 2, '2016-01-03 11:07:31', '2016-01-03 11:07:31');
 
 -- --------------------------------------------------------
 
@@ -1270,7 +1295,8 @@ INSERT INTO `shipping` (`id`, `method`, `img`, `rate`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `size` (
-`size_id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
+  `size_id` int(11) NOT NULL,
   `size` varchar(32) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
@@ -1278,14 +1304,14 @@ CREATE TABLE IF NOT EXISTS `size` (
 -- Dumping data for table `size`
 --
 
-INSERT INTO `size` (`size_id`, `size`) VALUES
-(1, 'S'),
-(2, 'XS'),
-(3, 'M'),
-(4, 'L'),
-(5, 'XL'),
-(6, 'XXL'),
-(7, 'XXXL');
+INSERT INTO `size` (`id`, `size_id`, `size`) VALUES
+(1, 1, 'S'),
+(2, 2, 'XS'),
+(3, 3, 'M'),
+(4, 4, 'L'),
+(5, 5, 'XL'),
+(6, 6, 'XXL'),
+(7, 7, 'XXXL');
 
 -- --------------------------------------------------------
 
@@ -1323,14 +1349,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Tihomir', 'admin', 'raylight75@gmail.com', '$2y$10$b17mr2swLgWrdJ2Mka6Ilegy0.kJPBgE1R/b1Y7Bsnc5VVBCDL.Rq', 'HjpWt2HnwPMPKIwHuA6yZAwRxgvFZtrpiPGSPkpjWoRcvDliAg6q3augwxC2', '2016-01-03 08:48:36', '2016-01-03 09:03:18');
+(1, 'Tihomir', 'admin', 'raylight75@gmail.com', '$2y$10$b17mr2swLgWrdJ2Mka6Ilegy0.kJPBgE1R/b1Y7Bsnc5VVBCDL.Rq', 'KyfPzuQEQ09ZZQBewp5AUtOEGjSdCDd75Ly7wMbfwhLgDjHyXrF22UtLlC9s', '2016-01-03 08:48:36', '2016-01-03 12:39:00'),
+(2, 'Ivan', 'user', 'tblajev@yahoo.com', '$2y$10$uQSDi6zBHxVU83adaZHjFOHqFAQWHZSPvNl6.R6EuOcRa30HlcUIi', 'EbKZ0Uko2hF2uOwMoNU68lvyIabdOqDkcQUwbfUpXuCVxk6yUni2oWwrEpTr', '2016-01-03 10:58:24', '2016-01-03 11:11:47');
 
 --
 -- Indexes for dumped tables
@@ -1496,7 +1523,7 @@ ALTER TABLE `shipping`
 -- Indexes for table `size`
 --
 ALTER TABLE `size`
- ADD PRIMARY KEY (`size_id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `taxes`
@@ -1593,27 +1620,27 @@ MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 -- AUTO_INCREMENT for table `productcolour`
 --
 ALTER TABLE `productcolour`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=90;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=92;
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
+MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=80;
 --
 -- AUTO_INCREMENT for table `productsize`
 --
 ALTER TABLE `productsize`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=145;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=154;
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `role_user`
 --
 ALTER TABLE `role_user`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `settings`
 --
@@ -1628,7 +1655,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `size`
 --
 ALTER TABLE `size`
-MODIFY `size_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `taxes`
 --
@@ -1638,7 +1665,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
@@ -1681,8 +1708,7 @@ ADD CONSTRAINT `fk_products_categories` FOREIGN KEY (`cat_id`) REFERENCES `categ
 -- Constraints for table `productsize`
 --
 ALTER TABLE `productsize`
-ADD CONSTRAINT `fk_productsize_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `fk_productsize_size` FOREIGN KEY (`size_id`) REFERENCES `size` (`size_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `productsize_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `role_user`

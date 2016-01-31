@@ -119,7 +119,7 @@ $(document).ready(function() {
 	});	
 });
 </script>
-<script src="{{ asset('/js/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/js/superfish.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/js/jquery.sticky.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/js/parallax.js') }}" type="text/javascript"></script>

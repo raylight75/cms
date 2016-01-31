@@ -3596,11 +3596,11 @@ table tr.cart_item td.product-subtotal {
 	text-transform:uppercase;
 }
 .login_form input[type="text"].last {margin-bottom:9px;}
-.login_form input[type="checkbox"] + label {
+/*.login_form input[type="checkbox"] + label {
 	text-transform:none;
 	font-size:12px;
 	border:0;
-}
+}*/
 .login_form .forgot_pass {
 	display:block;
 	padding-top:5px;

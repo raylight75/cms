@@ -84,6 +84,8 @@ class RouteRegister
         //$cat = Request::input('categ');
         //echo '<pre>',print_r($cat),'</pre>';
         //$parent = Request::segment(3);
+        //echo '<pre>',print_r($products),'</pre>';
+        //dd($data['size_id']);
     }
 }
 

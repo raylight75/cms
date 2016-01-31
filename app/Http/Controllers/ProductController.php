@@ -51,8 +51,6 @@ class ProductController extends Controller
     {
         $products = Product::with('brands', 'size')->get();
         $products = Product::paginate(10);
-        //echo '<pre>',print_r($products),'</pre>';
-        //dd($data['size_id']);
         return view('product.index', compact('products'));
     }
 
@@ -70,6 +68,8 @@ class ProductController extends Controller
     }
 
     /**
+     * Store items in database.
+     *
      * @param CreateProduct $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -116,6 +116,8 @@ class ProductController extends Controller
     }
 
     /**
+     * Update the specified products.
+     *
      * @param $id
      * @param CreateProduct $request
      * @return \Illuminate\Http\RedirectResponse
@@ -168,6 +170,7 @@ class ProductController extends Controller
     }
 
     /**
+     * Search Form for tables
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function search()

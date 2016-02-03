@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Request;
 use DB;
 
-class Product
+class Product extends Model
 {
 
     /**
@@ -30,12 +31,56 @@ class Product
      *
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+
+    protected $table = 'products';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+
+    protected $primaryKey = 'product_id';
+
+    protected $fillable = [
+        'slug',
+        'name',
+        'description',
+        'a_img',
+        'brand_id',
+        'cat_id',
+        'quantity',
+        'price'
+    ];
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+
+    public $timestamps = false;
 
     private static $parent_id = 0;
 
-    public function __construct(Request $request)
+    public function brands()
     {
+        return $this->hasOne('App\Models\Brands', 'brand_id', 'brand_id');
+    }
 
+    public function size()
+    {
+        return $this->hasMany('App\Models\Size');
+    }
+
+    public function productsize()
+    {
+        return $this->belongsTo('App\Models\Size');
     }
 
     public static function getMenuData($parent_id)
@@ -143,7 +188,7 @@ class Product
         return $result;
     }
 
-    public static function pagination(array $get,$parent)
+    public static function pagination(array $get, $parent)
     {
         $query = DB::table('products');
         $query->leftJoin('categories', 'categories.cat_id', '=', 'products.cat_id');

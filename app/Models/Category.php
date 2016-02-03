@@ -1,28 +1,29 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Brands extends Model
+class Category extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'brand';
+    protected $table = 'categories';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $primaryKey = 'brand_id';
+
+    protected $primaryKey = 'cat_id';
 
     protected $fillable = [
-        'brand_id',
-        'brand',
+        'cat',
+        'parent_id',
     ];
 
     /**
@@ -35,6 +36,6 @@ class Brands extends Model
 
     public function product()
     {
-        return $this->belongsTo('App\Product','brand_id', 'brand_id');
+        return $this->belongsTo('App\Product','cat_id', 'cat_id');
     }
 }

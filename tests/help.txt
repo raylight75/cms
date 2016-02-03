@@ -1,3 +1,7 @@
+GETTEXT:
+https://github.com/xinax/laravel-gettext
+
+
 In the previous part, we’ve bootstrapped our Laravel CRUD application by creating the database, some controllers,
  basic routes and simple views. In this part, we’ll wrap things up and implement proper CRUD.
 

@@ -1,17 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Size extends Model
+class Psize extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'productsize';
+    protected $table = 'size';
 
     /**
      * The attributes that are mass assignable.
@@ -19,9 +19,10 @@ class Size extends Model
      * @var array
      */
 
+    protected $primaryKey = 'size_id';
+
     protected $fillable = [
-        'product_id',
-        'size_id',
+        'size',
     ];
 
     /**
@@ -31,9 +32,4 @@ class Size extends Model
      */
 
     public $timestamps = false;
-
-    public function product()
-    {
-        return $this->belongsTo('App\Product');
-    }
 }

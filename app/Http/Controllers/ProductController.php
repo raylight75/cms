@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Brands;
 use App\Http\Requests\CreateProduct;
-use App\Product;
-use App\Psize;
-use App\Size;
+use App\Models\Brands;
+use App\Models\Product;
+use App\Models\Psize;
+use App\Models\Size;
 use Illuminate\Support\Facades\Session;
 use Request;
 use App\Http\Requests;

@@ -21,7 +21,7 @@
                 </h3>
                 <?php endforeach; ?>
                 <ul class="tovar_items_small clearfix">
-                    <?php foreach($random as $row) : ?>
+                    <?php foreach($products as $row) : ?>
                     <li class="clearfix">
                         <img class="tovar_item_small_img"
                                 src="{{ url('images/products') }}/<?php echo $row->a_img;?>" alt=""/>

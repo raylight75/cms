@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brands;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Input;
 use Request;
 use App\Models\Product;
@@ -48,7 +50,8 @@ class BaseController extends Controller
      */
     public function __construct()
     {
-        $data = Product::prepareGlobal();
+        $data = Product::prepareGlobalMenu();
+        $data['var'] = Setting::find(1);
         View::share($data);
     }
 
@@ -59,7 +62,9 @@ class BaseController extends Controller
      */
     public function index()
     {
-        $data = Product::prepareHome();
+        $data['brands'] = Brands::all();
+        $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
+        $data['products'] = Product::with('category')->orderBy('product_id', 'desc')->get()->random(6);
         return view('frontend/body', $data);
     }
 
@@ -73,7 +78,7 @@ class BaseController extends Controller
         return view('frontend/contacts');
     }
 
-    public function filter($slug,$parent)
+    public function filter($slug, $parent)
     {
         $get = array(
             'size' => Input::get('size'),
@@ -84,16 +89,17 @@ class BaseController extends Controller
         $data = Product::prepareFilter();
         $data['properties'] = Product::getAll($parent);
         $data['parent'] = $parent;
-        $data['products'] = Product::pagination($get,$parent);
+        $data['products'] = Product::pagination($get, $parent);
         return view('frontend/filter_view', $data);
     }
 
-    public function product($slug,$parent)
+    public function product($slug, $parent)
     {
-        $data = Product::prepareProduct();
+        $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
+        $data['products'] = Product::with('category')->orderBy('product_id', 'desc')->get()->random(6);
         $data['color'] = Product::getColor($parent);
         $data['single'] = Product::getProduct($parent);
-        return view('frontend/product_page',$data);
+        return view('frontend/product_page', $data);
     }
 
     public function userLogin()

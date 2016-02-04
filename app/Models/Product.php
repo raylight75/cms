@@ -73,6 +73,11 @@ class Product extends Model
         return $this->hasOne('App\Models\Brands', 'brand_id', 'brand_id');
     }
 
+    public function category()
+    {
+        return $this->hasOne('App\Models\Category', 'cat_id', 'cat_id');
+    }
+
     public function size()
     {
         return $this->hasMany('App\Models\Size');
@@ -135,26 +140,6 @@ class Product extends Model
         return $result;
     }
 
-    public static function getLatest()
-    {
-        $result = DB::table('products')
-            ->join('categories', 'categories.cat_id', '=', 'products.cat_id')
-            ->orderBy('product_id', 'ASC')
-            ->take('6')
-            ->get();
-        return $result;
-    }
-
-    public static function getRandom()
-    {
-        $result = DB::table('products')
-            ->join('categories', 'categories.cat_id', '=', 'products.cat_id')
-            ->orderBy('product_id', 'RANDOM')
-            ->take('6')
-            ->get();
-        return $result;
-    }
-
     public static function getBanners()
     {
         $result = DB::table('products')
@@ -213,26 +198,9 @@ class Product extends Model
         return $result;
     }
 
-    public static function prepareGlobal()
+    public static function prepareGlobalMenu()
     {
-        $data = array(
-            'latest' => self::getLatest(),
-            'products' => self::getRandom(),
-            'menu' => self::getMenuData(self::$parent_id),
-            'title' => 'EShop eCommerce CMS',
-            'description' => 'EShop CMS',
-            'keyword' => 'Eshop',
-        );
-        return $data;
-    }
-
-    public static function prepareHome()
-    {
-        $data = array(
-            'latest' => self::getLatest(),
-            'products' => self::getRandom(),
-            'brand_id' => self::getBrand(),
-        );
+        $data = array('menu' => self::getMenuData(self::$parent_id),);
         return $data;
     }
 

@@ -36,6 +36,6 @@ class Category extends Model
 
     public function product()
     {
-        return $this->belongsTo('App\Product','cat_id', 'cat_id');
+        return $this->belongsTo('App\Models\Product','cat_id', 'cat_id');
     }
 }

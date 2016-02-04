@@ -1,3 +1,18 @@
+public static function getLatest()
+    {
+        $result = Product::orderBy('product_id', 'desc')->take('6') ->get();
+        return $result;
+    }
+
+    public static function getRandom()
+    {
+        $result = Product::orderBy('product_id', 'desc')->get()->random(6);
+        return $result;
+    }
+
+
+
+
 GETTEXT:
 https://github.com/xinax/laravel-gettext
 

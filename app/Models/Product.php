@@ -83,6 +83,11 @@ class Product extends Model
         return $this->hasMany('App\Models\Size');
     }
 
+    public function color()
+    {
+        return $this->hasMany('App\Models\Color');
+    }
+
     public function productsize()
     {
         return $this->belongsTo('App\Models\Size');

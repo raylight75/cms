@@ -97,7 +97,8 @@ class BaseController extends Controller
     {
         $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
         $data['products'] = Product::with('category')->orderBy('product_id', 'desc')->get()->random(6);
-        $data['color'] = Product::getColor($parent);
+        $data['options'] = Product::with('color','size')->find($parent);
+        //$data['color'] = Product::getColor($parent);
         $data['single'] = Product::getProduct($parent);
         return view('frontend/product_page', $data);
     }

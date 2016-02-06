@@ -1,33 +1,33 @@
 <!-- CLEARFIX -->
 <div class="clearfix padbot40">
-    @foreach($single as $row)
         <div class="tovar_view_fotos clearfix">
             <div id="slider2" class="flexslider">
                 <ul class="slides">
-                    <li><a><img src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/></a></li>
-                    <li><a><img src="{{ url('images/products') }}/{{$row->b_img}}" alt=""/></a></li>
-                    <li><a><img src="{{ url('images/products') }}/{{$row->c_img}}" alt=""/></a></li>
+                    <li><a><img src="{{ url('images/products') }}/{{$item->a_img}}" alt=""/></a></li>
+                    <li><a><img src="{{ url('images/products') }}/{{$item->b_img}}" alt=""/></a></li>
+                    <li><a><img src="{{ url('images/products') }}/{{$item->c_img}}" alt=""/></a></li>
                 </ul>
             </div>
             <div id="carousel2" class="flexslider">
                 <ul class="slides">
                     <li><a href="javascript:void(0);">
-                            <img src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/></a></li>
+                            <img src="{{ url('images/products') }}/{{$item->a_img}}" alt=""/></a></li>
                     <li><a href="javascript:void(0);">
-                            <img src="{{ url('images/products') }}/{{$row->b_img}}" alt=""/></a></li>
+                            <img src="{{ url('images/products') }}/{{$item->b_img}}" alt=""/></a></li>
                     <li><a href="javascript:void(0);">
-                            <img src="{{ url('images/products') }}/{{$row->c_img}}" alt=""/></a></li>
+                            <img src="{{ url('images/products') }}/{{$item->c_img}}" alt=""/></a></li>
                 </ul>
             </div>
         </div>
 
         <div class="tovar_view_description">
-            <div class="tovar_view_title">{{$row->name}}</div>
+            <div class="tovar_view_title">{{$item->name}}</div>
             <div class="tovar_article">88-305-676</div>
             <div class="clearfix tovar_brend_price">
-                <div class="pull-left tovar_brend">{{$row->brand}}</div>
-                <div class="pull-right tovar_view_price">{!! Helper::currency($row->price) !!}
-                    &nbsp{!! Helper::label() !!}</div>
+                <div class="pull-left tovar_brend">{{$item->brand}}</div>
+                <div class="pull-right tovar_view_price">
+                    {!! Helper::currency($item->price) !!}&nbsp{!! Helper::label() !!}
+                </div>
             </div>
             <div class="tovar_color_select">
                 <p><?= _('Available color')?></p>
@@ -73,7 +73,6 @@
                         <i class="fa fa-shopping-cart"></i><?= _('Add to bag')?></a>
                 </div>
             </div>
-            @endforeach
             <div class="tovar_shared clearfix">
                 <p><?= _('Share item with friends')?></p>
                 <ul>

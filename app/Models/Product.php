@@ -139,27 +139,12 @@ class Product extends Model
         return $data;
     }
 
-    public static function getBrand()
-    {
-        $result = DB::table('brand')->get();
-        return $result;
-    }
-
     public static function getBanners()
     {
         $result = DB::table('products')
             ->leftJoin('categories', 'categories.cat_id', '=', 'products.cat_id')
             ->orderBy('product_id', 'RANDOM')
             ->take('6')
-            ->get();
-        return $result;
-    }
-
-    public static function getColor($id)
-    {
-        $result = DB::table('productcolour')
-            ->join('colour', 'colour.colour_id', '=', 'productcolour.colour_id')
-            ->where('productcolour.product_id', '=', $id)
             ->get();
         return $result;
     }
@@ -219,15 +204,6 @@ class Product extends Model
             'price' => (array)Request::input('price'),
             'name' => (array)Request::input('name'),
             'category' => (array)Request::input('categ')
-        );
-        return $data;
-    }
-
-    public static function prepareProduct()
-    {
-        $data = array(
-            'latest' => self::getLatest(),
-            'random' => self::getRandom(),
         );
         return $data;
     }

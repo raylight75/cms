@@ -1,5 +1,5 @@
 @include('frontend/header')
-<!-- BREADCRUMBS -->
+        <!-- BREADCRUMBS -->
 <section class="breadcrumb parallax margbot30"></section>
 <!-- //BREADCRUMBS -->
 
@@ -15,21 +15,21 @@
 
             <!-- SIDEBAR TOVAR DETAILS -->
             <div class="col-lg-3 col-md-3 sidebar_tovar_details">
-                <?php foreach($single as $row) : ?>
-                <h3>
-                    <b><?= _('other products')?></b>
-                </h3>
-                <?php endforeach; ?>
+                    <h3>
+                        <b><?= _('other products')?></b>
+                    </h3>
                 <ul class="tovar_items_small clearfix">
-                    <?php foreach($products as $row) : ?>
-                    <li class="clearfix">
-                        <img class="tovar_item_small_img"
-                                src="{{ url('images/products') }}/<?php echo $row->a_img;?>" alt=""/>
-                        <a href="{{ url() }}/<?php echo $row->cat."/".$row->slug."/".$row->product_id;?>"
-                                class="tovar_item_small_title"><?php echo $row->name;?></a> <span
-                                class="tovar_item_small_price">{!! Helper::currency($row->price) !!}&nbsp{!! Helper::label() !!}</span>
-                    </li>
-                    <?php endforeach; ?>
+                    @foreach($products as $row)
+                        <li class="clearfix">
+                            <img class="tovar_item_small_img"
+                                 src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/>
+                            <a href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}"
+                               class="tovar_item_small_title"><?php echo $row->name;?></a>
+                            <span class="tovar_item_small_price">
+                                {!! Helper::currency($row->price) !!}&nbsp{!! Helper::label() !!}
+                            </span>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
             <!-- //SIDEBAR TOVAR DETAILS -->
@@ -37,13 +37,11 @@
             <!-- TOVAR DETAILS WRAPPER -->
             <div class="col-lg-9 col-md-9 tovar_details_wrapper clearfix">
                 <div class="tovar_details_header clearfix margbot35">
-                    <?php foreach($single as $row) : ?>
-                    <h3 class="pull-left">
-                        <b>
-                            <a href="{{ url('catalog') }}/<?php echo $row->cat;?>/<?php echo $row->parent_id;?>
-                                    ?categ=<?php echo $row->cat_id;?>"><?php echo $row->cat;?></a></b>
-                    </h3>
-                    <?php endforeach; ?>
+                        <h3 class="pull-left">
+                            <b>
+                                <a href="{{ url('catalog') }}/{{$item->category->cat}}/{{$item->parent_id}}?categ={{$item->cat_id}}">{{$item->category->cat}}</a>
+                            </b>
+                        </h3>
                 </div>
 
                 @include('frontend/clearfix')
@@ -145,26 +143,25 @@
 
             <div class="jcarousel">
                 <ul>
-                    <?php foreach($latest as $row) : ?>
-                    <li>
-                        <!-- TOVAR -->
-                        <div class="tovar_item_new">
-                            <div class="tovar_img">
-                                <img src="{{ url('images/products') }}/<?php echo $row->a_img;?>" alt=""/>
-                                <a class="open-project tovar_view"
-                                   href="{{ url() }}/<?php echo $row->cat . "/" . $row->slug . "/" . $row->product_id;?>"><?= _('quick view')?></a>
-
+                    @foreach($latest as $row)
+                        <li>
+                            <!-- TOVAR -->
+                            <div class="tovar_item_new">
+                                <div class="tovar_img">
+                                    <img src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/>
+                                    <a class="open-project tovar_view"
+                                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}"><?= _('quick view')?></a>
+                                </div>
+                                <div class="tovar_description clearfix">
+                                    <a class="tovar_title"
+                                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">{{$row->name}}</a>
+                                    <span class="tovar_price">{!! Helper::currency($row->price) !!}
+                                        &nbsp{!! Helper::label() !!}</span>
+                                </div>
                             </div>
-                            <div class="tovar_description clearfix">
-                                <a class="tovar_title"
-                                   href="{{ url() }}/<?php echo $row->cat . "/" . $row->slug . "/" . $row->product_id;?>">
-                                    <?php echo $row->name;?></a>
-                                <span class="tovar_price">{!! Helper::currency($row->price) !!}&nbsp{!! Helper::label() !!}</span>
-                            </div>
-                        </div>
-                        <!-- //TOVAR -->
-                    </li>
-                    <?php endforeach; ?>
+                            <!-- //TOVAR -->
+                        </li>
+                        @endforeach
                 </ul>
             </div>
         </div>

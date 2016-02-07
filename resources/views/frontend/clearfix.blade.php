@@ -31,7 +31,7 @@
             </div>
             <div class="tovar_color_select">
                 <p><?= _('Available color')?></p>
-                @foreach($options->color as $c)
+                @foreach($item->color as $c)
                     <a class="color{{$c->colour_id}}"></a>
                 @endforeach
             </div>
@@ -40,7 +40,7 @@
                     <p class="pull-left"><?= _('Available SIZE')?></p>
                     <span><?= _('Size & Fit')?></span>
                 </div>
-                @foreach($options->size as $s)
+                @foreach($item->size as $s)
                     <a class="sizeXXXL">{{$s->size_id}}</a>
                 @endforeach
             </div>
@@ -53,13 +53,13 @@
                 </div>
                 <select name="color" class="basic">
                     <option value=""><?= _('COLOR')?></option>
-                    @foreach($options->color as $c)
+                    @foreach($item->color as $c)
                         <option value="{{$c->colour_id}}">{{$c->colour_id}}</option>
                     @endforeach
                 </select>
                 <select name="size" class="basic">
                     <option value=""><?= _('SIZE')?></option>
-                    @foreach($options->size as $s)
+                    @foreach($item->size as $s)
                         <option value="{{$s->size_id}}">{{$s->size_id}}</option>
                     @endforeach
                 </select>

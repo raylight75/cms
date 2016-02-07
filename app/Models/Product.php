@@ -66,8 +66,6 @@ class Product extends Model
 
     public $timestamps = false;
 
-    private static $parent_id = 0;
-
     public function brands()
     {
         return $this->hasOne('App\Models\Brands', 'brand_id', 'brand_id');
@@ -93,6 +91,10 @@ class Product extends Model
         return $this->belongsTo('App\Models\Size');
     }
 
+    /**
+     * @param $parent_id
+     * @return array
+     */
     public static function getMenuData($parent_id)
     {
         $categories = array();
@@ -111,6 +113,10 @@ class Product extends Model
         return $categories;
     }
 
+    /**
+     * @param $parent
+     * @return mixed
+     */
     public static function getAll($parent)
     {
         $sqla = '(SELECT count(products.brand_id) as count 
@@ -139,30 +145,11 @@ class Product extends Model
         return $data;
     }
 
-    public static function getBanners()
-    {
-        $result = DB::table('products')
-            ->leftJoin('categories', 'categories.cat_id', '=', 'products.cat_id')
-            ->orderBy('product_id', 'RANDOM')
-            ->take('6')
-            ->get();
-        return $result;
-    }
-
-    public static function getProduct($id)
-    {
-        $result = DB::table('products')
-            ->select(array('*', DB::raw("GROUP_CONCAT(size.size SEPARATOR ',') as size")))
-            ->leftJoin('categories', 'categories.cat_id', '=', 'products.cat_id')
-            ->leftJoin('productsize', 'productsize.product_id', '=', 'products.product_id')
-            ->leftJoin('size', 'size.size_id', '=', 'productsize.size_id')
-            ->leftJoin('brand', 'brand.brand_id', '=', 'products.brand_id')
-            ->where('products.product_id', '=', $id)
-            ->groupBy('products.product_id')
-            ->get();
-        return $result;
-    }
-
+    /**
+     * @param array $get
+     * @param $parent
+     * @return mixed
+     */
     public static function pagination(array $get, $parent)
     {
         $query = DB::table('products');
@@ -188,16 +175,24 @@ class Product extends Model
         return $result;
     }
 
-    public static function prepareGlobalMenu()
+    /**
+     * @return mixed
+     */
+    public static function getProducts()
     {
-        $data = array('menu' => self::getMenuData(self::$parent_id),);
+        $data = Product::with('category')
+            ->orderBy('product_id', 'desc')
+            ->get()
+            ->random(6);
         return $data;
     }
 
+    /**
+     * @return array
+     */
     public static function prepareFilter()
     {
         $data = array(
-            'banner' => self::getBanners(),
             'size' => (array)Request::input('size'),
             'color' => (array)Request::input('color'),
             'brand' => (array)Request::input('brand'),

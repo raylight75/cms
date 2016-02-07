@@ -43,6 +43,8 @@ class BaseController extends Controller
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    private static $parent_id = 0;
+
     /**
      * Create a new controller instance.
      *
@@ -50,8 +52,8 @@ class BaseController extends Controller
      */
     public function __construct()
     {
-        $data = Product::prepareGlobalMenu();
-        $data['var'] = Setting::find(1);
+        $data['menu'] = Product::getMenuData(self::$parent_id);
+        $data['header'] = Setting::find(1);
         View::share($data);
     }
 
@@ -64,7 +66,7 @@ class BaseController extends Controller
     {
         $data['brands'] = Brands::all();
         $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
-        $data['products'] = Product::with('category')->orderBy('product_id', 'desc')->get()->random(6);
+        $data['products'] = Product::getProducts();
         return view('frontend/body', $data);
     }
 
@@ -78,6 +80,11 @@ class BaseController extends Controller
         return view('frontend/contacts');
     }
 
+    /**
+     * @param $slug
+     * @param $parent
+     * @return View
+     */
     public function filter($slug, $parent)
     {
         $get = array(
@@ -87,18 +94,23 @@ class BaseController extends Controller
             'brand' => Input::get('brand'),
         );
         $data = Product::prepareFilter();
+        $data['banner'] = Product::getProducts();
         $data['properties'] = Product::getAll($parent);
         $data['parent'] = $parent;
         $data['products'] = Product::pagination($get, $parent);
         return view('frontend/filter_view', $data);
     }
 
+    /**
+     * @param $slug
+     * @param $parent
+     * @return View
+     */
     public function product($slug, $parent)
     {
         $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
-        $data['products'] = Product::with('category')->orderBy('product_id', 'desc')->get()->random(6);
-        $data['options'] = Product::with('color','size')->find($parent);
-        $data['item'] = Product::with('category','size')->find($parent);
+        $data['products'] = Product::getProducts();
+        $data['item'] = Product::with('category', 'size', 'color')->find($parent);
         return view('frontend/product_page', $data);
     }
 

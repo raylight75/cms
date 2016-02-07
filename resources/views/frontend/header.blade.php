@@ -6,11 +6,11 @@
 <head>
 
     <meta charset="utf-8">
-    <title>{{ $var->title }}</title>
+    <title>{{ $header->title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ $var->description }}">
+    <meta name="description" content="{{ $header->description }}">
     <meta name="author" content="EShop">
-    <meta name="keyword" content="{{ $var->keyword }}">
+    <meta name="keyword" content="{{ $header->keyword }}">
 
     <link rel="shortcut icon" href="images/favicon.ico">
 

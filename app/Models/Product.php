@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Input;
 use Request;
 use DB;
 
@@ -86,10 +87,10 @@ class Product extends Model
         return $this->hasMany('App\Models\Color');
     }
 
-    public function productsize()
+    /*public function productsize()
     {
         return $this->belongsTo('App\Models\Size');
-    }
+    }*/
 
     /**
      * @param $parent_id
@@ -146,31 +147,32 @@ class Product extends Model
     }
 
     /**
-     * @param array $get
      * @param $parent
      * @return mixed
      */
-    public static function pagination(array $get, $parent)
+    public static function pagination($parent)
     {
-        $query = DB::table('products');
-        $query->leftJoin('categories', 'categories.cat_id', '=', 'products.cat_id');
-        $query->leftJoin('productsize', 'productsize.product_id', '=', 'products.product_id');
-        $query->leftJoin('productcolour', 'productcolour.product_id', '=', 'products.product_id');
-        $query->where('categories.parent_id', '=', $parent);
-        if (!empty($get['size'])) {
-            $query->whereIn('productsize.size_id', $get['size']);
+        $query = Product::whereHas('size', function ($q) {
+            if (!empty(Input::get('size'))) {
+                $sizes = Input::get('size');
+                $q->whereIn('size_id', $sizes);
+            }
+        });
+        if (!empty(Input::get('color'))) {
+            $query->whereHas('color', function ($q) {
+                $colors = Input::get('color');
+                $q->whereIn('colour_id', $colors);
+            });
         }
-        if (!empty($get['color'])) {
-            $query->whereIn('productcolour.colour_id', $get['color']);
-        }
-        if (!empty($get['categ'])) {
-            $query->whereIn('products.cat_id', $get['categ']);
-        }
-        if (!empty($get['brand'])) {
-            $query->whereIn('brand_id', $get['brand']);
-        }
-        $query->orderBy('price', 'desc');
-        $query->groupBy('products.product_id');
+        $query->where('parent_id', '=', $parent);
+        if (!empty(Input::get('categ'))) {
+            $query->whereIn('cat_id', Input::get('categ'));
+        };
+        if (!empty(Input::get('brand'))) {
+            $query->whereIn('brand_id', Input::get('brand'));
+        };
+        $query->orderBy('price', 'asc');
+        $query->groupBy('product_id');
         $result = $query->paginate(6);
         return $result;
     }
@@ -190,9 +192,10 @@ class Product extends Model
     /**
      * @return array
      */
-    public static function prepareFilter()
+    public static function prepareFilter($parent)
     {
         $data = array(
+            'parent' => $parent,
             'size' => (array)Request::input('size'),
             'color' => (array)Request::input('color'),
             'brand' => (array)Request::input('brand'),

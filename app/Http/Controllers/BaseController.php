@@ -87,17 +87,10 @@ class BaseController extends Controller
      */
     public function filter($slug, $parent)
     {
-        $get = array(
-            'size' => Input::get('size'),
-            'color' => Input::get('color'),
-            'categ' => Input::get('categ'),
-            'brand' => Input::get('brand'),
-        );
-        $data = Product::prepareFilter();
+        $data = Product::prepareFilter($parent);
         $data['banner'] = Product::getProducts();
         $data['properties'] = Product::getAll($parent);
-        $data['parent'] = $parent;
-        $data['products'] = Product::pagination($get, $parent);
+        $data['products'] = Product::pagination($parent);
         return view('frontend/filter_view', $data);
     }
 
@@ -106,11 +99,11 @@ class BaseController extends Controller
      * @param $parent
      * @return View
      */
-    public function product($slug, $parent)
+    public function product($slug, $id)
     {
         $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
         $data['products'] = Product::getProducts();
-        $data['item'] = Product::with('category', 'size', 'color')->find($parent);
+        $data['item'] = Product::with('category', 'size', 'color')->find($id);
         return view('frontend/product_page', $data);
     }
 

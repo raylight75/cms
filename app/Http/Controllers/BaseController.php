@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Brands;
 use App\Models\Setting;
-use Illuminate\Support\Facades\Input;
 use Request;
 use App\Models\Product;
 use Auth, View;

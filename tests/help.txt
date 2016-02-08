@@ -1,3 +1,244 @@
+$query = Product::whereHas('size', function($q)
+        {
+            $desiredAttributes = [1,2];
+            $q->whereIn('size_id', $desiredAttributes);
+        })
+            ->where('parent_id', '=', $parent)
+            ->orderBy('price', 'asc')
+            ->paginate(6);
+
+
+
+
+<?php
+Route::get('/', function()
+{
+	$products = Product::where(function($query){
+		$min_price = Input::has('min_price') ?  Input::get('min_price') : null;
+		$max_price = Input::has('max_price') ? Input::get('max_price') : $max_price = null;
+		$brands = Input::has('brands') ? Input::get('brands') : null;
+		if(isset($min_price) && isset($max_price)){
+			if(isset($brands)){
+				foreach ($brands as $brand) {
+					$query-> orWhere('price','>=',$min_price);
+					$query-> where('price','<=',$max_price);
+					$query->where('brand_id','=', $brand);
+				}
+			}
+			$query-> where('price','>=',$min_price);
+			$query-> where('price','<=',$max_price);
+		}
+	})->get();
+	return View::make('index', compact(['products']));
+});
+DB::listen( function($sql){
+	var_dump($sql);
+});
+
+<form action="{{URL::current()}}">
+
+	<label for="">Price</label>
+
+	<br>
+	min: <input type="text" name="min_price" value="{{Input::get('min_price')}}">
+
+	<br>
+	max: <input type="text" name="max_price" value="{{Input::get('max_price')}}">
+
+	<?php $brands = Input::has('brands') ? Input::get('brands'): [] ?>
+
+	<br>
+	<input type="checkbox" name="brands[]" value="1" {{in_array(1, $brands ) ? 'checked' :'' }}>
+	Brand one
+	<input type="checkbox" name="brands[]" value="5" {{in_array(5, $brands ) ? 'checked' :'' }}>
+	Brand Five
+
+	<br>
+
+	<button>Go</button>
+
+</form>
+
+<hr>
+
+@foreach($products as $product)
+
+	<ul>
+		<li>{{$product->title}} - {{$product->price}} - brand = {{$product->brand_id}}</li>
+	</ul>
+
+@endforeach
+
+
+
+
+
+
+Example:
+
+User > hasMany > Post
+
+$users = User::whereHas('posts', function($q){
+    $q->where('created_at', '>=', '2015-01-01 00:00:00');
+})->get();
+// only users that have posts from this year are returned
+
++1, very helpful answer! Note also that while with('relation') will include the related table's data in the returned collection, has('relation') and 
+whereHas('relation') will not include the related table's data. So you may need to call both with('relation') as well as has() or whereHas()
+
+
+$query = Product::query();
+foreach(Input::get('filter') as $attributeId => $optionIds){
+    foreach($optionIds as $optionId){
+        $query->whereHas('attributeOptions', function($q) use ($attributeId, $optionId){
+            $q->where('attributeId', $attributeId)
+              ->where('attribute_option_id', $optionId);
+        }
+    }
+}
+$products = $query->get();
+
+
+
+// Assuming you have the IDs of the attributes, rather than the value
+$desiredAttributes = [11,12];
+$products = $products->whereHas('attributeOptions', function($query)     
+use($desiredAttributes)
+{
+    $query->whereIn('attribute_id', $desiredAttributes);
+}, "=", count($desiredAttributes))->get();
+
+
+
+When building web applications, it’s important to understand where bottle necks are likely to appear first. Reducing the number of database queries down to be as efficient as possible is the first step towards building an application that will scale.
+
+However a lot of developers make the mistake of writing inefficient database queries that are hard to spot and using an ORM like Eloquent can hide the problem until it’s too late. You don’t want to wake up one morning to find your application has been hosed because you wrote a query that killed your database.
+
+In this article I’m going to be looking at Eager Loading in Laravel 4. Eager Loading helps to alleviate the N + 1 problem so that when you make database queries, you aren’t secretly running hundreds of queries when you should just be running one or two.
+
+What is the N + 1 problem?
+The N + 1 problem is where you load a set of records and then you request an attribute which is a relation to each of those records.
+
+For example, say your application has users and posts. Your relationship might look something like this in your User model:
+
+?
+/**
+ * Post relationship
+ */
+public function posts()
+{
+  return $this->hasMany('Post');
+}
+For each user you want to list their post titles. So you might write something like this:
+
+$users = User::all();
+ 
+foreach($users as $user)
+{
+  echo $user->posts->title;
+}
+This would work exactly how you intended it to.
+
+However, under the surface your application is actually not very efficient. when you run the code above, you would be running the following database queries:
+
+
+SELECT * from users;
+SELECT * from posts WHERE user_id = 1;
+SELECT * from posts WHERE user_id = 2;
+SELECT * from posts WHERE user_id = 3;
+SELECT * from posts WHERE user_id = 4;
+SELECT * from posts WHERE user_id = 5;
+…
+So if you have 1000 users, your database would be running 1000 + 1 queries to run this little chunk of code. That’s where the N + 1 name comes from.
+
+What is Eager Loading?
+Eager loading is a method for defining what we are going to need ahead of time so that we can run more efficient database queries.
+
+So instead of getting all users and then requesting the posts for each user, we can declare that we also want the user’s posts when we select the users.
+
+Fortunately Laravel 4 makes this really easy.
+
+So in the case of the example above, we could write the following which would be much more efficient:
+
+
+$users = User::with('posts')->get();
+ 
+foreach($users as $user)
+{
+  echo $user->posts->title;
+}
+Using Eager Loading, Laravel would actually be running the following queries:
+
+select * from users
+select * from posts where user_id in (1, 2, 3, 4, 5, ...)
+So as you can see, we’ve reduced 1000+ queries down to two. Running the two queries above is much more efficient than running them as separate queries, especially if your database is on another server.
+
+Laravel Eager Loading extras
+Laravel makes it really easy to do Eager Loading on your database, but it can also do much more than simply solving the N + 1 problem.
+
+Loading multiple relationships
+For example, say you wanted to load multiple relationships. You can achieve this by simply passing multiple options to the with method:
+
+$users = User::with('posts', 'followers')->get();
+Loading nested relationships
+Sometimes you will want to load relationships that are nested. A common example of this would be to load all users, their posts and the comments on a post. As you can imagine this is some pretty heavy query work, but eager loading can make this more efficient.
+
+$users = User::with('posts.comments')->get();
+Eager Loading with constraints
+And finally, often you will want to eager load relationships but with a constraint because you know you don’t need to load every record.
+
+Laravel 4 solves this problem by allowing you to pass a Closure to specify the WHERE clause. For example:
+
+
+$users = User::with(array('posts' => function($query)
+{
+  $query->where('published', '=', 1);
+}))->get();
+
+
+In the example above, I would only be loading a user’s posts if they were published. If I was using this query to display a list of posts on the user’s profile page, there is no need to load any draft or unpublished posts.
+
+Conclusion
+In the early days of building a web application, eager loading can take very inefficient queries and boil them down to become efficient. This can make your application feel much quicker because you will be able to massively reduce the back and forth with the database.
+
+Eager Loading is an excellent practice for building high quality web applications and so you should leverage this technique whenever you want to load records and relationships.
+
+However, Eager Loading will not solve all of your problems forever. If you are lucky enough to really find traction with your application there will come a point where even Eager Loading is not efficient enough for you.
+
+
+
+$posts = Post::with('user')
+     ->with(array('comments'=>function($query){
+         $query->where('user_id', '=', 3);
+         $query->with('user');
+     }))
+     ->with('tags')
+     ->where('travel_area_id','=',$area->id)
+     ->take($this->numOfPostsInAreaPageLoad)
+     ->orderBy('created_at', 'DESC')
+     ->get();
+
+
+
+
+It looks like you don't even need a nested eager load, you just need to modify the query that with returns, so:
+
+$posts = Post::with('comments')->where('user_id', '=', 1)->get();
+You can daisy chain most of the methods in the Eloquent system, generally they're just returning a Fluent query object.
+
+(I haven't tested it but I'm fairly certain that'll work. Also, you can't do it on ::all() because that calls ->get() for you. You have to dig in the source code to find this, I don't think the Eloquent documentation mentions that's what it's doing.)
+
+Also the Eager Loading Documentation covers nested eager loading, so you could load all users, with their posts, with the comments:
+
+You may even eager load nested relationships. For example, let's assume our Author model has a "contacts" relationship. We can eager load both of the relationships from our Book model like so:
+
+$books = Book::with(array('author', 'author.contacts'))->get();
+
+
+
+
+
+
 public static function getLatest()
     {
         $result = Product::orderBy('product_id', 'desc')->take('6') ->get();

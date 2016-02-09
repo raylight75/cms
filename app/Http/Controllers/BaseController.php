@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Support\Facades\Input;
 use App\Models\Brands;
+use App\Models\Product;
 use App\Models\Setting;
 use Request;
-use App\Models\Product;
+use Illuminate\Support\Facades\Input;
 use Auth, View;
 use DB;
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use Illuminate\Support\Facades\Input;
 use App\Models\Brands;
 use App\Models\Setting;
 use Request;
@@ -87,7 +89,7 @@ class BaseController extends Controller
     public function filter($slug, $parent)
     {
         $data = Product::prepareFilter($parent);
-        $data['banner'] = Product::getProducts();
+        $data['banner'] = Category::whereIn('cat_id',Input::get('categ'))->first();
         $data['properties'] = Product::getAll($parent);
         $data['products'] = Product::pagination($parent);
         return view('frontend/filter_view', $data);

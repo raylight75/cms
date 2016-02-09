@@ -1,3 +1,11 @@
+Post::with(array('comments' => function($query) {
+    $query->where('status', 'publish')
+    $query->orderBy('comments', 'DESC');
+
+  }))->get();
+
+
+
 $query = Product::whereHas('size', function($q)
         {
             $desiredAttributes = [1,2];

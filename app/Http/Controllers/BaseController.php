@@ -44,8 +44,6 @@ class BaseController extends Controller
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    private static $parent_id = 0;
-
     /**
      * Create a new controller instance.
      *
@@ -54,8 +52,6 @@ class BaseController extends Controller
     public function __construct()
     {
         $data = Product::prepareGlobalData();
-        $data['menu'] = Product::getMenuData(self::$parent_id);
-        $data['header'] = Setting::find(1);
         View::share($data);
     }
 

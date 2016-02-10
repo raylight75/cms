@@ -39,6 +39,8 @@ class Product extends Model
      * @var string
      */
 
+    private static $parent_id = 0;
+
     protected $table = 'products';
 
     /**
@@ -210,6 +212,8 @@ class Product extends Model
     public static function prepareGlobalData()
     {
         $data = array(
+            'menu' => self::getMenuData(self::$parent_id),
+            'header' => Setting::find(1),
             'rows' => Cart::count(),
             'cart' => Cart::content(),
         );

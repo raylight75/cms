@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Raylight75
- * Date: 10.1.2016 ã.
- * Time: 15:00 ÷.
- */
 
 namespace App\Http\Routes;
 

@@ -28,21 +28,15 @@
                         <div class="tovar_item">
                             <div class="tovar_img">
                                 <div class="tovar_img_wrapper">
-                                    <img class="img"
-                                         src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/>
-                                    <img class="img_h fancybox fancybox.ajax"
-                                         href="{{ url('home/frame') }}/{{$row->product_id}}"
+                                    <img class="img" src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/>
+                                    <img class="img_h fancybox fancybox.ajax" href="{{ url('home/frame') }}/{{$row->product_id}}"
                                          src="{{ url('images/products') }}/{{$row->b_img}}" alt=""/>
                                 </div>
                                 <div class="tovar_item_btns">
                                     <a class="open-project tovar_view"
                                        href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
-                                        <span><?= _('product')?></span> <?= _('view')?>
-                                    </a>
-
-                                    <a class="add_bag" href="{{ url('login') }}">
-                                        <i class="fa fa-shopping-cart"></i></a>
-
+                                        <span><?= _('product')?></span> <?= _('view')?></a>
+                                    <a class="add_bag" href="{{ url('login') }}"><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                             </div>
                             <div class="tovar_description clearfix">

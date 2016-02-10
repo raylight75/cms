@@ -1,8 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-use App\Product;
-use App\Brands;
-use App\Size;
+use App\Models\Product;
+use App\Models\Brands;
 use Validator, Input, Redirect;
 use Zofe\Rapyd\Facades\DataGrid;
 use Zofe\Rapyd\Facades\DataEdit;

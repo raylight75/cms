@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
 use Request;
@@ -202,6 +203,15 @@ class Product extends Model
             'price' => (array)Request::input('price'),
             'name' => (array)Request::input('name'),
             'category' => (array)Request::input('categ')
+        );
+        return $data;
+    }
+
+    public static function prepareGlobalData()
+    {
+        $data = array(
+            'rows' => Cart::count(),
+            'cart' => Cart::content(),
         );
         return $data;
     }

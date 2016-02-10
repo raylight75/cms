@@ -53,6 +53,7 @@ class BaseController extends Controller
      */
     public function __construct()
     {
+        $data = Product::prepareGlobalData();
         $data['menu'] = Product::getMenuData(self::$parent_id);
         $data['header'] = Setting::find(1);
         View::share($data);

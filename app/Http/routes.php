@@ -27,6 +27,10 @@ Route::get('/login', 'BaseController@userlogin');
 
 Route::get('/cache', 'BaseController@write');
 
+Route::post('/cart', 'CartController@store');
+
+Route::get('/destroy', 'CartController@destroy');
+
 Route::get('products/search', 'ProductController@search');
 
 Route::resource('products','ProductController');

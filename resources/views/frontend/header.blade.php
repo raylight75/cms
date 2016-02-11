@@ -80,7 +80,7 @@
                     @if (!Auth::check())
                     @else
                             <!-- SHOPPING BAG -->
-                    @if ($cart !== '')
+                    @if ($cart == '')
                         <div class="shopping_bag">
                             <a class="shopping_bag_btn" href="javascript:void(0);"><i class="fa fa-shopping-cart"></i>
                                 <p><?= _('shopping bag')?></p><span>{{$rows}}</span></a>
@@ -97,24 +97,17 @@
                 <!-- SHOPPING BAG -->
                 <div class="shopping_bag">
                     <a class="shopping_bag_btn" href="javascript:void(0);"><i class="fa fa-shopping-cart"></i>
-
                         <p><?= _('shopping bag')?></p>
                         <span>{{$rows}}</span></a>
-
                     <div class="cart">
-                        <?php
-                        $grand_total = 0;?>
                         @foreach ( $cart as $item )
-                            <?php
-                            $grand_total = $grand_total + $item->subtotal;
-                            //$k = $item['options'];?>
                             <ul class="cart-items">
                                 <li class="clearfix">
                                     <img class="cart_item_product"
-                                         src="{{ url('images/products') }}/{{--{{$k['Img']}}--}}" alt=""/>
+                                         src="{{ url('images/products') }}/{{$item->options->img}}" alt=""/>
                                     <a href="{{ url('shopping') }}" class="cart_item_title">{{$item->name}}</a>
 										<span class="cart_item_price">{{$item->qty}}
-                                            x{!! Helper::currency($row->price) !!}&nbsp{!! Helper::label() !!}</span>
+                                            x{!! Helper::currency($item->price) !!}&nbsp{!! Helper::label() !!}</span>
                                 </li>
                             </ul>
                         @endforeach

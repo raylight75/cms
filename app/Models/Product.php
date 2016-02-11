@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Input;
 use Request;
 use DB;
 
@@ -156,23 +155,23 @@ class Product extends Model
     public static function pagination($parent)
     {
         $query = Product::whereHas('size', function ($q) {
-            if (!empty(Input::get('size'))) {
-                $sizes = Input::get('size');
+            if (!empty(Request::input('size'))) {
+                $sizes = Request::input('size');
                 $q->whereIn('size_id', $sizes);
             }
         });
-        if (!empty(Input::get('color'))) {
+        if (!empty(Request::input('color'))) {
             $query->whereHas('color', function ($q) {
-                $colors = Input::get('color');
+                $colors = Request::input('color');
                 $q->whereIn('colour_id', $colors);
             });
         }
         $query->where('parent_id', '=', $parent);
-        if (!empty(Input::get('categ'))) {
-            $query->whereIn('cat_id', Input::get('categ'));
+        if (!empty(Request::input('categ'))) {
+            $query->whereIn('cat_id', Request::input('categ'));
         };
-        if (!empty(Input::get('brand'))) {
-            $query->whereIn('brand_id', Input::get('brand'));
+        if (!empty(Request::input('brand'))) {
+            $query->whereIn('brand_id', Request::input('brand'));
         };
         $query->orderBy('price', 'asc');
         $query->groupBy('product_id');
@@ -214,8 +213,9 @@ class Product extends Model
         $data = array(
             'menu' => self::getMenuData(self::$parent_id),
             'header' => Setting::find(1),
-            'rows' => Cart::count(),
+            'rows' => Cart::count(false),
             'cart' => Cart::content(),
+            'grand_total' => Cart::total(),
         );
         return $data;
     }

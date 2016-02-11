@@ -45,7 +45,7 @@
             @endforeach
         </div>
         <div class="tovar_view_btn">
-            {!! Form::open(['url' => 'products']) !!}
+            {!! Form::open(['url' => 'cart']) !!}
             <div class="tovar_color_select">
                 <input type="text" name="discount" value="DISC CODE" id=""
                        maxlength="7" size="50" style="width: 24%"

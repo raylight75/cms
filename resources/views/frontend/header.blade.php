@@ -80,7 +80,7 @@
                     @if (!Auth::check())
                     @else
                             <!-- SHOPPING BAG -->
-                    @if ($cart == '')
+                    @if ($cart->first() == '')
                         <div class="shopping_bag">
                             <a class="shopping_bag_btn" href="javascript:void(0);"><i class="fa fa-shopping-cart"></i>
                                 <p><?= _('shopping bag')?></p><span>{{$rows}}</span></a>

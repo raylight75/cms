@@ -31,7 +31,7 @@ class CartController extends Controller
     /**
      *
      * Cart Class
-     * Cart Class fo managing shoppinf cart
+     * Cart Class for managing shopping cart
      * @package ecommerce-cms
      * @category Base Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
@@ -66,22 +66,18 @@ class CartController extends Controller
 
     public function store()
     {
-        $data = Request::except(['_token','discount','color','size','img']);
-        $data['options'] = Request::except(['_token','id','name','qty','price']);
+        $data = Request::except(['_token', 'discount', 'color', 'size', 'img']);
+        $data['options'] = Request::except(['_token', 'id', 'name', 'qty', 'price']);
         Cart::add($data);
-        //$content = Cart::content();
-        //dd($content);
         return redirect('cart');
     }
 
-    public function update($rowId)
+    public function update()
     {
         $content = Request::input('qty');
-        dd($content);
-        foreach($content as $row){
-            $rowId = $row;
+        foreach ($content as $id => $row) {
+            Cart::update($row['rowid'], $row['qty']);
         }
-        Cart::update($rowId, Request::input('qty'));
         return redirect('cart');
     }
 

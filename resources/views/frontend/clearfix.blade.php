@@ -71,7 +71,7 @@
 
             <div class="tovar_view_btn">
                 @if (!Auth::check())
-                    <a class="add_bag" href="{{ url('user') }}">
+                    <a class="add_bag" href="{{ url('login') }}">
                         <i class="fa fa-shopping-cart"></i><?= _('Add to bag')?></a>
                 @else
                     {!! Form::hidden('id', $item->product_id) !!}

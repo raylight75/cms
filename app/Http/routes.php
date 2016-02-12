@@ -33,7 +33,7 @@ Route::get('/cart', 'CartController@index');
 
 Route::get('/remove/{rowid}', 'CartController@remove');
 
-Route::post('/update/{rowid}', 'CartController@update');
+Route::post('/update', 'CartController@update');
 
 Route::get('/destroy', 'CartController@destroy');
 

@@ -1,8 +1,7 @@
 @include('frontend/header')
-<!-- BREADCRUMBS -->
+        <!-- BREADCRUMBS -->
 <section class="breadcrumb parallax margbot30"></section>
 <!-- //BREADCRUMBS -->
-
 
 <!-- PAGE HEADER -->
 <section class="page_header">
@@ -44,11 +43,12 @@
             <div class="col-lg-9 col-md-9 padbot40">
                 <div id="heading">
                     <h2 align="center"><?= _('Products on Your Shopping Bag')?></h2>
+
                     <h3 align="center"><font color="red">
                             <?php //echo $this->session->flashdata('message');?></font></h3>
                 </div>
                 <div id="text">
-                    @if ($cart == '')
+                    @if ($cart->first() == '')
                         <h3 class="pull-left">
                             <b><?= _('To add products to your shopping cart click on "Add to Bag" Button')?></b>
                         </h3>
@@ -56,49 +56,60 @@
                 </div>
                 <table class="shop_table">
                     @if ($cart)
-                    <thead>
-                    <tr>
-                        <th class="product-thumbnail"></th>
-                        <th class="product-name">ID</th>
-                        <th class="product-name">Name</th>
-                        <th class="product-price">Price</th>
-                        <th class="product-quantity">Quantity</th>
-                        <th class="product-subtotal">Amount</th>
-                        <th class="product-remove">Cancel Product</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php $i = 1;?>
-                    @foreach ( $cart as $item )
-                    <tr class="cart_item">
-                        <td class="product-thumbnail">
-                            <a href="{{ url('images/products') }}/{{$item->options->img}}">
-                                <img src="{{ url('images/products') }}/{{$item->options->img}}"
-                                     width="100px" alt="" /></a></td>
-                        <td>{{$i++}}</td>
-                        <td class="product-name">
-                            <a href="{{ url('cart') }}/{{$item->name}}/{{$item->id}}">
-                                {{$item->name}}</a>
-                            <ul class="variation">
-                                <li class="variation-Color"><?= _('Color:')?><span>{{$item->options->color}}</span></li>
-                                <li class="variation-Size"><?= _('Size:')?><span>{{$item->options->size}}</span></li>
-                                <li class="variation-Size"><?= _('DISCOUNT')?><span></span>%</li>
-                            </ul></td>
-                        <td class="product-price">{!! Helper::currency($item->price) !!}&nbsp{!! Helper::label() !!}
-                        </td>
-                        <td>
-                            {!! Form::open(['url' => ['update',$item->rowid]]) !!}
-                            {!! Form::textarea('qty[]',$item->qty,['size' => '10x1']) !!}
-                            </td>
-                        <td class="product-subtotal">{!! Helper::currency($item->subtotal) !!}&nbsp{!! Helper::label() !!}</td>
-                        <td class="product-remove"><a
-                                href="{{ url('remove') }}/{{$item->rowid}}">
-                                <span><?= _('Delete')?></span>
-                                <i>X</i></a></td>
-                        @endforeach
-                        @endif
-                    </tr>
-                    </tbody>
+                        <thead>
+                        <tr>
+                            <th class="product-thumbnail"></th>
+                            <th class="product-name">ID</th>
+                            <th class="product-name">Name</th>
+                            <th class="product-price">Price</th>
+                            <th class="product-quantity">Quantity</th>
+                            <th class="product-subtotal">Amount</th>
+                            <th class="product-remove">Cancel Product</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php $i = 1;?>
+                        @foreach ( $cart as $item )
+                            <tr class="cart_item">
+                                <td class="product-thumbnail">
+                                    <a href="{{ url('images/products') }}/{{$item->options->img}}">
+                                        <img src="{{ url('images/products') }}/{{$item->options->img}}"
+                                             width="100px" alt=""/></a></td>
+                                <td>{{$i++}}</td>
+                                <td class="product-name">
+                                    <a href="{{ url() }}/{{$item->name}}/{{$item->id}}">{{$item->name}}</a>
+                                    <ul class="variation">
+                                        <li class="variation-Color"><?= _('Color:')?>
+                                            <span>{{$item->options->color}}</span>
+                                        </li>
+                                        <li class="variation-Size"><?= _('Size:')?>
+                                            <span>{{$item->options->size}}</span>
+                                        </li>
+                                        <li class="variation-Size"><?= _('DISCOUNT')?><span></span>%</li>
+                                    </ul>
+                                </td>
+                                <td class="product-price">
+                                    {!! Helper::currency($item->price) !!}&nbsp{!! Helper::label() !!}
+                                </td>
+                                <td>
+                                    {!! Form::open(['url' => 'update']) !!}
+                                    {!! Form::hidden('qty['.$item->id.'][rowid]', $item->rowid) !!}
+                                    {!! Form::text('qty['.$item->id.'][qty]',$item->qty,[
+                                                   'size' => '1',
+                                                   'style' => 'text-align: center',
+                                                   'maxlength' => '3']) !!}
+                                </td>
+                                <td class="product-subtotal">
+                                    {!! Helper::currency($item->subtotal) !!}&nbsp{!! Helper::label() !!}
+                                </td>
+                                <td class="product-remove">
+                                    <a href="{{ url('remove') }}/{{$item->rowid}}">
+                                        <span><?= _('Delete')?></span><i>X</i></a>
+                                </td>
+                                @endforeach
+                                @endif
+                            </tr>
+                        </tbody>
                 </table>
             </div>
             <!-- //CART TABLE -->
@@ -125,7 +136,7 @@
                     {!! Form::submit('Update Cart', ['class' => 'btn inactive']) !!}
                     {!! Form::close() !!}
                     <a class="btn active" href="{{ url('checkout') }}"><?= _('Check out')?></a> <a
-                        class="btn inactive" href="{{ url('cms') }}"><?= _('Continue shopping')?></a>
+                            class="btn inactive" href="{{ url('cms') }}"><?= _('Continue shopping')?></a>
                 </div>
                 <!-- //REGISTRATION FORM -->
             </div>

@@ -59,17 +59,41 @@ class CartController extends Controller
      * @param Array $options Array of additional options, such as 'size' or 'color'
      */
 
+    public function index()
+    {
+        return view('frontend/shopping_cart');
+    }
+
     public function store()
     {
         $data = Request::except(['_token','discount','color','size','img']);
         $data['options'] = Request::except(['_token','id','name','qty','price']);
         Cart::add($data);
-        return redirect('cms');
+        //$content = Cart::content();
+        //dd($content);
+        return redirect('cart');
+    }
+
+    public function update($rowId)
+    {
+        $content = Request::input('qty');
+        dd($content);
+        foreach($content as $row){
+            $rowId = $row;
+        }
+        Cart::update($rowId, Request::input('qty'));
+        return redirect('cart');
+    }
+
+    public function remove($rowId)
+    {
+        Cart::remove($rowId);
+        return redirect('cart');
     }
 
     public function destroy()
     {
         Cart::destroy();
-        return redirect('cms');
+        return redirect('cart');
     }
 }

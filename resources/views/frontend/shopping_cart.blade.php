@@ -1,3 +1,4 @@
+@include('frontend/header')
 <!-- BREADCRUMBS -->
 <section class="breadcrumb parallax margbot30"></section>
 <!-- //BREADCRUMBS -->
@@ -67,44 +68,35 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php echo form_open ( 'shopping/update_products' );
-                    $grand_total = 0;
-                    $i = 1;
-                    foreach ( $cart as $item ) :
-                    echo form_hidden ( 'cart[' . $item ['id'] . '][id]', $item ['id'] );
-                    echo form_hidden ( 'cart[' . $item ['id'] . '][rowid]', $item ['rowid'] );
-                    echo form_hidden ( 'cart[' . $item ['id'] . '][name]', $item ['name'] );
-                    echo form_hidden ( 'cart[' . $item ['id'] . '][price]', $item ['price'] );
-                    echo form_hidden ( 'cart[' . $item ['id'] . '][qty]', $item ['qty'] );
-                    ?>
+                    <?php $i = 1;?>
+                    @foreach ( $cart as $item )
                     <tr class="cart_item">
-                        <?php $k = $item['options']; ?>
                         <td class="product-thumbnail">
-                            <a href="<?php echo base_url() ?>images/products/<?php echo $k['Img'];?>">
-                                <img src="<?php echo base_url() ?>images/products/<?php echo $k['Img'];?>"
+                            <a href="{{ url('images/products') }}/{{$item->options->img}}">
+                                <img src="{{ url('images/products') }}/{{$item->options->img}}"
                                      width="100px" alt="" /></a></td>
-                        <td><?php echo $i++; ?></td>
+                        <td>{{$i++}}</td>
                         <td class="product-name">
-                            <a href="<?php echo base_url() ?>cart/<?php echo $k ['slug'];?>/<?php echo $item ['id'];?>">
-                                <?php echo $item['name'];?></a>
+                            <a href="{{ url('cart') }}/{{$item->name}}/{{$item->id}}">
+                                {{$item->name}}</a>
                             <ul class="variation">
-                                <li class="variation-Color"><?= _('Color:')?><span><?php echo $k['Color'];?></span></li>
-                                <li class="variation-Size"><?= _('Size:')?><span><?php echo $k['Size'];?></span></li>
-                                <li class="variation-Size"><?= _('DISCOUNT')?><span><?php echo $k['disc'];?></span>%</li>
+                                <li class="variation-Color"><?= _('Color:')?><span>{{$item->options->color}}</span></li>
+                                <li class="variation-Size"><?= _('Size:')?><span>{{$item->options->size}}</span></li>
+                                <li class="variation-Size"><?= _('DISCOUNT')?><span></span>%</li>
                             </ul></td>
-                        <td class="product-price"><?php echo currency($item['price'])."&nbsp".label();?>
+                        <td class="product-price">{!! Helper::currency($item->price) !!}&nbsp{!! Helper::label() !!}
                         </td>
                         <td>
-                            <?php echo form_input('cart[' . $item['id'] . '][qty]', $item['qty'],
-                                'maxlength="3" size="1" style="text-align: center"'); ?></td>
-                        <?php $grand_total = $grand_total + $item['subtotal']; ?>
-                        <td class="product-subtotal"><?php echo currency($item['subtotal'])."&nbsp".label();?></td>
+                            {!! Form::open(['url' => ['update',$item->rowid]]) !!}
+                            {!! Form::textarea('qty[]',$item->qty,['size' => '10x1']) !!}
+                            </td>
+                        <td class="product-subtotal">{!! Helper::currency($item->subtotal) !!}&nbsp{!! Helper::label() !!}</td>
                         <td class="product-remove"><a
-                                href="<?php echo base_url() ?>shopping/remove/<?php echo $item ['rowid']; ?>">
+                                href="{{ url('remove') }}/{{$item->rowid}}">
                                 <span><?= _('Delete')?></span>
                                 <i>X</i></a></td>
-                        <?php endforeach; ?>
-                        <?php endif; ?>
+                        @endforeach
+                        @endif
                     </tr>
                     </tbody>
                 </table>
@@ -124,17 +116,16 @@
                         </tr>
                         <tr class="total clearfix">
                             <th><?= _('Total')?></th>
-                            <?php	if ($cart = $this->cart->contents ()) : ?>
-                                <td><?php echo currency($grand_total)."&nbsp".label();?></td>
-                            <?php endif; ?>
+                            @if ($cart)
+                                <td>{!! Helper::currency($grand_total) !!}&nbsp{!! Helper::label() !!}</td>
+                            @endif
                         </tr>
                     </table>
-                    <input type="button" class="btn active" value="Clear Cart"
-                           onclick="clear_cart()"> <input type="submit" class="btn inactive"
-                                                          value="Update Cart">
-                    <?php echo form_close(); ?>
-                    <a class="btn active" href="<?php echo base_url() ?>shopping/checkout1"><?= _('Check out')?></a> <a
-                        class="btn inactive" href="<?php echo base_url() ?>home"><?= _('Continue shopping')?></a>
+                    <input type="button" class="btn active" value="Clear Cart" onclick="clear_cart()">
+                    {!! Form::submit('Update Cart', ['class' => 'btn inactive']) !!}
+                    {!! Form::close() !!}
+                    <a class="btn active" href="{{ url('checkout') }}"><?= _('Check out')?></a> <a
+                        class="btn inactive" href="{{ url('cms') }}"><?= _('Continue shopping')?></a>
                 </div>
                 <!-- //REGISTRATION FORM -->
             </div>
@@ -145,3 +136,4 @@
     <!-- //CONTAINER -->
 </section>
 <!-- //SHOPPING BAG BLOCK -->
+@include('frontend/footer')

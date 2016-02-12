@@ -114,8 +114,7 @@
                         <div class="cart_total">
                             <div class="clearfix">
 										<span class="cart_subtotal"><?= _('bag subtotal:')?>
-                                            <b>{!! Helper::currency($grand_total) !!}
-                                                &nbsp{!! Helper::label() !!}</b></span>
+                                            <b>{!! Helper::currency($grand_total) !!}&nbsp{!! Helper::label() !!}</b></span>
                             </div>
                             <a class="btn active"
                                href="{{ url('shopping') }}/checkout1"><?= _('Checkout')?></a>

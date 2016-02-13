@@ -27,19 +27,11 @@ Route::get('/login', 'BaseController@userlogin');
 
 Route::get('/cache', 'BaseController@write');
 
-Route::post('/store', 'CartController@store');
-
-Route::get('/cart', 'CartController@index');
-
-Route::get('/remove/{rowid}', 'CartController@remove');
-
-Route::post('/update', 'CartController@update');
-
-Route::get('/destroy', 'CartController@destroy');
+Route::resource('products','ProductController');
 
 Route::get('products/search', 'ProductController@search');
 
-Route::resource('products','ProductController');
+Route::controller('cart','CartController');
 
 Route::controller('articles', 'ArticlesController');
 

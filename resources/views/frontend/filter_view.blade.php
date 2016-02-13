@@ -1,4 +1,5 @@
-@include('frontend/header')
+@extends('frontend.main')
+@section('filter_view')
         <!-- BREADCRUMBS -->
 <section
         class="breadcrumb {{$menu[$parent]['name']}} parallax margbot30">
@@ -110,4 +111,4 @@
     <!-- //CONTAINER -->
 </section>
 <!-- //SHOP -->
-@include('frontend/footer')
+@endsection

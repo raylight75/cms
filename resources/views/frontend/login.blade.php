@@ -1,4 +1,5 @@
-@include('frontend/header')
+@extends('frontend.main')
+@section('login')
 <!-- MY ACCOUNT PAGE -->
 <section class="my_account parallax">
 
@@ -54,4 +55,4 @@
 	<!-- //CONTAINER -->
 </section>
 <!-- //MY ACCOUNT PAGE -->
-@include('frontend/footer')
+@endsection

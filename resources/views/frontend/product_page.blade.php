@@ -1,4 +1,5 @@
-@include('frontend/header')
+@extends('frontend.main')
+@section('product_page')
         <!-- BREADCRUMBS -->
 <section class="breadcrumb parallax margbot30"></section>
 <!-- //BREADCRUMBS -->
@@ -44,7 +45,7 @@
                         </h3>
                 </div>
 
-                @include('frontend/clearfix')
+                @include('frontend.clearfix')
 
                         <!-- TOVAR INFORMATION -->
                 <div class="tovar_information">
@@ -170,4 +171,4 @@
     <!-- //CONTAINER -->
 </section>
 <!-- //NEW ARRIVALS -->
-@include('frontend/footer')
+@endsection

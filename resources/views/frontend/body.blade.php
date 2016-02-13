@@ -1,4 +1,5 @@
-@include('frontend/header')
+@extends('frontend.main')
+@section('body')
 @include('frontend/sliders')
         <!-- TOVAR SECTION -->
 <section class="tovar_section">
@@ -122,9 +123,9 @@
                             <!-- TOVAR -->
                             <div class="tovar_item_new">
                                 <div class="tovar_img">
-                                    <img src="{{ url('images/products') }}/{{$row->a_img}}"
-                                         alt=""/> <a class="open-project tovar_view"
-                                                     href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
+                                    <img src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/>
+                                    <a class="open-project tovar_view"
+                                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
                                         <?= _('quick view')?></a>
                                 </div>
                                 <div class="tovar_description clearfix">
@@ -186,5 +187,4 @@
 @include('frontend/services')
 
 <hr class="container">
-
-@include('frontend/footer')
+@endsection

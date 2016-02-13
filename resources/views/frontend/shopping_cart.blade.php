@@ -1,4 +1,5 @@
-@include('frontend/header')
+@extends('frontend.main')
+@section('cart')
         <!-- BREADCRUMBS -->
 <section class="breadcrumb parallax margbot30"></section>
 <!-- //BREADCRUMBS -->
@@ -34,7 +35,7 @@
                     var result = confirm('Are you sure want to clear all products?');
 
                     if (result) {
-                        window.location = "{{ url('destroy') }}";
+                        window.location = "{{ url('cart/destroy') }}";
                     } else {
                         return false;
                     }
@@ -92,18 +93,16 @@
                                     {!! Helper::currency($item->price) !!}&nbsp{!! Helper::label() !!}
                                 </td>
                                 <td>
-                                    {!! Form::open(['url' => 'update']) !!}
+                                    {!! Form::open(['url' => 'cart/update']) !!}
                                     {!! Form::hidden('qty['.$item->id.'][rowid]', $item->rowid) !!}
-                                    {!! Form::text('qty['.$item->id.'][qty]',$item->qty,[
-                                                   'size' => '1',
-                                                   'style' => 'text-align: center',
-                                                   'maxlength' => '3']) !!}
+                                    {!! Form::text('qty['.$item->id.'][qty]',$item->qty,
+                                        ['size' => '1','style' => 'text-align: center','maxlength' => '3']) !!}
                                 </td>
                                 <td class="product-subtotal">
                                     {!! Helper::currency($item->subtotal) !!}&nbsp{!! Helper::label() !!}
                                 </td>
                                 <td class="product-remove">
-                                    <a href="{{ url('remove') }}/{{$item->rowid}}">
+                                    <a href="{{ url('cart/remove') }}/{{$item->rowid}}">
                                         <span><?= _('Delete')?></span><i>X</i></a>
                                 </td>
                                 @endforeach
@@ -147,4 +146,4 @@
     <!-- //CONTAINER -->
 </section>
 <!-- //SHOPPING BAG BLOCK -->
-@include('frontend/footer')
+@endsection

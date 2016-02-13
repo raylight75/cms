@@ -1,4 +1,5 @@
-@include('frontend/header')
+@extends('frontend.main')
+@section('aboutus')
 <!-- BREADCRUMBS -->
 <section class="breadcrumb parallax margbot30"></section>
 <!-- //BREADCRUMBS -->
@@ -170,4 +171,4 @@
 	<!-- //CONTAINER -->
 </section>
 <!-- //ABOUT US INFO -->
-@include('frontend/footer')
+@endsection

@@ -35,7 +35,7 @@
                     var result = confirm('Are you sure want to clear all products?');
 
                     if (result) {
-                        window.location = "{{ url('cart/destroy') }}";
+                        window.location = "{{ url('cart/delete') }}";
                     } else {
                         return false;
                     }
@@ -102,7 +102,7 @@
                                     {!! Helper::currency($item->subtotal) !!}&nbsp{!! Helper::label() !!}
                                 </td>
                                 <td class="product-remove">
-                                    <a href="{{ url('cart/remove') }}/{{$item->rowid}}">
+                                    <a href="{{ url('cart/edit') }}/{{$item->rowid}}">
                                         <span><?= _('Delete')?></span><i>X</i></a>
                                 </td>
                                 @endforeach

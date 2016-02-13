@@ -81,13 +81,13 @@ class CartController extends Controller
         return redirect('cart');
     }
 
-    public function getRemove($rowId)
+    public function getEdit($rowId)
     {
         Cart::remove($rowId);
         return redirect('cart');
     }
 
-    public function getDestroy()
+    public function getDelete()
     {
         Cart::destroy();
         return redirect('cart');

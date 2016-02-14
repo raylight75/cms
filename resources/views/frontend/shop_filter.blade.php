@@ -31,7 +31,7 @@
 					<div class="sidepanel widget_sized">					
 					<h3><?= _('SORT BY SIZE')?></h3>										
 					<?php foreach($properties['size'] as $row) : ?>
-					<input type="checkbox" id="<?php echo $row->size;?>">
+					<input type="checkbox" id="<?php echo $row->size;?>"
 					<a class="size<?php echo $row->size;?>"
 					name="size[]" value="<?php echo $row->size_id;?>"
 					<?php echo (in_array($row->size_id,$size))?'checked="checked"':''; ?> />
@@ -42,7 +42,7 @@
 					<div class="sidepanel widget_color">
 					<h3><?= _('SORT BY COLOR')?></h3>										
 					<?php foreach($properties['colour'] as $row) : ?>
-					<input type="checkbox" id="<?php echo $row->colour;?>">
+					<input type="checkbox" id="<?php echo $row->colour;?>"
 					<a class="color<?php echo $row->colour_id;?>"
 					name="color[]" value="<?php echo $row->colour_id;?>"
 					<?php echo (in_array($row->colour_id,$color))?'checked="checked"':''; ?> />

@@ -48,7 +48,7 @@
         <!-- HEADER -->
         @include('frontend.header')
                 <!-- //HEADER -->
-        @include('frontend.yields')
+        @yield('content')
                 <!-- FOOTER -->
         @include('frontend.footer')
                 <!-- //FOOTER -->

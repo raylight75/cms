@@ -1,5 +1,5 @@
 @extends('frontend.main')
-@section('body')
+@section('content')
 @include('frontend/sliders')
         <!-- TOVAR SECTION -->
 <section class="tovar_section">

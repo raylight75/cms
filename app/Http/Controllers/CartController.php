@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Request;
 use Auth, View;
 
-class CartController extends Controller
+class CartController extends BaseController
 {
     /**
      * Ecommerce-CMS
@@ -45,8 +44,7 @@ class CartController extends Controller
      */
     public function __construct()
     {
-        $data = Product::prepareGlobalData();
-        View::share($data);
+        parent::__construct();
     }
 
     /**

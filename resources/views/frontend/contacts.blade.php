@@ -1,5 +1,5 @@
 @extends('frontend.main')
-@section('contacts')
+@section('content')
 <!-- BREADCRUMBS -->
 <section class="breadcrumb parallax margbot30"></section>
 <!-- //BREADCRUMBS -->

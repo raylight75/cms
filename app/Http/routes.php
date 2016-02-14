@@ -42,7 +42,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Generate::registerRoutes();
+Routers::registerRoutes();
 
 //App::make('Helper')->registerRoutes();
 

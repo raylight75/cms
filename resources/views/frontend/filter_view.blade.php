@@ -1,5 +1,5 @@
 @extends('frontend.main')
-@section('filter_view')
+@section('content')
         <!-- BREADCRUMBS -->
 <section
         class="breadcrumb {{$menu[$parent]['name']}} parallax margbot30">

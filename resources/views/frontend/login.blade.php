@@ -1,5 +1,5 @@
 @extends('frontend.main')
-@section('login')
+@section('content')
 <!-- MY ACCOUNT PAGE -->
 <section class="my_account parallax">
 

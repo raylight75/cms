@@ -8,13 +8,13 @@
             <ul class="secondary_menu">
                 @if  (Auth::check() && Auth::user()->is('admin'))
                     <li><a href=""><?= _('Admin Panel')?></a></li>
-                    <li><a href=""><?= _('Register')?></a></li>
+                    <li><a href="{{ url('auth/logout') }}"><?= _('Logout')?></a></li>
                 @elseif(Auth::check() && Auth::user()->is('user'))
                     <li><a href=""><?= _('User Panel')?></a></li>
-                    <li><a href=""><?= _('Logout')?></a></li>
+                    <li><a href="{{ url('auth/logout') }}"><?= _('Logout')?></a></li>
                 @else
                     <li><a href=""><?= _('my account')?></a></li>
-                    <li><a href=""><?= _('Logout')?></a></li>
+                    <li><a href=""><?= _('Register')?></a></li>
 
                 @endif
             </ul>

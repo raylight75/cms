@@ -1,3 +1,11 @@
+Copied Directory [\vendor\zofe\rapyd\public\assets] To [\public\packages\zofe\rapyd\assets]
+Copied File [\vendor\zofe\rapyd\config\rapyd.php] To [\config\rapyd.php]
+Copied File [\vendor\zofe\rapyd\src\routes.php] To [\app\Http\rapyd.php]
+Copied Directory [\vendor\bican\roles\src\migrations] To [\database\migrations]
+Publishing complete for tag []!
+
+
+
 Post::with(array('comments' => function($query) {
     $query->where('status', 'publish')
     $query->orderBy('comments', 'DESC');

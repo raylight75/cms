@@ -109,6 +109,17 @@ class BaseController extends Controller
         return view('frontend/product_page', $data);
     }
 
+    /**
+     * @param $slug
+     * @param $parent
+     * @return View
+     */
+    public function frame($id)
+    {
+        $data['item'] = Product::with('category', 'size', 'color')->find($id);
+        return view('frontend/frame', $data);
+    }
+
     public function userLogin()
     {
         return view('frontend/login');

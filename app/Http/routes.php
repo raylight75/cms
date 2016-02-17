@@ -23,6 +23,8 @@ Route::get('/cms', 'BaseController@index');
 
 Route::get('/contacts', 'BaseController@contacts');
 
+Route::get('/frame/{id}', 'BaseController@frame');
+
 Route::get('/login', 'BaseController@userlogin');
 
 Route::get('/cache', 'BaseController@write');

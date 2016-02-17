@@ -1,5 +1,5 @@
 <!-- ROW -->
-<div class="row shop_block" id="container">
+<div class="row shop_block" id="ajaxproducts">
     <!-- TOVAR1 -->
     @foreach($products as $row)
         <div

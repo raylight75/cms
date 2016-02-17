@@ -109,6 +109,40 @@
         <!-- //ROW -->
     </div>
     <!-- //CONTAINER -->
+    <script>
+        // Ajax pagination
+        $(window).on('hashchange', function() {
+            if (window.location.hash) {
+                var page = window.location.hash.replace('#', '');
+                if (page == Number.NaN || page <= 0) {
+                    return false;
+                } else {
+                    getProducts(page);
+                }
+            }
+        });
+
+        $(function() {
+            $('#ajaxproducts').on('click', '.pagination a', function (e) {
+                getProducts($(this).attr('href').split('page=')[1]);
+                e.preventDefault();
+                //var fullurl = $(this).attr('href').split('page')[1].reverse()[0];
+            });
+        });
+
+        function getProducts(page) {
+            $.ajax({
+                url : '?page=' + page,
+                type: "GET",
+                //data: {'_token': $('input[name=_token]').val()},
+                dataType: 'json',
+            }).done(function (data) {
+                $('#ajaxproducts').html(data);
+            }).fail(function () {
+                alert('Posts could not be loaded.');
+            });
+        }
+    </script>
 </section>
 <!-- //SHOP -->
 @endsection

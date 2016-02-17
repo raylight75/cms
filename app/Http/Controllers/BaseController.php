@@ -88,7 +88,12 @@ class BaseController extends Controller
         $data['banner'] = Category::whereIn('cat_id',Input::get('categ'))->first();
         $data['properties'] = Product::getAll($parent);
         $data['products'] = Product::pagination($parent);
-        return view('frontend/filter_view', $data);
+        if (Request::ajax()) {
+            return response()->json(view('frontend/ajax-products', $data)->render());
+        }else{
+            return view('frontend/filter_view', $data);
+        }
+
     }
 
     /**

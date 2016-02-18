@@ -8,8 +8,8 @@
                 <div class="tovar_img">
                     <div class="tovar_img_wrapper">
                         <img class="img" src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/>
-                        <img class="img_h fancybox fancybox.ajax" href="{{ url('frame') }}/{{$row->product_id}}">
-                        <img class="img_h" src="{{ url('images/products') }}/{{$row->b_img}}" alt=""/>
+                        <img class="img_h fancybox fancybox.ajax" href="{{ url('frame') }}/{{$row->product_id}}"
+                             src="{{ url('images/products') }}/{{$row->b_img}}" alt=""/>
                     </div>
                     <div class="tovar_item_btns">
                         <a class="open-project tovar_view"

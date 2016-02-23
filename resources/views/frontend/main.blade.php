@@ -26,7 +26,8 @@
 
     <script src="{{ asset('/js/jquery.min.js') }}" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="{{ asset('/js/controllers/productCtrl.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/js/productCtrl.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/js/toArrayFilter.js') }}" type="text/javascript"></script>
 
     <!-- FONTS -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,

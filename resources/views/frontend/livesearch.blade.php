@@ -1,7 +1,7 @@
 @extends('frontend.main')
 @section('content')
 @include('frontend/sliders')
-        dd{{$products}}
+
         <!-- TOVAR SECTION -->
 <section class="tovar_section">
 
@@ -27,7 +27,7 @@
                 <div ng-app="myApp" ng-controller="productCtrl">
                     <p>Type a letter in the input field:</p>
                     <p><input type="text" ng-model="products"></p>
-                    <div ng-repeat="row in items | filter:products | orderBy:orderProp | limitTo:latest"
+                    <div ng-repeat="row in items | toArray | filter:products | orderBy:orderProp | limitTo:latest"
                          class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-ss-12 padbot40">
                         <div class="tovar_item">
                             <div class="tovar_img">
@@ -45,7 +45,7 @@
                             </div>
                             <div class="tovar_description clearfix">
                                 <a class="tovar_title"
-                                   href="{{ url() }}/@{{row.category}}/@{{row->slug}}/@{{row.product_id}}">@{{row.name}}</a>
+                                   href="{{ url() }}/@{{row.category}}/@{{row.slug}}/@{{row.product_id}}">@{{row.name}}</a>
                             </div>
                         </div>
                     </div>

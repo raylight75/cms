@@ -145,19 +145,15 @@ class BaseController extends Controller
         return view('frontend/login');
     }
 
-    public function data()
+    public function testapi()
     {
-        $data = Product::getProducts();
-        return response()->json(array('data' => $data));
-        //return response()->json(view('frontend/livesearch', $data));
+        return view('frontend/livesearch');
     }
 
-    public function livesearch()
+    public function api()
     {
-        //$data = $this->data();
-        $data = Product::getProducts();
-        //return response()->json(view('frontend/livesearch', $data));
-        return response()->json(array('data' => $data));
-        //return view('frontend/livesearch', $data);
+        $products = Product::getProducts();
+        //return response()->json(Product::getProducts());
+        return json_encode($products);
     }
 }

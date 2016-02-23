@@ -27,6 +27,10 @@ Route::get('/frame/{id}', 'BaseController@frame');
 
 Route::get('/login', 'BaseController@userlogin');
 
+Route::get('items/search/{id}', 'BaseController@search');
+
+Route::get('livesearch', 'BaseController@livesearch');
+
 Route::get('/cache', 'BaseController@write');
 
 Route::resource('products','ProductController');

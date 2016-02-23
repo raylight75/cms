@@ -120,8 +120,44 @@ class BaseController extends Controller
         return view('frontend/frame', $data);
     }
 
+    /**
+     * @param $parent
+     * @return \Illuminate\Http\JsonResponse|View
+     */
+    public function search($parent)
+    {
+        $search = Request::get('search');
+        $data = Product::prepareFilter($parent);
+        $data['banner'] = Category::where('cat_id',Input::get('categ'))->first();
+        $data['properties'] = Product::getAll($parent);
+        $data['products'] = Product::where('name', 'like', '%' . $search . '%')
+            ->orderBy('name')
+            ->paginate(6);
+        if (Request::ajax()) {
+            return response()->json(view('frontend/ajax-products', $data)->render());
+        }else{
+            return view('frontend/filter_view', $data);
+        }
+    }
+
     public function userLogin()
     {
         return view('frontend/login');
+    }
+
+    public function data()
+    {
+        $data = Product::getProducts();
+        return response()->json(array('data' => $data));
+        //return response()->json(view('frontend/livesearch', $data));
+    }
+
+    public function livesearch()
+    {
+        //$data = $this->data();
+        $data = Product::getProducts();
+        //return response()->json(view('frontend/livesearch', $data));
+        return response()->json(array('data' => $data));
+        //return view('frontend/livesearch', $data);
     }
 }

@@ -29,6 +29,9 @@
 <!-- //BREADCRUMBS -->
 
 <section class="shop">
+    <div class="container">
+        @include('product/search', ['url'=>'/items/search/'.$menu[$parent]['id'].''])
+    </div>
 </section>
 
 <!-- SHOP BLOCK -->
@@ -36,7 +39,6 @@
 
     <!-- CONTAINER -->
     <div class="container">
-
         <!-- ROW -->
         <div class="row">
 

@@ -1,4 +1,5 @@
-angular.module('myApp', ['angular-toArrayFilter']).controller('productCtrl', function ($scope, $http) {
+var myApp = angular.module('myApp', ['angular-toArrayFilter']);
+    myApp.controller('productCtrl', function ($scope, $http) {
         $http.get('api').success(function(data) {
             console.log(data);
                 $scope.items = data;

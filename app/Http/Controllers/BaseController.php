@@ -147,13 +147,13 @@ class BaseController extends Controller
 
     public function testapi()
     {
-        return view('frontend/livesearch');
+        $data['brands'] = Brands::all();
+        $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
+        return view('frontend/livesearch', $data);
     }
 
     public function api()
     {
-        $products = Product::getProducts();
-        //return response()->json(Product::getProducts());
-        return json_encode($products);
+        return response()->json(Product::getProducts());
     }
 }

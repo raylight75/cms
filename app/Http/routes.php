@@ -29,9 +29,9 @@ Route::get('/login', 'BaseController@userlogin');
 
 Route::get('items/search/{id}', 'BaseController@search');
 
-//Route::get('api', 'BaseController@api');
+Route::get('api', 'BaseController@api');
 
-//Route::get('testapi', 'BaseController@testapi');
+Route::get('testapi', 'BaseController@testapi');
 
 Route::get('/cache', 'BaseController@write');
 

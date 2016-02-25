@@ -18,7 +18,7 @@
 
                 <!-- TOVAR -->
                 <div ng-app="myApp" ng-controller="productCtrl">
-                    <h3>Type a letter in the input field:</h3>
+                    <h3>Type a letter:</h3>
                     <p><input type="text" ng-model="products"></p>
                     <div ng-repeat="row in items | toArray : false | filter:products | orderBy:orderProp | limitTo:latest"
                          class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-ss-12 padbot40">

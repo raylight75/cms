@@ -30,7 +30,7 @@
 
 <section class="shop">
     <div class="container">
-        @include('product/search', ['url'=>'/items/search/'.$menu[$parent]['id'].''])
+        @include('frontend/search', ['url'=>'/items/search/'.$menu[$parent]['id'].''])
     </div>
 </section>
 
@@ -44,9 +44,7 @@
 
             <!-- SIDEBAR -->
             <div id="sidebar" class="col-lg-3 col-md-3 col-sm-3 padbot50">
-
                 @include('frontend/shop_filter')
-
             </div>
             <!-- //SIDEBAR -->
 

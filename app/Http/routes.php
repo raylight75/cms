@@ -35,9 +35,9 @@ Route::get('testapi', 'BaseController@testapi');
 
 Route::get('/cache', 'BaseController@write');
 
-Route::resource('products','ProductController');
-
 Route::get('products/search', 'ProductController@search');
+
+Route::resource('products','ProductController');
 
 Route::controller('cart','CartController');
 

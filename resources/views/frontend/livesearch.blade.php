@@ -7,7 +7,6 @@
 
     <!-- CONTAINER -->
     <div class="container">
-        <h2><?= _('Featured products')?></h2>
 
         <!-- ROW -->
         <div class="row">
@@ -18,26 +17,28 @@
 
                 <!-- TOVAR -->
                 <div ng-app="myApp" ng-controller="productCtrl">
-                    <h3>Type a letter:</h3>
-                    <p><input type="text" ng-model="products"></p>
+                    <h2><?= _('Featured products')?></h2>
+                    <h3 >Type a letter:</h3>
+                    <p><input type="text" class="form-control" ng-model="products"></p>
                     <div ng-repeat="row in items | toArray : false | filter:products | orderBy:orderProp | limitTo:latest"
                          class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-ss-12 padbot40">
                         <div class="tovar_item">
                             <div class="tovar_img">
                                 <div class="tovar_img_wrapper" style="height: 370px;">
                                     <img class="img" src="{{ url('images/products') }}/@{{row.a_img}}" alt=""/>
-                                    <img class="img" src="{{ url('images/products') }}/@{{row.b_img}}" alt=""/>
+                                    <img class="img_h fancybox fancybox.ajax" href="{{ url('frame') }}/@{{row.product_id}}"
+                                         src="{{ url('images/products') }}/@{{row.b_img}}" alt=""/>
                                 </div>
                                 <div class="tovar_item_btns">
                                     <a class="open-project tovar_view"
-                                       href="">
+                                       href="{{ url() }}/@{{row.category.cat}}/@{{row.slug}}/@{{row.product_id}}">
                                         <span><?= _('product')?></span> <?= _('view')?></a>
-                                    <a class="add_bag" href=""><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="add_bag" href="{{ url('login') }}"><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                             </div>
                             <div class="tovar_description clearfix">
                                 <a class="tovar_title"
-                                   href="">@{{row.name}}</a>
+                                   href="{{ url() }}/@{{row.category.cat}}/@{{row.slug}}/@{{row.product_id}}">@{{row.name}}</a>
                             </div>
                         </div>
                     </div>

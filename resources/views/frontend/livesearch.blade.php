@@ -43,6 +43,9 @@
                             </div>
                         </div>
                     </div>
+                    {{-- <div class="col-lg-9 col-md-9">
+                    <button ng-click="loadMore()"  type="submit" class="btn btn-default">LOAD MORE</button><p></p>
+                        </div>--}}
                     {{--<button ng-click="loadMore()">add more</button>--}}
                     {{--<dir-pagination-controls
                             max-size="3"

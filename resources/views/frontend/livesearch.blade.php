@@ -20,8 +20,9 @@
                     <h2><?= _('Featured products')?></h2>
                     <h3 >Type a letter:</h3>
                     <p><input type="text" class="form-control" ng-model="products"></p>
-                    {{--<div dir-paginate="row in items | toArray : false | filter:products | orderBy:orderProp | limitTo:latest | itemsPerPage:3"--}}
-                    <div ng-repeat="row in items | toArray : false | filter:products | orderBy:orderProp | limitTo:latest" {{-- limitTo:paginationLimit --}}
+                    {{-- PAGINATION <div dir-paginate="row in items | toArray : false | filter:products | orderBy:orderProp | limitTo:latest | itemsPerPage:3"--}}
+                    <div ng-repeat="row in items | toArray : false | filter:products | orderBy:orderProp | limitTo:latest"
+                    {{-- LOAD MORE limitTo:paginationLimit --}}
                          class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-ss-12 padbot40">
                         <div class="tovar_item">
                             <div class="tovar_img">
@@ -43,11 +44,10 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-lg-9 col-md-9">
+                    {{-- LOAD MORE <div class="col-lg-9 col-md-9">
                     <button ng-click="loadMore()"  type="submit" class="btn btn-default">LOAD MORE</button><p></p>
                         </div>--}}
-                    {{--<button ng-click="loadMore()">add more</button>--}}
-                    {{--<dir-pagination-controls
+                    {{-- PAGINATION <dir-pagination-controls
                             max-size="3"
                             direction-links="true"
                             boundary-links="true" >

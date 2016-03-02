@@ -21,7 +21,7 @@
                     <h3 >Type a letter:</h3>
                     <p><input type="text" class="form-control" ng-model="products"></p>
                     {{--<div dir-paginate="row in items | toArray : false | filter:products | orderBy:orderProp | limitTo:latest | itemsPerPage:3"--}}
-                    <div ng-repeat="row in items | toArray : false | filter:products | orderBy:orderProp | limitTo:latest"
+                    <div ng-repeat="row in items | toArray : false | filter:products | orderBy:orderProp | limitTo:latest" {{-- limitTo:paginationLimit --}}
                          class="col-lg-3 col-md-3 col-sm-4 col-xs-6 col-ss-12 padbot40">
                         <div class="tovar_item">
                             <div class="tovar_img">
@@ -43,6 +43,7 @@
                             </div>
                         </div>
                     </div>
+                    {{--<button ng-click="loadMore()">add more</button>--}}
                     {{--<dir-pagination-controls
                             max-size="3"
                             direction-links="true"

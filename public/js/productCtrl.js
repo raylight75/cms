@@ -2,9 +2,15 @@ var myApp = angular.module('myApp', ['angular-toArrayFilter','angularUtils.direc
 myApp.controller('productCtrl', function ($scope, $http) {
         $http.get("api").then(function (response) {
             console.log(response);
-            $scope.items = response.data;
+            $scope.array = response.data;
+            $scope.items = [];
+            angular.forEach($scope.array, function(key) {
+                $scope.items.push(key);
+            });
             $scope.orderProp = 'product_id';
             $scope.latest = 6;
+            //console.log($scope.items);
+            //$scope.items = response.data;//for toArrayFilter
             /*var pagesShown = 1;
             var pageSize = 3;
             $scope.paginationLimit = function(data) {

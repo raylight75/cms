@@ -20,6 +20,14 @@
                     <h2><?= _('Featured products')?></h2>
                     <h3 >Type a letter:</h3>
                     <p><input type="text" class="form-control" ng-model="products"></p>
+
+                    <!-- BANNER -->
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-ss-12">
+                        <a class="banner type3 margbot40" href="javascript:void(0);">
+                            <img src="{{ url('images/tovar') }}/banner3.jpg" alt=""/></a>
+                    </div>
+                    <!-- //BANNER -->
+
                     {{-- PAGINATION <div dir-paginate="row in items | filter:products | orderBy:orderProp | limitTo:latest | itemsPerPage:3"--}}
                     <div ng-repeat="row in items | filter:products | orderBy:orderProp | limitTo:latest"
                     {{-- | toArray : false --}}
@@ -57,13 +65,6 @@
                             <!-- //TOVAR -->
 
                 <div class="respond_clear_768"></div>
-
-                <!-- BANNER -->
-                <div class="col-lg-3 col-md-3 col-xs-6 col-ss-12">
-                    <a class="banner type3 margbot40" href="javascript:void(0);">
-                        <img src="{{ url('images/tovar') }}/banner3.jpg" alt=""/></a>
-                </div>
-                <!-- //BANNER -->
 
                 <!-- BANNER -->
                 <div class="col-lg-3 col-md-3 col-xs-6 col-ss-12">

@@ -11,7 +11,7 @@ myApp.controller('productCtrl', function ($scope, $http) {
             $scope.latest = 6;
             //console.log($scope.items);
             //$scope.items = response.data;//for toArrayFilter
-            /*var pagesShown = 1;
+            var pagesShown = 1;
             var pageSize = 3;
             $scope.paginationLimit = function(data) {
                 return pageSize * pagesShown;
@@ -21,7 +21,7 @@ myApp.controller('productCtrl', function ($scope, $http) {
             };
             $scope.loadMore = function() {
                 pagesShown = pagesShown + 1;
-            };*/
+            };
         });
     }
 );

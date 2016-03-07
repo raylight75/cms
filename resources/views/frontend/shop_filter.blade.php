@@ -60,8 +60,6 @@
                 .widget_color li a.color{{$row->colour_id}}
 					     {
                     background-color: {{$row->web}}
-
-
                 }
             </style>
         @endforeach

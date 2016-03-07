@@ -75,6 +75,7 @@ $(document).ready(function () {
  $("input[name=name]").on('change', function() {
  $("input[name=name]").not(this).prop('checked', false);
  });*/
+
 /* $(document).ready(function(){
  $("li.pagination a, li.prev a, li.next a, li.active a ").click(function() {
  $.ajax({

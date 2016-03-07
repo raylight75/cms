@@ -34,20 +34,17 @@ function getProducts(data, page) {
 $(document).ready(function () {
     function showValues() {
         var baseUrl = document.location.origin;
-        var url = $(this).attr('href');
-        console.log(url);
-        var segments = url.split( '/' );
-        var parentId = segments[3];
+        var url = $(location).attr('href');
+        var parentId = url.split( '/')[5].split('?').reverse()[1];
         var categ = '';
         var size = '';
+        var color = '';
         $("input:checkbox").each(function () {
             categ = $('input[name="categ[]"]:checked').serialize();
             size = $('input[name="size[]"]:checked').serialize();
+            color = $('input[name="color[]"]:checked').serialize();
         });
-        var main_string = categ+"&"+size;
-        //main_string = main_string.substring(1, main_string.length)
-        console.log(main_string);
-        console.log(parentId);
+        var main_string = categ+"&"+size+"&"+color;
 
         $.ajax({
             type: "GET",
@@ -61,7 +58,6 @@ $(document).ready(function () {
         });
     }
     $("input[type='checkbox']").on("click", showValues);
-    //console.log(categ);
 });
 //End checkbox filter
 /*$(function() {

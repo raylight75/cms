@@ -60,7 +60,7 @@ class ArticlesController extends Controller
         $grid->add('name', 'Name');
         //$grid->add('description', 'Description');
         $grid->add('brands.brand','Brand');
-        $grid->add('{{ implode(", ", $size->lists("size_id")->all()) }}','Sizes');
+        $grid->add('{{ implode(", ", $size->lists("size")->all()) }}','Sizes');
         $grid->add('<img src="/images/products/{{ $a_img }}" height="25" width="20">', 'Front');
         //$grid->add('<img src="/images/products/{{ $b_img }}"height="25" width="20">', 'Side');
         //$grid->add('<img src="/images/products/{{ $c_img }}"height="25" width="20">', 'Back');
@@ -82,7 +82,7 @@ class ArticlesController extends Controller
         $edit->add('name', 'Name', 'text')->rule('required|min:3');
         $edit->add('description','Description', 'redactor');
         $edit->add('brand_id','Brand','select')->options(Brands::lists("brand","brand_id")->all());
-        $edit->add('size.size_id','Size','tags');
+        $edit->add('size.size','Size','tags');
         $edit->add('a_img','Front', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
         //$edit->add('b_img','Side', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
         //$edit->add('c_img','Back', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);

@@ -1,4 +1,4 @@
-<?php $sizes_array = $checkbox->size->lists("size_id")->all(); ?>
+<?php $sizes_array = $checkbox->productsSizes->lists("size_id")->all(); ?>
 <div class="form-group">
     {!! Form::label('Slug', 'Slug:') !!}
     {!! Form::text('slug',null,['class'=>'form-control']) !!}

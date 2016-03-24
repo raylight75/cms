@@ -72,7 +72,7 @@
             <input type="checkbox" id="{{$row->brand}}" name="brand[]" value="{{$row->brand_id}}"
                     {{(in_array($row->brand_id, $brand)) ? 'checked="checked"' : ''}}/>
             <label for="{{$row->brand}}">{{$row->brand}}
-                <span>(<{{$row->brand_cnt}})</span>
+                <span>({{$row->brand_cnt}})</span>
             </label>
         @endforeach
     </div>

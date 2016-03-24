@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2016 at 11:26 AM
+-- Generation Time: Mar 24, 2016 at 11:00 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -1036,20 +1036,20 @@ INSERT INTO `products` (`product_id`, `slug`, `name`, `description`, `a_img`, `b
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productsize`
+-- Table structure for table `product_size`
 --
 
-CREATE TABLE IF NOT EXISTS `productsize` (
+CREATE TABLE IF NOT EXISTS `product_size` (
 `id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `size_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `productsize`
+-- Dumping data for table `product_size`
 --
 
-INSERT INTO `productsize` (`id`, `product_id`, `size_id`) VALUES
+INSERT INTO `product_size` (`id`, `product_id`, `size_id`) VALUES
 (1, 2, 3),
 (2, 2, 1),
 (3, 1, 2),
@@ -1072,7 +1072,6 @@ INSERT INTO `productsize` (`id`, `product_id`, `size_id`) VALUES
 (20, 8, 4),
 (21, 8, 6),
 (22, 8, 7),
-(23, 9, 6),
 (24, 10, 4),
 (25, 10, 1),
 (26, 10, 5),
@@ -1190,14 +1189,18 @@ INSERT INTO `productsize` (`id`, `product_id`, `size_id`) VALUES
 (140, 68, 3),
 (141, 68, 5),
 (142, 68, 2),
-(143, 69, 3),
-(144, 69, 5),
 (145, 70, 1),
 (146, 70, 5),
 (147, 70, 7),
 (151, 79, 1),
 (152, 79, 5),
-(153, 79, 7);
+(153, 79, 7),
+(154, 69, 3),
+(155, 69, 5),
+(156, 69, 7),
+(161, 9, 4),
+(162, 9, 6),
+(163, 9, 7);
 
 -- --------------------------------------------------------
 
@@ -1291,20 +1294,20 @@ INSERT INTO `shipping` (`id`, `method`, `img`, `rate`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `size`
+-- Table structure for table `sizes`
 --
 
-CREATE TABLE IF NOT EXISTS `size` (
+CREATE TABLE IF NOT EXISTS `sizes` (
 `id` int(11) NOT NULL,
   `size_id` int(11) NOT NULL,
   `size` varchar(32) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `size`
+-- Dumping data for table `sizes`
 --
 
-INSERT INTO `size` (`id`, `size_id`, `size`) VALUES
+INSERT INTO `sizes` (`id`, `size_id`, `size`) VALUES
 (1, 1, 'S'),
 (2, 2, 'XS'),
 (3, 3, 'M'),
@@ -1357,7 +1360,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Tihomir', 'admin', 'raylight75@gmail.com', '$2y$10$b17mr2swLgWrdJ2Mka6Ilegy0.kJPBgE1R/b1Y7Bsnc5VVBCDL.Rq', 'KyfPzuQEQ09ZZQBewp5AUtOEGjSdCDd75Ly7wMbfwhLgDjHyXrF22UtLlC9s', '2016-01-03 08:48:36', '2016-01-03 12:39:00'),
-(2, 'Ivan', 'user', 'tblajev@yahoo.com', '$2y$10$uQSDi6zBHxVU83adaZHjFOHqFAQWHZSPvNl6.R6EuOcRa30HlcUIi', 'EbKZ0Uko2hF2uOwMoNU68lvyIabdOqDkcQUwbfUpXuCVxk6yUni2oWwrEpTr', '2016-01-03 10:58:24', '2016-01-03 11:11:47');
+(2, 'Ivan', 'user', 'tblajev@yahoo.com', '$2y$10$uQSDi6zBHxVU83adaZHjFOHqFAQWHZSPvNl6.R6EuOcRa30HlcUIi', 'CKkzUknXdk7EzI50uApplA5RKZqNZBmiOyJP05tpQCEwckX21CqHN644HPgB', '2016-01-03 10:58:24', '2016-02-14 19:09:21');
 
 --
 -- Indexes for dumped tables
@@ -1490,9 +1493,9 @@ ALTER TABLE `products`
  ADD PRIMARY KEY (`product_id`), ADD KEY `fk_products_brand_idx` (`brand_id`), ADD KEY `fk_products_categories_idx` (`cat_id`);
 
 --
--- Indexes for table `productsize`
+-- Indexes for table `product_size`
 --
-ALTER TABLE `productsize`
+ALTER TABLE `product_size`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_productsize_size_idx` (`size_id`), ADD KEY `fk_productsize_products1_idx` (`product_id`);
 
 --
@@ -1520,9 +1523,9 @@ ALTER TABLE `shipping`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `size`
+-- Indexes for table `sizes`
 --
-ALTER TABLE `size`
+ALTER TABLE `sizes`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -1627,10 +1630,10 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=92;
 ALTER TABLE `products`
 MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=80;
 --
--- AUTO_INCREMENT for table `productsize`
+-- AUTO_INCREMENT for table `product_size`
 --
-ALTER TABLE `productsize`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=154;
+ALTER TABLE `product_size`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=164;
 --
 -- AUTO_INCREMENT for table `roles`
 --
@@ -1652,9 +1655,9 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 ALTER TABLE `shipping`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `size`
+-- AUTO_INCREMENT for table `sizes`
 --
-ALTER TABLE `size`
+ALTER TABLE `sizes`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `taxes`
@@ -1705,10 +1708,10 @@ ADD CONSTRAINT `fk_products_brand` FOREIGN KEY (`brand_id`) REFERENCES `brand` (
 ADD CONSTRAINT `fk_products_categories` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`cat_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `productsize`
+-- Constraints for table `product_size`
 --
-ALTER TABLE `productsize`
-ADD CONSTRAINT `productsize_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `product_size`
+ADD CONSTRAINT `product_size_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `role_user`

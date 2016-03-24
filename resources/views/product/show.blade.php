@@ -48,7 +48,7 @@
             <label for="publisher" class="col-sm-2 control-label">Size</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="publisher"
-                       placeholder={{implode(",", $product->size->lists("size_id")->all())}} readonly>
+                       placeholder={{implode(",", $product->productsSizes->lists("size_id")->all())}} readonly>
             </div>
         </div>
         <div class="form-group">

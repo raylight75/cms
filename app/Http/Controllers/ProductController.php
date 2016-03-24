@@ -6,8 +6,8 @@ use App\Http\Requests\CreateProduct;
 use App\Http\Requests;
 use App\Models\Brands;
 use App\Models\Product;
-use App\Models\Psize;
 use App\Models\Size;
+use App\Models\Products_sizes;
 use Illuminate\Support\Facades\Session;
 use Request;
 
@@ -49,7 +49,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('brands', 'size')->get();
+        $products = Product::with('brands', 'productsSizes')->get();
         $products = Product::paginate(10);
         return view('product.index', compact('products'));
     }
@@ -62,8 +62,8 @@ class ProductController extends Controller
     public function create()
     {
         $data['brands'] = Brands::lists('brand', 'brand_id');
-        $data['checkbox'] = Psize::all();
-        $data['product'] = Product::with('size')->get();
+        $data['checkbox'] = Size::all();
+        $data['product'] = Product::with('productsSizes')->get();
         return view('product.create', $data);
     }
 
@@ -79,8 +79,8 @@ class ProductController extends Controller
         $product = Product::create($data);
         $product->brands->save($data);
         foreach ($data['size_id'] as $value) {
-            $product->size()->saveMany([
-                new Size(['size_id' => $value,]),
+            $product->productsSizes()->saveMany([
+                new Products_sizes(['size_id' => $value,]),
             ]);
         }
         Session::flash('flash_message', 'Product successfully added!');
@@ -95,7 +95,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::with('brands', 'size')->find($id);
+        $product = Product::with('brands', 'productsSizes')->find($id);
         return view('product.show', compact('product'));
     }
 
@@ -109,9 +109,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         $data['brands'] = Brands::lists('brand', 'brand_id');
-        $data['sizes'] = Psize::all();
+        $data['sizes'] = Size::all();
         $data['product'] = Product::all()->find($id);
-        $data['checkbox'] = Product::with('size')->find($id);
+        $data['checkbox'] = Product::with('productsSizes')->find($id);
         return view('product.edit', $data);
     }
 
@@ -128,10 +128,10 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->update($data);
         $product->brands->save($data);
-        $product->size()->delete();
+        $product->productsSizes()->delete();
         foreach ($data['size_id'] as $value) {
-            $product->size()->saveMany([
-                new Size(['size_id' => $value,]),
+            $product->productsSizes()->saveMany([
+                new Products_sizes(['size_id' => $value,]),
             ]);
         }
         Session::flash('flash_message', 'Product successfully updated!');

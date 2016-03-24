@@ -30,7 +30,7 @@
                 <td>{{ $p->slug }}</td>
                 <td>{{ $p->name}}</td>
                 <td>{{ $p->brands->brand }}</td>
-                <td>{{implode(",", $p->size->lists("size_id")->all())}}</td>
+                <td>{{implode(",", $p->productsSizes->lists("size_id")->all())}}</td>
                 <td>{{ $p->cat_id }}</td>
                 <td>{{ $p->quantity }}</td>
                 <td>{{ $p->price }}</td>

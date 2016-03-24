@@ -48,7 +48,7 @@
                 <p class="pull-left"><?= _('Available SIZE')?></p>
                 <span><?= _('Size & Fit')?></span>
             </div>
-            @foreach($item->size as $s)
+            @foreach($item->productsSizes as $s)
                 <a class="sizeXXXL">{{$s->size_id}}</a>
             @endforeach
         </div>

@@ -105,7 +105,7 @@ class BaseController extends Controller
     {
         $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
         $data['products'] = Product::getProducts();
-        $data['item'] = Product::with('category', 'size', 'color')->find($id);
+        $data['item'] = Product::with('category', 'productsSizes', 'color')->find($id);
         return view('frontend/product_page', $data);
     }
 
@@ -116,7 +116,7 @@ class BaseController extends Controller
      */
     public function frame($id)
     {
-        $data['item'] = Product::with('category', 'size', 'color')->find($id);
+        $data['item'] = Product::with('category', 'productsSizes', 'color')->find($id);
         return view('frontend/frame', $data);
     }
 

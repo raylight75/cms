@@ -40,7 +40,7 @@
                 <p class="pull-left"><?= _('Available SIZE')?></p>
                 <span><?= _('Size & Fit')?></span>
             </div>
-            @foreach($item->size as $s)
+            @foreach($item->productsSizes as $s)
                 <a class="sizeXXXL">{{$s->size_id}}</a>
             @endforeach
         </div>
@@ -60,7 +60,7 @@
             </select>
             <select name="size" class="basic">
                 <option value=""><?= _('SIZE')?></option>
-                @foreach($item->size as $s)
+                @foreach($item->productsSizes as $s)
                     <option value="{{$s->size_id}}">{{$s->size_id}}</option>
                 @endforeach
             </select>

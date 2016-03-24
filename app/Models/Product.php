@@ -79,20 +79,20 @@ class Product extends Model
         return $this->hasOne('App\Models\Category', 'cat_id', 'cat_id');
     }
 
+    public function productsSizes()
+    {
+        return $this->hasMany('App\Models\Products_sizes');
+    }
+
     public function size()
     {
-        return $this->hasMany('App\Models\Size');
+        return $this->belongsToMany('App\Models\Size');
     }
 
     public function color()
     {
         return $this->hasMany('App\Models\Color');
     }
-
-    /*public function productsize()
-    {
-        return $this->belongsTo('App\Models\Size');
-    }*/
 
     /**
      * @param $parent_id
@@ -134,7 +134,7 @@ class Product extends Model
                             AND products.parent_id = "' . $parent . '") as color_cnt';
         $result = DB::table('brand')
             ->select(array('*', DB::raw($sqla), DB::raw($sqlb)))
-            ->leftJoin('size', 'brand.brand_id', '=', 'size.size_id')
+            ->leftJoin('sizes', 'brand.brand_id', '=', 'sizes.size_id')
             ->leftJoin('colour', 'brand.brand_id', '=', 'colour.colour_id')
             ->get();
         $data['brand'] = array();
@@ -154,7 +154,7 @@ class Product extends Model
      */
     public static function pagination($parent)
     {
-        $query = Product::whereHas('size', function ($q) {
+        $query = Product::whereHas('productsSizes', function ($q) {
             if (!empty(Request::input('size'))) {
                 $sizes = Request::input('size');
                 $q->whereIn('size_id', $sizes);

@@ -11,7 +11,7 @@ class Size extends Model
      *
      * @var string
      */
-    protected $table = 'productsize';
+    protected $table = 'sizes';
 
     /**
      * The attributes that are mass assignable.
@@ -19,9 +19,10 @@ class Size extends Model
      * @var array
      */
 
+    protected $primaryKey = 'size_id';
+
     protected $fillable = [
-        'product_id',
-        'size_id',
+        'size',
     ];
 
     /**
@@ -31,9 +32,4 @@ class Size extends Model
      */
 
     public $timestamps = false;
-
-    public function product()
-    {
-        return $this->belongsTo('App\Models\Product');
-    }
 }

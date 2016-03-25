@@ -20,7 +20,7 @@
 </div>
 <div class="form-group">
     @foreach ($checkbox as $s)
-        {!! Form::label($s->size_id,$s->size_id) !!}
+        {!! Form::label($s->size_id,$s->size) !!}
         {!! Form::checkbox( 'size[]',$s->size_id, null,['id' => $s['size_id'],'class' => 'md-check'])!!}
     @endforeach
 </div>

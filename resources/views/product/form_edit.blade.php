@@ -1,4 +1,4 @@
-<?php $sizes_array = $checkbox->productsSizes->lists("size_id")->all(); ?>
+<?php $sizes_array = $checkbox->size->lists("size_id")->all(); ?>
 <div class="form-group">
     {!! Form::label('Slug', 'Slug:') !!}
     {!! Form::text('slug',null,['class'=>'form-control']) !!}
@@ -21,7 +21,7 @@
 </div>
 <div class="form-group">
         @foreach ($sizes as $s)
-            {!! Form::label($s->size_id,$s->size_id) !!}
+            {!! Form::label($s->size,$s->size) !!}
             {!! Form::checkbox( 'size[]',$s->size_id, in_array($s->size_id, $sizes_array),['id' => $s['size_id'],'class' => 'md-check'])!!}
         @endforeach
 </div>

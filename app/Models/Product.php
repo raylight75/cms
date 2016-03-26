@@ -69,6 +69,10 @@ class Product extends Model
 
     public $timestamps = false;
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * Just example with singular name of the method
+     */
     public function brands()
     {
         return $this->hasOne('App\Models\Brands', 'brand_id', 'brand_id');

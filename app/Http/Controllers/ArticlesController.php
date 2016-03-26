@@ -53,7 +53,16 @@ class ArticlesController extends Controller
      */
     public function getIndex()
     {
-        $grid = DataGrid::source(Product::with('brands','size'));
+        $filter = \DataFilter::source(Product::with('brands','size'));
+        $filter->add('product_id','ID', 'text');
+        $filter->add('name','Name', 'text');
+        $filter->add('brands.brand','Brand', 'text');
+        $filter->add('price', 'Price','text');
+        $filter->submit('search');
+        $filter->reset('reset');
+        $filter->build();
+
+        $grid = DataGrid::source($filter);
         $grid->attributes(array("class" => "table table-striped"));
         $grid->add('product_id', 'ID', true)->style("width:100px");
         $grid->add('slug', 'Slug');
@@ -70,7 +79,7 @@ class ArticlesController extends Controller
         $grid->link('/articles/edit', "New Articles", "TR");
         $grid->orderBy('product_id', 'asc');
         $grid->paginate(10);
-        return view('grid', compact('grid'));
+        return view('grid', compact('filter','grid'));
     }
 
     public function anyEdit()

@@ -7,7 +7,6 @@ use App\Http\Requests;
 use App\Models\Brands;
 use App\Models\Product;
 use App\Models\Size;
-use App\Models\Products_sizes;
 use Illuminate\Support\Facades\Session;
 use Request;
 
@@ -78,11 +77,7 @@ class ProductController extends Controller
         $data = $this->proccesData($request);
         $product = Product::create($data);
         $product->brands->save($data);
-        foreach ($data['size_id'] as $value) {
-            $product->productsSizes()->saveMany([
-                new Products_sizes(['size_id' => $value,]),
-            ]);
-        }
+        $product->size()->attach($data['size_id']);
         Session::flash('flash_message', 'Product successfully added!');
         return redirect()->back();
     }
@@ -108,7 +103,7 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $data['brands'] = Brands::lists('brand', 'brand_id');
+        $data['brands'] = Brands::lists('brand','brand_id');
         $data['sizes'] = Size::all();
         $data['product'] = Product::all()->find($id);
         $data['checkbox'] = Product::with('size')->find($id);
@@ -128,12 +123,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->update($data);
         $product->brands->save($data);
-        $product->productsSizes()->delete();
-        foreach ($data['size_id'] as $value) {
-            $product->productsSizes()->saveMany([
-                new Products_sizes(['size_id' => $value,]),
-            ]);
-        }
+        $product->size()->sync($data['size_id']);
         Session::flash('flash_message', 'Product successfully updated!');
         return redirect()->back();
     }
@@ -146,7 +136,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::findOrFail($id)->delete();
+        $product = Product::findOrFail($id)->delete();
+        //Without database OnDdelete Cascade
+        //$product->size()->detach($id);
         Session::flash('flash_message', 'Product successfully deleted!');
         return redirect()->back();
     }

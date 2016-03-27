@@ -6,7 +6,7 @@
             float: left;
         }
     </style>
-    <h1>Book Show</h1>
+    <h1>Show Products</h1>
     <form class="form-horizontal">
         <ul>
             <label for="image" class="col-sm-2 control-label">Front Image</label>

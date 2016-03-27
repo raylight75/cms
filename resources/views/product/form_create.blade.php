@@ -14,6 +14,9 @@
     {!! Form::label('Image') !!}
     {!! Form::file('a_img', null) !!}
 </div>
+@foreach ($products as $p)
+    <?php $brands = $p->brands->lists('brand', 'brand_id') ?>
+@endforeach
 <div class="form-group">
     {!! Form::label('Brand', 'Brand:') !!}
     {!! Form::select('brand_id', $brands, null, ['id' => 'brand_id','class'=>'form-control'])!!}

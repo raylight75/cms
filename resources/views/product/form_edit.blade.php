@@ -1,4 +1,3 @@
-<?php $sizes_array = $checkbox->size->lists("size_id")->all(); ?>
 <div class="form-group">
     {!! Form::label('Slug', 'Slug:') !!}
     {!! Form::text('slug',null,['class'=>'form-control']) !!}
@@ -15,15 +14,18 @@
     {!! Form::label('Image') !!}
     {!! Form::file('a_img', null) !!}
 </div>
+<?php $sizes_array = $product->size->lists("size_id")->all();
+$brands = $product->brands->lists('brand', 'brand_id');
+?>
 <div class="form-group">
     {!! Form::label('Brand', 'Brand:') !!}
     {!! Form::select('brand_id', $brands, null, ['id' => 'brand_id','class'=>'form-control'])!!}
 </div>
 <div class="form-group">
-        @foreach ($sizes as $s)
-            {!! Form::label($s->size,$s->size) !!}
-            {!! Form::checkbox( 'size[]',$s->size_id, in_array($s->size_id, $sizes_array),['id' => $s['size_id'],'class' => 'md-check'])!!}
-        @endforeach
+    @foreach ($checkbox as $s)
+        {!! Form::label($s->size,$s->size) !!}
+        {!! Form::checkbox( 'size[]',$s->size_id, in_array($s->size_id, $sizes_array),['id' => $s['size_id'],'class' => 'md-check'])!!}
+    @endforeach
 </div>
 <div class="form-group">
     {!! Form::label('Category', 'Category:') !!}

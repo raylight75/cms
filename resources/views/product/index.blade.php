@@ -35,9 +35,9 @@
                 <td>{{ $p->quantity }}</td>
                 <td>{{ $p->price }}</td>
 
-                <td><img src="{{asset('images/products/'.$p->a_img)}}" height="35" width="30"></td>
-                <td><img src="{{asset('images/products/'.$p->b_img)}}" height="35" width="30"></td>
-                <td><img src="{{asset('images/products/'.$p->c_img)}}" height="35" width="30"></td>
+                <td><img src="{{asset('images/products/'.$p->a_img)}}" height="35" width="25"></td>
+                <td><img src="{{asset('images/products/'.$p->b_img)}}" height="35" width="25"></td>
+                <td><img src="{{asset('images/products/'.$p->c_img)}}" height="35" width="25"></td>
                 <td><a href="{{url('products',$p->product_id)}}" class="btn btn-primary">Read</a></td>
                 <td><a href="{{route('products.edit',$p->product_id)}}" class="btn btn-warning">Update</a></td>
                 <td>

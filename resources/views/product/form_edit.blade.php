@@ -12,6 +12,12 @@
 </div>
 <div class="form-group">
     {!! Form::label('Image') !!}
+    @if($product->a_img)
+        <a class="thumbnail">
+            <img class="img-responsive" src="{{asset('images/products/'.$product->a_img)}}"
+                 height="45" width="35" alt="{{$product->a_img}}">
+        </a>
+    @endif
     {!! Form::file('a_img', null) !!}
 </div>
 <?php $sizes_array = $product->size->lists("size_id")->all();

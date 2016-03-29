@@ -28,7 +28,6 @@ class CreateProduct extends Request
             'slug' => 'required',
             'name' => 'required',
             'description' => 'required',
-            'a_img' => 'required',
             'brand_id' => 'required',
             'cat_id' => 'required',
             'quantity' => 'required',

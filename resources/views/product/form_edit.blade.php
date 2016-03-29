@@ -19,6 +19,7 @@
         </a>
     @endif
     {!! Form::file('a_img', null) !!}
+    {!! Form::hidden('old_img', $product->a_img) !!}
 </div>
 <?php $sizes_array = $product->size->lists("size_id")->all();
 $brands = $product->brands->lists('brand', 'brand_id');

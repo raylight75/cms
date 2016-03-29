@@ -148,13 +148,15 @@ class ProductController extends Controller
      */
     public function proccesData($request)
     {
-        $destinationPath = base_path() . '/public/images/';
-        $fileName = $request->file('a_img')->getClientOriginalName();
-        $request->file('a_img')->move($destinationPath, $fileName);
         $data = $request->except('a_img', 'brands');
         $data['brand_id'] = $request->input('brand_id');
         $data['size_id'] = $request->input('size');
-        $data['a_img'] = $request->file('a_img')->getClientOriginalName();
+        if ($request->hasFile('a_img')) {
+            $destinationPath = base_path() . '/public/images/';
+            $fileName = $request->file('a_img')->getClientOriginalName();
+            $request->file('a_img')->move($destinationPath, $fileName);
+            $data['a_img'] = $request->file('a_img')->getClientOriginalName();
+        }
         return $data;
     }
 

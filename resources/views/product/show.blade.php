@@ -39,28 +39,36 @@
             <label for="title" class="col-sm-2 control-label">Slug</label>
 
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="title" placeholder={{$product->slug}} readonly>
+                <input type="text" class="form-control" placeholder={{$product->slug}} readonly>
             </div>
         </div>
         <div class="form-group">
             <label for="author" class="col-sm-2 control-label">Name</label>
 
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="author" placeholder={{$product->name}} readonly>
+                <input type="text" class="form-control" placeholder={{$product->name}} readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="author" class="col-sm-2 control-label">Description</label>
+
+            <div class="col-sm-10">
+                <textarea class="form-control" placeholder="{{$product->description}}" rows="7"
+                          id="comment" readonly></textarea>
             </div>
         </div>
         <div class="form-group">
             <label for="publisher" class="col-sm-2 control-label">Brand</label>
 
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="publisher" placeholder={{$product->brands->brand}} readonly>
+                <input type="text" class="form-control" placeholder={{$product->brands->brand}} readonly>
             </div>
         </div>
         <div class="form-group">
             <label for="publisher" class="col-sm-2 control-label">Size</label>
 
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="publisher"
+                <input type="text" class="form-control"
                        placeholder={{implode(",", $product->size->lists("size")->all())}} readonly>
             </div>
         </div>
@@ -68,24 +76,23 @@
             <label for="publisher" class="col-sm-2 control-label">Category</label>
 
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="publisher" placeholder={{$product->cat_id}} readonly>
+                <input type="text" class="form-control" placeholder={{$product->cat_id}} readonly>
             </div>
         </div>
         <div class="form-group">
             <label for="publisher" class="col-sm-2 control-label">Quantity</label>
 
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="publisher" placeholder={{$product->quantity}} readonly>
+                <input type="text" class="form-control" placeholder={{$product->quantity}} readonly>
             </div>
         </div>
         <div class="form-group">
             <label for="publisher" class="col-sm-2 control-label">Price</label>
 
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="publisher" placeholder={{$product->price}} readonly>
+                <input type="text" class="form-control" placeholder={{$product->price}} readonly>
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <a href="{{ url('products')}}" class="btn btn-primary">Back</a>

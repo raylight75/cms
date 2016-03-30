@@ -1,4 +1,7 @@
 <div class="form-group">
+    <a href="{{ url('products')}}" class="btn btn-primary">Back</a>
+</div>
+<div class="form-group">
     {!! Form::label('Slug', 'Slug:') !!}
     {!! Form::text('slug',null,['class'=>'form-control']) !!}
 </div>

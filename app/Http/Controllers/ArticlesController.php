@@ -68,7 +68,6 @@ class ArticlesController extends Controller
         $grid->add('product_id', 'ID', true)->style("width:100px");
         $grid->add('slug', 'Slug');
         $grid->add('name', 'Name');
-        //$grid->add('description', 'Description');
         $grid->add('brands.brand','Brand');
         $grid->add('category.cat','Category');
         $grid->add('{{ implode(", ", $size->lists("size")->all()) }}','Sizes');

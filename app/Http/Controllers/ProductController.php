@@ -75,8 +75,6 @@ class ProductController extends Controller
     {
         $data = $this->proccesData($request);
         $product = Product::create($data);
-        $product->brands->save($data);
-        $product->category->save($data);
         $product->size()->attach($data['size_id']);
         Session::flash('flash_message', 'Product successfully added!');
         return redirect()->back();
@@ -120,8 +118,6 @@ class ProductController extends Controller
         $data = $this->proccesData($request);
         $product = Product::find($id);
         $product->update($data);
-        $product->brands->save($data);
-        $product->category->save($data);
         $product->size()->sync($data['size_id']);
         Session::flash('flash_message', 'Product successfully updated!');
         return redirect()->back();
@@ -150,7 +146,7 @@ class ProductController extends Controller
      */
     public function proccesData($request)
     {
-        $data = $request->except('a_img');
+        $data = $request->except('a_img','size');
         $data['size_id'] = $request->input('size');
         if ($request->hasFile('a_img')) {
             $destinationPath = base_path() . '/public/images/products';

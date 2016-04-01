@@ -40,8 +40,8 @@
                 <p class="pull-left"><?= _('Available SIZE')?></p>
                 <span><?= _('Size & Fit')?></span>
             </div>
-            @foreach($item->productsSizes as $s)
-                <a class="sizeXXXL">{{$s->size_id}}</a>
+            @foreach($item->size as $s)
+                <a class="sizeXXXL">{{$s->size}}</a>
             @endforeach
         </div>
         <div class="tovar_view_btn">
@@ -60,8 +60,8 @@
             </select>
             <select name="size" class="basic">
                 <option value=""><?= _('SIZE')?></option>
-                @foreach($item->productsSizes as $s)
-                    <option value="{{$s->size_id}}">{{$s->size_id}}</option>
+                @foreach($item->size as $s)
+                    <option value="{{$s->size_id}}">{{$s->size}}</option>
                 @endforeach
             </select>
             <input type="text" name="qty" value="QTY" id=""

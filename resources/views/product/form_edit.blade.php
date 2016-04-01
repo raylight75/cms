@@ -37,9 +37,12 @@ $brands = $product->brands->lists('brand', 'brand_id');
         {!! Form::checkbox( 'size[]',$s->size_id, in_array($s->size_id, $sizes_array),['id' => $s['size_id'],'class' => 'md-check'])!!}
     @endforeach
 </div>
+<?php $sizes_array = $product->category->lists("cat_id")->all();
+$category = $product->category->lists('cat', 'cat_id');
+?>
 <div class="form-group">
     {!! Form::label('Category', 'Category:') !!}
-    {!! Form::text('cat_id',null,['class'=>'form-control']) !!}
+    {!! Form::select('cat_id', $category, null, ['id' => 'cat_id','class'=>'form-control'])!!}
 </div>
 <div class="form-group">
     {!! Form::label('Quantity', 'Quantity:') !!}

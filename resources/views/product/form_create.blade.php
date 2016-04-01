@@ -30,9 +30,12 @@
         {!! Form::checkbox( 'size[]',$s->size_id, null,['id' => $s['size_id'],'class' => 'md-check'])!!}
     @endforeach
 </div>
+@foreach ($products as $p)
+    <?php $category = $p->category->lists('cat', 'cat_id') ?>
+@endforeach
 <div class="form-group">
     {!! Form::label('Category', 'Category:') !!}
-    {!! Form::text('cat_id',null,['class'=>'form-control']) !!}
+    {!! Form::select('cat_id', $category, null, ['id' => 'cat_id','class'=>'form-control'])!!}
 </div>
 <div class="form-group">
     {!! Form::label('Quantity', 'Quantity:') !!}

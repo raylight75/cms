@@ -31,7 +31,7 @@
                 <td>{{ $p->name}}</td>
                 <td>{{ $p->brands->brand }}</td>
                 <td>{{implode(",", $p->size->lists("size")->all())}}</td>
-                <td>{{ $p->cat_id }}</td>
+                <td>{{ $p->category->cat }}</td>
                 <td>{{ $p->quantity }}</td>
                 <td>{{ $p->price }}</td>
 

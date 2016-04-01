@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('Category', 'Category:') !!}
-        {!! Form::text('cat_id',$product->cat_id,['class'=>'form-control', 'readonly' => 'true']) !!}
+        {!! Form::text('cat_id',$product->category->cat,['class'=>'form-control', 'readonly' => 'true']) !!}
     </div>
     <div class="form-group">
         {!! Form::label('Quantity', 'Quantity:') !!}

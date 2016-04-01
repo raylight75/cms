@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Brands;
 use Validator, Input, Redirect;
@@ -53,7 +54,7 @@ class ArticlesController extends Controller
      */
     public function getIndex()
     {
-        $filter = \DataFilter::source(Product::with('brands','size'));
+        $filter = \DataFilter::source(Product::with('brands','size','category'));
         $filter->add('product_id','ID', 'text');
         $filter->add('name','Name', 'text');
         $filter->add('brands.brand','Brand', 'text');
@@ -69,6 +70,7 @@ class ArticlesController extends Controller
         $grid->add('name', 'Name');
         //$grid->add('description', 'Description');
         $grid->add('brands.brand','Brand');
+        $grid->add('category.cat','Category');
         $grid->add('{{ implode(", ", $size->lists("size")->all()) }}','Sizes');
         $grid->add('<img src="/images/products/{{ $a_img }}" height="25" width="20">', 'Front');
         //$grid->add('<img src="/images/products/{{ $b_img }}"height="25" width="20">', 'Side');
@@ -91,6 +93,7 @@ class ArticlesController extends Controller
         $edit->add('name', 'Name', 'text')->rule('required|min:3');
         $edit->add('description','Description', 'redactor');
         $edit->add('brand_id','Brand','select')->options(Brands::lists("brand","brand_id")->all());
+        $edit->add('cat_id','Category','select')->options(Category::lists("cat","cat_id")->all());
         $edit->add('size.size','Size','tags');
         $edit->add('a_img','Front', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
         //$edit->add('b_img','Side', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);

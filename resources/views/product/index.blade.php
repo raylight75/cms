@@ -1,10 +1,12 @@
-@extends('layout/template')
+@extends('product.template')
 @section('content')
     @include('messages/flash_message')
     <h1>Products Store</h1>
     <a href="{{url('/products/create')}}" class="btn btn-success">Create Product</a>
     <hr>
-    @include('product/search', ['url'=>'/products/search'])
+    <div class="row">
+        @include('product/search', ['url'=>'/products/search'])
+    </div>
     <table class="table table-striped table-bordered table-hover">
         <thead>
         <tr class="bg-info">

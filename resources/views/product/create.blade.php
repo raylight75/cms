@@ -1,4 +1,4 @@
-@extends('layout.template')
+@extends('product.template')
 @section('content')
     @include('messages/flash_message')
     <h1>Create Product</h1>

@@ -15,13 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('home', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 
 Route::get('/aboutus', 'BaseController@aboutus');
 
 Route::get('/cms', 'BaseController@index');
 
 Route::get('/contacts', 'BaseController@contacts');
+
+Route::get('/welcome', 'BaseController@welcome');
 
 Route::get('/frame/{id}', 'BaseController@frame');
 
@@ -36,6 +38,8 @@ Route::get('frontpage', 'ApiController@index');
 Route::get('/cache', 'BaseController@write');
 
 Route::get('products/search', 'ProductController@search');
+
+Route::get('backend', 'BackendController@index');
 
 Route::resource('products','ProductController');
 

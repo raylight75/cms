@@ -1,4 +1,4 @@
-@extends('layout/template')
+@extends('product.template')
 @section('content')
     <h1>Show Products</h1>
     <div class="form-group">

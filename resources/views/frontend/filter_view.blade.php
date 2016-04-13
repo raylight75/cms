@@ -1,4 +1,4 @@
-@extends('frontend.main')
+@extends('frontend.master')
 @section('content')
         <!-- BREADCRUMBS -->
 <section

@@ -7,6 +7,7 @@ use App\Models\Brands;
 use App\Models\Product;
 use Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use Auth, View;
 use DB;
 
@@ -145,11 +146,12 @@ class BaseController extends Controller
         return view('frontend/login');
     }
 
-    public function testapi()
+    public function welcome()
     {
-        $data['brands'] = Brands::all();
-        $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
-        return view('frontend/livesearch', $data);
+        //redirect trait AuthenticatesUsers getLogout()
+        $user = Auth::user()->name;
+        Session::flash('flash_message', 'You have been successfully Logged In!');
+        return view('messages/welcome')->with('user',$user);
     }
 
     public function api()

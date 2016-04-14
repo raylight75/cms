@@ -45,7 +45,7 @@ class AdminMiddleware
             {
             if (!$request->user()->hasRole($role))
             {
-                return response('Unauthorized.', 401);
+                return response()->view('errors.401', [],401);
             }
                 return $next($request);
             }            

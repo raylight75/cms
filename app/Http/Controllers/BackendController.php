@@ -48,6 +48,7 @@ class BackendController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('admin:admin');
         $data = Product::prepareGlobalData();
         View::share($data);
     }

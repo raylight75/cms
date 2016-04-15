@@ -41,6 +41,7 @@ Route::get('products/search', 'ProductController@search');
 
 Route::group(['prefix' => 'backend','middleware' => 'admin:admin'], function () {
     Route::get('/', 'BackendController@index');
+	Route::get('products', 'BackendController@products');
 });
 
 Route::resource('products', 'ProductController');

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Flat Admin</title>
+    <title>Admin Backend</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>

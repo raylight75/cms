@@ -39,7 +39,7 @@ class AdminMiddleware
         {
             if ($this->auth->guest())
             {
-                return redirect()->guest('auth/login');
+                return redirect()->guest('login');
             }
             else
             {

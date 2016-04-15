@@ -39,19 +39,21 @@ Route::get('/cache', 'BaseController@write');
 
 Route::get('products/search', 'ProductController@search');
 
-Route::get('backend', 'BackendController@index');
+Route::group(['prefix' => 'backend','middleware' => 'admin:admin'], function () {
+    Route::get('/', 'BackendController@index');
+});
 
-Route::resource('products','ProductController');
+Route::resource('products', 'ProductController');
 
-Route::controller('cart','CartController');
+Route::controller('cart', 'CartController');
 
 Route::controller('articles', 'ArticlesController');
 
 Route::get('/filter/{slug}/{id}', 'BaseController@filter');
 
 Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
 ]);
 
 Routers::registerRoutes();

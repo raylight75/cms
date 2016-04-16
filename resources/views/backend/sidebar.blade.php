@@ -4,19 +4,19 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
                     <div class="icon fa fa-paper-plane"></div>
-                    <div class="title">Admin Backend</div>
+                    <div class="title">Menu Backend</div>
                 </a>
                 <button type="button" class="navbar-expand-toggle pull-right visible-xs">
                     <i class="fa fa-times icon"></i>
                 </button>
             </div>
             <ul class="nav navbar-nav">
-                <li>
+                <li class="menu">
                     <a href="{{ url('backend') }}">
                         <span class="icon fa fa-tachometer"></span><span class="title">Dashboard</span>
                     </a>
                 </li>
-                <li {{ Request::is('backend/products') ? 'class=active' : '' }} class="panel panel-default dropdown">
+                <li class=" {{ Request::is('backend/products') ? 'active' : '' }} panel panel-default dropdown">
                     <a data-toggle="collapse" href="#dropdown-table">
                         <span class="icon fa fa-table"></span><span class="title">Products</span>
                     </a>
@@ -39,7 +39,7 @@
     $(function() {
         var url = window.location.href;
         console.log(url)
-        $('a[href="'+url+'"]').parent('.nav li').addClass('active');
+        $('a[href="'+url+'"]').parent('ul .menu').addClass('active');
         //$('a[href="'+url+'"]').addClass('active');
     });
 </script>

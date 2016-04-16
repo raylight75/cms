@@ -17,6 +17,8 @@
 
     <!-- SCRIPTS -->
     <script src="{{ asset('/js/jquery.min.js') }}" type="text/javascript"></script>
+    {!! Rapyd::styles(false) !!}
+    {!! Rapyd::head() !!}
 
 </head>
 
@@ -27,10 +29,10 @@
         @include('backend.sidebar')
         @yield('content')
     </div>
+    <!-- FOOTER -->
+    @include('backend.footer')
+            <!-- //FOOTER -->
 </div>
-<!-- FOOTER -->
-@include('backend.footer')
-        <!-- //FOOTER -->
 </body>
 
 </html>

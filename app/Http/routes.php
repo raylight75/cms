@@ -39,16 +39,14 @@ Route::get('/cache', 'BaseController@write');
 
 Route::get('products/search', 'ProductController@search');
 
-Route::group(['prefix' => 'backend','middleware' => 'admin:admin'], function () {
+Route::group(['prefix' => 'backend', 'middleware' => 'admin:admin'], function () {
     Route::get('/', 'BackendController@index');
-	Route::get('products', 'BackendController@products');
+    Route::controller('products', 'BackendController');
 });
 
 Route::resource('products', 'ProductController');
 
 Route::controller('cart', 'CartController');
-
-Route::controller('articles', 'ArticlesController');
 
 Route::get('/filter/{slug}/{id}', 'BaseController@filter');
 

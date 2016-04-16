@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Brands;
 use Request;
 use Auth, View;
 use DB;
+use Validator, Input, Redirect;
+use Zofe\Rapyd\Facades\DataGrid;
+use Zofe\Rapyd\Facades\DataEdit;
 
 class BackendController extends Controller
 {
@@ -60,13 +65,59 @@ class BackendController extends Controller
 
     public function index()
     {
-        $user = Auth::user()->name;
         return view('backend/dashboard');
     }
 
-    public function products()
+    public function getIndex()
     {
-        $user = Auth::user()->name;
-        return view('backend/tables');
+        $filter = \DataFilter::source(Product::with('brands','size','category'));
+        $filter->add('product_id','ID', 'text');
+        $filter->add('name','Name', 'text');
+        $filter->add('brands.brand','Brand', 'text');
+        $filter->add('category.cat','Category', 'text');
+        //$filter->add('quantity', 'Qty','text');
+        //$filter->add('price', 'Price','text');
+        $filter->submit('search');
+        $filter->reset('reset');
+        $filter->build();
+
+        $grid = DataGrid::source($filter);
+        $grid->attributes(array("class" => "table table-striped"));
+        $grid->add('product_id', 'ID', true)->style("width:100px");
+        $grid->add('slug', 'Slug');
+        $grid->add('name', 'Name');
+        $grid->add('brands.brand','Brand');
+        $grid->add('category.cat','Category');
+        $grid->add('{{ implode(", ", $size->lists("size")->all()) }}','Sizes');
+        $grid->add('<img src="/images/products/{{ $a_img }}" height="25" width="20">', 'Front');
+        $grid->add('<img src="/images/products/{{ $b_img }}"height="25" width="20">', 'Side');
+        //$grid->add('<img src="/images/products/{{ $c_img }}"height="25" width="20">', 'Back');
+        $grid->add('quantity', 'Qty');
+        $grid->add('price', 'Price');
+        $grid->edit('/backend/products/edit');
+        $grid->link('/backend/products/edit', "New Products", "TR");
+        $grid->orderBy('product_id', 'asc');
+        $grid->paginate(10);
+        return view('backend/products', compact('filter','grid'));
+    }
+
+    public function anyEdit()
+    {
+        if (Input::get('do_delete') == 1) return "not the first";
+        $edit = DataEdit::source(new Product());
+        $edit->label('Edit Products');
+        $edit->add('slug', 'Slug', 'text')->rule('required|min:3');
+        $edit->add('name', 'Name', 'text')->rule('required|min:3');
+        $edit->add('description','Description', 'redactor');
+        $edit->add('brand_id','Brand','select')->options(Brands::lists("brand","brand_id")->all());
+        $edit->add('cat_id','Category','select')->options(Category::lists("cat","cat_id")->all());
+        $edit->add('size.size','Size','tags');
+        $edit->add('a_img','Front', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
+        $edit->add('b_img','Side', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
+        //$edit->add('c_img','Back', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
+        $edit->add('quantity', 'Qty', 'text');
+        $edit->add('price', 'Price', 'text');
+        $edit->link('/backend/products', "Back", "TR");
+        return view('backend/editProducts', compact('edit'));
     }
 }

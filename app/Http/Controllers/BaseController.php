@@ -153,9 +153,4 @@ class BaseController extends Controller
         Session::flash('flash_message', 'You have been successfully Logged In!');
         return view('messages/welcome')->with('user',$user);
     }
-
-    public function api()
-    {
-        return response()->json(Product::getProducts());
-    }
 }

@@ -46,16 +46,10 @@ class BackendController extends Controller
      */
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * Create a name for table.
      */
-    public function __construct()
-    {
-        //$this->middleware('admin:admin');
-        $data = Product::prepareGlobalData();
-        View::share($data);
-    }
+
+    private $title = 'Products';
 
     /**
      * Show the home page to the user.
@@ -82,6 +76,7 @@ class BackendController extends Controller
         $filter->build();
 
         $grid = DataGrid::source($filter);
+        $grid->label('Product List');
         $grid->attributes(array("class" => "table table-striped"));
         $grid->add('product_id', 'ID', true)->style("width:100px");
         $grid->add('slug', 'Slug');
@@ -98,14 +93,15 @@ class BackendController extends Controller
         $grid->link('/backend/products/edit', "New Products", "TR");
         $grid->orderBy('product_id', 'asc');
         $grid->paginate(10);
-        return view('backend/products', compact('filter','grid'));
+        $title = $this->title;
+        return view('backend/products', compact('filter','grid','title'));
     }
 
     public function anyEdit()
     {
         if (Input::get('do_delete') == 1) return "not the first";
         $edit = DataEdit::source(new Product());
-        $edit->label('Edit Products');
+        $edit->label('Edit Product');
         $edit->add('slug', 'Slug', 'text')->rule('required|min:3');
         $edit->add('name', 'Name', 'text')->rule('required|min:3');
         $edit->add('description','Description', 'redactor');
@@ -118,6 +114,7 @@ class BackendController extends Controller
         $edit->add('quantity', 'Qty', 'text');
         $edit->add('price', 'Price', 'text');
         $edit->link('/backend/products', "Back", "TR");
-        return view('backend/editProducts', compact('edit'));
+        $title = $this->title;
+        return view('backend/products', compact('edit','title'));
     }
 }

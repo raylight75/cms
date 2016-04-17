@@ -5,7 +5,11 @@
                 <i class="fa fa-bars icon"></i>
             </button>
             <ol class="breadcrumb navbar-breadcrumb">
-                <li>Admin Panel</li>
+                @if  (Auth::check() && Auth::user()->is('admin'))
+                    <li>Admin Panel</li>
+                @else(Auth::check() && Auth::user()->is('user'))
+                    <li>User Panel</li>
+                @endif
                 <li class="active">{{Auth::user()->email}}</li>
             </ol>
             <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">

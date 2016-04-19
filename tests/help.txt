@@ -1,3 +1,70 @@
+return redirect($this->loginPath()) // Change this to redirect elsewhere
+                ->withInput($request->only('email', 'remember'))
+                ->withErrors([
+                    'active' => 'You must be active to login.'
+                ]);
+
+
+
+// This section is the only change
+    if (Auth::validate($credentials)) {
+        $user = Auth::getLastAttempted();
+        if ($user->active) {
+            Auth::login($user, $request->has('remember'));
+            return redirect()->intended($this->redirectPath());
+        } else {
+            return redirect($this->loginPath()) // Change this to redirect elsewhere
+                ->withInput($request->only('email', 'remember'))
+                ->withErrors([
+                    'active' => 'You must be active to login.'
+                ]);
+        }
+    }
+
+
+You can just override the getCredentials() method in your AuthController:
+
+class AuthController extends Controller
+{
+    use AuthenticatesAndRegistersUsers;
+
+    public function getCredentials()
+    {
+        $credentials = $request->only($this->loginUsername(), 'password');
+
+        return array_add($credentials, 'active', '1');
+    }
+}
+This will add the active = 1 constraint when trying to authenticate a user.
+
+EDIT: If you want a separate error message like BrokenBinary says, then Laravel allows you to define a method called authenticated that is called after a user has been authenticated, but before the redirect, allowing you to do any post-login processing. So you could utilise this by checking if the authenticated user is active, and throw an exception or display an error message if not:
+
+class AuthController extends Controller
+{
+    use AuthenticatesAndRegistersUsers;
+
+    public function authenticated(Request $request, User $user)
+    {
+        if ($user->active) {
+            return redirect()->intended($this->redirectPath());
+        } else {
+            // Raise exception, or redirect with error saying account is not active
+        }
+    }
+}
+Don’t forget to import the Request class and User model class.
+
+
+protected function getCredentials(Request $request) {
+
+        $request['active'] = TRUE;
+        return $request->only($this->loginUsername(), 'password', 'active');
+}
+
+
+https://github.com/thomastkim/laravel-online-users
+
+
 Copied Directory [\vendor\zofe\rapyd\public\assets] To [\public\packages\zofe\rapyd\assets]
 Copied File [\vendor\zofe\rapyd\config\rapyd.php] To [\config\rapyd.php]
 Copied File [\vendor\zofe\rapyd\src\routes.php] To [\app\Http\rapyd.php]

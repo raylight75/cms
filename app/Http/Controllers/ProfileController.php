@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Request;
 use Auth, View;
 use DB;
 use Validator, Input, Redirect;
+use Zofe\Rapyd\Facades\DataGrid;
+use Zofe\Rapyd\Facades\DataEdit;
 
-class BackendController extends Controller
+class ProfileController extends Controller
 {
 
 
@@ -32,7 +35,7 @@ class BackendController extends Controller
 
     /**
      *
-     * Backend Class for Admin Panel
+     * Profile Class for showing user profile.
      *
      * @package ecommerce-cms
      * @category Base Class
@@ -44,7 +47,7 @@ class BackendController extends Controller
      * Create a name for table.
      */
 
-    private $title = 'Products';
+    private $title = 'User';
 
     /**
      * Show the home page to the user.
@@ -52,8 +55,28 @@ class BackendController extends Controller
      * @return Response
      */
 
-    public function index()
+    public function getIndex()
     {
-        return view('backend/dashboard');
+        $id = Auth::user()->id;
+        $grid = DataGrid::source(User::where('id', $id));
+        $grid->label('Your Profile');
+        $grid->attributes(array("class" => "table table-striped"));
+        $grid->add('name', 'Name');
+        $grid->add('<img src="/images/avatars/{{ $avatar }}" height="25" width="20">', 'Avatar');
+        $grid->add('email', 'Email');
+        $grid->edit('/panel/profile/edit');
+        $grid->orderBy('id', 'asc');
+        $title = $this->title;
+        return view('backend/profile', compact('grid','title'));
+    }
+
+    public function getEdit()
+    {
+        $edit = DataEdit::source(new User());
+        $edit->label('Edit Profile');
+        $edit->add('avatar','Avatar', 'image')->move('images/avatars/')->fit(240, 160)->preview(120,80);
+        $edit->link('/panel/profile', "Back", "TR");
+        $title = $this->title;
+        return view('backend/profile', compact('edit','title'));
     }
 }

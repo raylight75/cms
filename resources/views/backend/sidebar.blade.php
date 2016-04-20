@@ -39,7 +39,7 @@
                     </li>
                 @else (Auth::check() && Auth::user()->is('user'))
                     <li class="menu">
-                        <a href="{{ url('dashboard') }}">
+                        <a href="{{ url('panel/profile') }}">
                             <span class="icon fa fa-tachometer"></span><span class="title">User Dashboard</span>
                         </a>
                     </li>

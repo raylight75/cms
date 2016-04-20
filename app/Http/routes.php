@@ -41,11 +41,12 @@ Route::get('products/search', 'ProductController@search');
 
 Route::group(['prefix' => 'panel', 'middleware' => 'admin:user'], function () {
     Route::get('/', 'PanelController@index');
+    Route::controller('profile', 'ProfileController');
 });
 
 Route::group(['prefix' => 'backend', 'middleware' => 'admin:admin'], function () {
     Route::get('/', 'BackendController@index');
-    Route::controller('products', 'BackendController');
+    Route::controller('products', 'ProductsController');
 });
 
 Route::resource('products', 'ProductController');

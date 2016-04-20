@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\Order;
 use Request;
 use Auth, View;
 use DB;
@@ -10,7 +10,7 @@ use Validator, Input, Redirect;
 use Zofe\Rapyd\Facades\DataGrid;
 use Zofe\Rapyd\Facades\DataEdit;
 
-class ProfileController extends Controller
+class OrdersController extends Controller
 {
 
 
@@ -47,7 +47,7 @@ class ProfileController extends Controller
      * Create a name for table.
      */
 
-    private $title = 'User';
+    private $title = 'Orders';
 
     /**
      * Show the home page to the user.
@@ -55,28 +55,38 @@ class ProfileController extends Controller
      * @return Response
      */
 
-    public function index()
+    public function getIndex()
     {
         $id = Auth::user()->id;
-        $grid = DataGrid::source(User::where('id', $id));
-        $grid->label('Your Profile');
+        $grid = DataGrid::source(Order::where('user_id', $id));
+        $grid->label('My Orders');
         $grid->attributes(array("class" => "table table-striped"));
-        $grid->add('name', 'Name');
-        $grid->add('<img src="/images/avatars/{{ $avatar }}" height="25" width="25">', 'Avatar');
-        $grid->add('email', 'Email');
-        $grid->edit('/panel/profile/edit','Edit','show|modify');
+        $grid->add('id', 'ID', true)->style("width:100px");
+        $grid->add('order_date', 'Date');
+        $grid->add('order.products','Product');
+        $grid->add('size', 'Size');
+        $grid->add('<img src="/images/products/{{ $img }}" height="25" width="25">', 'Image');
+        $grid->add('color', 'Color');
+        $grid->add('quantity', 'Qty');
+        $grid->add('amount', 'Amount');
+        $grid->edit('/panel/orders/edit','View Order','show');
         $grid->orderBy('id', 'asc');
         $title = $this->title;
-        return view('backend/profile', compact('grid','title'));
+        return view('backend/orders', compact('grid','title'));
     }
 
     public function getEdit()
     {
-        $edit = DataEdit::source(new User());
-        $edit->label('Edit Profile');
-        $edit->add('avatar','Avatar', 'image')->move('images/avatars/')->fit(240, 160)->preview(120,80);
-        $edit->link('/panel/profile', "Back", "TR");
+        $edit = DataEdit::source(new Order());
+        $edit->label('Order Details');
+        $edit->add('order_date','Date','daterange')->format('d/m/Y', 'en');
+        $edit->add('product_id','Product','select')->options(Order::lists("product_id","product_id")->all());
+        $edit->add('size', 'Size', 'text');
+        $edit->add('img','Image', 'image')->fit(240, 160)->preview(120,80);
+        $edit->add('color', 'Color', 'text');
+        $edit->add('quantity', 'Qty', 'text');
+        $edit->add('amount', 'Amount', 'text');
         $title = $this->title;
-        return view('backend/profile', compact('edit','title'));
+        return view('backend/orders', compact('edit','title'));
     }
 }

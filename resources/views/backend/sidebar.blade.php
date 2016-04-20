@@ -48,6 +48,11 @@
                             <span class="icon fa fa-eye"></span><span class="title">User Profile</span>
                         </a>
                     </li>
+                    <li class="menu">
+                        <a href="{{ url('panel/orders') }}">
+                            <span class="icon fa fa-money"></span><span class="title">My Orders</span>
+                        </a>
+                    </li>
                 @endif
             </ul>
         </div>

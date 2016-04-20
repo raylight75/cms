@@ -39,9 +39,13 @@ Route::get('/cache', 'BaseController@write');
 
 Route::get('products/search', 'ProductController@search');
 
-Route::group(['prefix' => 'panel', 'middleware' => 'profile'], function () {
+Route::group(['prefix' => 'panel', 'middleware' => 'admin:user'], function () {
     Route::get('/', 'PanelController@index');
-    Route::controller('profile', 'ProfileController');
+    Route::get('profile', 'ProfileController@index');
+    Route::controller('orders', 'OrdersController');
+    Route::group(['middleware' => 'profile'], function () {
+        Route::controller('profile', 'ProfileController');
+    });
 });
 
 Route::group(['prefix' => 'backend', 'middleware' => 'admin:admin'], function () {

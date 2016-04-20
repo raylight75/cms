@@ -16,9 +16,11 @@ class ProfileMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($request->input('modify') !== '2') {
-            return redirect('cms');
+        if ($request->input('modify') == Auth::user()->id) {
+            return $next($request);
+        }elseif($request->input('show') == Auth::user()->id){
+            return $next($request);
         }
-        return $next($request);
+        return redirect('cms');
     }
 }

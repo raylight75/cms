@@ -83,6 +83,11 @@ class Product extends Model
         return $this->hasOne('App\Models\Category', 'cat_id', 'cat_id');
     }
 
+    public function order()
+    {
+        return $this->belongsTo('App\Models\Order','product_id', 'product_id');
+    }
+
     public function productsSizes()
     {
         return $this->hasMany('App\Models\Products_sizes');

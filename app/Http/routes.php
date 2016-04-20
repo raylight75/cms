@@ -39,7 +39,7 @@ Route::get('/cache', 'BaseController@write');
 
 Route::get('products/search', 'ProductController@search');
 
-Route::group(['prefix' => 'panel', 'middleware' => 'admin:user'], function () {
+Route::group(['prefix' => 'panel', 'middleware' => 'profile'], function () {
     Route::get('/', 'PanelController@index');
     Route::controller('profile', 'ProfileController');
 });

@@ -41,13 +41,7 @@ class BackendController extends Controller
      */
 
     /**
-     * Create a name for table.
-     */
-
-    private $title = 'Products';
-
-    /**
-     * Show the home page to the user.
+     * Show the dashboard page to the user.
      *
      * @return Response
      */

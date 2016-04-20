@@ -62,9 +62,9 @@ class ProfileController extends Controller
         $grid->label('Your Profile');
         $grid->attributes(array("class" => "table table-striped"));
         $grid->add('name', 'Name');
-        $grid->add('<img src="/images/avatars/{{ $avatar }}" height="25" width="20">', 'Avatar');
+        $grid->add('<img src="/images/avatars/{{ $avatar }}" height="25" width="25">', 'Avatar');
         $grid->add('email', 'Email');
-        $grid->edit('/panel/profile/edit');
+        $grid->edit('/panel/profile/edit','Edit','show|modify');
         $grid->orderBy('id', 'asc');
         $title = $this->title;
         return view('backend/profile', compact('grid','title'));

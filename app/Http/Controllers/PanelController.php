@@ -36,11 +36,12 @@ class PanelController extends Controller
      */
 
     /**
+     * Show user panel
      * @return Response
      */
     public function index()
     {
-        $title = 'User Info';
-        return view('backend/userPanel', compact('title'));
+        $title = 'User Dashboard';
+        return view('backend/dashboard', compact('title'));
     }
 }

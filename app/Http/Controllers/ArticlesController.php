@@ -10,7 +10,7 @@ use App\Models\Size;
 use Illuminate\Support\Facades\Session;
 use Request;
 
-class ProductController extends Controller
+class ArticlesController extends Controller
 {
     /**
      * Ecommerce-CMS

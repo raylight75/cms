@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Http\Requests;
+use App\Models\Order;
+use App\User;
+use Zofe\Rapyd\Facades\DataGrid;
+use Zofe\Rapyd\Facades\DataEdit;
 
 class PanelController extends Controller
 {
@@ -34,6 +39,9 @@ class PanelController extends Controller
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
+    private $titleOrders = 'Orders';
+
+    private $titleUser = 'User';
 
     /**
      * Show user panel
@@ -43,5 +51,49 @@ class PanelController extends Controller
     {
         $title = 'User Dashboard';
         return view('backend/dashboard', compact('title'));
+    }
+
+    public function profile()
+    {
+        $id = Auth::user()->id;
+        $grid = DataGrid::source(User::where('id', $id));
+        $grid->label('Your Profile');
+        $grid->attributes(array("class" => "table table-striped"));
+        $grid->add('name', 'Name');
+        $grid->add('<img src="/images/avatars/{{ $avatar }}" height="25" width="25">', 'Avatar');
+        $grid->add('email', 'Email');
+        $grid->edit('/panel/profile/edit','Edit','show|modify');
+        $grid->orderBy('id', 'asc');
+        $title = $this->titleUser;
+        return view('backend/profile', compact('grid','title'));
+    }
+
+    public function edit()
+    {
+        $edit = DataEdit::source(new User());
+        $edit->label('Edit Profile');
+        $edit->add('avatar','Avatar', 'image')->move('images/avatars/')->fit(240, 160)->preview(120,80);
+        $edit->link('/panel/profile', "Back", "TR");
+        $title = $this->titleUser;
+        return view('backend/profile', compact('edit','title'));
+    }
+
+    public function orders()
+    {
+        $id = Auth::user()->id;
+        $grid = DataGrid::source(Order::with('products')->where('user_id', $id));
+        $grid->label('My Orders');
+        $grid->attributes(array("class" => "table table-striped"));
+        $grid->add('id', 'ID', true)->style("width:100px");
+        $grid->add('order_date', 'Date');
+        $grid->add('products.name', 'Product');
+        $grid->add('size', 'Size');
+        $grid->add('<img src="/images/products/{{ $img }}" height="25" width="25">', 'Image');
+        $grid->add('color', 'Color');
+        $grid->add('quantity', 'Qty');
+        $grid->add('amount', 'Amount');
+        $grid->orderBy('id', 'asc');
+        $title = $this->titleOrders;
+        return view('backend/orders', compact('grid', 'title'));
     }
 }

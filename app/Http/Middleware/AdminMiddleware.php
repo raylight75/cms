@@ -3,9 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Http\RedirectResponse;
 use Closure;
-use App\User;
 use Auth;
 
 class AdminMiddleware

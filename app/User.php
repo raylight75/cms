@@ -12,9 +12,9 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Bican\Roles\Traits\HasRoleAndPermission;
 use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 
-class User extends Model implements AuthenticatableContract,                                    
-                                    HasRoleAndPermissionContract,
-                                    CanResetPasswordContract
+class User extends Model implements AuthenticatableContract,
+    HasRoleAndPermissionContract,
+    CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword, HasRoleAndPermission;
 
@@ -38,9 +38,4 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-
-    public function hasRole($role)
-    {
-    return ($this->role == $role) ? true : false;
-    }
 }

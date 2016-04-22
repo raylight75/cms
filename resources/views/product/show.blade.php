@@ -1,5 +1,5 @@
-@extends('product.template')
-@section('content')
+@extends('backend/tblTemplate')
+@section('body')
     <h1>Show Products</h1>
     <div class="form-group">
         {!! Form::label('Slug', 'Slug:') !!}
@@ -42,7 +42,7 @@
         {!! Form::text('price',$product->price,['class'=>'form-control', 'readonly' => 'true']) !!}
     </div>
     <div class="form-group">
-        <a href="{{ url('products')}}" class="btn btn-primary">Back</a>
+        <a href="{{ url('backend/articles')}}" class="btn btn-primary">Back</a>
     </div>
     </form>
 @stop

@@ -1,12 +1,10 @@
-@extends('product.template')
-@section('content')
+@extends('backend/tblTemplate')
+@section('body')
     @include('messages/flash_message')
     <h1>Products Store</h1>
-    <a href="{{url('/products/create')}}" class="btn btn-success">Create Product</a>
+    <a href="{{url('backend/articles/create')}}" class="btn btn-success">Create Product</a>
     <hr>
-    <div class="row">
-        @include('product/search', ['url'=>'/products/search'])
-    </div>
+    @include('product/search', ['url'=>'backend/articles/search'])
     <table class="table table-striped table-bordered table-hover">
         <thead>
         <tr class="bg-info">
@@ -40,10 +38,10 @@
                 <td><img src="{{asset('images/products/'.$p->a_img)}}" height="35" width="25"></td>
                 <td><img src="{{asset('images/products/'.$p->b_img)}}" height="35" width="25"></td>
                 <td><img src="{{asset('images/products/'.$p->c_img)}}" height="35" width="25"></td>
-                <td><a href="{{url('products',$p->product_id)}}" class="btn btn-primary">Read</a></td>
-                <td><a href="{{route('products.edit',$p->product_id)}}" class="btn btn-warning">Update</a></td>
+                <td><a href="{{url('backend/articles',$p->product_id)}}" class="btn btn-primary">Read</a></td>
+                <td><a href="{{route('backend.articles.edit',$p->product_id)}}" class="btn btn-warning">Update</a></td>
                 <td>
-                    {!! Form::open(['method' => 'DELETE', 'route'=>['products.destroy', $p->product_id]]) !!}
+                    {!! Form::open(['method' => 'DELETE', 'route'=>['backend.articles.destroy', $p->product_id]]) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
                 </td>
@@ -51,5 +49,11 @@
         @endforeach
         </tbody>
     </table>
-    {!! $products->appends(Input::except('page'))->render() !!}
+    <div>
+        <nav>
+            {!! $products->appends(Input::except('page'))->render() !!}
+        </nav>
+    </div>
+    <div class="row">
+    </div>
 @endsection

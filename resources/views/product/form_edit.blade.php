@@ -1,5 +1,5 @@
 <div class="form-group">
-    <a href="{{ url('products')}}" class="btn btn-primary">Back</a>
+    <a href="{{ url('backend/articles')}}" class="btn btn-primary">Back</a>
 </div>
 <div class="form-group">
     {!! Form::label('Slug', 'Slug:') !!}

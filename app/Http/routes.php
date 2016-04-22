@@ -37,8 +37,6 @@ Route::get('frontpage', 'ApiController@index');
 
 Route::get('/cache', 'BaseController@write');
 
-Route::get('products/search', 'ArticlesController@search');
-
 Route::group(['prefix' => 'panel', 'middleware' => 'admin:user'], function () {
     Route::get('/', 'PanelController@index');
     Route::get('orders', 'PanelController@orders');
@@ -51,9 +49,9 @@ Route::group(['prefix' => 'panel', 'middleware' => 'admin:user'], function () {
 Route::group(['prefix' => 'backend', 'middleware' => 'admin:admin'], function () {
     Route::get('/', 'BackendController@index');
     Route::controller('products', 'ProductsController');
+    Route::get('articles/search', 'ArticlesController@search');
+    Route::resource('articles', 'ArticlesController');
 });
-
-Route::resource('products', 'ArticlesController');
 
 Route::controller('cart', 'CartController');
 

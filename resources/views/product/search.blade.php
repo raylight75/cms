@@ -1,7 +1,7 @@
-{!! Form::open(['method'=>'GET','url'=>$url,'class'=>'navbar-form navbar-left'])  !!}
-<div class="input-group custom-search-form">
+{!! Form::open(['method'=>'GET','url'=>$url])  !!}
+<div>
     <input type="text" class="form-control" name="search" placeholder="Search...">
-    <span class="input-group-btn">
+    <span class="title">
         {!! Form::submit('Search', ['class' => 'btn btn-primary']) !!}
     </span>
 </div>

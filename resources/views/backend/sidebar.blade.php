@@ -26,9 +26,14 @@
                             <span class="icon fa fa-pencil-square-o"></span><span class="title">Custom Table</span>
                         </a>
                     </li>
+                    <li class="menu">
+                        <a href="{{ url('backend/users') }}">
+                            <span class="icon fa fa-user"></span><span class="title">Manage Users</span>
+                        </a>
+                    </li>
                     <li class=" {{ Request::is('backend/products') ? 'active' : '' }} panel panel-default dropdown">
                         <a data-toggle="collapse" href="#dropdown-table">
-                            <span class="icon fa fa-table"></span><span class="title">Products</span>
+                            <span class="icon fa fa-table"></span><span class="title">Manage Catalog</span>
                         </a>
                         <!-- Dropdown-->
                         <div id="dropdown-table" class="panel-collapse collapse">

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Request;
 use Auth, View;
 use DB;
 use Validator, Input, Redirect;
+use App\User;
 
-class BackendController extends Controller
+class UsersController extends Controller
 {
 
 
@@ -32,7 +34,7 @@ class BackendController extends Controller
 
     /**
      *
-     * Backend Class for Admin Panel
+     * Users Class for manage users
      *
      * @package ecommerce-cms
      * @category Base Class
@@ -41,12 +43,36 @@ class BackendController extends Controller
      */
 
     /**
+     * Display a listing of the users.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $title = 'Edit Users';
+        $users = User::with('role')->get();
+        $users = User::paginate(10);
+        return view('users.index', compact('users','title'));
+    }
+
+    /**
+     * Show the form for creating a new User.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        $data['users'] = User::with('role')->get();
+        return view('users.create', $data);
+    }
+
+    /**
      * Show the dashboard page to the user.
      *
      * @return Response
      */
 
-    public function index()
+    public function dashboard()
     {
         return view('backend/dashboard');
     }

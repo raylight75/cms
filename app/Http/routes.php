@@ -47,9 +47,10 @@ Route::group(['prefix' => 'panel', 'middleware' => 'admin:user'], function () {
 });
 
 Route::group(['prefix' => 'backend', 'middleware' => 'admin:admin'], function () {
-    Route::get('/', 'BackendController@index');
+    Route::get('/', 'UsersController@dashboard');
     Route::controller('products', 'ProductsController');
     Route::get('articles/search', 'ArticlesController@search');
+    Route::resource('users', 'UsersController');
     Route::resource('articles', 'ArticlesController');
 });
 

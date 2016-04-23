@@ -53,5 +53,5 @@ $category = $product->category->lists('cat', 'cat_id');
     {!! Form::text('price',null,['class'=>'form-control']) !!}
 </div>
 <div class="form-group">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary form-control']) !!}
+    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
 </div>

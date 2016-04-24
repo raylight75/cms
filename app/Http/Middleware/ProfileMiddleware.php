@@ -20,6 +20,8 @@ class ProfileMiddleware
             return $next($request);
         }elseif($request->input('show') == Auth::user()->id){
             return $next($request);
+        }elseif($request->input('update') == Auth::user()->id){
+            return $next($request);
         }
         return redirect('cms');
     }

@@ -149,7 +149,7 @@ class UsersController extends Controller
                 'password' => bcrypt($request->input('password')),
             ]);
             $user->role()->sync($request->input('role'));
-            Session::flash('flash_message', 'Product successfully updated!');
+            Session::flash('flash_message', 'User password and role successfully updated!');
             return redirect()->back();
         }
     }

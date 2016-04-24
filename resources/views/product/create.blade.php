@@ -1,9 +1,9 @@
-@extends('backend/tblTemplate')
+@extends('backend.tblTemplate')
 @section('body')
-    @include('messages/flash_message')
-    <h1>Create Product</h1>
+    <h3>Create Product</h3>
+    @include('messages.flash_message')
     {!! Form::open(['url' => 'backend/articles', 'files'=> true]) !!}
-    @include('product/form_create')
+    @include('product.form_create')
     {!! Form::close() !!}
-    @include('errors/error_layout')
+    @include('errors.error_layout')
 @stop

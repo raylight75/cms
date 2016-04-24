@@ -3,7 +3,7 @@
 @section('body')
     @include('messages/flash_message')
     <a href="{{url('backend/users/create')}}" class="btn btn-success">Create User</a>
-    <a href="{{url('backend/users/create')}}" class="btn btn-success">Create Role</a>
+    <a href="{{url('backend/roles')}}" class="btn btn-success">Create Role</a>
     <hr>
     <table class="table table-striped table-bordered table-hover">
         <thead>

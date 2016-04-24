@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class CreateProduct extends Request
+class EditUser extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +22,10 @@ class CreateProduct extends Request
     public function rules()
     {
         return [
-            'slug' => 'required',
-            'name' => 'required',
-            'description' => 'required',
-            'brand_id' => 'required',
-            'cat_id' => 'required',
-            'quantity' => 'required',
-            'price' => 'required',
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'old_password' => 'required',
+            'password' => 'required|min:6',
         ];
     }
 }

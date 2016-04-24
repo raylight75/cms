@@ -1,6 +1,5 @@
-@extends('backend/tblTemplate')
+@extends('backend.tblTemplate')
 @section('body')
-    <h1>Show Products</h1>
     <div class="form-group">
         {!! Form::label('Slug', 'Slug:') !!}
         {!! Form::text('slug',$product->slug,['class'=>'form-control', 'readonly' => 'true']) !!}

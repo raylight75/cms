@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class CreateProduct extends Request
+class CreateRole extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,7 @@ class CreateProduct extends Request
             'slug' => 'required',
             'name' => 'required',
             'description' => 'required',
-            'brand_id' => 'required',
-            'cat_id' => 'required',
-            'quantity' => 'required',
-            'price' => 'required',
+            'level' => 'required|numeric',
         ];
     }
 }

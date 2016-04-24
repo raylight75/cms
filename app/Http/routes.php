@@ -48,6 +48,8 @@ Route::group(['prefix' => 'panel', 'middleware' => 'admin:user'], function () {
 
 Route::group(['prefix' => 'backend', 'middleware' => 'admin:admin'], function () {
     Route::get('/', 'UsersController@dashboard');
+    Route::get('roles', 'UsersController@role');
+    Route::post('roles', 'UsersController@createRole');
     Route::controller('products', 'ProductsController');
     Route::get('articles/search', 'ArticlesController@search');
     Route::resource('users', 'UsersController');

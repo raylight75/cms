@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateProduct;
 use App\Http\Requests;
-use App\Models\Brands;
 use App\Models\Product;
 use App\Models\Size;
 use Illuminate\Support\Facades\Session;

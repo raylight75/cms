@@ -1,10 +1,9 @@
-@extends('backend/tblTemplate')
+@extends('backend.tblTemplate')
 @section('body')
-    @include('messages/flash_message')
-    <h1>Products Store</h1>
+    @include('messages.flash_message')
     <a href="{{url('backend/articles/create')}}" class="btn btn-success">Create Product</a>
     <hr>
-    @include('product/search', ['url'=>'backend/articles/search'])
+    @include('product.search', ['url'=>'backend/articles/search'])
     <table class="table table-striped table-bordered table-hover">
         <thead>
         <tr class="bg-info">

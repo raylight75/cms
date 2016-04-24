@@ -2,9 +2,9 @@
 @section('title',$title)
 @section('body')
     @include('messages.flash_message')
-    <h3>Create User</h3>
-    {!! Form::open(['url' => 'backend/users']) !!}
-    @include('users.form_create')
+    <h3>Edit User</h3>
+    {!! Form::model($user,['method' => 'PATCH','route'=>['backend.users.update',$user->id]]) !!}
+    @include('users.form_edit')
     {!! Form::close() !!}
     @include('errors.error_layout')
 @stop

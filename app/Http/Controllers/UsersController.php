@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
-use Request;
-use Auth, View;
-use DB;
+use App\Http\Requests\CreateRole;
+use App\Http\Requests\EditUser;
+use Illuminate\Support\Facades\Session;
+use Request, DB, Auth, View;
+use Illuminate\Support\Facades\Hash;
 use Validator, Input, Redirect;
+use Bican\Roles\Models\Role;
 use App\User;
 
 class UsersController extends Controller
@@ -42,6 +44,8 @@ class UsersController extends Controller
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    private $title = 'Users';
+
     /**
      * Display a listing of the users.
      *
@@ -49,10 +53,10 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $title = 'Edit Users';
+        $title = $this->title;
         $users = User::with('role')->get();
         $users = User::paginate(10);
-        return view('users.index', compact('users','title'));
+        return view('users.index', compact('users', 'title'));
     }
 
     /**
@@ -62,8 +66,107 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $data['users'] = User::with('role')->get();
-        return view('users.create', $data);
+        $title = $this->title;
+        $users = User::with('role')->get();
+        return view('users.create', compact('title', 'users'));
+    }
+
+    /**
+     * Show the create role form to the user.
+     *
+     * @return Response
+     */
+
+    public function role()
+    {
+        $title = $this->title;
+        return view('users.roles', compact('title'));
+    }
+
+    /**
+     * Store role in database.
+     *
+     * @param CreateRole $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createRole(CreateRole $request)
+    {
+        $data = $request->all();
+        Role::create($data);
+        Session::flash('flash_message', 'Role successfully added!');
+        return redirect()->back();
+    }
+
+    /**
+     * Store users in database.
+     *
+     * @param CreateUser $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(CreateUser $request)
+    {
+        User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
+        Session::flash('flash_message', 'User successfully added!');
+        return redirect()->back();
+    }
+
+    /**
+     * Show the form for editing the specified user.
+     *
+     * @param  int $id
+     * @return Response
+     */
+
+    public function edit($id)
+    {
+        $data['title'] = $this->title;
+        $data['roles'] = Role::all();
+        $data['user'] = User::with('role')->find($id);
+        return view('users.edit', $data);
+    }
+
+    /**
+     * Update the specified user.
+     *
+     * @param $id
+     * @param CreateProduct $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update($id, EditUser $request)
+    {
+        $user = User::find($id);
+        if (!Hash::check($request->input('old_password'), $user->password)) {
+            return redirect()->back()->withErrors('Your old password does not match');
+        } else {
+            $user->find($id);
+            $user->update([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => bcrypt($request->input('password')),
+            ]);
+            $user->role()->sync($request->input('role'));
+            Session::flash('flash_message', 'Product successfully updated!');
+            return redirect()->back();
+        }
+    }
+
+    /**
+     * Delete the specified user from database.
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        $product = User::findOrFail($id)->delete();
+        //Without database OnDdelete Cascade
+        //$product->size()->detach($id);
+        Session::flash('flash_message', 'User acount successfully deleted!');
+        return redirect()->back();
     }
 
     /**

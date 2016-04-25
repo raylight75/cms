@@ -41,6 +41,6 @@ class User extends Model implements AuthenticatableContract,
 
     public function role()
     {
-        return $this->belongsToMany('App\Models\Role');
+        return $this->belongsToMany('App\Models\Role')->withTimestamps();
     }
 }

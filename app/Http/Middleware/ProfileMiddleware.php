@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Auth;
 use Closure;
+use App\User;
 
 class ProfileMiddleware
 {
@@ -16,13 +17,10 @@ class ProfileMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($request->input('modify') == Auth::user()->id) {
-            return $next($request);
-        }elseif($request->input('show') == Auth::user()->id){
-            return $next($request);
-        }elseif($request->input('update') == Auth::user()->id){
+        $user = User::find($request->all())->first();
+        if ($user->id === Auth::user()->id) {
             return $next($request);
         }
-        return redirect('cms');
+        return redirect('panel/profile')->withErrors('Your are not autorized to view resources');
     }
 }

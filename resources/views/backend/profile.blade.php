@@ -8,4 +8,5 @@
             {!! $grid !!}
         @endif
     </div>
+    @include('errors.error_layout')
 @endsection

@@ -6,7 +6,7 @@ use Auth;
 use Closure;
 use App\User;
 
-class ProfileMiddleware
+class UserMiddleware
 {
     /**
      * Handle an incoming request.

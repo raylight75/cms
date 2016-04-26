@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use App\Http\Requests;
+use Illuminate\Http\Request;
+use Auth,Gate;
 use App\Models\Order;
 use App\User;
 use Zofe\Rapyd\Facades\DataGrid;
@@ -68,7 +68,7 @@ class PanelController extends Controller
         return view('backend/profile', compact('grid','title'));
     }
 
-    public function edit()
+    public function profileEdit()
     {
         $edit = DataEdit::source(new User());
         $edit->label('Edit Profile');
@@ -92,8 +92,28 @@ class PanelController extends Controller
         $grid->add('color', 'Color');
         $grid->add('quantity', 'Qty');
         $grid->add('amount', 'Amount');
+        $grid->edit('/panel/orders/edit','Curent Order','show');
         $grid->orderBy('id', 'asc');
         $title = $this->titleOrders;
         return view('backend/orders', compact('grid', 'title'));
+    }
+    public function ordersEdit(Request $request)
+    {
+        $order = Order::findOrFail($request->all())->first();
+        if (Gate::denies('show-resource', $order)) {
+            return redirect('panel/profile')->withErrors('Your are not autorized to view resources');;
+        }
+        $edit = DataEdit::source(new Order());
+        $edit->label('View Order');
+        $edit->add('order_date', 'Date','text');
+        $edit->add('products.name', 'Product','text');
+        $edit->add('size', 'Size','text');
+        $edit->add('img','Image', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
+        $edit->add('color', 'Color','text');
+        $edit->add('quantity', 'Qty','text');
+        $edit->add('amount', 'Amount','text');
+        //$edit->link('/panel/orders', "Back", "TR");
+        $title = $this->titleUser;
+        return view('backend/profile', compact('edit','title'));
     }
 }

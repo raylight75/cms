@@ -26,6 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         parent::registerPolicies($gate);
 
-        //
+        $gate->define('show-resource', function ($user, $order) {
+            return $user->id === $order->user_id;
+        });
     }
 }

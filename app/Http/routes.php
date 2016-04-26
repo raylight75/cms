@@ -40,9 +40,10 @@ Route::get('/cache', 'BaseController@write');
 Route::group(['prefix' => 'panel', 'middleware' => 'admin:user'], function () {
     Route::get('/', 'PanelController@index');
     Route::get('orders', 'PanelController@orders');
+    Route::any('orders/edit', 'PanelController@ordersEdit');
     Route::get('profile', 'PanelController@profile');
-    Route::group(['middleware' => 'profile'], function () {
-        Route::any('profile/edit', 'PanelController@edit');
+    Route::group(['middleware' => 'user'], function () {
+        Route::any('profile/edit', 'PanelController@profileEdit');
     });
 });
 

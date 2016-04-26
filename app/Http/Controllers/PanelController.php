@@ -112,7 +112,7 @@ class PanelController extends Controller
         $edit->add('color', 'Color','text');
         $edit->add('quantity', 'Qty','text');
         $edit->add('amount', 'Amount','text');
-        //$edit->link('/panel/orders', "Back", "TR");
+        $edit->link('/panel/orders', "Back", "TR");
         $title = $this->titleUser;
         return view('backend/profile', compact('edit','title'));
     }

@@ -39,12 +39,25 @@ $(document).ready(function () {
         var categ = '';
         var size = '';
         var color = '';
+        var brand = '';
+        var price = '';
+        var name = '';
         $("input:checkbox").each(function () {
             categ = $('input[name="categ[]"]:checked').serialize();
             size = $('input[name="size[]"]:checked').serialize();
             color = $('input[name="color[]"]:checked').serialize();
+            brand = $('input[name="brand[]"]:checked').serialize();
+            price = $('input[name="price"]:checked').serialize();
+            name = $('input[name="name"]:checked').serialize();
         });
-        var main_string = categ+"&"+size+"&"+color;
+
+        $("input[name=price]").on('change', function() {
+            $("input[name=price]").not(this).prop('checked', false);
+        });
+        $("input[name=name]").on('change', function() {
+            $("input[name=name]").not(this).prop('checked', false);
+        });
+        var main_string = categ+"&"+size+"&"+color+"&"+brand+"&"+price+"&"+name;
 
         $.ajax({
             type: "GET",

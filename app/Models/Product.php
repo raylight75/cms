@@ -182,7 +182,10 @@ class Product extends Model
         if (!empty(Request::input('brand'))) {
             $query->whereIn('brand_id', Request::input('brand'));
         };
-        $query->orderBy('price', 'asc');
+        $price = Request::input('price') ? Request::input('price') : 'asc';
+        $name = Request::input('name') ? Request::input('name') : 'asc';
+        $query->orderBy('price', $price);
+        $query->orderBy('name', $name);
         $query->groupBy('product_id');
         $result = $query->paginate(6);
         return $result;

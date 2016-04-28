@@ -64,7 +64,7 @@ class ProductsController extends Controller
 
     public function getIndex()
     {
-        $filter = \DataFilter::source(Product::with('brands','size','category'));
+        $filter = \DataFilter::source(Product::with('brands','size','color','category'));
         $filter->add('product_id','ID', 'text');
         $filter->add('name','Name', 'text');
         $filter->add('brands.brand','Brand', 'text');
@@ -84,6 +84,7 @@ class ProductsController extends Controller
         $grid->add('brands.brand','Brand');
         $grid->add('category.cat','Category');
         $grid->add('{{ implode(", ", $size->lists("size")->all()) }}','Sizes');
+        $grid->add('{{ implode(", ", $color->lists("color")->all()) }}','Colors');
         $grid->add('<img src="/images/products/{{ $a_img }}" height="25" width="20">', 'Front');
         $grid->add('<img src="/images/products/{{ $b_img }}"height="25" width="20">', 'Side');
         //$grid->add('<img src="/images/products/{{ $c_img }}"height="25" width="20">', 'Back');
@@ -108,6 +109,7 @@ class ProductsController extends Controller
         $edit->add('brand_id','Brand','select')->options(Brands::lists("brand","brand_id")->all());
         $edit->add('cat_id','Category','select')->options(Category::lists("cat","cat_id")->all());
         $edit->add('size.size','Size','tags');
+        $edit->add('color.color','Color','tags');
         $edit->add('a_img','Front', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
         $edit->add('b_img','Side', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
         //$edit->add('c_img','Back', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);

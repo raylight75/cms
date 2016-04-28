@@ -98,9 +98,14 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Size');
     }
 
+    public function colorsProducts()
+    {
+        return $this->hasMany('App\Models\Colors_products');
+    }
+
     public function color()
     {
-        return $this->hasMany('App\Models\Color');
+        return $this->belongsToMany('App\Models\Color');
     }
 
     /**
@@ -135,23 +140,23 @@ class Product extends Model
                             FROM products
                             WHERE products.brand_id = brand.brand_id
                             AND products.parent_id = "' . $parent . '") as brand_cnt';
-        $sqlb = '(SELECT count(productcolour.colour_id) as count
-                            FROM productcolour 
+        $sqlb = '(SELECT count(color_product.color_id) as count
+                            FROM color_product
                             LEFT JOIN products
-                            ON products.product_id = productcolour.product_id
-                            WHERE productcolour.colour_id = colour.colour_id
+                            ON products.product_id = color_product.product_id
+                            WHERE color_product.color_id = colors.color_id
                             AND products.parent_id = "' . $parent . '") as color_cnt';
         $result = DB::table('brand')
             ->select(array('*', DB::raw($sqla), DB::raw($sqlb)))
             ->leftJoin('sizes', 'brand.brand_id', '=', 'sizes.size_id')
-            ->leftJoin('colour', 'brand.brand_id', '=', 'colour.colour_id')
+            ->leftJoin('colors', 'brand.brand_id', '=', 'colors.color_id')
             ->get();
         $data['brand'] = array();
-        $data['colour'] = array();
+        $data['color'] = array();
         $data['size'] = array();
         foreach ($result as $val) {
             $data['brand'][] = $val;
-            $data['colour'][] = $val;
+            $data['color'][] = $val;
             $data['size'][] = $val;
         }
         return $data;
@@ -170,9 +175,9 @@ class Product extends Model
             }
         });
         if (!empty(Request::input('color'))) {
-            $query->whereHas('color', function ($q) {
+            $query->whereHas('colorsProducts', function ($q) {
                 $colors = Request::input('color');
-                $q->whereIn('colour_id', $colors);
+                $q->whereIn('color_id', $colors);
             });
         }
         $query->where('parent_id', '=', $parent);

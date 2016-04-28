@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Color extends Model
+class Colors_products extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'colors';
+    protected $table = 'color_product';
 
     /**
      * The attributes that are mass assignable.
@@ -19,11 +19,9 @@ class Color extends Model
      * @var array
      */
 
-    protected $primaryKey = 'color_id';
-
     protected $fillable = [
-        'color',
-        'web',
+        'product_id',
+        'color_id',
     ];
 
     /**
@@ -33,4 +31,9 @@ class Color extends Model
      */
 
     public $timestamps = false;
+
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+    }
 }

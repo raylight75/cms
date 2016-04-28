@@ -32,7 +32,7 @@
         <div class="tovar_color_select">
             <p><?= _('Available color')?></p>
             @foreach($item->color as $c)
-                <a class="color{{$c->colour_id}}"></a>
+                <a class="color{{$c->color_id}}"></a>
             @endforeach
         </div>
         <div class="tovar_size_select">
@@ -55,7 +55,7 @@
             <select name="color" class="basic">
                 <option value=""><?= _('COLOR')?></option>
                 @foreach($item->color as $c)
-                    <option value="{{$c->colour_id}}">{{$c->colour_id}}</option>
+                    <option value="{{$c->color_id}}">{{$c->color}}</option>
                 @endforeach
             </select>
             <select name="size" class="basic">

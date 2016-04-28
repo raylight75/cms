@@ -48,16 +48,16 @@
     <div class="sidepanel widget_color">
 
         <h3><?= _('SORT BY COLOR')?></h3>
-        @foreach($properties['colour'] as $row)
-            <input type="checkbox" id="{{$row->colour}}"
-            <a class="color{{$row->colour_id}}"
-               name="color[]" value="{{$row->colour_id}}"
-                    {{(in_array($row->colour_id, $color)) ? 'checked="checked"' : ''}}/>
-            <label for="{{$row->colour}}">
-                <li><a class="color{{$row->colour_id}}"></a></li>
-                {{$row->colour}}<span>({{$row->color_cnt}})</span></label>
+        @foreach($properties['color'] as $row)
+            <input type="checkbox" id="{{$row->color}}"
+            <a class="color{{$row->color_id}}"
+               name="color[]" value="{{$row->color_id}}"
+                    {{(in_array($row->color_id, $color)) ? 'checked="checked"' : ''}}/>
+            <label for="{{$row->color}}">
+                <li><a class="color{{$row->color_id}}"></a></li>
+                {{$row->color}}<span>({{$row->color_cnt}})</span></label>
             <style>
-                .widget_color li a.color{{$row->colour_id}}
+                .widget_color li a.color{{$row->color_id}}
 					     {
                     background-color: {{$row->web}}
                 }

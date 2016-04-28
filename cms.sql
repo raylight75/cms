@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2016 at 11:00 PM
+-- Generation Time: Apr 28, 2016 at 12:04 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -131,27 +131,138 @@ INSERT INTO `categories` (`cat_id`, `cat`, `parent_id`, `m_img`, `f_img`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `colour`
+-- Table structure for table `colors`
 --
 
-CREATE TABLE IF NOT EXISTS `colour` (
-`colour_id` int(11) NOT NULL,
-  `colour` varchar(32) NOT NULL,
+CREATE TABLE IF NOT EXISTS `colors` (
+`id` int(11) NOT NULL,
+  `color_id` int(11) NOT NULL,
+  `color` varchar(32) NOT NULL,
   `web` varchar(32) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `colour`
+-- Dumping data for table `colors`
 --
 
-INSERT INTO `colour` (`colour_id`, `colour`, `web`) VALUES
-(1, 'red', '#dc4343'),
-(2, 'blue', '#61acf2'),
-(3, 'green', '#63c85b'),
-(4, 'black', '#000000'),
-(5, 'brown', '#c98d4c'),
-(6, 'violet', '#b771db'),
-(7, 'white', '#d3d3d3');
+INSERT INTO `colors` (`id`, `color_id`, `color`, `web`) VALUES
+(1, 1, 'red', '#dc4343'),
+(2, 2, 'blue', '#61acf2'),
+(3, 3, 'green', '#63c85b'),
+(4, 4, 'black', '#000000'),
+(5, 5, 'brown', '#c98d4c'),
+(6, 6, 'violet', '#b771db'),
+(7, 7, 'white', '#d3d3d3');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `color_product`
+--
+
+CREATE TABLE IF NOT EXISTS `color_product` (
+`id` int(11) NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `color_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `color_product`
+--
+
+INSERT INTO `color_product` (`id`, `product_id`, `color_id`) VALUES
+(1, 2, 2),
+(2, 4, 1),
+(3, 3, 2),
+(4, 7, 6),
+(5, 9, 5),
+(6, 10, 5),
+(7, 10, 3),
+(8, 11, 7),
+(9, 12, 4),
+(10, 13, 4),
+(11, 13, 5),
+(12, 14, 4),
+(13, 14, 5),
+(14, 15, 4),
+(15, 16, 7),
+(16, 17, 4),
+(17, 17, 7),
+(18, 18, 2),
+(19, 19, 7),
+(20, 20, 7),
+(21, 21, 3),
+(22, 21, 1),
+(23, 22, 2),
+(24, 22, 6),
+(25, 23, 6),
+(26, 24, 2),
+(27, 25, 7),
+(28, 26, 2),
+(29, 26, 5),
+(30, 27, 4),
+(31, 28, 2),
+(32, 28, 6),
+(33, 29, 4),
+(34, 29, 7),
+(35, 30, 6),
+(36, 31, 2),
+(37, 31, 6),
+(38, 32, 7),
+(39, 38, 2),
+(40, 39, 4),
+(41, 39, 5),
+(42, 40, 2),
+(43, 40, 6),
+(44, 41, 2),
+(45, 41, 6),
+(46, 42, 4),
+(47, 42, 2),
+(48, 42, 6),
+(49, 44, 4),
+(50, 45, 1),
+(51, 46, 4),
+(52, 46, 6),
+(53, 37, 6),
+(54, 5, 5),
+(55, 8, 2),
+(56, 6, 5),
+(57, 39, 6),
+(58, 1, 2),
+(59, 43, 6),
+(60, 36, 1),
+(61, 47, 2),
+(62, 48, 2),
+(63, 49, 2),
+(64, 50, 2),
+(65, 51, 2),
+(66, 52, 2),
+(67, 53, 2),
+(68, 54, 4),
+(69, 54, 7),
+(70, 55, 4),
+(71, 56, 7),
+(72, 57, 4),
+(73, 57, 5),
+(74, 57, 7),
+(75, 58, 4),
+(76, 58, 5),
+(77, 59, 4),
+(78, 59, 5),
+(79, 62, 7),
+(80, 63, 5),
+(81, 63, 7),
+(82, 64, 4),
+(83, 65, 4),
+(84, 65, 1),
+(85, 66, 4),
+(86, 66, 7),
+(87, 67, 4),
+(88, 68, 1),
+(89, 69, 1),
+(90, 70, 3),
+(91, 79, 5),
+(92, 80, 3);
 
 -- --------------------------------------------------------
 
@@ -573,8 +684,7 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `orders` (
-`order_id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` varchar(32) NOT NULL,
@@ -590,34 +700,34 @@ CREATE TABLE IF NOT EXISTS `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `customer_id`, `user_id`, `order_date`, `status`, `product_id`, `size`, `img`, `color`, `quantity`, `amount`) VALUES
-(1, 7, 2, '2015-08-16 20:31:23', '6', 4, 'XL', '8d383-mtk006a.jpg', 'red', 2, 24),
-(2, 8, 2, '2015-08-16 20:32:59', '7', 4, 'XL', '8d383-mtk006a.jpg', 'red', 1, 12),
-(3, 9, 2, '2015-08-16 20:40:55', '2', 16, 'XXL', 'ebd78-pmtk004a.jpg', 'white', 3, 36),
-(4, 10, 2, '2015-08-16 20:52:50', '2', 16, 'XL', 'ebd78-pmtk004a.jpg', 'white', 2, 24),
-(5, 1, 3, '2015-08-16 20:52:50', '2', 15, 'M', '10551-pmtk006a.jpg', 'black', 1, 23),
-(6, 11, 4, '2015-08-16 21:11:05', '2', 4, 'XXL', '8d383-mtk006a.jpg', 'red', 1, 12),
-(7, 6, 3, '2015-08-16 21:11:05', '7', 15, 'L', '10551-pmtk006a.jpg', 'black', 1, 23),
-(8, 2, 3, '2015-08-16 21:23:58', '6', 10, 'M', '543ea-mtk004a.jpg', 'brown', 2, 10),
-(9, 3, 3, '2015-08-16 21:23:58', '5', 32, 'S', '11f4f-image1xxl.jpg', 'white', 1, 56),
-(10, 4, 3, '2015-08-16 22:06:38', '5', 19, 'M', '04776-pms000a.jpg', 'white', 2, 68),
-(11, 0, 4, '2015-08-16 23:27:35', '1', 40, 'XL', '742e0-image1xxl-7-.jpg', 'blue', 1, 34),
-(12, 12, 2, '2015-08-18 08:16:18', '4', 12, ' XXL', 'dd8f7-pmo001a.jpg', 'black', 3, 267),
-(13, 13, 2, '2015-08-18 08:20:05', '6', 12, ' XXL', 'dd8f7-pmo001a.jpg', 'black', 1, 89),
-(14, 14, 2, '2015-08-18 08:26:15', '1', 28, 'L', '68d00-4.jpg', 'violet', 2, 74),
-(15, 15, 3, '2015-08-18 08:59:21', '2', 21, 'S', 'ea72e-mpd006t.jpg', 'green', 1, 19),
-(16, 5, 3, '2015-08-18 08:59:21', '7', 17, 'L', '57e1d-pmtk001a.jpg', 'white', 2, 20),
-(17, 16, 2, '2015-08-20 11:30:21', '5', 8, ' XXXL', 'e11b9-mpd006a.jpg', 'blue', 1, 37),
-(18, 17, 3, '2015-09-03 18:00:52', '7', 17, 'L', '57e1d-pmtk001a.jpg', 'black', 2, 20),
-(19, 17, 3, '2015-09-03 18:00:52', '1', 1, ' XXL', 'ed60e-mpd000c.jpg', 'blue', 1, 25),
-(20, 18, 4, '2015-09-03 18:48:24', '5', 32, 'M', '11f4f-image1xxl.jpg', 'white', 2, 112),
-(21, 19, 4, '2015-09-03 18:56:32', '4', 44, 'L', '39915-v1.jpg', 'black', 1, 6),
-(22, 20, 3, '2015-09-14 20:18:30', '2', 39, ' XL', 'be3aa-image11.jpg', 'violet', 1, 108),
-(23, 21, 6, '2015-09-21 18:44:22', '5', 6, 'M', '94efc-mpd012a.jpg', 'brown', 3, 21),
-(24, 21, 6, '2015-09-21 18:44:22', '7', 47, ' XXL', '3c47b-pwt001a_1.jpg', 'blue', 3, 267),
-(25, 21, 6, '2015-10-26 13:13:10', '5', 1, 'XXL', 'ed60e-mpd000c.jpg', 'blue', 2, 50),
-(26, 22, 6, '2015-12-27 17:13:32', '2', 45, 'L', 'c2ae6-n1.jpg', 'red', 3, 15),
-(27, 22, 6, '2015-12-27 17:13:32', '2', 42, 'XXL', '729d0-b1.jpg', 'blue', 1, 103);
+INSERT INTO `orders` (`id`, `user_id`, `order_date`, `status`, `product_id`, `size`, `img`, `color`, `quantity`, `amount`) VALUES
+(1, 2, '2015-08-16 20:31:23', '6', 4, 'XL', '8d383-mtk006a.jpg', 'red', 2, 24),
+(2, 2, '2015-08-16 20:32:59', '7', 4, 'XL', '8d383-mtk006a.jpg', 'red', 1, 12),
+(3, 2, '2015-08-16 20:40:55', '2', 16, 'XXL', 'ebd78-pmtk004a.jpg', 'white', 3, 36),
+(4, 2, '2015-08-16 20:52:50', '2', 16, 'XL', 'ebd78-pmtk004a.jpg', 'white', 2, 24),
+(5, 3, '2015-08-16 20:52:50', '2', 15, 'M', '10551-pmtk006a.jpg', 'black', 1, 23),
+(6, 4, '2015-08-16 21:11:05', '2', 4, 'XXL', '8d383-mtk006a.jpg', 'red', 1, 12),
+(7, 3, '2015-08-16 21:11:05', '7', 15, 'L', '10551-pmtk006a.jpg', 'black', 1, 23),
+(8, 3, '2015-08-16 21:23:58', '6', 10, 'M', '543ea-mtk004a.jpg', 'brown', 2, 10),
+(9, 3, '2015-08-16 21:23:58', '5', 32, 'S', '11f4f-image1xxl.jpg', 'white', 1, 56),
+(10, 3, '2015-08-16 22:06:38', '5', 19, 'M', '04776-pms000a.jpg', 'white', 2, 68),
+(11, 4, '2015-08-16 23:27:35', '1', 40, 'XL', '742e0-image1xxl-7-.jpg', 'blue', 1, 34),
+(12, 2, '2015-08-18 08:16:18', '4', 12, ' XXL', 'dd8f7-pmo001a.jpg', 'black', 3, 267),
+(13, 2, '2015-08-18 08:20:05', '6', 12, ' XXL', 'dd8f7-pmo001a.jpg', 'black', 1, 89),
+(14, 2, '2015-08-18 08:26:15', '1', 28, 'L', '68d00-4.jpg', 'violet', 2, 74),
+(15, 3, '2015-08-18 08:59:21', '2', 21, 'S', 'ea72e-mpd006t.jpg', 'green', 1, 19),
+(16, 3, '2015-08-18 08:59:21', '7', 17, 'L', '57e1d-pmtk001a.jpg', 'white', 2, 20),
+(17, 2, '2015-08-20 11:30:21', '5', 8, ' XXXL', 'e11b9-mpd006a.jpg', 'blue', 1, 37),
+(18, 3, '2015-09-03 18:00:52', '7', 17, 'L', '57e1d-pmtk001a.jpg', 'black', 2, 20),
+(19, 3, '2015-09-03 18:00:52', '1', 1, ' XXL', 'ed60e-mpd000c.jpg', 'blue', 1, 25),
+(20, 4, '2015-09-03 18:48:24', '5', 32, 'M', '11f4f-image1xxl.jpg', 'white', 2, 112),
+(21, 4, '2015-09-03 18:56:32', '4', 44, 'L', '39915-v1.jpg', 'black', 1, 6),
+(22, 3, '2015-09-14 20:18:30', '2', 39, ' XL', 'be3aa-image11.jpg', 'violet', 1, 108),
+(23, 6, '2015-09-21 18:44:22', '5', 6, 'M', '94efc-mpd012a.jpg', 'brown', 3, 21),
+(24, 6, '2015-09-21 18:44:22', '7', 47, ' XXL', '3c47b-pwt001a_1.jpg', 'blue', 3, 267),
+(25, 6, '2015-10-26 13:13:10', '5', 1, 'XXL', 'ed60e-mpd000c.jpg', 'blue', 2, 50),
+(26, 6, '2015-12-27 17:13:32', '2', 45, 'L', 'c2ae6-n1.jpg', 'red', 3, 15),
+(27, 6, '2015-12-27 17:13:32', '2', 42, 'XXL', '729d0-b1.jpg', 'blue', 1, 103);
 
 --
 -- Triggers `orders`
@@ -808,115 +918,6 @@ INSERT INTO `posts` (`post_id`, `user_id`, `username`, `title`, `content`, `cate
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productcolour`
---
-
-CREATE TABLE IF NOT EXISTS `productcolour` (
-`id` int(11) NOT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `colour_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `productcolour`
---
-
-INSERT INTO `productcolour` (`id`, `product_id`, `colour_id`) VALUES
-(1, 2, 2),
-(2, 4, 1),
-(3, 3, 2),
-(4, 7, 6),
-(5, 9, 5),
-(6, 10, 5),
-(7, 10, 3),
-(8, 11, 7),
-(9, 12, 4),
-(10, 13, 4),
-(11, 13, 5),
-(12, 14, 4),
-(13, 14, 5),
-(14, 15, 4),
-(15, 16, 7),
-(16, 17, 4),
-(17, 17, 7),
-(18, 18, 2),
-(19, 19, 7),
-(20, 20, 7),
-(21, 21, 3),
-(22, 21, 1),
-(23, 22, 2),
-(24, 22, 6),
-(25, 23, 6),
-(26, 24, 2),
-(27, 25, 7),
-(28, 26, 2),
-(29, 26, 5),
-(30, 27, 4),
-(31, 28, 2),
-(32, 28, 6),
-(33, 29, 4),
-(34, 29, 7),
-(35, 30, 6),
-(36, 31, 2),
-(37, 31, 6),
-(38, 32, 7),
-(39, 38, 2),
-(40, 39, 4),
-(41, 39, 5),
-(42, 40, 2),
-(43, 40, 6),
-(44, 41, 2),
-(45, 41, 6),
-(46, 42, 4),
-(47, 42, 2),
-(48, 42, 6),
-(49, 44, 4),
-(50, 45, 1),
-(51, 46, 4),
-(52, 46, 6),
-(53, 37, 6),
-(54, 5, 5),
-(55, 8, 2),
-(56, 6, 5),
-(57, 39, 6),
-(58, 1, 2),
-(59, 43, 6),
-(60, 36, 1),
-(61, 47, 2),
-(62, 48, 2),
-(63, 49, 2),
-(64, 50, 2),
-(65, 51, 2),
-(66, 52, 2),
-(67, 53, 2),
-(68, 54, 4),
-(69, 54, 7),
-(70, 55, 4),
-(71, 56, 7),
-(72, 57, 4),
-(73, 57, 5),
-(74, 57, 7),
-(75, 58, 4),
-(76, 58, 5),
-(77, 59, 4),
-(78, 59, 5),
-(79, 62, 7),
-(80, 63, 5),
-(81, 63, 7),
-(82, 64, 4),
-(83, 65, 4),
-(84, 65, 1),
-(85, 66, 4),
-(86, 66, 7),
-(87, 67, 4),
-(88, 68, 1),
-(89, 69, 1),
-(90, 70, 3),
-(91, 79, 5);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `productimg_tmp`
 --
 
@@ -959,7 +960,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `parent_id` int(11) NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `price` float NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `products`
@@ -1027,11 +1028,12 @@ INSERT INTO `products` (`product_id`, `slug`, `name`, `description`, `a_img`, `b
 (64, 'Gucci-Black-Top', 'Gucci Black Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; font-size: 13px; line-height: 22px;">Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral. Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral</span></p>\r\n', '2b287-image2xxl-1-.jpg', '40749-image3xxl.jpg', '78689-image4xxl-1-.jpg', 1, 15, 2, 3, 27),
 (65, 'Moschino-Red-Top', 'Moschino Red Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</span></p>\r\n', 'bc43c-image1xxl.jpg', '967a0-image2xxl.jpg', '21951-image4xxl.jpg', 3, 15, 2, 9, 34),
 (66, 'DKNY-Black-Crop-Top', 'DKNY Black Crop Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</span></p>\r\n', 'ee456-image1xxl-1-.jpg', '294b5-image2xxl-2-.jpg', '4a8a8-image4xxl-2-.jpg', 6, 15, 2, 20, 20),
-(67, 'Pepe-Jeans-Mini', 'Pepe Jeans Mini', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>\r\n', '6e71c-image1xxl-2-.jpg', '759f6-image2xxl-3-.jpg', '0a402-image4xxl-3-.jpg', 4, 11, 2, 10, 16),
-(68, 'Fendi-Red-Top', 'Fendi Red Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.</span></p>\r\n', '547c8-image1xxl-4-.jpg', 'd3fdb-image2xxl-4-.jpg', 'ec72c-image4xxl-5-.jpg', 7, 15, 2, 4, 12),
+(67, 'Pepe-Jeans-Mini', 'Pepe Jeans Mini', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\r\n', '6e71c-image1xxl-2-.jpg', '759f6-image2xxl-3-.jpg', '0a402-image4xxl-3-.jpg', 4, 11, 2, 10, 16),
+(68, 'Fendi-Red-Top', 'Fendi Red Top', 'Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.\r\n', '547c8-image1xxl-4-.jpg', 'd3fdb-image2xxl-4-.jpg', 'ec72c-image4xxl-5-.jpg', 7, 15, 2, 4, 12),
 (69, 'CK-Graphic-Top', 'CK Graphic Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque.</span></p>\r\n', '5ded8-image1xxl-5-.jpg', '372d5-image2xxl-5-.jpg', '74840-image4xxl-6-.jpg', 5, 15, 2, 8, 9),
-(70, 'Pepe-Jeans-Leather-Shirt', 'Pepe Jeans Shirt', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt rhoncus malesuada. Cras consequat pharetra accumsan. Vivamus condimentum nibh sapien, eget lobortis libero feugiat ultricies. Curabitur ac libero tempus, congue magna sit amet, hendrerit tellus. Curabitur laoreet mattis maximus. In egestas ex in neque molestie, at lobortis odio luctus. Cras porta arcu vel mi commodo sodales. Mauris porttitor ante orci, id gravida lorem rhoncus nec. Praesent dapibus sapien a lacus egestas, vitae dapibus nibh dictum. Integer vel mauris diam. Mauris eleifend pulvinar augue. Mauris sollicitudin ligula id mattis condimentum. Duis ac tristique est. Integer facilisis, diam nec tempor congue, leo massa pulvinar purus, interdum laoreet nibh sem sed felis. Fusce tristique cursus urna a bibendum.', '2f92d-image1xxl-1-.jpg', '', '', 4, 6, 2, 28, 55),
-(79, 'Gucci-Black-Top', 'Gucci Black Top', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur consequat faucibus sollicitudin. Sed nec fringilla nibh. Sed maximus finibus purus, eu volutpat arcu aliquet sit amet. Sed cursus ipsum sit amet elit sagittis, ac faucibus libero ultricies. In tempor velit vel dictum rhoncus. Morbi in ante commodo, condimentum felis in, lobortis ante. Praesent vitae magna ultricies, rutrum lorem et, iaculis nunc. Curabitur finibus neque neque, at consectetur tellus tristique ac. Praesent eu sollicitudin magna, in placerat nisi.', '6e71c-image1xxl-2-.jpg', '', '', 1, 15, 2, 8, 11);
+(70, 'Pepe-Green-Shirt', 'Pepe Green Shirt', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt rhoncus malesuada. Cras consequat pharetra accumsan. Vivamus condimentum nibh sapien, eget lobortis libero feugiat ultricies. Curabitur ac libero tempus, congue magna sit amet, hendrerit tellus. Curabitur laoreet mattis maximus. In egestas ex in neque molestie, at lobortis odio luctus. Cras porta arcu vel mi commodo sodales. Mauris porttitor ante orci, id gravida lorem rhoncus nec. Praesent dapibus sapien a lacus egestas, vitae dapibus nibh dictum. Integer vel mauris diam. Mauris eleifend pulvinar augue. Mauris sollicitudin ligula id mattis condimentum. Duis ac tristique est. Integer facilisis, diam nec tempor congue, leo massa pulvinar purus, interdum laoreet nibh sem sed felis. Fusce tristique cursus urna a bibendum.', '2f92d-green.jpg', '', '', 4, 5, 1, 28, 7),
+(79, 'Gucci-Black-Top', 'Gucci Black Top', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur consequat faucibus sollicitudin. Sed nec fringilla nibh. Sed maximus finibus purus, eu volutpat arcu aliquet sit amet. Sed cursus ipsum sit amet elit sagittis, ac faucibus libero ultricies. In tempor velit vel dictum rhoncus. Morbi in ante commodo, condimentum felis in, lobortis ante. Praesent vitae magna ultricies, rutrum lorem et, iaculis nunc. Curabitur finibus neque neque, at consectetur tellus tristique ac. Praesent eu sollicitudin magna, in placerat nisi.\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur consequat faucibus sollicitudin. Sed nec fringilla nibh. Sed maximus finibus purus, eu volutpat arcu aliquet sit amet.', '6e71c-image1xxl-2-.jpg', '', '', 1, 15, 2, 8, 11),
+(80, 'DKNY-Green-Shirt', 'DKNY Green Shirt', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum nibh nulla, eget gravida libero venenatis ac. Praesent sit amet metus cursus, ultricies ligula ut, sollicitudin libero. Phasellus sagittis posuere nisl sit amet eleifend. Ut nec metus feugiat, mollis ante vel, auctor orci. Phasellus sit amet vestibulum tortor. Praesent dignissim magna ut arcu ornare, a fringilla ipsum ultrices. Integer eros dolor, volutpat eget orci viverra, suscipit rhoncus arcu. Phasellus bibendum non turpis nec cursus. Pellentesque fringilla venenatis justo, ac pretium enim malesuada sit amet.\r\nNulla semper metus sit amet suscipit pellentesque. Maecenas ultrices tempor auctor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec feugiat sollicitudin nibh, vel sollicitudin nulla elementum quis.', '2bf67-6.jpg', '', '', 6, 5, 1, 20, 25);
 
 -- --------------------------------------------------------
 
@@ -1043,7 +1045,7 @@ CREATE TABLE IF NOT EXISTS `product_size` (
 `id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `size_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product_size`
@@ -1192,15 +1194,17 @@ INSERT INTO `product_size` (`id`, `product_id`, `size_id`) VALUES
 (145, 70, 1),
 (146, 70, 5),
 (147, 70, 7),
-(151, 79, 1),
-(152, 79, 5),
-(153, 79, 7),
 (154, 69, 3),
 (155, 69, 5),
 (156, 69, 7),
 (161, 9, 4),
 (162, 9, 6),
-(163, 9, 7);
+(163, 9, 7),
+(172, 79, 1),
+(173, 79, 2),
+(174, 80, 1),
+(175, 80, 4),
+(176, 80, 5);
 
 -- --------------------------------------------------------
 
@@ -1216,7 +1220,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `level` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `roles`
@@ -1224,7 +1228,8 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `slug`, `description`, `level`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', 'admin', 'adminrole', 1, '2016-01-03 11:05:22', '2016-01-03 11:05:22'),
-(2, 'User', 'user', 'userrole', 2, '2016-01-03 11:07:22', '2016-01-03 11:07:22');
+(2, 'User', 'user', 'userrole', 2, '2016-01-03 11:07:22', '2016-01-03 11:07:22'),
+(3, 'Editor', 'editor', 'editors', 3, '2016-04-25 04:16:31', '2016-04-25 04:16:31');
 
 -- --------------------------------------------------------
 
@@ -1238,7 +1243,7 @@ CREATE TABLE IF NOT EXISTS `role_user` (
   `user_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `role_user`
@@ -1246,7 +1251,8 @@ CREATE TABLE IF NOT EXISTS `role_user` (
 
 INSERT INTO `role_user` (`id`, `role_id`, `user_id`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, '2016-01-03 11:05:38', '2016-01-03 11:05:38'),
-(2, 2, 2, '2016-01-03 11:07:31', '2016-01-03 11:07:31');
+(2, 2, 2, '2016-01-03 11:07:31', '2016-01-03 11:07:31'),
+(3, 2, 4, '2016-04-25 04:17:04', '2016-04-25 04:17:04');
 
 -- --------------------------------------------------------
 
@@ -1346,21 +1352,22 @@ INSERT INTO `taxes` (`id`, `name`, `code`, `discount`) VALUES
 CREATE TABLE IF NOT EXISTS `users` (
 `id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `role` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `avatar` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `role`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Tihomir', 'admin', 'raylight75@gmail.com', '$2y$10$b17mr2swLgWrdJ2Mka6Ilegy0.kJPBgE1R/b1Y7Bsnc5VVBCDL.Rq', 'KyfPzuQEQ09ZZQBewp5AUtOEGjSdCDd75Ly7wMbfwhLgDjHyXrF22UtLlC9s', '2016-01-03 08:48:36', '2016-01-03 12:39:00'),
-(2, 'Ivan', 'user', 'tblajev@yahoo.com', '$2y$10$uQSDi6zBHxVU83adaZHjFOHqFAQWHZSPvNl6.R6EuOcRa30HlcUIi', 'CKkzUknXdk7EzI50uApplA5RKZqNZBmiOyJP05tpQCEwckX21CqHN644HPgB', '2016-01-03 10:58:24', '2016-02-14 19:09:21');
+INSERT INTO `users` (`id`, `name`, `avatar`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Tihomir', 'ui-zac.jpg', 'raylight75@gmail.com', '$2y$10$b17mr2swLgWrdJ2Mka6Ilegy0.kJPBgE1R/b1Y7Bsnc5VVBCDL.Rq', 'Jr8R8Jo9qAted9R18wdKGCKTkjSXSGEoCPf1iGO0sHTaWGkKEEwAJqYGG550', '2016-01-03 08:48:36', '2016-04-25 07:33:15'),
+(2, 'Ivan', 'ui-sherman.jpg', 'tblajev@yahoo.com', '$2y$10$uQSDi6zBHxVU83adaZHjFOHqFAQWHZSPvNl6.R6EuOcRa30HlcUIi', 'CF4il4pmSKSBkD9mTz0tuOKAeQECg6gRb6zIlHu8NKlLDUmSxGfmkgzVtdTK', '2016-01-03 10:58:24', '2016-04-22 10:34:13'),
+(4, 'Ana', 'avatar-ani.jpg', 'ana.blajeva@abv.bg', '$2y$10$EDFjGgQ/Q8i00mrbXMU5VOIYeS/pfwI3iZubj4v0yuYJB4NjrdEwi', '5T87SifVfgqHfnw7uzRAsnDgJ0AJHm5MRoZG6HXu9QBZwKCdqIwkDzLESSij', '2016-04-19 06:02:27', '2016-04-27 07:52:04');
 
 --
 -- Indexes for dumped tables
@@ -1391,10 +1398,16 @@ ALTER TABLE `categories`
  ADD PRIMARY KEY (`cat_id`), ADD KEY `fk_categories_categories_idx` (`parent_id`);
 
 --
--- Indexes for table `colour`
+-- Indexes for table `colors`
 --
-ALTER TABLE `colour`
- ADD PRIMARY KEY (`colour_id`);
+ALTER TABLE `colors`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `color_product`
+--
+ALTER TABLE `color_product`
+ ADD PRIMARY KEY (`id`), ADD KEY `fk_productcolour_colour_idx` (`color_id`), ADD KEY `fk_productcolour_products_idx` (`product_id`);
 
 --
 -- Indexes for table `comments`
@@ -1430,7 +1443,7 @@ ALTER TABLE `images_tmp`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
- ADD PRIMARY KEY (`order_id`), ADD KEY `fk_orders_customers_idx` (`user_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `fk_orders_customers_idx` (`user_id`);
 
 --
 -- Indexes for table `order_status`
@@ -1473,12 +1486,6 @@ ALTER TABLE `permission_user`
 --
 ALTER TABLE `posts`
  ADD PRIMARY KEY (`post_id`), ADD UNIQUE KEY `post_id` (`post_id`), ADD KEY `fk_posts_users_idx` (`user_id`), ADD KEY `fk_posts_comments_idx` (`post_id`);
-
---
--- Indexes for table `productcolour`
---
-ALTER TABLE `productcolour`
- ADD PRIMARY KEY (`id`), ADD KEY `fk_productcolour_colour_idx` (`colour_id`), ADD KEY `fk_productcolour_products_idx` (`product_id`);
 
 --
 -- Indexes for table `productimg_tmp`
@@ -1555,10 +1562,15 @@ MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 ALTER TABLE `categories`
 MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
--- AUTO_INCREMENT for table `colour`
+-- AUTO_INCREMENT for table `colors`
 --
-ALTER TABLE `colour`
-MODIFY `colour_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+ALTER TABLE `colors`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `color_product`
+--
+ALTER TABLE `color_product`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=93;
 --
 -- AUTO_INCREMENT for table `comments`
 --
@@ -1588,7 +1600,7 @@ MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `order_status`
 --
@@ -1620,30 +1632,25 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 ALTER TABLE `posts`
 MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
--- AUTO_INCREMENT for table `productcolour`
---
-ALTER TABLE `productcolour`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=92;
---
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=80;
+MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=81;
 --
 -- AUTO_INCREMENT for table `product_size`
 --
 ALTER TABLE `product_size`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=164;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=177;
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `role_user`
 --
 ALTER TABLE `role_user`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `settings`
 --
@@ -1668,7 +1675,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
@@ -1686,13 +1693,6 @@ ADD CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFEREN
 ALTER TABLE `permission_user`
 ADD CONSTRAINT `permission_user_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `permission_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `productcolour`
---
-ALTER TABLE `productcolour`
-ADD CONSTRAINT `fk_productcolour_colour` FOREIGN KEY (`colour_id`) REFERENCES `colour` (`colour_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `fk_productcolour_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `productimg_tmp`

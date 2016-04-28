@@ -55,13 +55,13 @@
             <select name="color" class="basic">
                 <option value=""><?= _('COLOR')?></option>
                 @foreach($item->color as $c)
-                    <option value="{{$c->color_id}}">{{$c->color}}</option>
+                    <option value="{{$c->color}}">{{$c->color}}</option>
                 @endforeach
             </select>
             <select name="size" class="basic">
                 <option value=""><?= _('SIZE')?></option>
                 @foreach($item->size as $s)
-                    <option value="{{$s->size_id}}">{{$s->size}}</option>
+                    <option value="{{$s->size}}">{{$s->size}}</option>
                 @endforeach
             </select>
             <input type="text" name="qty" value="QTY" id=""

@@ -38,7 +38,6 @@
         <div class="tovar_size_select">
             <div class="clearfix">
                 <p class="pull-left"><?= _('Available SIZE')?></p>
-                <span><?= _('Size & Fit')?></span>
             </div>
             @foreach($item->size as $s)
                 <a class="sizeXXXL">{{$s->size}}</a>
@@ -47,10 +46,9 @@
         <div class="tovar_view_btn">
             {!! Form::open(['url' => 'cart/store']) !!}
             <div class="tovar_color_select">
-                <input type="text" name="discount" value="DISC CODE" id=""
-                       maxlength="7" size="50" style="width: 24%"
-                       onFocus="if (this.value == 'DISC CODE') this.value = '';"
-                       onBlur="if (this.value == '') this.value = 'DISC CODE';"/>
+                <input type="text" name="discount" value="" id=""
+                       maxlength="7" size="50" style="width: 24%"/>
+                <span><?= _('DISCOUNT CODE')?></span>
             </div>
             <select name="color" class="basic">
                 <option value=""><?= _('COLOR')?></option>

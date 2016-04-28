@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Request;
-use Auth, View;
+use Request, Auth, View;
+use App\Models\Tax;
+
 
 class CartController extends BaseController
 {
@@ -64,7 +65,12 @@ class CartController extends BaseController
 
     public function postStore()
     {
-        $data = Request::except(['_token', 'discount', 'color', 'size', 'img']);
+        $row = Tax::where('code', Request::input('discount'))->first();
+        isset($row) ? $discount = $row->discount : $discount = 0;
+        $productPrice = Request::input('price');
+        $price = ((100 - $discount) / 100) * $productPrice;
+        $data = Request::except(['_token', 'discount', 'price', 'color', 'size', 'img']);
+        $data['price'] = $price;
         $data['options'] = Request::except(['_token', 'id', 'name', 'qty', 'price']);
         Cart::add($data);
         return redirect('cart');

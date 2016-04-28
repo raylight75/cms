@@ -86,7 +86,8 @@
                                         <li class="variation-Size"><?= _('Size:')?>
                                             <span>{{$item->options->size}}</span>
                                         </li>
-                                        <li class="variation-Size"><?= _('DISCOUNT')?><span></span>%</li>
+                                        <li class="variation-Size"><?= _('DISCOUNT CODE:')?>
+                                            <span>{{$item->options->discount}}</span></li>
                                     </ul>
                                 </td>
                                 <td class="product-price">

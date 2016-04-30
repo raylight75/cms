@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubmitProduct;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Session;
 use Request, Auth, View;
 use App\Models\Tax;
 
@@ -63,11 +65,27 @@ class CartController extends BaseController
         return view('frontend/shopping_cart');
     }
 
-    public function postStore()
+    public function checkDiscount()
     {
-        $row = Tax::where('code', Request::input('discount'))->first();
-        isset($row) ? $discount = $row->discount : $discount = 0;
-        $productPrice = Request::input('price');
+        $codes = Tax::all();
+        foreach ($codes as $code ) {
+            if(Request::has('discount') && Request::input('discount')!== $code->code){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public function postStore(SubmitProduct $request)
+    {
+        $code = Tax::where('code', $request->input('discount'))->first();
+        if($this->checkDiscount()){
+            Session::flash('flash_message', 'You are entered invalid discount code!');
+            return redirect()->back();
+        }
+        isset($code) ? $discount = $code->discount : $discount = 0;
+        $productPrice = $request->input('price');
         $price = ((100 - $discount) / 100) * $productPrice;
         $data = Request::except(['_token', 'discount', 'price', 'color', 'size', 'img']);
         $data['price'] = $price;

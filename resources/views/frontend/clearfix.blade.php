@@ -49,6 +49,7 @@
                 <input type="text" name="discount" value="" id=""
                        maxlength="7" size="50" style="width: 24%"/>
                 <span><?= _('DISCOUNT CODE')?></span>
+                @include('messages.flash_message')
             </div>
             <select name="color" class="basic">
                 <option value=""><?= _('COLOR')?></option>
@@ -68,6 +69,7 @@
                    onBlur="if (this.value == '') this.value = 'QTY';"/>
 
             <div class="tovar_view_btn">
+                @include('errors.error_layout')
                 @if (!Auth::check())
                     <a class="add_bag" href="{{ url('login') }}">
                         <i class="fa fa-shopping-cart"></i><?= _('Add to bag')?></a>

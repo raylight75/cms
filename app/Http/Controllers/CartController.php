@@ -79,17 +79,17 @@ class CartController extends BaseController
 
     public function postStore(SubmitProduct $request)
     {
-        $code = Tax::where('code', $request->input('discount'))->first();
         if($this->checkDiscount()){
             Session::flash('flash_message', 'You are entered invalid discount code!');
             return redirect()->back();
         }
+        $code = Tax::where('code', $request->input('discount'))->first();
         isset($code) ? $discount = $code->discount : $discount = 0;
         $productPrice = $request->input('price');
         $price = ((100 - $discount) / 100) * $productPrice;
-        $data = Request::except(['_token', 'discount', 'price', 'color', 'size', 'img']);
+        $data = $request->except(['_token', 'discount', 'price', 'color', 'size', 'img']);
         $data['price'] = $price;
-        $data['options'] = Request::except(['_token', 'id', 'name', 'qty', 'price']);
+        $data['options'] = $request->except(['_token', 'id', 'name', 'qty', 'price']);
         Cart::add($data);
         return redirect('cart');
     }

@@ -65,7 +65,7 @@ class PanelController extends Controller
         $grid->edit('/panel/profile/edit','Edit','show|modify');
         $grid->orderBy('id', 'asc');
         $title = $this->titleUser;
-        return view('backend/profile', compact('grid','title'));
+        return view('backend/content', compact('grid','title'));
     }
 
     public function profileEdit()
@@ -75,7 +75,7 @@ class PanelController extends Controller
         $edit->add('avatar','Avatar', 'image')->move('images/avatars/')->fit(240, 160)->preview(120,80);
         $edit->link('/panel/profile', "Back", "TR");
         $title = $this->titleUser;
-        return view('backend/profile', compact('edit','title'));
+        return view('backend/content', compact('edit','title'));
     }
 
     public function orders()
@@ -95,7 +95,7 @@ class PanelController extends Controller
         $grid->edit('/panel/orders/edit','Curent Order','show');
         $grid->orderBy('id', 'asc');
         $title = $this->titleOrders;
-        return view('backend/userOrders', compact('grid', 'title'));
+        return view('backend/content', compact('grid', 'title'));
     }
     public function ordersEdit(Request $request)
     {
@@ -114,6 +114,6 @@ class PanelController extends Controller
         $edit->add('amount', 'Amount','text');
         $edit->link('/panel/orders', "Back", "TR");
         $title = $this->titleUser;
-        return view('backend/profile', compact('edit','title'));
+        return view('backend/content', compact('edit','title'));
     }
 }

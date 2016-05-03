@@ -31,10 +31,11 @@
                             <p>{{Auth::user()->email}}</p>
 
                             <div class="btn-group margin-bottom-2x" role="group">
-                                <button type="button" class="btn btn-default"><i class="fa fa-user"></i> Profile
+                                <button type="button" class="btn btn-default"><i class="fa fa-user"></i>
+                                    <a href="{{ url('panel/profile') }}"><?= _('Profile')?></a>
                                 </button>
                                 <button type="button" class="btn btn-default"><i class="fa fa-sign-out"></i>
-                                    Logout
+                                    <a href="{{ url('auth/logout') }}"><?= _('Logout')?></a>
                                 </button>
                             </div>
                         </div>

@@ -3,8 +3,11 @@
 @section('body')
     @if(isset($edit))
         {!! $edit !!}
-    @else
+    @elseif(isset($filter))
         {!! $filter !!}
         {!! $grid !!}
+    @else
+        {!! $grid !!}
     @endif
+    @include('errors.error_layout')
 @endsection

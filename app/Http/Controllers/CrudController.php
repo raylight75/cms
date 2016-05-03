@@ -99,7 +99,7 @@ class CrudController extends Controller
         $grid->orderBy('product_id', 'asc');
         $grid->paginate(10);
         $title = $this->title;
-        return view('backend/products', compact('filter','grid','title'));
+        return view('backend/content', compact('filter','grid','title'));
     }
 
     public function productsEdit()
@@ -121,7 +121,7 @@ class CrudController extends Controller
         $edit->add('price', 'Price', 'text');
         $edit->link('/backend/products', "Back", "TR");
         $title = $this->title;
-        return view('backend/products', compact('edit','title'));
+        return view('backend/content', compact('edit','title'));
     }
 
     public function orders()
@@ -156,7 +156,7 @@ class CrudController extends Controller
         $grid->orderBy('id', 'asc');
         $grid->paginate(10);
         $title = $this->titleOrders;
-        return view('backend/orders', compact('filter','grid', 'title'));
+        return view('backend/content', compact('filter','grid', 'title'));
     }
     public function ordersEdit()
     {
@@ -173,6 +173,6 @@ class CrudController extends Controller
         $edit->add('amount', 'Amount','text');
         $edit->link('/backend/orders', "Back", "TR");
         $title = $this->titleOrders;
-        return view('backend/orders', compact('edit','title'));
+        return view('backend/content', compact('edit','title'));
     }
 }

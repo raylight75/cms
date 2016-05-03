@@ -44,4 +44,8 @@ class Order extends Model
     {
         return $this->hasOne('App\Models\Product', 'product_id', 'product_id');
     }
+    public function users()
+    {
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
 }

@@ -1,10 +1,11 @@
 @extends('backend/tblTemplate')
 @section('title',$title)
 @section('body')
+<div class="card-body">
     @if(isset($edit))
-        {!! $edit !!}
+    {!! $edit !!}
     @else
-        {!! $filter !!}
-        {!! $grid !!}
+    {!! $grid !!}
     @endif
+</div>
 @endsection

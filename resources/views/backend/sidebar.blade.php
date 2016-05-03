@@ -31,6 +31,11 @@
                             <span class="icon fa fa-user"></span><span class="title">Manage Users</span>
                         </a>
                     </li>
+                    <li class="menu">
+                        <a href="{{ url('backend/orders') }}">
+                            <span class="icon fa fa-shopping-cart"></span><span class="title">Orders</span>
+                        </a>
+                    </li>
                     <li class=" {{ Request::is('backend/products') ? 'active' : '' }} panel panel-default dropdown">
                         <a data-toggle="collapse" href="#dropdown-table">
                             <span class="icon fa fa-table"></span><span class="title">Manage Catalog</span>

@@ -95,7 +95,7 @@ class PanelController extends Controller
         $grid->edit('/panel/orders/edit','Curent Order','show');
         $grid->orderBy('id', 'asc');
         $title = $this->titleOrders;
-        return view('backend/orders', compact('grid', 'title'));
+        return view('backend/userOrders', compact('grid', 'title'));
     }
     public function ordersEdit(Request $request)
     {

@@ -51,7 +51,10 @@ Route::group(['prefix' => 'backend', 'middleware' => 'admin:admin'], function ()
     Route::get('/', 'UsersController@dashboard');
     Route::get('roles', 'UsersController@role');
     Route::post('roles', 'UsersController@createRole');
-    Route::controller('products', 'ProductsController');
+    Route::get('products', 'CrudController@products');
+    Route::any('products/edit', 'CrudController@productsEdit');
+    Route::get('orders', 'CrudController@orders');
+    Route::any('orders/edit', 'CrudController@ordersEdit');
     Route::get('articles/search', 'ArticlesController@search');
     Route::resource('users', 'UsersController');
     Route::resource('articles', 'ArticlesController');

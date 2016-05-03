@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Brands;
 use Request;
@@ -12,7 +14,7 @@ use Validator, Input, Redirect;
 use Zofe\Rapyd\Facades\DataGrid;
 use Zofe\Rapyd\Facades\DataEdit;
 
-class ProductsController extends Controller
+class CrudController extends Controller
 {
 
 
@@ -51,6 +53,8 @@ class ProductsController extends Controller
 
     private $title = 'Products';
 
+    private $titleOrders = 'Orders';
+
     /**
      * Show the home page to the user.
      *
@@ -62,7 +66,7 @@ class ProductsController extends Controller
         return view('backend/dashboard');
     }
 
-    public function getIndex()
+    public function products()
     {
         $filter = \DataFilter::source(Product::with('brands','size','color','category'));
         $filter->add('product_id','ID', 'text');
@@ -98,7 +102,7 @@ class ProductsController extends Controller
         return view('backend/products', compact('filter','grid','title'));
     }
 
-    public function anyEdit()
+    public function productsEdit()
     {
         if (Input::get('do_delete') == 1) return "not the first";
         $edit = DataEdit::source(new Product());
@@ -118,5 +122,57 @@ class ProductsController extends Controller
         $edit->link('/backend/products', "Back", "TR");
         $title = $this->title;
         return view('backend/products', compact('edit','title'));
+    }
+
+    public function orders()
+    {
+        $filter = \DataFilter::source(Order::with('users','products'));
+        $filter->add('id','ID', 'text');
+        $filter->add('users.name','Username', 'text');
+        $filter->add('products.name', 'Product','text');
+        $filter->add('size','Size', 'text');
+        $filter->add('color','Color', 'text');
+        //$filter->add('quantity', 'Qty','text');
+        //$filter->add('price', 'Price','text');
+        $filter->submit('search');
+        $filter->reset('reset');
+        $filter->build();
+
+        $grid = DataGrid::source($filter);
+        $grid->label('User Orders');
+        $grid->attributes(array("class" => "table table-striped"));
+        $grid->add('id', 'ID', true)->style("width:100px");
+        $grid->add('users.name','Username', 'text');
+        $grid->add('order_date', 'Date');
+        $grid->add('<a href="/blabla/?id={{}}">"products.name"</a>','Product');
+        $grid->add('products.name', 'Product');
+        $grid->add('size', 'Size');
+        $grid->add('<img src="/images/products/{{ $img }}" height="25" width="25">', 'Image');
+        $grid->add('color', 'Color');
+        $grid->add('quantity', 'Qty');
+        $grid->add('amount', 'Amount');
+        $grid->edit('/backend/orders/edit');
+        $grid->link('/backend/orders/edit', "New Order", "TR");
+        $grid->orderBy('id', 'asc');
+        $grid->paginate(10);
+        $title = $this->titleOrders;
+        return view('backend/orders', compact('filter','grid', 'title'));
+    }
+    public function ordersEdit()
+    {
+        if (Input::get('do_delete') == 1) return "not the first";
+        $edit = DataEdit::source(new Order());
+        $edit->label('Edit Order');
+        $edit->add('users.name','Username', 'text');
+        $edit->add('order_date', 'Date','text');
+        $edit->add('products.name', 'Product','text');
+        $edit->add('size', 'Size','text');
+        $edit->add('img','Image', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
+        $edit->add('color', 'Color','text');
+        $edit->add('quantity', 'Qty','text');
+        $edit->add('amount', 'Amount','text');
+        $edit->link('/backend/orders', "Back", "TR");
+        $title = $this->titleOrders;
+        return view('backend/orders', compact('edit','title'));
     }
 }

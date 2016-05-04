@@ -38,7 +38,7 @@ Route::get('frontpage', 'ApiController@index');
 Route::get('/cache', 'BaseController@write');
 
 Route::group(['prefix' => 'backend', 'middleware' => 'admin:user'], function () {
-    Route::get('/user', 'BackendController@userDashboard');
+    Route::get('/user', 'BackendController@dashboard');
     Route::get('user-orders', 'BackendController@userOrders');
     Route::any('user-orders/edit', 'BackendController@userOrdersEdit');
     Route::get('profile', 'BackendController@profile');
@@ -52,11 +52,11 @@ Route::group(['prefix' => 'backend', 'middleware' => 'admin:admin'], function ()
     Route::any('products/edit', 'BackendController@productsEdit');
     Route::get('orders', 'BackendController@orders');
     Route::any('orders/edit', 'BackendController@ordersEdit');
-    Route::get('articles/search', 'ArticlesController@search');
-    Route::get('/admin', 'UsersController@dashboard');
+    Route::get('/admin', 'BackendController@dashboard');
     Route::get('roles', 'UsersController@role');
     Route::post('roles', 'UsersController@createRole');
     Route::resource('users', 'UsersController');
+    Route::get('articles/search', 'ArticlesController@search');
     Route::resource('articles', 'ArticlesController');
 });
 

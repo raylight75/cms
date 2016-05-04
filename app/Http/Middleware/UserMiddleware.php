@@ -17,7 +17,7 @@ class UserMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $user = User::find($request->all())->first();
+        $user = User::findOrFail($request->all())->first();
         if ($user->id === Auth::user()->id) {
             return $next($request);
         }

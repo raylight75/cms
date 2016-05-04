@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="side-body">
         <div class="page-title">
-            <span class="title">Table</span>
+            <span class="title">{{$title}}</span>
 
             <div class="description">A bootstrap table for display list of data.</div>
         </div>

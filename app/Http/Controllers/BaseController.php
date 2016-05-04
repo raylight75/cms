@@ -106,7 +106,7 @@ class BaseController extends Controller
     {
         $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
         $data['products'] = Product::getProducts();
-        $data['item'] = Product::with('category', 'size', 'color')->find($id);
+        $data['item'] = Product::with('category', 'size', 'color')->findOrFail($id);
         return view('frontend/product_page', $data);
     }
 

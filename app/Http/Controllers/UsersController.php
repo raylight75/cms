@@ -168,15 +168,4 @@ class UsersController extends Controller
         Session::flash('flash_message', 'User acount successfully deleted!');
         return redirect()->back();
     }
-
-    /**
-     * Show the dashboard page to the user.
-     *
-     * @return Response
-     */
-
-    public function dashboard()
-    {
-        return view('backend/dashboard');
-    }
 }

@@ -21,6 +21,6 @@ class UserMiddleware
         if ($user->id === Auth::user()->id) {
             return $next($request);
         }
-        return redirect('panel/profile')->withErrors('Your are not autorized to view resources');
+        return redirect('backend/profile')->withErrors('Your are not autorized to view resources');
     }
 }

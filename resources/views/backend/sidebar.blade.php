@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav">
                 @if  (Auth::check() && Auth::user()->is('admin'))
                     <li class="menu">
-                        <a href="{{ url('backend') }}">
+                        <a href="{{ url('backend/admin') }}">
                             <span class="icon fa fa-tachometer"></span><span class="title">Dashboard</span>
                         </a>
                     </li>
@@ -54,17 +54,17 @@
                     </li>
                 @else (Auth::check() && Auth::user()->is('user'))
                     <li class="menu">
-                        <a href="{{ url('panel') }}">
+                        <a href="{{ url('backend/user') }}">
                             <span class="icon fa fa-tachometer"></span><span class="title">User Dashboard</span>
                         </a>
                     </li>
                     <li class="menu">
-                        <a href="{{ url('panel/profile') }}">
+                        <a href="{{ url('backend/profile') }}">
                             <span class="icon fa fa-eye"></span><span class="title">User Profile</span>
                         </a>
                     </li>
                     <li class="menu">
-                        <a href="{{ url('panel/orders') }}">
+                        <a href="{{ url('backend/user-orders') }}">
                             <span class="icon fa fa-money"></span><span class="title">My Orders</span>
                         </a>
                     </li>

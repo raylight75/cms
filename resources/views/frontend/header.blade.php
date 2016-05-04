@@ -10,7 +10,7 @@
                     <li><a href="{{ url('backend') }}"><?= _('Admin Panel')?></a></li>
                     <li><a href="{{ url('auth/logout') }}"><?= _('Logout')?></a></li>
                 @elseif(Auth::check() && Auth::user()->is('user'))
-                    <li><a href="{{ url('panel') }}"><?= _('User Panel')?></a></li>
+                    <li><a href="{{ url('backend/user') }}"><?= _('User Panel')?></a></li>
                     <li><a href="{{ url('auth/logout') }}"><?= _('Logout')?></a></li>
                 @else
                     <li><a href=""><?= _('my account')?></a></li>

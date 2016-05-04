@@ -7,14 +7,13 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Brands;
-use Request;
-use Auth, View;
-use DB;
+use Illuminate\Http\Request;
+use Auth, View,Gate,DB;
 use Validator, Input, Redirect;
 use Zofe\Rapyd\Facades\DataGrid;
 use Zofe\Rapyd\Facades\DataEdit;
 
-class CrudController extends Controller
+class BackendController extends Controller
 {
 
 
@@ -55,6 +54,8 @@ class CrudController extends Controller
 
     private $titleOrders = 'Orders';
 
+    private $titleUser = 'User';
+
     /**
      * Show the home page to the user.
      *
@@ -64,6 +65,12 @@ class CrudController extends Controller
     public function index()
     {
         return view('backend/dashboard');
+    }
+
+    public function userDashboard()
+    {
+        $title = 'User Dashboard';
+        return view('backend/dashboard', compact('title'));
     }
 
     public function products()
@@ -124,6 +131,31 @@ class CrudController extends Controller
         return view('backend/content', compact('edit','title'));
     }
 
+    public function profile()
+    {
+        $id = Auth::user()->id;
+        $grid = DataGrid::source(User::where('id', $id));
+        $grid->label('Your Profile');
+        $grid->attributes(array("class" => "table table-striped"));
+        $grid->add('name', 'Name');
+        $grid->add('<img src="/images/avatars/{{ $avatar }}" height="25" width="25">', 'Avatar');
+        $grid->add('email', 'Email');
+        $grid->edit('/backend/profile/edit','Edit','show|modify');
+        $grid->orderBy('id', 'asc');
+        $title = $this->titleUser;
+        return view('backend/content', compact('grid','title'));
+    }
+
+    public function profileEdit()
+    {
+        $edit = DataEdit::source(new User());
+        $edit->label('Edit Profile');
+        $edit->add('avatar','Avatar', 'image')->move('images/avatars/')->fit(240, 160)->preview(120,80);
+        $edit->link('/backend/profile', "Back", "TR");
+        $title = $this->titleUser;
+        return view('backend/content', compact('edit','title'));
+    }
+
     public function orders()
     {
         $filter = \DataFilter::source(Order::with('users','products'));
@@ -170,6 +202,46 @@ class CrudController extends Controller
         $edit->add('amount', 'Amount','text');
         $edit->link('/backend/orders', "Back", "TR");
         $title = $this->titleOrders;
+        return view('backend/content', compact('edit','title'));
+    }
+
+    public function userOrders()
+    {
+        $id = Auth::user()->id;
+        $grid = DataGrid::source(Order::with('products')->where('user_id', $id));
+        $grid->label('My Orders');
+        $grid->attributes(array("class" => "table table-striped"));
+        $grid->add('id', 'ID', true)->style("width:100px");
+        $grid->add('order_date', 'Date');
+        $grid->add('products.name', 'Product');
+        $grid->add('size', 'Size');
+        $grid->add('<img src="/images/products/{{ $img }}" height="25" width="25">', 'Image');
+        $grid->add('color', 'Color');
+        $grid->add('quantity', 'Qty');
+        $grid->add('amount', 'Amount');
+        $grid->edit('/backend/user-orders/edit','Curent Order','show');
+        $grid->orderBy('id', 'asc');
+        $title = $this->titleOrders;
+        return view('backend/content', compact('grid', 'title'));
+    }
+
+    public function userOrdersEdit(Request $request)
+    {
+        $order = Order::findOrFail($request->all())->first();
+        if (Gate::denies('show-resource', $order)) {
+            return redirect('backend/profile')->withErrors('Your are not autorized to view resources');;
+        }
+        $edit = DataEdit::source(new Order());
+        $edit->label('View Order');
+        $edit->add('order_date', 'Date','text');
+        $edit->add('products.name', 'Product','text');
+        $edit->add('size', 'Size','text');
+        $edit->add('img','Image', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
+        $edit->add('color', 'Color','text');
+        $edit->add('quantity', 'Qty','text');
+        $edit->add('amount', 'Amount','text');
+        $edit->link('/backend/user-orders', "Back", "TR");
+        $title = $this->titleUser;
         return view('backend/content', compact('edit','title'));
     }
 }

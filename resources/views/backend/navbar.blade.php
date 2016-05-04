@@ -32,7 +32,11 @@
 
                             <div class="btn-group margin-bottom-2x" role="group">
                                 <button type="button" class="btn btn-default"><i class="fa fa-user"></i>
-                                    <a href="{{ url('panel/profile') }}"><?= _('Profile')?></a>
+                                    @if  (Auth::check() && Auth::user()->is('admin'))
+                                        <a href="{{ url('backend/admin') }}"><?= _('Profile')?></a>
+                                    @else(Auth::check() && Auth::user()->is('user'))
+                                        <a href="{{ url('backend/user') }}"><?= _('Profile')?></a>
+                                    @endif
                                 </button>
                                 <button type="button" class="btn btn-default"><i class="fa fa-sign-out"></i>
                                     <a href="{{ url('auth/logout') }}"><?= _('Logout')?></a>

@@ -37,25 +37,25 @@ Route::get('frontpage', 'ApiController@index');
 
 Route::get('/cache', 'BaseController@write');
 
-Route::group(['prefix' => 'panel', 'middleware' => 'admin:user'], function () {
-    Route::get('/', 'PanelController@index');
-    Route::get('orders', 'PanelController@orders');
-    Route::any('orders/edit', 'PanelController@ordersEdit');
-    Route::get('profile', 'PanelController@profile');
+Route::group(['prefix' => 'backend', 'middleware' => 'admin:user'], function () {
+    Route::get('/user', 'BackendController@userDashboard');
+    Route::get('user-orders', 'BackendController@userOrders');
+    Route::any('user-orders/edit', 'BackendController@userOrdersEdit');
+    Route::get('profile', 'BackendController@profile');
     Route::group(['middleware' => 'user'], function () {
-        Route::any('profile/edit', 'PanelController@profileEdit');
+        Route::any('profile/edit', 'BackendController@profileEdit');
     });
 });
 
 Route::group(['prefix' => 'backend', 'middleware' => 'admin:admin'], function () {
-    Route::get('/', 'UsersController@dashboard');
+    Route::get('products', 'BackendController@products');
+    Route::any('products/edit', 'BackendController@productsEdit');
+    Route::get('orders', 'BackendController@orders');
+    Route::any('orders/edit', 'BackendController@ordersEdit');
+    Route::get('articles/search', 'ArticlesController@search');
+    Route::get('/admin', 'UsersController@dashboard');
     Route::get('roles', 'UsersController@role');
     Route::post('roles', 'UsersController@createRole');
-    Route::get('products', 'CrudController@products');
-    Route::any('products/edit', 'CrudController@productsEdit');
-    Route::get('orders', 'CrudController@orders');
-    Route::any('orders/edit', 'CrudController@ordersEdit');
-    Route::get('articles/search', 'ArticlesController@search');
     Route::resource('users', 'UsersController');
     Route::resource('articles', 'ArticlesController');
 });

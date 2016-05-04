@@ -128,12 +128,10 @@ class CrudController extends Controller
     {
         $filter = \DataFilter::source(Order::with('users','products'));
         $filter->add('id','ID', 'text');
-        $filter->add('users.name','Username', 'text');
+        $filter->add('users.name','Customer', 'text');
         $filter->add('products.name', 'Product','text');
         $filter->add('size','Size', 'text');
         $filter->add('color','Color', 'text');
-        //$filter->add('quantity', 'Qty','text');
-        //$filter->add('price', 'Price','text');
         $filter->submit('search');
         $filter->reset('reset');
         $filter->build();
@@ -142,10 +140,9 @@ class CrudController extends Controller
         $grid->label('User Orders');
         $grid->attributes(array("class" => "table table-striped"));
         $grid->add('id', 'ID', true)->style("width:100px");
-        $grid->add('users.name','Username', 'text');
+        $grid->add('users.name','Customer', 'text');
         $grid->add('order_date', 'Date');
-        $grid->add('<a href="/blabla/?id={{}}">"products.name"</a>','Product');
-        $grid->add('products.name', 'Product');
+        $grid->add('<a href="/backend/products/edit?show={{ $products->product_id }}">{{ $products->name }}</a>','Product');
         $grid->add('size', 'Size');
         $grid->add('<img src="/images/products/{{ $img }}" height="25" width="25">', 'Image');
         $grid->add('color', 'Color');

@@ -7,7 +7,7 @@
         <div class="container clearfix">
             <ul class="secondary_menu">
                 @if  (Auth::check() && Auth::user()->is('admin'))
-                    <li><a href="{{ url('backend') }}"><?= _('Admin Panel')?></a></li>
+                    <li><a href="{{ url('backend/admin') }}"><?= _('Admin Panel')?></a></li>
                     <li><a href="{{ url('auth/logout') }}"><?= _('Logout')?></a></li>
                 @elseif(Auth::check() && Auth::user()->is('user'))
                     <li><a href="{{ url('backend/user') }}"><?= _('User Panel')?></a></li>

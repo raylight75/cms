@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2016 at 12:04 PM
+-- Generation Time: May 05, 2016 at 03:18 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -705,29 +705,29 @@ INSERT INTO `orders` (`id`, `user_id`, `order_date`, `status`, `product_id`, `si
 (2, 2, '2015-08-16 20:32:59', '7', 4, 'XL', '8d383-mtk006a.jpg', 'red', 1, 12),
 (3, 2, '2015-08-16 20:40:55', '2', 16, 'XXL', 'ebd78-pmtk004a.jpg', 'white', 3, 36),
 (4, 2, '2015-08-16 20:52:50', '2', 16, 'XL', 'ebd78-pmtk004a.jpg', 'white', 2, 24),
-(5, 3, '2015-08-16 20:52:50', '2', 15, 'M', '10551-pmtk006a.jpg', 'black', 1, 23),
+(5, 2, '2015-08-16 20:52:50', '2', 15, 'M', '10551-pmtk006a.jpg', 'black', 1, 23),
 (6, 4, '2015-08-16 21:11:05', '2', 4, 'XXL', '8d383-mtk006a.jpg', 'red', 1, 12),
-(7, 3, '2015-08-16 21:11:05', '7', 15, 'L', '10551-pmtk006a.jpg', 'black', 1, 23),
-(8, 3, '2015-08-16 21:23:58', '6', 10, 'M', '543ea-mtk004a.jpg', 'brown', 2, 10),
-(9, 3, '2015-08-16 21:23:58', '5', 32, 'S', '11f4f-image1xxl.jpg', 'white', 1, 56),
-(10, 3, '2015-08-16 22:06:38', '5', 19, 'M', '04776-pms000a.jpg', 'white', 2, 68),
-(11, 4, '2015-08-16 23:27:35', '1', 40, 'XL', '742e0-image1xxl-7-.jpg', 'blue', 1, 34),
+(7, 4, '2015-08-16 21:11:05', '7', 15, 'L', '10551-pmtk006a.jpg', 'black', 1, 23),
+(8, 1, '2015-08-16 21:23:58', '1', 10, 'M', '543ea-mtk004a.jpg', 'brown', 2, 10),
+(9, 1, '2015-08-16 21:23:58', '5', 32, 'S', '11f4f-image1xxl.jpg', 'white', 1, 56),
+(10, 1, '2015-08-16 22:06:38', '5', 19, 'M', '04776-pms000a.jpg', 'white', 2, 68),
+(11, 1, '2015-08-16 23:27:35', '1', 40, 'XL', '742e0-image1xxl-7-.jpg', 'blue', 1, 34),
 (12, 2, '2015-08-18 08:16:18', '4', 12, ' XXL', 'dd8f7-pmo001a.jpg', 'black', 3, 267),
 (13, 2, '2015-08-18 08:20:05', '6', 12, ' XXL', 'dd8f7-pmo001a.jpg', 'black', 1, 89),
 (14, 2, '2015-08-18 08:26:15', '1', 28, 'L', '68d00-4.jpg', 'violet', 2, 74),
-(15, 3, '2015-08-18 08:59:21', '2', 21, 'S', 'ea72e-mpd006t.jpg', 'green', 1, 19),
-(16, 3, '2015-08-18 08:59:21', '7', 17, 'L', '57e1d-pmtk001a.jpg', 'white', 2, 20),
+(15, 2, '2015-08-18 08:59:21', '2', 21, 'S', 'ea72e-mpd006t.jpg', 'green', 1, 19),
+(16, 4, '2015-08-18 08:59:21', '7', 17, 'L', '57e1d-pmtk001a.jpg', 'white', 2, 20),
 (17, 2, '2015-08-20 11:30:21', '5', 8, ' XXXL', 'e11b9-mpd006a.jpg', 'blue', 1, 37),
-(18, 3, '2015-09-03 18:00:52', '7', 17, 'L', '57e1d-pmtk001a.jpg', 'black', 2, 20),
-(19, 3, '2015-09-03 18:00:52', '1', 1, ' XXL', 'ed60e-mpd000c.jpg', 'blue', 1, 25),
+(18, 1, '2015-09-03 18:00:52', '7', 17, 'L', '57e1d-pmtk001a.jpg', 'black', 2, 20),
+(19, 1, '2015-09-03 18:00:52', '1', 1, ' XXL', 'ed60e-mpd000c.jpg', 'blue', 1, 25),
 (20, 4, '2015-09-03 18:48:24', '5', 32, 'M', '11f4f-image1xxl.jpg', 'white', 2, 112),
 (21, 4, '2015-09-03 18:56:32', '4', 44, 'L', '39915-v1.jpg', 'black', 1, 6),
-(22, 3, '2015-09-14 20:18:30', '2', 39, ' XL', 'be3aa-image11.jpg', 'violet', 1, 108),
-(23, 6, '2015-09-21 18:44:22', '5', 6, 'M', '94efc-mpd012a.jpg', 'brown', 3, 21),
-(24, 6, '2015-09-21 18:44:22', '7', 47, ' XXL', '3c47b-pwt001a_1.jpg', 'blue', 3, 267),
-(25, 6, '2015-10-26 13:13:10', '5', 1, 'XXL', 'ed60e-mpd000c.jpg', 'blue', 2, 50),
-(26, 6, '2015-12-27 17:13:32', '2', 45, 'L', 'c2ae6-n1.jpg', 'red', 3, 15),
-(27, 6, '2015-12-27 17:13:32', '2', 42, 'XXL', '729d0-b1.jpg', 'blue', 1, 103);
+(22, 1, '2015-09-14 20:18:30', '2', 39, ' XL', 'be3aa-image11.jpg', 'violet', 1, 108),
+(23, 2, '2015-09-21 18:44:22', '5', 6, 'M', '94efc-mpd012a.jpg', 'brown', 3, 21),
+(24, 4, '2015-09-21 18:44:22', '7', 47, ' XXL', '3c47b-pwt001a_1.jpg', 'blue', 3, 267),
+(25, 1, '2015-10-26 13:13:10', '5', 1, 'XXL', 'ed60e-mpd000c.jpg', 'blue', 2, 50),
+(26, 1, '2015-12-27 17:13:32', '2', 45, 'L', 'c2ae6-n1.jpg', 'red', 3, 15),
+(27, 4, '2015-12-27 17:13:32', '2', 42, 'XXL', '729d0-b1.jpg', 'blue', 1, 103);
 
 --
 -- Triggers `orders`
@@ -739,6 +739,18 @@ UPDATE products SET products.quantity = products.quantity - NEW.quantity WHERE  
 END
 //
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_product`
+--
+
+CREATE TABLE IF NOT EXISTS `order_product` (
+`id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -780,20 +792,20 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment`
+-- Table structure for table `payments`
 --
 
-CREATE TABLE IF NOT EXISTS `payment` (
+CREATE TABLE IF NOT EXISTS `payments` (
 `id` int(11) NOT NULL,
   `method` varchar(32) NOT NULL,
   `img` varchar(32) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `payment`
+-- Dumping data for table `payments`
 --
 
-INSERT INTO `payment` (`id`, `method`, `img`) VALUES
+INSERT INTO `payments` (`id`, `method`, `img`) VALUES
 (1, 'Visa', 'visa.jpg'),
 (2, 'MasterCard', 'master_card.jpg'),
 (3, 'PayPal', 'paypal.jpg');
@@ -1277,10 +1289,10 @@ INSERT INTO `settings` (`id`, `title`, `keyword`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shipping`
+-- Table structure for table `shippings`
 --
 
-CREATE TABLE IF NOT EXISTS `shipping` (
+CREATE TABLE IF NOT EXISTS `shippings` (
 `id` int(11) NOT NULL,
   `method` varchar(32) NOT NULL,
   `img` varchar(32) NOT NULL,
@@ -1288,10 +1300,10 @@ CREATE TABLE IF NOT EXISTS `shipping` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `shipping`
+-- Dumping data for table `shippings`
 --
 
-INSERT INTO `shipping` (`id`, `method`, `img`, `rate`) VALUES
+INSERT INTO `shippings` (`id`, `method`, `img`, `rate`) VALUES
 (1, 'United States Postal Service', 'standart_post.jpg', 15),
 (2, 'UPS', 'excluseve_post.jpg', 20),
 (3, 'DHL', 'vip_post.jpg', 10),
@@ -1365,9 +1377,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `avatar`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Tihomir', 'ui-zac.jpg', 'raylight75@gmail.com', '$2y$10$b17mr2swLgWrdJ2Mka6Ilegy0.kJPBgE1R/b1Y7Bsnc5VVBCDL.Rq', 'Jr8R8Jo9qAted9R18wdKGCKTkjSXSGEoCPf1iGO0sHTaWGkKEEwAJqYGG550', '2016-01-03 08:48:36', '2016-04-25 07:33:15'),
+(1, 'Tihomir', 'ui-zac.jpg', 'raylight75@gmail.com', '$2y$10$b17mr2swLgWrdJ2Mka6Ilegy0.kJPBgE1R/b1Y7Bsnc5VVBCDL.Rq', 'leysUPbs9oSQsij7qAPF1253Ya3rv9R6f81hLxq7EGuTS7ZjdryP36ORd1U3', '2016-01-03 08:48:36', '2016-05-04 10:10:43'),
 (2, 'Ivan', 'ui-sherman.jpg', 'tblajev@yahoo.com', '$2y$10$uQSDi6zBHxVU83adaZHjFOHqFAQWHZSPvNl6.R6EuOcRa30HlcUIi', 'CF4il4pmSKSBkD9mTz0tuOKAeQECg6gRb6zIlHu8NKlLDUmSxGfmkgzVtdTK', '2016-01-03 10:58:24', '2016-04-22 10:34:13'),
-(4, 'Ana', 'avatar-ani.jpg', 'ana.blajeva@abv.bg', '$2y$10$EDFjGgQ/Q8i00mrbXMU5VOIYeS/pfwI3iZubj4v0yuYJB4NjrdEwi', '5T87SifVfgqHfnw7uzRAsnDgJ0AJHm5MRoZG6HXu9QBZwKCdqIwkDzLESSij', '2016-04-19 06:02:27', '2016-04-27 07:52:04');
+(4, 'Ana', 'avatar-ani.jpg', 'ana.blajeva@abv.bg', '$2y$10$EDFjGgQ/Q8i00mrbXMU5VOIYeS/pfwI3iZubj4v0yuYJB4NjrdEwi', 'nxmDfD0oQIq2PRTmbKUAihPuTdGgEyZZHmWH6tT9m8N6pEU6H7Cl5rCWmfHM', '2016-04-19 06:02:27', '2016-05-05 06:48:22');
 
 --
 -- Indexes for dumped tables
@@ -1446,6 +1458,12 @@ ALTER TABLE `orders`
  ADD PRIMARY KEY (`id`), ADD KEY `fk_orders_customers_idx` (`user_id`);
 
 --
+-- Indexes for table `order_product`
+--
+ALTER TABLE `order_product`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `order_status`
 --
 ALTER TABLE `order_status`
@@ -1458,9 +1476,9 @@ ALTER TABLE `password_resets`
  ADD KEY `password_resets_email_index` (`email`), ADD KEY `password_resets_token_index` (`token`);
 
 --
--- Indexes for table `payment`
+-- Indexes for table `payments`
 --
-ALTER TABLE `payment`
+ALTER TABLE `payments`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -1524,9 +1542,9 @@ ALTER TABLE `settings`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `shipping`
+-- Indexes for table `shippings`
 --
-ALTER TABLE `shipping`
+ALTER TABLE `shippings`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -1602,14 +1620,19 @@ MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 ALTER TABLE `orders`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
+-- AUTO_INCREMENT for table `order_product`
+--
+ALTER TABLE `order_product`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `order_status`
 --
 ALTER TABLE `order_status`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
--- AUTO_INCREMENT for table `payment`
+-- AUTO_INCREMENT for table `payments`
 --
-ALTER TABLE `payment`
+ALTER TABLE `payments`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1657,9 +1680,9 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 ALTER TABLE `settings`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `shipping`
+-- AUTO_INCREMENT for table `shippings`
 --
-ALTER TABLE `shipping`
+ALTER TABLE `shippings`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `sizes`

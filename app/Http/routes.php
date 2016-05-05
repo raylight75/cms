@@ -31,11 +31,15 @@ Route::get('/login', 'BaseController@userlogin');
 
 Route::get('items/search/{id}', 'BaseController@search');
 
-Route::get('api', 'ApiController@api');
+//Route::get('api', 'ApiController@api');
 
-Route::get('frontpage', 'ApiController@index');
+//Route::get('frontpage', 'ApiController@index');
 
-Route::get('/cache', 'BaseController@write');
+//Route::get('/cache', 'BaseController@write');
+
+Route::group(['prefix' => 'checkout', 'middleware' => 'admin:user'], function () {
+    Route::get('/shipping', 'BaseController@checkoutOne');
+});
 
 Route::group(['prefix' => 'backend', 'middleware' => 'admin:user'], function () {
     Route::get('/user', 'BackendController@dashboard');

@@ -135,7 +135,7 @@
                     <input type="button" class="btn active" value="Clear Cart" onclick="clear_cart()">
                     {!! Form::submit('Update Cart', ['class' => 'btn inactive']) !!}
                     {!! Form::close() !!}
-                    <a class="btn active" href="{{ url('checkout') }}"><?= _('Check out')?></a> <a
+                    <a class="btn active" href="{{ url('checkout/shipping') }}"><?= _('Check out')?></a> <a
                             class="btn inactive" href="{{ url('cms') }}"><?= _('Continue shopping')?></a>
                 </div>
                 <!-- //REGISTRATION FORM -->

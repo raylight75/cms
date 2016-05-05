@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Brands;
+use App\Models\Country;
+use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Shipping;
 use Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -76,6 +79,14 @@ class BaseController extends Controller
     public function contacts()
     {
         return view('frontend/contacts');
+    }
+
+    public function checkoutOne()
+    {
+        $data['countries'] = Country::all();
+        $data['payments'] = Payment::all();
+        $data['shippings'] = Shipping::all();
+        return view('frontend/checkoutOne', $data);
     }
 
     /**

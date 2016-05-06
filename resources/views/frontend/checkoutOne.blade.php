@@ -27,89 +27,89 @@
         <!-- CHECKOUT BLOCK -->
         <div class="checkout_block">
             <ul class="checkout_nav">
-                <li class="active_step">1. Shipping Address</li>
-                <li>2. Place Order</li>
-                <li class="last">3. Confirm Order</li>
+                <li class="done_step">1. Shipping Address</li>
+                <li class="active_step">2. Review Order</li>
+                <li class="last">3. Place Order</li>
             </ul>
-            <form class="checkout_form clearfix"
-                  action="shopping/session_data_1" method="post">
-                <div class="checkout_form_input country">
-                    <label>Country <span class="color_red">*</span></label>
-                    <select name="country" class="basic">
-                        @foreach ($countries as $c)
-                            <option>{{$c->name}}</option>
-                        @endforeach
-                    </select>
+            {!! Form::open(['url' => 'checkout/store','class'=>'checkout_form clearfix']) !!}
+            <div class="checkout_form_input country">
+                <label>Country <span class="color_red">*</span></label>
+                <select name="country" class="basic">
+                    @foreach ($countries as $c)
+                        <option>{{$c->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="checkout_form_input sity">
+                <label>Sity <span class="color_red">*</span></label>
+                <input type="text" name="city" value="" placeholder=""/>
+            </div>
+
+            <div class="checkout_form_input last postcode">
+                <label>Postcode <span class="color_red">*</span></label>
+                <input type="text" name="postcode" value="" placeholder=""/>
+            </div>
+
+            <div class="checkout_form_input2 adress">
+                <label>Street Adress 1 <span class="color_red">*</span></label>
+                <input type="text" name="adress" value="" placeholder=""/>
+            </div>
+
+            <hr class="clear">
+
+            <div class="checkout_form_input first_name">
+                <label>First Name <span class="color_red">*</span></label>
+                <input type="text" name="name" value="" placeholder=""/>
+            </div>
+
+            <div class="checkout_form_input phone">
+                <label>Phone <span class="color_red">*</span></label>
+                <input type="text" name="phone" value="" placeholder=""/>
+            </div>
+
+            <div class="checkout_form_input last E-mail">
+                <label>e-mail <span class="color_red">*</span></label>
+                <input type="text" name="email" value="" placeholder=""/>
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="checkout_delivery clearfix">
+                <p class="checkout_title">SELECT SHIPPING METHOD</p>
+                <ul>
+                    @foreach ($shippings as $s)
+                        <li>
+                            <input id="ridio{{$s->id}}" type="radio" name="delivery" value="{{$s->id}}" hidden/>
+                            <label for="ridio{{$s->id}}">{{$s->method}}
+                                <img src="{{ url('images') }}/{{$s->img}}" alt=""/></label>
+                        </li>
+                    @endforeach
+                </ul>
+                <div class="checkout_delivery_note"><i class="fa fa-exclamation-circle"></i>Express delivery options
+                    are available for in-stock items only.
                 </div>
-
-                <div class="checkout_form_input sity">
-                    <label>Sity <span class="color_red">*</span></label>
-                    <input type="text" name="city" value="" placeholder=""/>
-                </div>
-
-                <div class="checkout_form_input last postcode">
-                    <label>Postcode <span class="color_red">*</span></label>
-                    <input type="text" name="postcode" value="" placeholder=""/>
-                </div>
-
-                <div class="checkout_form_input2 adress">
-                    <label>Street Adress 1 <span class="color_red">*</span></label>
-                    <input type="text" name="adress" value="" placeholder=""/>
-                </div>
-
-                <hr class="clear">
-
-                <div class="checkout_form_input first_name">
-                    <label>First Name <span class="color_red">*</span></label>
-                    <input type="text" name="name" value="" placeholder=""/>
-                </div>
-
-                <div class="checkout_form_input phone">
-                    <label>Phone <span class="color_red">*</span></label>
-                    <input type="text" name="phone" value="" placeholder=""/>
-                </div>
-
-                <div class="checkout_form_input last E-mail">
-                    <label>e-mail <span class="color_red">*</span></label>
-                    <input type="text" name="email" value="" placeholder=""/>
-                </div>
-
-                <div class="clear"></div>
-
-                <div class="checkout_delivery clearfix">
-                    <p class="checkout_title">SELECT SHIPPING METHOD</p>
-                    <ul>
-                        @foreach ($shippings as $s)
+                <p></p>
+            </div>
+            <div class="checkout_payment clearfix">
+                <div class="payment_method padbot70">
+                    <p class="checkout_title">Select Payment Method</p>
+                    <ul class="clearfix">
+                        @foreach ($payments as $p)
                             <li>
-                                <input id="ridio{{$s->id}}" type="radio" name="delivery" value="{{$s->id}}" hidden/>
-                                <label for="ridio{{$s->id}}">{{$s->method}}
-                                    <img src="{{ url('images') }}/{{$s->img}}" alt=""/></label>
+                                <input id="radio{{$p->id}}" type="radio" name="payment" value="{{$p->id}}" hidden/>
+                                <label for="radio{{$p->id}}">{{$p->method}}
+                                    <img src="{{ url('images') }}/{{$p->img}}" alt=""/></label>
                             </li>
                         @endforeach
                     </ul>
-                    <div class="checkout_delivery_note"><i class="fa fa-exclamation-circle"></i>Express delivery options
-                        are available for in-stock items only.
-                    </div>
-                    <p></p>
                 </div>
-                <div class="checkout_payment clearfix">
-                    <div class="payment_method padbot70">
-                        <p class="checkout_title">Select Payment Method</p>
-                        <ul class="clearfix">
-                            @foreach ($payments as $p)
-                                <li>
-                                    <input id="radio{{$p->id}}" type="radio" name="payment" value="{{$p->id}}" hidden/>
-                                    <label for="radio{{$p->id}}">{{$p->method}}
-                                        <img src="{{ url('images') }}/{{$p->img}}" alt=""/></label>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-                <div class="checkout_form_note">All fields marked with (<span class="color_red">*</span>) are required
-                </div>
-                <input type="submit" value="Continue">
-            </form>
+            </div>
+            @include('errors.error_layout')
+            <div class="checkout_form_note">All fields marked with (<span class="color_red">*</span>) are required
+            </div>
+            <input type="submit" value="Continue">
+            {!! Form::close() !!}
         </div>
         <!-- //CHECKOUT BLOCK -->
     </div>

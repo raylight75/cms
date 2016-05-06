@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubmitCheckout;
 use App\Models\Category;
 use App\Models\Brands;
 use App\Models\Country;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Shipping;
-use Request;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Auth, View;
-use DB;
+use Auth, View,DB;
 
 class BaseController extends Controller
 {
@@ -68,25 +67,51 @@ class BaseController extends Controller
         $data['brands'] = Brands::all();
         $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
         $data['products'] = Product::getProducts();
-        return view('frontend/body', $data);
+        return view('frontend.body', $data);
     }
 
     public function aboutus()
     {
-        return view('frontend/aboutus');
+        return view('frontend.aboutus');
     }
 
     public function contacts()
     {
-        return view('frontend/contacts');
+        return view('frontend.contacts');
     }
 
+    /**
+     * Pass data to checkout view
+     * @return View
+     */
     public function checkoutOne()
     {
-        $data['countries'] = Country::all();
-        $data['payments'] = Payment::all();
-        $data['shippings'] = Shipping::all();
-        return view('frontend/checkoutOne', $data);
+        $countries = Country::all();
+        $payments = Payment::all();
+        $shippings = Shipping::all();
+        return view('frontend.checkoutOne', compact('countries','payments','shippings'));
+    }
+
+    /**
+     * Store checkout first step data to Session
+     * @param Request $request
+     * @return View
+     */
+    public function checkoutStore(SubmitCheckout $request)
+    {
+        $input = $request->all();
+        $request->session()->put($input);
+        return redirect('checkout/show');
+    }
+
+    public function checkoutTwo(Request $request)
+    {
+        $vat = Country::where('name',$request->session()->get('country'))->first();
+        $data['vat'] = $vat->vat;
+        $data['payments'] = Payment::findOrFail($request->session()->get('payment'));
+        $data['shippings'] = Shipping::findOrFail($request->session()->get('delivery'));
+        $data['customer'] = $request->session()->all();
+        return view('frontend.checkoutTwo', $data);
     }
 
     /**
@@ -94,16 +119,16 @@ class BaseController extends Controller
      * @param $parent
      * @return View
      */
-    public function filter($slug, $parent)
+    public function filter(Request $request,$slug, $parent)
     {
         $data = Product::prepareFilter($parent);
-        $data['banner'] = Category::whereIn('cat_id',Input::get('categ'))->first();
+        $data['banner'] = Category::whereIn('cat_id',$request->input('categ'))->first();
         $data['properties'] = Product::getAll($parent);
         $data['products'] = Product::pagination($parent);
-        if (Request::ajax()) {
-            return response()->json(view('frontend/ajax-products', $data)->render());
+        if ($request->ajax()) {
+            return response()->json(view('frontend.ajax-products', $data)->render());
         }else{
-            return view('frontend/filter_view', $data);
+            return view('frontend.filter_view', $data);
         }
 
     }
@@ -118,7 +143,7 @@ class BaseController extends Controller
         $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
         $data['products'] = Product::getProducts();
         $data['item'] = Product::with('category', 'size', 'color')->findOrFail($id);
-        return view('frontend/product_page', $data);
+        return view('frontend.product_page', $data);
     }
 
     /**
@@ -129,32 +154,32 @@ class BaseController extends Controller
     public function frame($id)
     {
         $data['item'] = Product::with('category', 'size', 'color')->find($id);
-        return view('frontend/frame', $data);
+        return view('frontend.frame', $data);
     }
 
     /**
      * @param $parent
      * @return \Illuminate\Http\JsonResponse|View
      */
-    public function search($parent)
+    public function search(Request $request,$parent)
     {
-        $search = Request::get('search');
+        $search = $request->input('search');
         $data = Product::prepareFilter($parent);
-        $data['banner'] = Category::where('cat_id',Input::get('categ'))->first();
+        $data['banner'] = Category::where('cat_id',$request->input('categ'))->first();
         $data['properties'] = Product::getAll($parent);
         $data['products'] = Product::where('name', 'like', '%' . $search . '%')
             ->orderBy('name')
             ->paginate(6);
-        if (Request::ajax()) {
-            return response()->json(view('frontend/ajax-products', $data)->render());
+        if ($request->ajax()) {
+            return response()->json(view('frontend.ajax-products', $data)->render());
         }else{
-            return view('frontend/filter_view', $data);
+            return view('frontend.filter_view', $data);
         }
     }
 
     public function userLogin()
     {
-        return view('frontend/login');
+        return view('frontend.login');
     }
 
     public function welcome()
@@ -162,6 +187,6 @@ class BaseController extends Controller
         //redirect trait AuthenticatesUsers getLogout()
         $user = Auth::user()->name;
         Session::flash('flash_message', 'You have been successfully Logged In!');
-        return view('messages/welcome')->with('user',$user);
+        return view('messages.welcome')->with('user',$user);
     }
 }

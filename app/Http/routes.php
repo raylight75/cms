@@ -39,6 +39,8 @@ Route::get('items/search/{id}', 'BaseController@search');
 
 Route::group(['prefix' => 'checkout', 'middleware' => 'admin:user'], function () {
     Route::get('/shipping', 'BaseController@checkoutOne');
+    Route::post('/store', 'BaseController@checkoutStore');
+    Route::get('/show', 'BaseController@checkoutTwo');
 });
 
 Route::group(['prefix' => 'backend', 'middleware' => 'admin:user'], function () {

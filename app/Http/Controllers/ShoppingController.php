@@ -40,8 +40,8 @@ class ShoppingController extends BaseController
 
     /**
      *
-     * Cart Class
-     * Cart Class for managing shopping cart
+     * Shopping Class
+     * Shopping Class for managing shopping cart and payments.
      * @package ecommerce-cms
      * @category Base Class
      * @author Tihomir Blazhev <raylight75@gmail.com>

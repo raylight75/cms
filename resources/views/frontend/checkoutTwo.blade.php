@@ -86,6 +86,8 @@
                                 </li>
                             </ul>
                         @endforeach
+                        @include('errors.error_layout')
+                        @include('messages.flash_message')
                     </div>
                 </div>
             </div>

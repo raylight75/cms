@@ -60,7 +60,7 @@
 
             <div class="checkout_form_input first_name">
                 <label>First Name <span class="color_red">*</span></label>
-                <input type="text" name="name" value="{{Auth::user()->name}}" placeholder=""/>
+                <input type="text" name="name" value="{{Auth::user()->name}}" placeholder="" readonly/>
             </div>
 
             <div class="checkout_form_input phone">
@@ -70,7 +70,7 @@
 
             <div class="checkout_form_input last E-mail">
                 <label>e-mail <span class="color_red">*</span></label>
-                <input type="text" name="email" value="{{Auth::user()->email}}" placeholder=""/>
+                <input type="text" name="email" value="{{Auth::user()->email}}" placeholder="" readonly/>
             </div>
 
             <div class="clear"></div>
@@ -106,6 +106,7 @@
                 </div>
             </div>
             @include('errors.error_layout')
+            @include('messages.flash_message')
             <div class="checkout_form_note">All fields marked with (<span class="color_red">*</span>) are required
             </div>
             <input type="submit" value="Continue">

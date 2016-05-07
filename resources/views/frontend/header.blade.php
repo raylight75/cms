@@ -69,7 +69,7 @@
                                             <b>{!! Helper::currency($grand_total) !!}&nbsp{!! Helper::label() !!}</b></span>
                             </div>
                             <a class="btn active"
-                               href="{{ url('shopping') }}/checkout1"><?= _('Checkout')?></a>
+                               href="{{ url('checkout/shipping') }}"><?= _('Checkout')?></a>
                         </div>
                     </div>
                 </div>

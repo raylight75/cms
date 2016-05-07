@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2016 at 05:06 PM
+-- Generation Time: May 07, 2016 at 09:31 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -598,7 +598,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `email` varchar(100) NOT NULL,
   `adress` varchar(100) NOT NULL,
   `phone` varchar(45) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customers`
@@ -619,7 +619,9 @@ INSERT INTO `customers` (`id`, `user_id`, `country`, `city`, `postcode`, `name`,
 (17, 2, 'Bulgaria', 'Blagoevgrad', 3005, 'Ivan', 'tblajev@yahoo.com', 'Gorni Dabnik 45', '0877542389'),
 (20, 2, 'Bulgaria', 'Haskovo', 4008, 'Ivan', 'tblajev@yahoo.com', 'Georgi Georgiev 12', '0898894213'),
 (21, 4, 'Bulgaria', 'Plovdiv', 4004, 'Ana', 'ana.blajeva@abv.bg', 'skopie 45', '124587'),
-(22, 4, 'Austria', 'Viena', 4003, 'Ana', 'tomas@archimation.com', 'Wierbrudden Strase 45', '0567124678');
+(22, 4, 'Austria', 'Viena', 4003, 'Ana', 'tomas@archimation.com', 'Wierbrudden Strase 45', '0567124678'),
+(23, 4, 'Bulgaria', 'Plovdiv', 4004, 'Ana', 'ana.blajeva@abv.bg', 'skopie45', '0898457832'),
+(24, 4, 'Bulgaria', 'Sofia', 4003, 'Ana', 'ana.blajeva@abv.bg', 'Wierbrudden Strase 45', '0898457832');
 
 -- --------------------------------------------------------
 
@@ -688,7 +690,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `color` varchar(32) NOT NULL,
   `quantity` int(64) NOT NULL,
   `amount` int(64) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `orders`
@@ -732,7 +734,8 @@ INSERT INTO `orders` (`id`, `user_id`, `order_date`, `status`, `product_id`, `si
 (35, 2, '2016-05-07 06:50:24', '', 32, 'M', '11f4f-image1xxl.jpg', 'white', 2, 112),
 (36, 2, '2016-05-07 06:50:24', '', 66, 'L', 'ee456-image1xxl-1-.jpg', 'black', 2, 40),
 (37, 4, '2016-05-07 07:13:23', '', 56, 'L', 'a1fe9-pwd002a.jpg', 'white', 2, 44),
-(38, 4, '2016-05-07 07:13:24', '', 55, 'XL', 'a88c7-pwd001a.jpg', 'black', 1, 54);
+(38, 4, '2016-05-07 07:13:24', '', 55, 'XL', 'a88c7-pwd001a.jpg', 'black', 1, 54),
+(39, 4, '2016-05-07 12:23:57', '', 47, 'S', '3c47b-pwt001a_1.jpg', 'blue', 1, 89);
 
 --
 -- Triggers `orders`
@@ -1015,7 +1018,7 @@ INSERT INTO `products` (`product_id`, `slug`, `name`, `description`, `a_img`, `b
 (44, 'Dior-Black-Shirt-Stripe', 'Dior Black Shirt Stripe', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '39915-v1.jpg', '9b7f8-v2.jpg', '1f9e4-v3.jpg', 2, 5, 1, 53, 6),
 (45, 'Fendi-Red-T-Shirt', 'Fendi Red T-Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'c2ae6-n1.jpg', 'c5a0d-n2.jpg', '08ec9-n3.jpg', 7, 5, 1, 64, 5),
 (46, 'DKNY-Black-Jacket', 'DKNY Black Jacket', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.\r\n', '7039c-image1xxl-6-.jpg', 'c3329-image4xxl-3-.jpg', '', 6, 9, 1, 23, 85),
-(47, 'Dior-Blue-Women-Wrap', 'Dior Blue Women Wrap', '<p>\r\n	Nice blue stylish wrap from famous brand Dior</p>\r\n', '3c47b-pwt001a_1.jpg', '5f9ad-pwt001b.jpg', 'd808a-pwt001t.jpg', 5, 10, 2, 12, 89),
+(47, 'Dior-Blue-Women-Wrap', 'Dior Blue Women Wrap', '<p>\r\n	Nice blue stylish wrap from famous brand Dior</p>\r\n', '3c47b-pwt001a_1.jpg', '5f9ad-pwt001b.jpg', 'd808a-pwt001t.jpg', 5, 10, 2, 11, 89),
 (48, 'CK-Nice-Women-Blue-Wrap', 'CK Nice Women Blue Wrap', '<p>\r\n	K Nice Women Blue Wrap.&nbsp;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper</p>\r\n', '53b38-wsd013a.jpg', '9d808-wsd013b.jpg', '6a8b5-wsd013t.jpg', 5, 10, 2, 5, 43),
 (49, 'CK-Wrap-Women-Blue ', 'CK Wrap Women Blue ', '<p>\r\n	Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper</p>\r\n', 'df290-wbk003a.jpg', '18b18-wbk003b.jpg', 'be567-wbk003t.jpg', 5, 10, 2, 6, 32),
 (50, 'CK-Women-Wrap', 'CK Women Wrap', '<p>\r\n	Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper</p>\r\n', '942b2-pwd000a.jpg', '31ccc-pwd000b.jpg', '840c9-pwd000t.jpg', 5, 10, 2, 23, 78),
@@ -1372,7 +1375,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `name`, `avatar`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'Tihomir', 'ui-zac.jpg', 'raylight75@gmail.com', '$2y$10$b17mr2swLgWrdJ2Mka6Ilegy0.kJPBgE1R/b1Y7Bsnc5VVBCDL.Rq', 'GEmCMaSz9rARPcgFC4wPoNiEMehivLIxBIoB4XxigLT0S7LmbRaTgisSf0xg', '2016-01-03 08:48:36', '2016-05-07 11:25:25'),
 (2, 'Ivan', 'ui-sherman.jpg', 'tblajev@yahoo.com', '$2y$10$uQSDi6zBHxVU83adaZHjFOHqFAQWHZSPvNl6.R6EuOcRa30HlcUIi', 'IBaTJj7CvuXIGcypuCewd43oKWSJG6FbGAYOx4WhRIivswUHd3JHqgBpMvQY', '2016-01-03 10:58:24', '2016-05-07 07:11:28'),
-(4, 'Ana', 'avatar-ani.jpg', 'ana.blajeva@abv.bg', '$2y$10$EDFjGgQ/Q8i00mrbXMU5VOIYeS/pfwI3iZubj4v0yuYJB4NjrdEwi', 'NK3JbOZzzd3iaEQVkJD5F7rTbu0kkwsyaeXgpBpxtVffJFOfYDardqyDWHmE', '2016-04-19 06:02:27', '2016-05-07 07:18:04');
+(4, 'Ana', 'avatar-ani.jpg', 'ana.blajeva@abv.bg', '$2y$10$EDFjGgQ/Q8i00mrbXMU5VOIYeS/pfwI3iZubj4v0yuYJB4NjrdEwi', 'HReglPsLOlYpKyfV39bNex2YFm9fSvbixU3m1HNO6f090uplbA1JU9PfCX6E', '2016-04-19 06:02:27', '2016-05-07 16:31:06');
 
 --
 -- Indexes for dumped tables
@@ -1595,7 +1598,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `images_tmp`
 --
@@ -1605,7 +1608,7 @@ MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `order_status`
 --

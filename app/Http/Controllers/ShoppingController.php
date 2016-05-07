@@ -115,6 +115,11 @@ class ShoppingController extends BaseController
      */
     public function checkoutShow(Request $request)
     {
+        $country = $request->session()->get('country');
+        if (!isset($country)) {
+            Session::flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
+            return redirect('checkout/shipping');
+        }
         $vat = Country::where('name', $request->session()->get('country'))->first();
         $data['vat'] = $vat->vat;
         $data['payments'] = Payment::findOrFail($request->session()->get('payment'));
@@ -131,7 +136,14 @@ class ShoppingController extends BaseController
     public function createOrder(Request $request)
     {
         $customer = $request->session()->all();
-        $customer['user_id'] =  Auth::user()->id;
+        $customer['user_id'] = Auth::user()->id;
+        if (!$request->session()->has('email')) {
+            Session::flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
+            return redirect('checkout/shipping');
+        }elseif($request->session()->get('grand_total') == 0){
+            Session::flash('flash_message', 'YOU MUST SELECT PRODUCT!');
+            return redirect()->back();
+        }
         Customer::create($customer);
         $cart = Cart::content();
         foreach ($cart as $item) {

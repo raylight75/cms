@@ -117,8 +117,8 @@
                             <td>{!! Helper::currency($grand_total) !!}&nbsp{!! Helper::label() !!}</td>
                         </tr>
                     </table>
-                    <a class="btn active" href="">Place Order</a>
-                    <a class="btn inactive" href="">Go to previous
+                    <a class="btn active" href="{{ url('checkout/create') }}">Place Order</a>
+                    <a class="btn inactive" href="{{ url('checkout/shipping') }}">Go to previous
                         step</a>
                 </div>
                 <!-- //REGISTRATION FORM -->

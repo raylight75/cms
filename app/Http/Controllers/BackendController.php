@@ -221,6 +221,7 @@ class BackendController extends Controller
         $grid->add('amount', 'Amount');
         $grid->edit('/backend/user-orders/edit', 'Curent Order', 'show');
         $grid->orderBy('id', 'asc');
+        $grid->paginate(10);
         $title = $this->titleOrders;
         return view('backend/content', compact('grid', 'title'));
     }

@@ -31,16 +31,12 @@ Route::get('/login', 'BaseController@userlogin');
 
 Route::get('items/search/{id}', 'BaseController@search');
 
-//Route::get('api', 'ApiController@api');
-
-//Route::get('frontpage', 'ApiController@index');
-
-//Route::get('/cache', 'BaseController@write');
-
 Route::group(['prefix' => 'checkout', 'middleware' => 'admin:user'], function () {
-    Route::get('/shipping', 'BaseController@checkoutOne');
-    Route::post('/store', 'BaseController@checkoutStore');
-    Route::get('/show', 'BaseController@checkoutTwo');
+    Route::get('/shipping', 'BaseController@checkout');
+    Route::post('/store', 'BaseController@customerStore');
+    Route::get('/show', 'BaseController@checkoutShow');
+    Route::get('/create', 'BaseController@createOrder');
+    Route::get('/order', 'BaseController@finalOrder');
 });
 
 Route::group(['prefix' => 'backend', 'middleware' => 'admin:user'], function () {
@@ -66,7 +62,9 @@ Route::group(['prefix' => 'backend', 'middleware' => 'admin:admin'], function ()
     Route::resource('articles', 'ArticlesController');
 });
 
-Route::controller('cart', 'CartController');
+Route::group(['middleware' => 'admin:user'], function () {
+    Route::controller('cart', 'CartController');
+});
 
 Route::get('/filter/{slug}/{id}', 'BaseController@filter');
 
@@ -76,6 +74,12 @@ Route::controllers([
 ]);
 
 Routers::registerRoutes();
+
+//Route::get('api', 'ApiController@api');
+
+//Route::get('frontpage', 'ApiController@index');
+
+//Route::get('/cache', 'BaseController@write');
 
 //App::make('Helper')->registerRoutes();
 

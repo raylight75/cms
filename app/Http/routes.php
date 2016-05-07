@@ -31,12 +31,16 @@ Route::get('/login', 'BaseController@userlogin');
 
 Route::get('items/search/{id}', 'BaseController@search');
 
+Route::group(['middleware' => 'admin:user'], function () {
+    Route::controller('cart', 'ShoppingController');
+});
+
 Route::group(['prefix' => 'checkout', 'middleware' => 'admin:user'], function () {
-    Route::get('/shipping', 'BaseController@checkout');
-    Route::post('/store', 'BaseController@customerStore');
-    Route::get('/show', 'BaseController@checkoutShow');
-    Route::get('/create', 'BaseController@createOrder');
-    Route::get('/order', 'BaseController@finalOrder');
+    Route::get('/shipping', 'ShoppingController@checkout');
+    Route::post('/store', 'ShoppingController@customerStore');
+    Route::get('/show', 'ShoppingController@checkoutShow');
+    Route::get('/create', 'ShoppingController@createOrder');
+    Route::get('/order', 'ShoppingController@finalOrder');
 });
 
 Route::group(['prefix' => 'backend', 'middleware' => 'admin:user'], function () {
@@ -60,10 +64,6 @@ Route::group(['prefix' => 'backend', 'middleware' => 'admin:admin'], function ()
     Route::resource('users', 'UsersController');
     Route::get('articles/search', 'ArticlesController@search');
     Route::resource('articles', 'ArticlesController');
-});
-
-Route::group(['middleware' => 'admin:user'], function () {
-    Route::controller('cart', 'CartController');
 });
 
 Route::get('/filter/{slug}/{id}', 'BaseController@filter');

@@ -2,19 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SubmitCheckout;
 use App\Models\Category;
 use App\Models\Brands;
-use App\Models\Country;
-use App\Models\Order;
-use App\Models\Payment;
 use App\Models\Product;
-use App\Models\Shipping;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Auth, View, DB;
-use Carbon\Carbon;
 
 class BaseController extends Controller
 {
@@ -73,88 +66,22 @@ class BaseController extends Controller
         return view('frontend.body', $data);
     }
 
+    /**
+     * Show required page to user
+     * @return View
+     */
     public function aboutus()
     {
         return view('frontend.aboutus');
     }
 
+    /**
+     * Show required page to user
+     * @return View
+     */
     public function contacts()
     {
         return view('frontend.contacts');
-    }
-
-    /**
-     * Pass data to checkout view
-     * @return View
-     */
-    public function checkout()
-    {
-        $countries = Country::all();
-        $payments = Payment::all();
-        $shippings = Shipping::all();
-        return view('frontend.checkoutOne', compact('countries', 'payments', 'shippings'));
-    }
-
-    /**
-     * Store customer data to Session
-     * @param Request $request
-     * @return View
-     */
-    public function customerStore(SubmitCheckout $request)
-    {
-        $input = $request->all();
-        $request->session()->put($input);
-        return redirect('checkout/show');
-    }
-
-    /**
-     * Show order information from session.
-     * @param Request $request
-     * @return View
-     */
-    public function checkoutShow(Request $request)
-    {
-        $vat = Country::where('name', $request->session()->get('country'))->first();
-        $data['vat'] = $vat->vat;
-        $data['payments'] = Payment::findOrFail($request->session()->get('payment'));
-        $data['shippings'] = Shipping::findOrFail($request->session()->get('delivery'));
-        $data['customer'] = $request->session()->all();
-        return view('frontend.checkoutTwo', $data);
-    }
-
-    /**
-     * Create Order in Database
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function createOrder(Request $request)
-    {
-        $cart = Cart::content();
-        foreach ($cart as $item) {
-            Order::create([
-                'user_id' => Auth::user()->id,
-                'order_date' => Carbon::now(),
-                'product_id' => $item->id,
-                'quantity' => $item->qty,
-                'amount' => $item->subtotal,
-                'size' => $item->options->size,
-                'img' => $item->options->img,
-                'color' => $item->options->color,
-            ]);
-        }
-        Cart::destroy();
-        $this->forgetSessionKeys($request);
-        return redirect('checkout/order');
-    }
-
-    /**
-     * Show user confirmation for finalazing order.
-     * @return View
-     */
-    public function finalOrder()
-    {
-        Session::flash('flash_message', 'YOUR ORDER HAVE BEEN SUCCESSFULY PLACED!');
-        return view('frontend.placeOrder');
     }
 
     /**
@@ -220,6 +147,10 @@ class BaseController extends Controller
         }
     }
 
+    /**
+     * Show login page to user
+     * @return View
+     */
     public function userLogin()
     {
         return view('frontend.login');
@@ -231,22 +162,5 @@ class BaseController extends Controller
         $user = Auth::user()->name;
         Session::flash('flash_message', 'You have been successfully Logged In!');
         return view('messages.welcome')->with('user', $user);
-    }
-
-    /**
-     * Remove all user piece of data from the session.
-     * @param Request $request
-     */
-    public function forgetSessionKeys(Request $request)
-    {
-        $request->session()->forget('country');
-        $request->session()->forget('city');
-        $request->session()->forget('postcode');
-        $request->session()->forget('adress');
-        $request->session()->forget('name');
-        $request->session()->forget('phone');
-        $request->session()->forget('email');
-        $request->session()->forget('delivery');
-        $request->session()->forget('payment');
     }
 }

@@ -42,6 +42,7 @@
                     </div>
 
                     <div class="checkout_confirm_orded_products">
+                        @include('errors.error_layout')
                         @include('messages.flash_message')
                     </div>
                 </div>

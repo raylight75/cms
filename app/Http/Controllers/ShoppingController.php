@@ -135,17 +135,17 @@ class ShoppingController extends BaseController
      */
     public function createOrder(Request $request)
     {
-        $customer = $request->session()->all();
-        $customer['user_id'] = Auth::user()->id;
+        $cart = Cart::content();
         if (!$request->session()->has('email')) {
             Session::flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
             return redirect('checkout/shipping');
-        }elseif($request->session()->get('grand_total') == 0){
+        } elseif ($cart->isEmpty()) {
             Session::flash('flash_message', 'YOU MUST SELECT PRODUCT!');
             return redirect()->back();
         }
+        $customer = $request->session()->all();
+        $customer['user_id'] = Auth::user()->id;
         Customer::create($customer);
-        $cart = Cart::content();
         foreach ($cart as $item) {
             Order::create([
                 'user_id' => Auth::user()->id,

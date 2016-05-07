@@ -13,6 +13,7 @@ use App\Models\Country;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Shipping;
+use App\Models\Customer;
 use Carbon\Carbon;
 
 
@@ -66,6 +67,11 @@ class ShoppingController extends BaseController
         return view('frontend/shopping_cart');
     }
 
+    /**
+     * Check for discount code.
+     * @param Request $request
+     * @return bool
+     */
     public function checkDiscount(Request $request)
     {
         $codes = Tax::all();
@@ -118,12 +124,15 @@ class ShoppingController extends BaseController
     }
 
     /**
-     * Create Order in Database.
+     * Create Order and Customer in Database.
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function createOrder(Request $request)
     {
+        $customer = $request->session()->all();
+        $customer['user_id'] =  Auth::user()->id;
+        Customer::create($customer);
         $cart = Cart::content();
         foreach ($cart as $item) {
             Order::create([

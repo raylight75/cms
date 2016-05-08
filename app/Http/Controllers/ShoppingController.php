@@ -4,17 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SubmitProduct;
 use App\Http\Requests\SubmitCheckout;
+use App\Models\Share;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Auth, View;
-use App\Models\Tax;
-use App\Models\Country;
-use App\Models\Order;
 use App\Models\Payment;
-use App\Models\Shipping;
-use App\Models\Customer;
-use Carbon\Carbon;
 
 
 class ShoppingController extends BaseController
@@ -58,32 +53,13 @@ class ShoppingController extends BaseController
     }
 
     /**
-     * Check for discount code.
-     * @param Request $request
-     * @return bool
-     */
-    public function checkDiscount(Request $request)
-    {
-        $codes = Tax::all();
-        foreach ($codes as $code) {
-            if ($request->has('discount') && $request->input('discount') !== $code->code) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    /**
      * Pass data to checkout view.
      * @return View
      */
     public function checkout()
     {
-        $countries = Country::all();
-        $payments = Payment::all();
-        $shippings = Shipping::all();
-        return view('frontend.checkoutOne', compact('countries', 'payments', 'shippings'));
+        $data = Payment::prepareData();
+        return view('frontend.checkoutOne',$data);
     }
 
     /**
@@ -110,11 +86,7 @@ class ShoppingController extends BaseController
             Session::flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
             return redirect('checkout/shipping');
         }
-        $vat = Country::where('name', $request->session()->get('country'))->first();
-        $data['vat'] = $vat->vat;
-        $data['payments'] = Payment::findOrFail($request->session()->get('payment'));
-        $data['shippings'] = Shipping::findOrFail($request->session()->get('delivery'));
-        $data['customer'] = $request->session()->all();
+        $data = Payment::prepareShow($request);
         return view('frontend.checkoutTwo', $data);
     }
 
@@ -133,23 +105,9 @@ class ShoppingController extends BaseController
             Session::flash('flash_message', 'YOU MUST SELECT PRODUCT!');
             return redirect()->back();
         }
-        $customer = $request->session()->all();
-        $customer['user_id'] = Auth::user()->id;
-        Customer::create($customer);
-        foreach ($cart as $item) {
-            Order::create([
-                'user_id' => Auth::user()->id,
-                'order_date' => Carbon::now(),
-                'product_id' => $item->id,
-                'quantity' => $item->qty,
-                'amount' => $item->subtotal,
-                'size' => $item->options->size,
-                'img' => $item->options->img,
-                'color' => $item->options->color,
-            ]);
-        }
+        Payment::createOrder($request);
         Cart::destroy();
-        $this->forgetSessionKeys($request);
+        Share::forgetSessionKeys($request);
         return redirect('checkout/order');
     }
 
@@ -164,17 +122,11 @@ class ShoppingController extends BaseController
      */
     public function postStore(SubmitProduct $request)
     {
-        if ($this->checkDiscount($request)) {
+        if (Payment::checkDiscount($request)) {
             Session::flash('flash_message', 'You are entered invalid discount code!');
             return redirect()->back();
         }
-        $code = Tax::where('code', $request->input('discount'))->first();
-        isset($code) ? $discount = $code->discount : $discount = 0;
-        $productPrice = $request->input('price');
-        $price = ((100 - $discount) / 100) * $productPrice;
-        $data = $request->except(['_token', 'discount', 'price', 'color', 'size', 'img']);
-        $data['price'] = $price;
-        $data['options'] = $request->except(['_token', 'id', 'name', 'qty', 'price']);
+        $data = Payment::prepareStore($request);
         Cart::add($data);
         return redirect('cart');
     }
@@ -183,9 +135,9 @@ class ShoppingController extends BaseController
      * Update products in shopping cart.
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function postUpdate()
+    public function postUpdate(Request $request)
     {
-        $content = Request::input('qty');
+        $content = $request->input('qty');
         foreach ($content as $id => $row) {
             Cart::update($row['rowid'], $row['qty']);
         }
@@ -221,22 +173,5 @@ class ShoppingController extends BaseController
     {
         Session::flash('flash_message', 'YOUR ORDER HAVE BEEN SUCCESSFULY PLACED!');
         return view('frontend.placeOrder');
-    }
-
-    /**
-     * Remove all user piece of data from the session.
-     * @param Request $request
-     */
-    public function forgetSessionKeys(Request $request)
-    {
-        $request->session()->forget('country');
-        $request->session()->forget('city');
-        $request->session()->forget('postcode');
-        $request->session()->forget('adress');
-        $request->session()->forget('name');
-        $request->session()->forget('phone');
-        $request->session()->forget('email');
-        $request->session()->forget('delivery');
-        $request->session()->forget('payment');
     }
 }

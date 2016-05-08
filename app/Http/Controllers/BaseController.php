@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Brands;
+use App\Models\Share;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -49,7 +50,7 @@ class BaseController extends Controller
      */
     public function __construct()
     {
-        $data = Product::prepareGlobalData();
+        $data = Share::globalData();
         View::share($data);
     }
 
@@ -91,7 +92,7 @@ class BaseController extends Controller
      */
     public function filter(Request $request, $slug, $parent)
     {
-        $data = Product::prepareFilter($parent);
+        $data = Share::prepareFilter($request,$parent);
         $data['banner'] = Category::whereIn('cat_id', $request->input('categ'))->first();
         $data['properties'] = Product::getAll($parent);
         $data['products'] = Product::pagination($parent);
@@ -134,7 +135,7 @@ class BaseController extends Controller
     public function search(Request $request, $parent)
     {
         $search = $request->input('search');
-        $data = Product::prepareFilter($parent);
+        $data = Share::prepareFilter($request,$parent);
         $data['banner'] = Category::where('cat_id', $request->input('categ'))->first();
         $data['properties'] = Product::getAll($parent);
         $data['products'] = Product::where('name', 'like', '%' . $search . '%')

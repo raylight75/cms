@@ -109,28 +109,6 @@ class Product extends Model
     }
 
     /**
-     * @param $parent_id
-     * @return array
-     */
-    public static function getMenuData($parent_id)
-    {
-        $categories = array();
-        $result = DB::table('categories')
-            ->where('parent_id', '=', $parent_id)
-            ->get();
-        foreach ($result as $parentCategory) {
-            $category = array();
-            $category['id'] = $parentCategory->cat_id;
-            $category['name'] = $parentCategory->cat;
-            $category['parent_id'] = $parentCategory->parent_id;
-            $category['banner'] = $parentCategory->m_img;
-            $category['sub_cat'] = self::getMenuData($category['id']);
-            $categories[$parentCategory->cat_id] = $category;
-        }
-        return $categories;
-    }
-
-    /**
      * @param $parent
      * @return mixed
      */
@@ -203,36 +181,6 @@ class Product extends Model
             ->orderBy('product_id', 'desc')
             ->get()
             ->random(6);
-        return $data;
-    }
-
-    /**
-     * @return array
-     */
-    public static function prepareFilter($parent)
-    {
-        $data = array(
-            'parent' => $parent,
-            'size' => (array)Request::input('size'),
-            'color' => (array)Request::input('color'),
-            'brand' => (array)Request::input('brand'),
-            'price' => (array)Request::input('price'),
-            'name' => (array)Request::input('name'),
-            'category' => (array)Request::input('categ')
-        );
-        return $data;
-    }
-
-    public static function prepareGlobalData()
-    {
-        $data = array(
-            'menu' => self::getMenuData(self::$parent_id),
-            'header' => Setting::find(1),
-            'rows' => Cart::count(false),
-            'cart' => Cart::content(),
-            'grand_total' => Cart::total(),
-            'currencies' => Helper::currencyGet(),
-        );
         return $data;
     }
 }

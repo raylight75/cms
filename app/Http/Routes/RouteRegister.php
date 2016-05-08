@@ -2,7 +2,7 @@
 
 namespace App\Http\Routes;
 
-use App\Models\Product;
+use App\Models\Share;
 use Illuminate\Support\Facades\File;
 use Route;
 
@@ -41,7 +41,7 @@ class RouteRegister
     public static function registerRoutes()
     {
         $parent_id = 0;
-        $categories = Product::getMenuData($parent_id);
+        $categories = Share::getMenuData($parent_id);
         foreach ($categories as $row) {
             $parent_cat = $row['name'];
             foreach ($row['sub_cat'] as $sub_cat) {

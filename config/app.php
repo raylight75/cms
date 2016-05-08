@@ -203,7 +203,7 @@ return [
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
         'Helper'    => App\Helpers\Helper::class,
-        'Routers'  => App\Http\Routes\RouteRegister::class,
+        'Routers'   => App\Http\Routes\RouteRegister::class,
     ],
 
 ];

@@ -6,9 +6,15 @@ use DB;
 
     class Helper
     {
+        public static function currencyGet()
+        {
+            $currency = DB::table('currencies')->get();
+            return $currency;
+        }
+
         public static function currency($input)
         {
-          $var = 'usd';
+          $var = session('currency');
           if (isset($var))
           {
           $currency = DB::table('currencies')            
@@ -26,10 +32,10 @@ use DB;
 
         public static function label()
         {
-          $var = 'usd';
+          $var = session('currency');
           if (isset($var))
           {
-            $result = "usd";
+            $result = $var;
             }
             else
             {

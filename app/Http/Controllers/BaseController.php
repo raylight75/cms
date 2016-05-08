@@ -148,6 +148,18 @@ class BaseController extends Controller
     }
 
     /**
+     * Set currency to session
+     * @param string $currency
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function set_currency($currency = "")
+    {
+        $currency = ($currency != "") ? $currency : "USD";
+        session(['currency' => $currency]);
+        return redirect('cms');
+    }
+
+    /**
      * Show login page to user
      * @return View
      */

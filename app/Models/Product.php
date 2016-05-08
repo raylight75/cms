@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Model;
-use Request;
-use DB;
+use App\Helpers\Helper;
+use Request,DB;
 
 class Product extends Model
 {
@@ -231,6 +231,7 @@ class Product extends Model
             'rows' => Cart::count(false),
             'cart' => Cart::content(),
             'grand_total' => Cart::total(),
+            'currencies' => Helper::currencyGet(),
         );
         return $data;
     }

@@ -14,7 +14,7 @@
                     <li><a href="{{ url('auth/logout') }}"><?= _('Logout')?></a></li>
                 @else
                     <li><a href=""><?= _('my account')?></a></li>
-                    <li><a href=""><?= _('Register')?></a></li>
+                    <li><a href="{{ url('auth/register') }}"><?= _('Register')?></a></li>
 
                 @endif
             </ul>
@@ -35,7 +35,9 @@
             @if ($cart->first() == '')
                 <div class="shopping_bag">
                     <a class="shopping_bag_btn" href="javascript:void(0);"><i class="fa fa-shopping-cart"></i>
+
                         <p><?= _('shopping bag')?></p><span>{{$rows}}</span></a>
+
                     <div class="cart">
                         <ul class="cart-items">
                             <li class="clearfix"><span class="cart_item_price">
@@ -49,8 +51,10 @@
                 <!-- SHOPPING BAG -->
                 <div class="shopping_bag">
                     <a class="shopping_bag_btn" href="javascript:void(0);"><i class="fa fa-shopping-cart"></i>
+
                         <p><?= _('shopping bag')?></p>
                         <span>{{$rows}}</span></a>
+
                     <div class="cart">
                         @foreach ( $cart as $item )
                             <ul class="cart-items">
@@ -66,7 +70,8 @@
                         <div class="cart_total">
                             <div class="clearfix">
 										<span class="cart_subtotal"><?= _('bag subtotal:')?>
-                                            <b>{!! Helper::currency($grand_total) !!}&nbsp{!! Helper::label() !!}</b></span>
+                                            <b>{!! Helper::currency($grand_total) !!}
+                                                &nbsp{!! Helper::label() !!}</b></span>
                             </div>
                             <a class="btn active"
                                href="{{ url('checkout/shipping') }}"><?= _('Checkout')?></a>
@@ -122,6 +127,18 @@
                         <li class="normal menu"><a href="{{ url('contacts') }}"><?= _('Contacts')?></a>
                         <li class="normal menu"><a href="{{ url('aboutus') }}"><?= _('About Us')?></a>
                         <li class="normal menu"><a href="{{ url('login') }}"><?= _('Login')?></a>
+                        <li class="sub-menu"><a>{!! Helper::label() !!}</a>
+                            <ul class="mega_menu megamenu_col1 clearfix">
+                                <li class="col">
+                                    @foreach($currencies as $row)
+                                        <ol>
+                                            <li><a href="{{ url('currency') }}/{{$row->name}}">
+                                                    {{$row->name}}</a></li>
+                                        </ol>
+                                    @endforeach
+                                </li>
+                            </ul>
+                        </li>
                 </ul>
                 <!-- //MENU -->
         </div>

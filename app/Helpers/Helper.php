@@ -6,11 +6,6 @@ use DB;
 
     class Helper
     {
-        public static function currencyGet()
-        {
-            $currency = DB::table('currencies')->get();
-            return $currency;
-        }
 
         public static function currency($input)
         {

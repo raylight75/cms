@@ -38,8 +38,6 @@ class Product extends Model
      * @var string
      */
 
-    private static $parent_id = 0;
-
     protected $table = 'products';
 
     /**

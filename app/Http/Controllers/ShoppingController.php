@@ -58,7 +58,7 @@ class ShoppingController extends BaseController
      */
     public function checkout()
     {
-        $data = Payment::prepareData();
+        $data = Payment::checkoutData();
         return view('frontend.checkoutOne',$data);
     }
 

@@ -114,8 +114,8 @@ class BaseController extends Controller
      */
     public function frame($id)
     {
-        $data['item'] = Product::with('category', 'size', 'color')->findOrFail($id);
-        return view('frontend.frame', $data);
+        $item = Product::ItemProperty($id);
+        return view('frontend.frame', compact('item'));
     }
 
     /**

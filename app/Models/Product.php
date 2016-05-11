@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Model;
-use App\Helpers\Helper;
 use Request,DB;
 
 class Product extends Model
@@ -139,6 +137,89 @@ class Product extends Model
     }
 
     /**
+     * Scope a query to latest users.
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLatest($query)
+    {
+        return $query->orderBy('product_id', 'desc');
+    }
+
+    /**
+     * Get data for Home page.
+     * @return mixed
+     */
+    public static function getHome()
+    {
+        $data['brands'] = Brands::all();
+        $data['latest'] = self::latest()->take('6')->get();
+        $data['products'] = self::getProducts();
+        return $data;
+    }
+
+
+    /**
+     * Get data for search filters.
+     * @param $request
+     * @param $parent
+     * @return array
+     */
+    public static function getFilter($request,$parent)
+    {
+        $data = Share::prepareFilter($request,$parent);
+        $data['banner'] = Category::whereIn('cat_id', $request->input('categ'))->first();
+        $data['properties'] = self::getAll($parent);
+        $data['products'] = self::pagination($parent);
+        return $data;
+    }
+
+
+    /**
+     * Get products details data.
+     * @param $slug
+     * @param $id
+     * @return mixed
+     */
+    public static function getProductInfo($slug, $id)
+    {
+        $data['latest'] = self::latest()->take('6')->get();
+        $data['products'] = self::getProducts();
+        $data['item'] = Product::with('category', 'size', 'color')->findOrFail($id);
+        return $data;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getProducts()
+    {
+        $data = Product::with('category')
+            ->orderBy('product_id', 'desc')
+            ->get()
+            ->random(6);
+        return $data;
+    }
+
+
+    /**
+     * Get products details.
+     * @param $request
+     * @param $parent
+     * @return array
+     */
+    public static function prepareSearch($request, $parent)
+    {
+        $search = $request->input('search');
+        $data = Share::prepareFilter($request,$parent);
+        $data['banner'] = Category::where('cat_id', $request->input('categ'))->first();
+        $data['properties'] = self::getAll($parent);
+        $data['products'] = Product::where('name', 'like', '%' . $search . '%')
+            ->orderBy('name')
+            ->paginate(6);
+        return $data;
+    }
+
+    /**
      * @param $parent
      * @return mixed
      */
@@ -168,17 +249,5 @@ class Product extends Model
         $query->groupBy('product_id');
         $result = $query->paginate(6);
         return $result;
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getProducts()
-    {
-        $data = Product::with('category')
-            ->orderBy('product_id', 'desc')
-            ->get()
-            ->random(6);
-        return $data;
     }
 }

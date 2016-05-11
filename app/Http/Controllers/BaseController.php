@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Brands;
 use App\Models\Share;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -61,9 +59,7 @@ class BaseController extends Controller
      */
     public function index()
     {
-        $data['brands'] = Brands::all();
-        $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
-        $data['products'] = Product::getProducts();
+        $data = Product::getHome();
         return view('frontend.body', $data);
     }
 
@@ -92,10 +88,7 @@ class BaseController extends Controller
      */
     public function filter(Request $request, $slug, $parent)
     {
-        $data = Share::prepareFilter($request,$parent);
-        $data['banner'] = Category::whereIn('cat_id', $request->input('categ'))->first();
-        $data['properties'] = Product::getAll($parent);
-        $data['products'] = Product::pagination($parent);
+        $data = Product::getFilter($request,$parent);
         if ($request->ajax()) {
             return response()->json(view('frontend.ajax-products', $data)->render());
         } else {
@@ -106,25 +99,22 @@ class BaseController extends Controller
 
     /**
      * @param $slug
-     * @param $parent
+     * @param $id
      * @return View
      */
     public function product($slug, $id)
     {
-        $data['latest'] = Product::orderBy('product_id', 'desc')->take('6')->get();
-        $data['products'] = Product::getProducts();
-        $data['item'] = Product::with('category', 'size', 'color')->findOrFail($id);
+        $data = Product::getProductInfo($slug, $id);
         return view('frontend.product_page', $data);
     }
 
     /**
-     * @param $slug
-     * @param $parent
+     * @param $id
      * @return View
      */
     public function frame($id)
     {
-        $data['item'] = Product::with('category', 'size', 'color')->find($id);
+        $data['item'] = Product::with('category', 'size', 'color')->findOrFail($id);
         return view('frontend.frame', $data);
     }
 
@@ -134,13 +124,7 @@ class BaseController extends Controller
      */
     public function search(Request $request, $parent)
     {
-        $search = $request->input('search');
-        $data = Share::prepareFilter($request,$parent);
-        $data['banner'] = Category::where('cat_id', $request->input('categ'))->first();
-        $data['properties'] = Product::getAll($parent);
-        $data['products'] = Product::where('name', 'like', '%' . $search . '%')
-            ->orderBy('name')
-            ->paginate(6);
+        $data = Product::prepareSearch($request, $parent);
         if ($request->ajax()) {
             return response()->json(view('frontend.ajax-products', $data)->render());
         } else {

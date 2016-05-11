@@ -11,7 +11,7 @@ class Share
 
     /**
      *
-     * Share Class for prepare an share global variables
+     * Share Class for prepare and share global variables
      *
      * @package ecommerce-cms
      * @category Base Class

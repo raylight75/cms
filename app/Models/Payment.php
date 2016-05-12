@@ -2,36 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Model;
-use Auth;
+
 
 class Payment extends Model
 {
-    /**
-     * Ecommerce-CMS
-     *
-     * Copyright (C) 2014 - 2015  Tihomir Blazhev.
-     *
-     * LICENSE
-     *
-     * Ecommerce-cms is released with dual licensing, using the GPL v3 (license-gpl3.txt) and the MIT license (license-mit.txt).
-     * You don't have to do anything special to choose one license or the other and you don't have to notify anyone which license you are using.
-     * Please see the corresponding license file for details of these licenses.
-     * You are free to use, modify and distribute this software, but all copyright information must remain.
-     *
-     * @package     ecommerce-cms
-     * @copyright   Copyright (c) 2014 through 2015, Tihomir Blazhev
-     * @license     http://opensource.org/licenses/MIT  MIT License
-     * @version     1.0.0
-     * @author      Tihomir Blazhev <raylight75@gmail.com>
-     *
-     * Payment Model for manage orders and payments.
-     *
-     * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
-     */
 
     /**
      * The database table used by the model.
@@ -58,89 +33,4 @@ class Payment extends Model
      */
 
     public $timestamps = false;
-
-    /**
-     * Check for discount code.
-     * @param Request $request
-     * @return bool
-     */
-    public static function checkDiscount(Request $request)
-    {
-        $codes = Tax::all();
-        foreach ($codes as $code) {
-            if ($request->has('discount') && $request->input('discount') !== $code->code) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    /**
-     * Prepare order and customer data for database.
-     * @param Request $request
-     */
-    public static function createOrder(Request $request)
-    {
-        $cart = Cart::content();
-        $customer = $request->session()->all();
-        $customer['user_id'] = Auth::user()->id;
-        Customer::create($customer);
-        foreach ($cart as $item) {
-            Order::create([
-                'user_id' => Auth::user()->id,
-                'order_date' => Carbon::now(),
-                'product_id' => $item->id,
-                'quantity' => $item->qty,
-                'amount' => $item->subtotal,
-                'size' => $item->options->size,
-                'img' => $item->options->img,
-                'color' => $item->options->color,
-            ]);
-        }
-    }
-
-    /**
-     * Pass data to checkout view.
-     * @return mixed
-     */
-    public static function checkoutData()
-    {
-        $data['countries'] = Country::all();
-        $data['payments'] = Payment::all();
-        $data['shippings'] = Shipping::all();
-        return $data;
-    }
-
-    /**
-     * Show order information from session.
-     * @param Request $request
-     * @return mixed
-     */
-    public static function prepareShow(Request $request)
-    {
-        $vat = Country::where('name', $request->session()->get('country'))->first();
-        $data['vat'] = $vat->vat;
-        $data['payments'] = Payment::findOrFail($request->session()->get('payment'));
-        $data['shippings'] = Shipping::findOrFail($request->session()->get('delivery'));
-        $data['customer'] = $request->session()->all();
-        return $data;
-    }
-
-    /**
-     * Add a row to the cart
-     * @param Request $request
-     * @return array
-     */
-    public static function prepareStore(Request $request)
-    {
-        $code = Tax::where('code', $request->input('discount'))->first();
-        isset($code) ? $discount = $code->discount : $discount = 0;
-        $productPrice = $request->input('price');
-        $price = ((100 - $discount) / 100) * $productPrice;
-        $data = $request->except(['_token', 'discount', 'price', 'color', 'size', 'img']);
-        $data['price'] = $price;
-        $data['options'] = $request->except(['_token', 'id', 'name', 'qty', 'price']);
-        return $data;
-    }
 }

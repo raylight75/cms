@@ -2,7 +2,7 @@
 
 namespace App\Http\Routes;
 
-use App\Models\Share;
+use App\Repositories\ShareRepository as Share;
 use Illuminate\Support\Facades\File;
 use Route;
 

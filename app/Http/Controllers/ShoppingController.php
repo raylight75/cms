@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SubmitProduct;
 use App\Http\Requests\SubmitCheckout;
-use App\Models\Share;
+use App\Repositories\ShareRepository as Share;
+use App\Repositories\PaymentRepository as Payment;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Auth, View;
-use App\Models\Payment;
-
 
 class ShoppingController extends BaseController
 {

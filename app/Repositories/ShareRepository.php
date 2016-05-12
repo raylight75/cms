@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Models;
+namespace App\Repositories;
 
+use App\Models\Setting;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use DB;
 
-class Share
+class ShareRepository
 {
 
     /**
      *
      * Share Class for prepare and share global variables
+     * Just move logic outside from models
      *
      * @package ecommerce-cms
      * @category Base Class

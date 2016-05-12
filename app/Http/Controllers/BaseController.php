@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Share;
-use App\Models\Product;
+use App\Repositories\ShareRepository as Share;
+use App\Repositories\ProductRepository as Product;
+use App\Models\Product as Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Auth, View, DB;
@@ -114,7 +115,7 @@ class BaseController extends Controller
      */
     public function frame($id)
     {
-        $item = Product::ItemProperty($id);
+        $item = Property::ItemProperty($id);
         return view('frontend.frame', compact('item'));
     }
 

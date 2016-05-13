@@ -30,6 +30,34 @@ function getProducts(data, page) {
     });
 }
 // End Ajax pagination
+//Repair brower back button with pushState.
+/*$(function(){
+    var replacePage = function(url) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'json',
+        }).done(function (data) {
+            $('#ajaxproducts').html(data);
+        }).fail(function () {
+            alert('Items could not be loaded.');
+        });
+    }
+
+    $(document).on('click', '.pagination a', function(e){
+        console.log(this.href);
+        history.pushState(null, null, this.href);
+        replacePage(this.href);
+        e.preventDefault();
+    });
+
+    $('#status').val($('#status').val() + ' on ' + new Date());
+
+    $(window).bind('popstate', function(){
+        replacePage(location.pathname);
+    });
+});*/
+//End repair back button.
 //Start checkbox filter
 $(document).ready(function () {
     function showValues() {

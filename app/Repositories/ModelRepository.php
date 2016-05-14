@@ -2,23 +2,19 @@
 
 namespace App\Repositories;
 
-use App\Models\Country;
-use App\Models\Customer;
-use App\Models\Payment;
-use App\Models\Order;
-use App\Models\Shipping;
-use App\Models\Tax;
+use App\Facades\Query;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request, DB, Auth;
 
-class PaymentRepository
+class ModelRepository
 {
 
     /**
      *
      * Payments Class for shopping cart,payments,taxes.
      * Just move logic outside from Eloquent model.
+     * Uses PaymentFactory.
      *
      * @package ecommerce-cms
      * @category Base Class
@@ -33,7 +29,7 @@ class PaymentRepository
      */
     public static function checkDiscount(Request $request)
     {
-        $codes = Tax::all();
+        $codes = Query::all('Tax');
         foreach ($codes as $code) {
             if ($request->has('discount') && $request->input('discount') !== $code->code) {
                 return true;
@@ -52,9 +48,9 @@ class PaymentRepository
         $cart = Cart::content();
         $customer = $request->session()->all();
         $customer['user_id'] = Auth::user()->id;
-        Customer::create($customer);
+        Query::create('Customer',$customer);
         foreach ($cart as $item) {
-            Order::create([
+            Query::create('Order',[
                 'user_id' => Auth::user()->id,
                 'order_date' => Carbon::now(),
                 'product_id' => $item->id,
@@ -73,9 +69,9 @@ class PaymentRepository
      */
     public static function checkoutData()
     {
-        $data['countries'] = Country::all();
-        $data['payments'] = Payment::all();
-        $data['shippings'] = Shipping::all();
+        $data['countries'] = Query::all('Country');
+        $data['payments'] = Query::all('Payment');
+        $data['shippings'] = Query::all('Shipping');
         return $data;
     }
 
@@ -86,10 +82,10 @@ class PaymentRepository
      */
     public static function prepareShow(Request $request)
     {
-        $vat = Country::where('name', $request->session()->get('country'))->first();
+        $vat = Query::where('Country','name', $request->session()->get('country'));
         $data['vat'] = $vat->vat;
-        $data['payments'] = Payment::findOrFail($request->session()->get('payment'));
-        $data['shippings'] = Shipping::findOrFail($request->session()->get('delivery'));
+        $data['payments'] = Query::find('Payment',$request->session()->get('payment'));
+        $data['shippings'] = Query::find('Shipping',$request->session()->get('delivery'));
         $data['customer'] = $request->session()->all();
         return $data;
     }
@@ -101,7 +97,7 @@ class PaymentRepository
      */
     public static function prepareStore(Request $request)
     {
-        $code = Tax::where('code', $request->input('discount'))->first();
+        $code = Query::where('Tax', 'code',$request->input('discount'));
         isset($code) ? $discount = $code->discount : $discount = 0;
         $productPrice = $request->input('price');
         $price = ((100 - $discount) / 100) * $productPrice;

@@ -150,6 +150,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\RouterServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
+        App\Providers\ModelServiceProvider::class,
 
     ],
 
@@ -204,6 +205,7 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Helper'    => App\Helpers\Helper::class,
         'Routers'   => App\Http\Routes\RouteRegister::class,
+        'Query'     => App\Repositories\ModelFactory::class,
     ],
 
 ];

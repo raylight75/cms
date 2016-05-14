@@ -4,10 +4,10 @@ namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class RouteRegister extends Facade
+class Query extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'RouteRegister';
+        return 'Query';
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Facades\Query;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request, DB, Auth;
@@ -28,7 +29,7 @@ class PaymentRepository
      */
     public static function checkDiscount(Request $request)
     {
-        $codes = PaymentFactory::all('Tax');
+        $codes = Query::all('Tax');
         foreach ($codes as $code) {
             if ($request->has('discount') && $request->input('discount') !== $code->code) {
                 return true;
@@ -47,9 +48,9 @@ class PaymentRepository
         $cart = Cart::content();
         $customer = $request->session()->all();
         $customer['user_id'] = Auth::user()->id;
-        PaymentFactory::create('Customer',$customer);
+        Query::create('Customer',$customer);
         foreach ($cart as $item) {
-            PaymentFactory::create('Order',[
+            Query::create('Order',[
                 'user_id' => Auth::user()->id,
                 'order_date' => Carbon::now(),
                 'product_id' => $item->id,
@@ -68,9 +69,9 @@ class PaymentRepository
      */
     public static function checkoutData()
     {
-        $data['countries'] = PaymentFactory::all('Country');
-        $data['payments'] = PaymentFactory::all('Payment');
-        $data['shippings'] = PaymentFactory::all('Shipping');
+        $data['countries'] = Query::all('Country');
+        $data['payments'] = Query::all('Payment');
+        $data['shippings'] = Query::all('Shipping');
         return $data;
     }
 
@@ -81,10 +82,10 @@ class PaymentRepository
      */
     public static function prepareShow(Request $request)
     {
-        $vat = PaymentFactory::where('Country','name', $request->session()->get('country'));
+        $vat = Query::where('Country','name', $request->session()->get('country'));
         $data['vat'] = $vat->vat;
-        $data['payments'] = PaymentFactory::find('Payment',$request->session()->get('payment'));
-        $data['shippings'] = PaymentFactory::find('Shipping',$request->session()->get('delivery'));
+        $data['payments'] = Query::find('Payment',$request->session()->get('payment'));
+        $data['shippings'] = Query::find('Shipping',$request->session()->get('delivery'));
         $data['customer'] = $request->session()->all();
         return $data;
     }
@@ -96,7 +97,7 @@ class PaymentRepository
      */
     public static function prepareStore(Request $request)
     {
-        $code = PaymentFactory::where('Tax', 'code',$request->input('discount'));
+        $code = Query::where('Tax', 'code',$request->input('discount'));
         isset($code) ? $discount = $code->discount : $discount = 0;
         $productPrice = $request->input('price');
         $price = ((100 - $discount) / 100) * $productPrice;

@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 
-class PaymentFactory
+class ModelFactory
 {
 
     /**

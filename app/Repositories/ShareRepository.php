@@ -73,8 +73,8 @@ class ShareRepository
             'size' => (array)$request->input('size'),
             'color' => (array)$request->input('color'),
             'brand' => (array)$request->input('brand'),
-            'price' => (array)$request->input('price'),
-            'name' => (array)$request->input('name'),
+            //'price' => (array)$request->input('price'),
+            //'name' => (array)$request->input('name'),
             'category' => (array)$request->input('categ')
         );
         return $data;

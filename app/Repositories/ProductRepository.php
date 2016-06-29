@@ -140,8 +140,13 @@ class ProductRepository
         if (!empty(Request::input('brand'))) {
             $query->whereIn('brand_id', Request::input('brand'));
         };
-        $query->orderBy('price', Request::input('price'));
-        $query->orderBy('name', Request::input('name'));
+        if(Request::input('name')){
+            $query->orderBy('name', Request::input('name'));
+        }else{
+            $query->orderBy('price', Request::input('price'));
+        }
+        //$query->orderBy('price', Request::input('price'));
+        //$query->orderBy('name', Request::input('name'));
         $query->groupBy('product_id');
         $result = $query->paginate(6);
         return $result;

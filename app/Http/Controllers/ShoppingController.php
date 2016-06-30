@@ -126,7 +126,9 @@ class ShoppingController extends BaseController
             return redirect()->back();
         }
         $data = Payment::prepareStore($request);
-        Cart::add($data);
+        //make new instance of the Cart for every user.
+        //active instance of the cart is curent instance.
+        Cart::instance(auth()->id())->add($data);
         return redirect('cart');
     }
 

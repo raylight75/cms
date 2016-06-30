@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Setting;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
-use DB;
+use Auth, DB;
 
 class ShareRepository
 {
@@ -66,7 +66,7 @@ class ShareRepository
      * Prepare filter value for view.
      * @return array
      */
-    public static function prepareFilter(Request $request,$parent)
+    public static function prepareFilter(Request $request, $parent)
     {
         $data = array(
             'parent' => $parent,
@@ -86,12 +86,21 @@ class ShareRepository
      */
     public static function globalData()
     {
+        if (!Auth::check()) {
+            $rows = null;
+            $cart = null;
+            $grandTotal = null;
+        } else {
+            $rows = Cart::instance(auth()->id())->count(false);
+            $cart = Cart::instance(auth()->id())->content();
+            $grandTotal = Cart::instance(auth()->id())->total();
+        }
         $data = array(
             'menu' => self::getMenuData(self::$parent_id),
             'header' => Setting::find(1),
-            'rows' => Cart::count(false),
-            'cart' => Cart::content(),
-            'grand_total' => Cart::total(),
+            'rows' => $rows,
+            'cart' => $cart,
+            'grand_total' => $grandTotal,
             'currencies' => self::currencyGet(),
         );
         return $data;

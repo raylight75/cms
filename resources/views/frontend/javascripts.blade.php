@@ -33,6 +33,7 @@ $(document).ready(function(){
 <script src="{{ asset('/js/animate.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/js/myscript.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/js/customjs.js') }}" type="text/javascript"></script>
+{{--<script src="{{ asset('/js/ajax.js') }}" type="text/javascript"></script>--}}
 <script src="{{ asset('/js/jquery.fancybox.js') }}" type="text/javascript"></script>
 <script>
     if (top != self) top.location.replace(self.location.href);

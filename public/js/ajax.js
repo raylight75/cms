@@ -30,7 +30,7 @@ function getProducts(data, page) {
     });
 }
 // End Ajax pagination
-//Submit Ajax Form with checkboxes
+//Submit Ajax Form with checkboxes and sorting
 $(document).ready(function () {
     $('#priceasc,#pricedesc,#nameasc,#namedesc').on('click', function (e) {
         e.preventDefault();
@@ -69,3 +69,4 @@ $(document).ready(function () {
     $("input[type='checkbox']").on("click", ajaxFilters);
     $(".submit").hide();
 });
+//End Ajax Form

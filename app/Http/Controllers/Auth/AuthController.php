@@ -35,6 +35,12 @@ class AuthController extends Controller
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
+    /*public function authenticated()
+    {
+        Cart::restore(auth()->id());
+        return redirect($this->redirectPath());
+    }*/
+
     /**
      * Get a validator for an incoming registration request.
      *

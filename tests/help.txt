@@ -1,3 +1,51 @@
+http://stackoverflow.com/questions/31253090/fire-an-event-when-the-user-logins-in-laravel
+http://stackoverflow.com/questions/31290012/events-to-send-mail-in-laravel-5-1?rq=1
+
+
+The events you need to listen on are:
+
+auth.login - fired when user logged in successfully
+auth.logout - fired when user logged out
+auth.attempt - fired when user attempts to log in
+Those are the events that Laravel fires automatically - see
+Illuminate\Auth\Guard class which is what you get when you use Auth facade.
+
+In order for your listeners to work you need to do:
+
+$events->listen(
+    'auth.login',
+    'App\Listeners\UserEventListener@onUserLogin'
+);
+
+$events->listen(
+    'auth.logout',
+    'App\Listeners\UserEventListener@onUserLogout'
+);
+Another option is to define separate handler classes for both events, e.g.:
+
+class UserEventLoginHandler {
+  public function handle($event) {
+    //do some logic here
+  }
+}
+
+class UserEventLogoutHandler {
+  public function handle($event) {
+    //do some logic here
+  }
+}
+and then define listeners in :
+
+protected $listen = array(
+  'auth.login' => 'App\Listeners\UserEventLoginListener',
+  'auth.logout' => 'App\Listeners\UserEventLogoutListener'
+);
+You can also use Laravel's command to generate the handlers - see
+https://mattstauffer.co/blog/laravel-5.0-events-and-handlers for more details.
+
+
+
+
 return redirect($this->loginPath()) // Change this to redirect elsewhere
                 ->withInput($request->only('email', 'remember'))
                 ->withErrors([

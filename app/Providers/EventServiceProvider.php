@@ -16,6 +16,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SomeEvent' => [
             'App\Listeners\EventListener',
         ],
+        'auth.login' => [
+            'App\Listeners\RestoreCartOnLogin',
+        ],
+        'auth.logout' => [
+            'App\Listeners\StoreCartOnLogout',
+        ],
     ];
 
     /**

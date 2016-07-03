@@ -70,6 +70,7 @@
                         </thead>
                         <tbody>
                         <?php $i = 1;?>
+                        <?php //dd($cart) ?>
                         @foreach ( $cart as $item )
                             <tr class="cart_item">
                                 <td class="product-thumbnail">
@@ -95,7 +96,7 @@
                                 </td>
                                 <td>
                                     {!! Form::open(['url' => 'cart/update']) !!}
-                                    {!! Form::hidden('qty['.$item->id.'][rowid]', $item->rowid) !!}
+                                    {!! Form::hidden('qty['.$item->id.'][rowId]', $item->rowId) !!}
                                     {!! Form::text('qty['.$item->id.'][qty]',$item->qty,
                                         ['size' => '1','style' => 'text-align: center','maxlength' => '3']) !!}
                                 </td>
@@ -103,7 +104,7 @@
                                     {!! Helper::currency($item->subtotal) !!}&nbsp{!! Helper::label() !!}
                                 </td>
                                 <td class="product-remove">
-                                    <a href="{{ url('cart/edit') }}/{{$item->rowid}}">
+                                    <a href="{{ url('cart/edit') }}/{{$item->rowId}}">
                                         <span><?= _('Delete')?></span><i>X</i></a>
                                 </td>
                                 @endforeach

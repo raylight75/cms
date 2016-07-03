@@ -140,7 +140,7 @@ class ShoppingController extends BaseController
     {
         $content = $request->input('qty');
         foreach ($content as $id => $row) {
-            Cart::update($row['rowid'], $row['qty']);
+            Cart::update($row['rowId'], $row['qty']);
         }
         return redirect('cart');
     }

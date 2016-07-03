@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2016 at 10:46 PM
+-- Generation Time: Jul 03, 2016 at 11:30 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -598,7 +598,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `email` varchar(100) NOT NULL,
   `adress` varchar(100) NOT NULL,
   `phone` varchar(45) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customers`
@@ -624,7 +624,13 @@ INSERT INTO `customers` (`id`, `user_id`, `country`, `city`, `postcode`, `name`,
 (24, 4, 'Bulgaria', 'Sofia', 4003, 'Ana', 'ana.blajeva@abv.bg', 'Wierbrudden Strase 45', '0898457832'),
 (28, 4, 'Belgium', 'Plovdiv', 4004, 'Ana', 'ana.blajeva@abv.bg', 'bul Hristo Botev 92B', '0567124678'),
 (32, 4, 'Andorra', 'Sofia', 5000, 'Ana', 'ana.blajeva@abv.bg', 'skopie45', '0898457832'),
-(33, 2, 'Germany', 'Berlin', 8009, 'Ivan', 'tblajev@yahoo.com', 'Wierbrudden Strase 45', '0898457832');
+(33, 2, 'Germany', 'Berlin', 8009, 'Ivan', 'tblajev@yahoo.com', 'Wierbrudden Strase 45', '0898457832'),
+(34, 2, 'Andorra', 'Plovdiv', 4004, 'Ivan', 'tblajev@yahoo.com', 'bul Hristo Botev 92B', '0898457832'),
+(35, 4, 'Belgium', 'Plovdiv', 4004, 'Ana', 'ana.blajeva@abv.bg', 'bul Hristo Botev 92B', '0898457832'),
+(36, 4, 'Bulgaria', 'Plovdiv', 4004, 'Ana', 'ana.blajeva@abv.bg', 'bul Hristo Botev 92B', '0898457832'),
+(37, 2, 'Czech Republic', 'Plovdiv', 4004, 'Ivan', 'tblajev@yahoo.com', 'bul Hristo Botev 92B', '0567124678'),
+(38, 4, 'Germany', 'Plovdiv', 4004, 'Ana', 'ana.blajeva@abv.bg', 'bul Hristo Botev 92B', '0567124678'),
+(39, 2, 'Czech Republic', 'Plovdiv', 4004, 'Ivan', 'tblajev@yahoo.com', 'bul Hristo Botev 92B', '0567124678');
 
 -- --------------------------------------------------------
 
@@ -674,7 +680,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2015_01_15_114412_create_role_user_table', 1),
 ('2015_01_26_115212_create_permissions_table', 1),
 ('2015_01_26_115523_create_permission_role_table', 1),
-('2015_02_09_132439_create_permission_user_table', 1);
+('2015_02_09_132439_create_permission_user_table', 1),
+('0000_00_00_000000_create_shoppingcart_table', 2);
 
 -- --------------------------------------------------------
 
@@ -693,7 +700,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `color` varchar(32) NOT NULL,
   `quantity` int(64) NOT NULL,
   `amount` int(64) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `orders`
@@ -742,7 +749,15 @@ INSERT INTO `orders` (`id`, `user_id`, `order_date`, `status`, `product_id`, `si
 (40, 4, '2016-05-07 17:11:59', '', 17, 'L', '57e1d-pmtk001a.jpg', 'black', 1, 10),
 (41, 4, '2016-05-07 17:11:59', '', 67, 'XS', '6e71c-image1xxl-2-.jpg', 'black', 2, 32),
 (42, 4, '2016-05-07 17:38:20', '', 21, 'S', 'ea72e-mpd006t.jpg', 'red', 2, 38),
-(43, 2, '2016-05-07 17:45:12', '', 11, 'XXL', 'c6b37-pmtk001c.jpg', 'white', 1, 99);
+(43, 2, '2016-05-07 17:45:12', '', 11, 'XXL', 'c6b37-pmtk001c.jpg', 'white', 1, 99),
+(44, 2, '2016-05-08 15:42:13', '', 32, 'M', '11f4f-image1xxl.jpg', 'white', 2, 112),
+(45, 4, '2016-05-08 17:27:37', '', 53, 'M', '0c2d2-wbk012c-royal-blue.jpg', 'blue', 2, 90),
+(46, 4, '2016-05-08 17:27:37', '', 9, 'L', '9e254-mpd003a.jpg', 'brown', 3, 96),
+(47, 4, '2016-05-14 10:24:13', '', 21, 'S', 'ea72e-mpd006t.jpg', 'red', 2, 38),
+(48, 4, '2016-05-14 10:24:13', '', 65, 'XS', 'bc43c-image1xxl.jpg', 'red', 3, 82),
+(49, 2, '2016-05-14 12:43:47', '', 11, 'XXL', 'c6b37-pmtk001c.jpg', 'white', 1, 79),
+(50, 4, '2016-05-14 15:50:56', '', 59, 'S', '0122b-wsd000t.jpg', 'black', 3, 63),
+(51, 2, '2016-05-14 18:11:44', '', 23, 'M', 'ee72c-1.jpg', 'violet', 3, 22);
 
 --
 -- Triggers `orders`
@@ -990,9 +1005,9 @@ INSERT INTO `products` (`product_id`, `slug`, `name`, `description`, `a_img`, `b
 (6, 'DKNY-Brown-Line-Jeans', 'DKNY Brown Line Jeans', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '94efc-mpd012a.jpg', '35a3f-mpd012b.jpg', 'aa423-mpd012t.jpg', 6, 6, 1, 45, 7),
 (7, 'Moschino-Violet-Shirt ', 'Moschino Violet Shirt ', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'd4bfb-mtk000a.jpg', '0dfc6-mtk000b.jpg', '52d0c-mtk000t.jpg', 3, 5, 1, 67, 6),
 (8, 'Pepe-Jeans-Blue-Retro', 'Pepe Jeans Blue Retro', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'e11b9-mpd006a.jpg', '01bc5-mpd006b.jpg', '', 4, 6, 1, 32, 37),
-(9, 'Gucci-Brown-Jeans', 'Gucci Brown Jeans', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '9e254-mpd003a.jpg', '80540-mpd003b.jpg', 'c4a7d-mpd003t.jpg', 1, 6, 1, 34, 32),
+(9, 'Gucci-Brown-Jeans', 'Gucci Brown Jeans', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '9e254-mpd003a.jpg', '80540-mpd003b.jpg', 'c4a7d-mpd003t.jpg', 1, 6, 1, 31, 32),
 (10, 'Dior-Brown-Mens-Shirt', 'Dior Brown Mens Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '543ea-mtk004a.jpg', '97d6f-mtk004t.jpg', '', 2, 5, 1, 78, 5),
-(11, 'Fendi-White-Jacket', 'Fendi White Jacket', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'c6b37-pmtk001c.jpg', '04ec4-pmtk001t.jpg', '', 7, 9, 1, 2, 99),
+(11, 'Fendi-White-Jacket', 'Fendi White Jacket', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'c6b37-pmtk001c.jpg', '04ec4-pmtk001t.jpg', '', 7, 9, 1, 1, 99),
 (12, 'Dior-Black-Long-Blazer', 'Dior Black Long Blazer', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'dd8f7-pmo001a.jpg', 'd071b-pmo001b.jpg', 'd4450-pmo001t.jpg', 2, 7, 1, 3, 89),
 (13, 'CK-Shell-Black-Blazer', 'CK Shell Black Blazer', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '3a815-pmo002a.jpg', '6cb7c-pmo002b.jpg', '3e659-pmo002t.jpg', 5, 7, 1, 4, 94),
 (14, 'Fendi-Brown-Skinny-Jeans', 'Fendi Brown Skinny Jeans', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '56245-pmp002a.jpg', '1f543-pmp002b.jpg', '892a5-pmp002t.jpg', 7, 6, 1, 42, 54),
@@ -1002,9 +1017,9 @@ INSERT INTO `products` (`product_id`, `slug`, `name`, `description`, `a_img`, `b
 (18, 'Fendi-Blue-Neck-Shirt', 'Fendi Blue Neck Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'be78d-pms004a.jpg', 'ee0c7-pms004b.jpg', 'e84e4-pms004t.jpg', 7, 8, 1, 21, 32),
 (19, 'Gucci-White-Sleeve-Shirt', 'Gucci White Sleeve Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '04776-pms000a.jpg', 'ef015-pms000b.jpg', 'bd7a2-pms000t.jpg', 1, 5, 1, 3, 32),
 (20, 'CK-White-Heisen-Sweater', 'CK White Heisen Sweater', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'b2890-pmtk000a.jpg', 'd513f-pmtk000t.jpg', '', 5, 3, 1, 32, 23),
-(21, 'DKNY-Red-Neck-Shirt', 'DKNY Red Neck Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'ea72e-mpd006t.jpg', '02090-pms003a.jpg', '', 6, 5, 1, 74, 19),
+(21, 'DKNY-Red-Neck-Shirt', 'DKNY Red Neck Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'ea72e-mpd006t.jpg', '02090-pms003a.jpg', '', 6, 5, 1, 72, 19),
 (22, 'Fendi-Navy-Front-Jacket', 'Fendi Navy Front Jacket', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'd52bb-pmtk005b.jpg', '93d69-pmtk005t.jpg', '', 7, 9, 1, 67, 21),
-(23, 'Moschino-Shell-Viol-Shirt', 'Moschino Shell Viol Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'ee72c-1.jpg', 'a35ee-1_2.jpg', '', 3, 8, 1, 31, 9),
+(23, 'Moschino-Shell-Viol-Shirt', 'Moschino Shell Viol Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'ee72c-1.jpg', 'a35ee-1_2.jpg', '', 3, 8, 1, 28, 9),
 (24, 'Pepe-Jeans-Blue-Shirt', 'Pepe Jeans Blue Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '1d60f-2.jpg', '43f35-2_2.jpg', '', 4, 8, 1, 71, 27),
 (25, 'Moschino-White-Jacket', 'Moschino White Jacket', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '1ddb2-9.jpg', '88519-9_2.jpg', '', 3, 3, 1, 30, 23),
 (26, 'Gucci-Fine-Sweaters', 'Gucci Fine Sweaters', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '6201a-8.jpg', '646e6-8_2.jpg', '', 1, 3, 1, 34, 16),
@@ -1013,7 +1028,7 @@ INSERT INTO `products` (`product_id`, `slug`, `name`, `description`, `a_img`, `b
 (29, 'Dior-White-Shirt', 'Dior White Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '727db-5.jpg', '36cb0-5_2.jpg', '', 2, 8, 1, 21, 22),
 (30, 'DKNY-Blue-Sleeve-Shirt ', 'DKNY Blue Sleeve Shirt ', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '2bf67-6.jpg', '97b6b-6_2.jpg', '', 6, 8, 1, 6, 27),
 (31, 'CK-Jeans-Mid-Wash', 'CK Jeans Mid Wash', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'de5e1-image1.jpg', '277fa-image2.jpg', 'b9e23-image3.jpg', 5, 6, 1, 76, 35),
-(32, 'DKNY-White-Lapell-Blazer', 'DKNY White Lapell Blazer', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '11f4f-image1xxl.jpg', 'ae5f0-image2xxl.jpg', '70794-image4xxl.jpg', 6, 7, 1, 43, 56),
+(32, 'DKNY-White-Lapell-Blazer', 'DKNY White Lapell Blazer', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '11f4f-image1xxl.jpg', 'ae5f0-image2xxl.jpg', '70794-image4xxl.jpg', 6, 7, 1, 41, 56),
 (36, 'Moschino-Red-Jacket', 'Moschino Red Jacket', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.&gt;</p>\r\n', '481c6-m0.jpg', '5ca87-m1.jpg', 'd394f-m2.jpg', 3, 9, 1, 60, 31),
 (37, 'CK-Violet-Jacket-Arc', 'CK Violet Jacket Arc', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '429a3-image1xxl-3-.jpg', '48fc8-image2xxl-3-.jpg', '', 5, 8, 1, 32, 101),
 (38, 'Fendi-Blue-Jacket ', 'Fendi Blue Jacket ', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'edcd0-image1xxl-5-.jpg', '62db1-image2xxl-5-.jpg', '1a69c-image3xxl-4-.jpg', 7, 9, 1, 41, 38),
@@ -1031,17 +1046,17 @@ INSERT INTO `products` (`product_id`, `slug`, `name`, `description`, `a_img`, `b
 (50, 'CK-Women-Wrap', 'CK Women Wrap', '<p>\r\n	Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper</p>\r\n', '942b2-pwd000a.jpg', '31ccc-pwd000b.jpg', '840c9-pwd000t.jpg', 5, 10, 2, 23, 78),
 (51, 'CL-Light-Blue-Wrap', 'CL Light Blue Wrap', '<p>\r\n	Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper</p>\r\n', '0bc05-pwt000a.jpg', 'e4bc3-pwt000b.jpg', 'b9cf1-pwt000t.jpg', 5, 10, 2, 3, 39),
 (52, 'CK-Wrap-Blue-Jeans', 'CK Wrap Blue Jeans', '<p>\r\n	Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper</p>\r\n', 'e8086-wpd005a.jpg', 'c5317-wpd005b.jpg', '', 5, 10, 2, 45, 30),
-(53, 'CK-Blue-Wrap-Shirt', 'CK Blue Wrap Shirt', '<p>\r\n	Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper</p>\r\n', '0c2d2-wbk012c-royal-blue.jpg', 'c6269-wbk012d-pink.jpg', '', 5, 10, 2, 23, 56),
+(53, 'CK-Blue-Wrap-Shirt', 'CK Blue Wrap Shirt', '<p>\r\n	Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper</p>\r\n', '0c2d2-wbk012c-royal-blue.jpg', 'c6269-wbk012d-pink.jpg', '', 5, 10, 2, 21, 56),
 (54, 'Dior-White-Mini', 'Dior White Mini', '<p style="box-sizing: border-box; margin: 0px 0px 20px; color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">\r\n	Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</p>\r\n', '35f37-wsd008a.jpg', 'c45b2-wsd008b.jpg', '2282b-wsd008t.jpg', 2, 11, 2, 20, 34),
 (55, 'DKNY-Black-Mini', 'DKNY Black Mini', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>\r\n', 'a88c7-pwd001a.jpg', 'd10c8-pwd001b.jpg', '78a4b-pwd001t.jpg', 6, 11, 2, 4, 67),
 (56, 'Gucci-White-Mini', 'Gucci White Mini', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.</span></p>\r\n', 'a1fe9-pwd002a.jpg', '7e425-pwd002b.jpg', '2defc-pwd002t.jpg', 1, 11, 2, 13, 22),
 (57, 'Fendi-Brown-Mini', 'Fendi Brown Mini', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.</span></p>\r\n', '27081-pwt004a.jpg', '01f42-pwt004b.jpg', '3f214-pwt004t.jpg', 7, 11, 2, 19, 14),
 (58, 'Pepe-Jeans-Black-Mini', 'Pepe Jeans Black Mini', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.</span></p>\r\n', 'e93d3-pwt003a.jpg', '9002f-pwt003t.jpg', '', 4, 11, 2, 34, 12),
-(59, 'Moschino-Brown-Mini', 'Moschino Brown Mini', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.</span></p>\r\n', '0122b-wsd000t.jpg', '9e31b-wsd000a.jpg', '64625-wsd000b.jpg', 3, 11, 2, 32, 21),
+(59, 'Moschino-Brown-Mini', 'Moschino Brown Mini', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.</span></p>\r\n', '0122b-wsd000t.jpg', '9e31b-wsd000a.jpg', '64625-wsd000b.jpg', 3, 11, 2, 29, 21),
 (62, 'CK-White-Pleated-Top', 'CK White Pleated Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; font-size: 13px; line-height: 22px;">Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral. Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral.</span></p>\r\n', '53103-11000876_4923878_480.jpg', '6df9e-11000876_4923882_480.jpg', '25079-11000876_4923876_480.jpg', 5, 15, 2, 45, 23),
 (63, 'Dior-Brown-Tops', 'Dior Brown Tops', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; font-size: 13px; line-height: 22px;">Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral. Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral.</span></p>\r\n', '832bd-11087120_5289707_480.jpg', '554fe-11087120_5289711_480.jpg', 'd44ce-11087120_5289701_480.jpg', 2, 15, 2, 32, 45),
 (64, 'Gucci-Black-Top', 'Gucci Black Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; font-size: 13px; line-height: 22px;">Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral. Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral</span></p>\r\n', '2b287-image2xxl-1-.jpg', '40749-image3xxl.jpg', '78689-image4xxl-1-.jpg', 1, 15, 2, 3, 27),
-(65, 'Moschino-Red-Top', 'Moschino Red Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</span></p>\r\n', 'bc43c-image1xxl.jpg', '967a0-image2xxl.jpg', '21951-image4xxl.jpg', 3, 15, 2, 9, 34),
+(65, 'Moschino-Red-Top', 'Moschino Red Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</span></p>\r\n', 'bc43c-image1xxl.jpg', '967a0-image2xxl.jpg', '21951-image4xxl.jpg', 3, 15, 2, 6, 34),
 (66, 'DKNY-Black-Crop-Top', 'DKNY Black Crop Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</span></p>\r\n', 'ee456-image1xxl-1-.jpg', '294b5-image2xxl-2-.jpg', '4a8a8-image4xxl-2-.jpg', 6, 15, 2, 18, 20),
 (67, 'Pepe-Jeans-Mini', 'Pepe Jeans Mini', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\r\n', '6e71c-image1xxl-2-.jpg', '759f6-image2xxl-3-.jpg', '0a402-image4xxl-3-.jpg', 4, 11, 2, 8, 16),
 (68, 'Fendi-Red-Top', 'Fendi Red Top', 'Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.\r\n', '547c8-image1xxl-4-.jpg', 'd3fdb-image2xxl-4-.jpg', 'ec72c-image4xxl-5-.jpg', 7, 15, 2, 2, 12),
@@ -1315,6 +1330,20 @@ INSERT INTO `shippings` (`id`, `method`, `img`, `rate`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `shoppingcart`
+--
+
+CREATE TABLE IF NOT EXISTS `shoppingcart` (
+  `identifier` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `instance` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `content` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sizes`
 --
 
@@ -1380,9 +1409,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `avatar`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Tihomir', 'ui-zac.jpg', 'raylight75@gmail.com', '$2y$10$b17mr2swLgWrdJ2Mka6Ilegy0.kJPBgE1R/b1Y7Bsnc5VVBCDL.Rq', 'GEmCMaSz9rARPcgFC4wPoNiEMehivLIxBIoB4XxigLT0S7LmbRaTgisSf0xg', '2016-01-03 08:48:36', '2016-05-07 11:25:25'),
-(2, 'Ivan', 'ui-sherman.jpg', 'tblajev@yahoo.com', '$2y$10$uQSDi6zBHxVU83adaZHjFOHqFAQWHZSPvNl6.R6EuOcRa30HlcUIi', 'rtY3aOLJuzOzSqHqIDd0sUykhJZrwlqJmj4H2DLUBeazQbUMH4IhLDHPblmo', '2016-01-03 10:58:24', '2016-05-07 17:46:15'),
-(4, 'Ana', 'avatar-ani.jpg', 'ana.blajeva@abv.bg', '$2y$10$EDFjGgQ/Q8i00mrbXMU5VOIYeS/pfwI3iZubj4v0yuYJB4NjrdEwi', 'rp45pJUuLrEHfVCbL20uPUOu8OA6HaUu54wVH7GQqsVjAFxbeEbeJgpwTdRD', '2016-04-19 06:02:27', '2016-05-07 17:43:37');
+(1, 'Tihomir', 'ui-zac.jpg', 'raylight75@gmail.com', '$2y$10$b17mr2swLgWrdJ2Mka6Ilegy0.kJPBgE1R/b1Y7Bsnc5VVBCDL.Rq', '7mvUfaX20SkCbwBGOyqOpZyLXSuHz9yLf5bmQM4wnqxnpZYHv2R0AR6x09aS', '2016-01-03 08:48:36', '2016-06-30 17:35:19'),
+(2, 'Ivan', 'ui-sherman.jpg', 'tblajev@yahoo.com', '$2y$10$uQSDi6zBHxVU83adaZHjFOHqFAQWHZSPvNl6.R6EuOcRa30HlcUIi', 'tD4CHQVFyVYk0QbOfVN83HP6yPOjmy1ohzhFTfvHmfuk3J59Iw8QpohUYPeg', '2016-01-03 10:58:24', '2016-07-03 06:26:05'),
+(4, 'Ana', 'avatar-ani.jpg', 'ana.blajeva@abv.bg', '$2y$10$EDFjGgQ/Q8i00mrbXMU5VOIYeS/pfwI3iZubj4v0yuYJB4NjrdEwi', '5uZYJVLbz63BHLy2ycRQGJ6YQTx1Vcu6aNgq8qlt3GoeHd6eagIn1XsdXKcv', '2016-04-19 06:02:27', '2016-07-03 06:25:30');
 
 --
 -- Indexes for dumped tables
@@ -1545,6 +1574,12 @@ ALTER TABLE `shippings`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `shoppingcart`
+--
+ALTER TABLE `shoppingcart`
+ ADD PRIMARY KEY (`identifier`,`instance`);
+
+--
 -- Indexes for table `sizes`
 --
 ALTER TABLE `sizes`
@@ -1605,7 +1640,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `images_tmp`
 --
@@ -1615,7 +1650,7 @@ MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT for table `order_status`
 --

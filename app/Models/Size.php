@@ -32,4 +32,15 @@ class Size extends Model
      */
 
     public $timestamps = false;
+
+    /**
+     * count sizes
+     * @return mixed
+     */
+    public function sizeCount()
+    {
+        return $this->hasOne('App\Models\Products_sizes')
+            ->selectRaw('size_id, count(*) as aggregate')
+            ->groupBy('size_id');
+    }
 }

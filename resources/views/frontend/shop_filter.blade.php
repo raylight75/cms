@@ -28,6 +28,7 @@
                         {{(in_array($row->size_id, $size)) ? 'checked="checked"' : ''}}/>
                 <label for="{{$row->size}}">
                     <li><a>{{$row->size}}</a></li>
+                    <span>({{$row->sizeCount->aggregate}})</span>
                 </label>
             @endforeach
         </div>
@@ -42,7 +43,7 @@
                         {{(in_array($row->color_id, $color)) ? 'checked="checked"' : ''}}/>
                 <label for="{{$row->color}}">
                     <li><a class="color{{$row->color_id}}"></a></li>
-                    {{$row->color}}<span>({{$row->color_cnt}})</span></label>
+                    {{$row->color}}<span>({{$row->colorCount->aggregate}})</span></label>
                 <style>
                     .widget_color li a.color{{$row->color_id}}
 					       {
@@ -61,7 +62,7 @@
                 <input type="checkbox" id="{{$row->brand}}" name="brand[]" value="{{$row->brand_id}}"
                         {{(in_array($row->brand_id, $brand)) ? 'checked="checked"' : ''}}/>
                 <label for="{{$row->brand}}">{{$row->brand}}
-                    <span>({{$row->brand_cnt}})</span>
+                    <span>({{$row->brandCount->aggregate}})</span>
                 </label>
             @endforeach
         </div>

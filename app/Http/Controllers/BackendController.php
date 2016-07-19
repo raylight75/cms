@@ -6,7 +6,7 @@ use App\User;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Brands;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use Auth, View, Gate, DB;
 use Validator, Input, Redirect;
@@ -116,7 +116,7 @@ class BackendController extends Controller
         $edit->add('slug', 'Slug', 'text')->rule('required|min:3');
         $edit->add('name', 'Name', 'text')->rule('required|min:3');
         $edit->add('description', 'Description', 'redactor');
-        $edit->add('brand_id', 'Brand', 'select')->options(Brands::lists("brand", "brand_id")->all());
+        $edit->add('brand_id', 'Brand', 'select')->options(Brand::lists("brand", "brand_id")->all());
         $edit->add('cat_id', 'Category', 'select')->options(Category::lists("cat", "cat_id")->all());
         $edit->add('size.size', 'Size', 'tags');
         $edit->add('color.color', 'Color', 'tags');

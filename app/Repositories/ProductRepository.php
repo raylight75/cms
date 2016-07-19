@@ -2,18 +2,20 @@
 
 namespace App\Repositories;
 
-use App\Models\Brands;
+use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
+use App\Models\Size;
 use App\Repositories\ShareRepository as Share;
-use Request,DB;
+use Request, DB;
 
 class ProductRepository
 {
 
     /**
      *
-     * Product Class with custom methods for products.
+     * Product repository Class with custom methods for products.
      * Just move logic outside from Eloquent model.
      *
      * @package ecommerce-cms
@@ -23,34 +25,24 @@ class ProductRepository
      */
 
     /**
-     * @param $parent
+     * Get data and count items for filters page.
      * @return mixed
      */
     public static function getAll($parent)
     {
-        $sqla = '(SELECT count(products.brand_id) as count
-                            FROM products
-                            WHERE products.brand_id = brand.brand_id
-                            AND products.parent_id = "' . $parent . '") as brand_cnt';
-        $sqlb = '(SELECT count(color_product.color_id) as count
-                            FROM color_product
-                            LEFT JOIN products
-                            ON products.product_id = color_product.product_id
-                            WHERE color_product.color_id = colors.color_id
-                            AND products.parent_id = "' . $parent . '") as color_cnt';
-        $result = DB::table('brand')
-            ->select(array('*', DB::raw($sqla), DB::raw($sqlb)))
-            ->leftJoin('sizes', 'brand.brand_id', '=', 'sizes.size_id')
-            ->leftJoin('colors', 'brand.brand_id', '=', 'colors.color_id')
-            ->get();
-        $data['brand'] = array();
-        $data['color'] = array();
-        $data['size'] = array();
-        foreach ($result as $val) {
-            $data['brand'][] = $val;
-            $data['color'][] = $val;
-            $data['size'][] = $val;
-        }
+        $parents = Product::GetParents($parent);
+        $data['brand'] = Brand::with(['brandCount' => function ($q) use ($parent) {
+            $q->where('parent_id', $parent);
+        }])->get();
+        $data['brand']->first()->brandCount;
+        $data['color'] = Color::with(['colorCount' => function ($q) use ($parents) {
+            $q->whereIn('product_id', $parents);
+        }])->get();
+        $data['color']->first()->colorCount;
+        $data['size'] = Size::with(['sizeCount' => function ($q) use ($parents) {
+            $q->whereIn('product_id', $parents);
+        }])->get();
+        $data['size']->first()->sizeCount;
         return $data;
     }
 
@@ -60,7 +52,7 @@ class ProductRepository
      */
     public static function getHome()
     {
-        $data['brands'] = Brands::all();
+        $data['brands'] = Brand::all();
         $data['latest'] = Product::latest();
         $data['products'] = Product::Products();
         return $data;
@@ -140,9 +132,9 @@ class ProductRepository
         if (!empty(Request::input('brand'))) {
             $query->whereIn('brand_id', Request::input('brand'));
         };
-        if(Request::input('name')){
+        if (Request::input('name')) {
             $query->orderBy('name', Request::input('name'));
-        }else{
+        } else {
             $query->orderBy('price', Request::input('price'));
         }
         //$query->orderBy('price', Request::input('price'));

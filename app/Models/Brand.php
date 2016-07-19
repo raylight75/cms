@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Brands extends Model
+class Brand extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'brand';
+    protected $table = 'brands';
 
     /**
      * The attributes that are mass assignable.
@@ -36,5 +36,16 @@ class Brands extends Model
     public function product()
     {
         return $this->belongsTo('App\Models\Product','brand_id', 'brand_id');
+    }
+
+    /**
+     * Count brands
+     * @return mixed
+     */
+    public function brandCount()
+    {
+        return $this->product()
+            ->selectRaw('brand_id, count(*) as aggregate')
+            ->groupBy('brand_id');
     }
 }

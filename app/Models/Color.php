@@ -33,4 +33,15 @@ class Color extends Model
      */
 
     public $timestamps = false;
+
+    /**
+     * count colors
+     * @return mixed
+     */
+    public function colorCount()
+    {
+        return $this->hasOne('App\Models\Colors_products')
+            ->selectRaw('color_id, count(*) as aggregate')
+            ->groupBy('color_id');
+    }
 }

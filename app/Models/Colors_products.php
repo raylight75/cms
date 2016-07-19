@@ -32,6 +32,9 @@ class Colors_products extends Model
 
     public $timestamps = false;
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function product()
     {
         return $this->belongsTo('App\Models\Product');

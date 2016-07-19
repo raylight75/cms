@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2016 at 03:55 PM
+-- Generation Time: Jul 19, 2016 at 03:38 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -19,6 +19,56 @@ SET time_zone = "+00:00";
 --
 -- Database: `cms`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bl_cat`
+--
+
+CREATE TABLE IF NOT EXISTS `bl_cat` (
+  `id` int(11) NOT NULL,
+  `category` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `bl_cat`
+--
+
+INSERT INTO `bl_cat` (`id`, `category`) VALUES
+(1, 'dress'),
+(2, 'jeans'),
+(3, 'boots'),
+(4, 'jackets'),
+(5, 'shirts'),
+(6, 'outwear'),
+(7, 'blazers'),
+(8, 'sweaters');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bl_tag`
+--
+
+CREATE TABLE IF NOT EXISTS `bl_tag` (
+  `id` int(11) NOT NULL,
+  `tag` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `bl_tag`
+--
+
+INSERT INTO `bl_tag` (`id`, `tag`) VALUES
+(1, 'dress'),
+(2, 'jeans'),
+(3, 'boots'),
+(4, 'jackets'),
+(5, 'shirts'),
+(6, 'outwear'),
+(7, 'blazers'),
+(8, 'sweaters');
 
 -- --------------------------------------------------------
 
@@ -234,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
 
 INSERT INTO `comments` (`comments_id`, `id`, `comments`, `name`, `created`) VALUES
 (1, 1, 'Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis.', 'raylight75', '2015-07-09 18:26:45'),
-(2, 2, 'Thank you so much for putting this together Jeremy. Most of these seem like common sense but it is amazing how many times I see new employees having the worst days of their life because managers/leaders don‚Äôt want to be ‚Äúbothered‚Äù with the new guy.', 'Ivan Ivanov', '2015-08-20 22:26:26'),
+(2, 2, 'Thank you so much for putting this together Jeremy. Most of these seem like common sense but it is amazing how many times I see new employees having the worst days of their life because managers/leaders donít want to be ìbotheredî with the new guy.', 'Ivan Ivanov', '2015-08-20 22:26:26'),
 (3, 2, 'test comments for Eshop blog', 'raylight75', '2015-09-29 02:07:32'),
 (4, 1, 'Yes,test posr nubmer 2', 'Ivan Ivanov', '2015-09-06 09:26:45'),
 (5, 1, 'Second test comment for post', 'raylight75', '2015-09-10 18:29:35'),
@@ -585,6 +635,32 @@ INSERT INTO `customers` (`id`, `user_id`, `country`, `city`, `postcode`, `name`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `images_tmp`
+--
+
+CREATE TABLE IF NOT EXISTS `images_tmp` (
+`img_id` int(11) NOT NULL,
+  `images` varchar(45) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `images_tmp`
+--
+
+INSERT INTO `images_tmp` (`img_id`, `images`) VALUES
+(1, '51809-pmo000a.jpg'),
+(2, '8f2b0-pmo000b.jpg'),
+(3, 'ee087-pmo000c.jpg'),
+(4, '9c53b-mtk006a.jpg'),
+(5, '37a0b-mtk006b.jpg'),
+(6, '295af-mtk006t.jpg'),
+(7, '25cd2-mtk009a.jpg'),
+(8, 'ba14e-mtk009b.jpg'),
+(9, '58e6f-mtk009t.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -686,13 +762,13 @@ INSERT INTO `orders` (`id`, `user_id`, `order_date`, `status`, `product_id`, `si
 --
 -- Triggers `orders`
 --
-DELIMITER //
+/*DELIMITER //
 CREATE TRIGGER `quantity` AFTER INSERT ON `orders`
  FOR EACH ROW BEGIN
-UPDATE products SET products.quantity = products.quantity - NEW.quantity WHERE  products.product_id = NEW.product_id; 
+UPDATE products SET products.quantity = products.quantity - NEW.quantity WHERE  products.product_id = NEW.product_id;
 END
 //
-DELIMITER ;
+DELIMITER ;*/
 
 -- --------------------------------------------------------
 
@@ -799,6 +875,45 @@ CREATE TABLE IF NOT EXISTS `permission_user` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `portfolio`
+--
+
+CREATE TABLE IF NOT EXISTS `portfolio` (
+  `id` int(11) NOT NULL,
+  `priority` int(11) NOT NULL,
+  `url` varchar(32) DEFAULT NULL,
+  `title` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `portfolio`
+--
+
+INSERT INTO `portfolio` (`id`, `priority`, `url`, `title`) VALUES
+(1, 2, 'e96e9-a1.jpg', 'Nissan'),
+(2, 1, 'd70f1-a2.jpg', 'Lambo1'),
+(4, 1, 'c2510-a3.jpg', 'Lambo2'),
+(5, 2, 'a0809-a6.jpg', 'Audi\n'),
+(6, 2, '32d56-a9.jpg', 'Honda'),
+(7, 3, '98e8a-i9.jpg', 'int_1'),
+(8, 3, 'b5fd8-i12.jpg', 'int_2'),
+(10, 1, '9730c-a8.jpg', 'Mitsubishi'),
+(11, 2, '396d5-a10.jpg', 'beast'),
+(12, 2, 'a4d7f-a7.jpg', 'audi_2'),
+(1, 2, 'e96e9-a1.jpg', 'Nissan'),
+(2, 1, 'd70f1-a2.jpg', 'Lambo1'),
+(4, 1, 'c2510-a3.jpg', 'Lambo2'),
+(5, 2, 'a0809-a6.jpg', 'Audi\n'),
+(6, 2, '32d56-a9.jpg', 'Honda'),
+(7, 3, '98e8a-i9.jpg', 'int_1'),
+(8, 3, 'b5fd8-i12.jpg', 'int_2'),
+(10, 1, '9730c-a8.jpg', 'Mitsubishi'),
+(11, 2, '396d5-a10.jpg', 'beast'),
+(12, 2, 'a4d7f-a7.jpg', 'audi_2');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `posts`
 --
 
@@ -829,6 +944,32 @@ INSERT INTO `posts` (`post_id`, `user_id`, `username`, `title`, `content`, `cate
 (8, 2, 'tihomir blajev', 'Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.', '<p>\r\n	Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis.&nbsp;Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>\r\n', '2', '2', '07718-14.jpg', '2015-07-01 23:12:18'),
 (9, 2, 'tihomir blajev', ' Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.', '<p>\r\n	<span style="font-size:12px;"><span style="color: rgb(102, 102, 102); font-family: Verdana, Geneva, sans-serif;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.</span></span></p>\r\n', '2', '2', '4f53f-15.jpg', '2015-07-01 22:12:00'),
 (10, 2, 'tihomir blajev', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 'Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.', '8', '8', '41.jpg', '2015-09-21 20:31:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `productimg_tmp`
+--
+
+CREATE TABLE IF NOT EXISTS `productimg_tmp` (
+  `product_id` int(11) DEFAULT NULL,
+  `img_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `productimg_tmp`
+--
+
+INSERT INTO `productimg_tmp` (`product_id`, `img_id`) VALUES
+(2, 1),
+(2, 2),
+(2, 3),
+(1, 6),
+(1, 5),
+(1, 4),
+(4, 7),
+(4, 9),
+(4, 8);
 
 -- --------------------------------------------------------
 
@@ -1277,6 +1418,18 @@ INSERT INTO `users` (`id`, `name`, `avatar`, `email`, `password`, `remember_toke
 --
 
 --
+-- Indexes for table `bl_cat`
+--
+ALTER TABLE `bl_cat`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `bl_tag`
+--
+ALTER TABLE `bl_tag`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indexes for table `brands`
 --
 ALTER TABLE `brands`
@@ -1325,6 +1478,12 @@ ALTER TABLE `customers`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `images_tmp`
+--
+ALTER TABLE `images_tmp`
+ ADD PRIMARY KEY (`img_id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -1371,6 +1530,12 @@ ALTER TABLE `permission_user`
 --
 ALTER TABLE `posts`
  ADD PRIMARY KEY (`post_id`), ADD UNIQUE KEY `post_id` (`post_id`), ADD KEY `fk_posts_users_idx` (`user_id`), ADD KEY `fk_posts_comments_idx` (`post_id`);
+
+--
+-- Indexes for table `productimg_tmp`
+--
+ALTER TABLE `productimg_tmp`
+ ADD KEY `fk_images_products_idx` (`product_id`);
 
 --
 -- Indexes for table `products`
@@ -1477,6 +1642,11 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 ALTER TABLE `customers`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
 --
+-- AUTO_INCREMENT for table `images_tmp`
+--
+ALTER TABLE `images_tmp`
+MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
@@ -1573,6 +1743,12 @@ ADD CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFEREN
 ALTER TABLE `permission_user`
 ADD CONSTRAINT `permission_user_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
 ADD CONSTRAINT `permission_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `productimg_tmp`
+--
+ALTER TABLE `productimg_tmp`
+ADD CONSTRAINT `fk_images_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `products`

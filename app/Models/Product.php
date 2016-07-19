@@ -47,7 +47,7 @@ class Product extends Model
      */
     public function brands()
     {
-        return $this->hasOne('App\Models\Brands', 'brand_id', 'brand_id');
+        return $this->hasOne('App\Models\Brand', 'brand_id', 'brand_id');
     }
 
     public function category()
@@ -110,5 +110,17 @@ class Product extends Model
     public function scopeItemProperty($query, $id)
     {
         return $query->with('category', 'size', 'color')->findOrFail($id);
+    }
+
+    /**
+     * Get parent items for colors and sizes
+     * @param $query
+     * @param $parent
+     * @return mixed
+     */
+    public function scopeGetParents($query, $parent)
+    {
+        return $query->where(['parent_id' => $parent])
+            ->lists('product_id');
     }
 }

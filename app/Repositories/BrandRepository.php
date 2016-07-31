@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Composers;
+namespace App\Repositories;
 
-use App\Services\GlobalService;
-use View;
+use App\Models\Brand;
 
-class GlobalComposer
+class BrandRepository
 {
     /**
      * Ecommerce-CMS
@@ -28,29 +27,43 @@ class GlobalComposer
 
     /**
      *
-     * GlobalComopser Class for share global variables.
+     * Brand repository Class for model Brand.
+     * Just move query outside from Eloquent model.
      *
      * @package ecommerce-cms
-     * @category Base Class
+     * @category Repository Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-    protected $globalData;
+
+    protected $brand;
 
     /**
-     * @param GlobalService $globalService
+     * @param Brand $brand
      */
-    public function __construct(GlobalService $globalService)
+    public function __construct(Brand $brand)
     {
-        $this->globalData = $globalService;
+        $this->brand = $brand;
     }
 
     /**
-     * Share global data to all views.
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function compose()
+    public function all()
     {
-        $data = $this->globalData->globalData();
-        View::share($data);
+        return $this->brand->all();
+    }
+
+    /**
+     * Get data and count items for filters page.
+     * @param $parent
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function withCount($parent)
+    {
+        return $this->brand->with(['brandCount' => function ($q) use ($parent) {
+            $q->where('parent_id', $parent);
+        }])->get();
+        $this->brand->first()->brandCount;
     }
 }

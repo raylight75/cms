@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Models\Category;
-use App\Models\Order;
-use App\Models\Product;
-use App\Models\Brand;
+use App\Repositories\CrudRepository;
+use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
-use Auth, View, Gate, DB;
-use Validator, Input, Redirect;
-use Zofe\Rapyd\Facades\DataGrid;
-use Zofe\Rapyd\Facades\DataEdit;
+use Auth, View, Gate;
 
 class BackendController extends Controller
 {
@@ -38,7 +32,7 @@ class BackendController extends Controller
 
     /**
      *
-     * Products Class for CRUD for associated table.
+     * Backend Class.
      *
      * @package ecommerce-cms
      * @category Base Class
@@ -50,11 +44,22 @@ class BackendController extends Controller
      * Create a name for table.
      */
 
-    private $title = 'Products';
+    protected $crud;
 
-    private $titleOrders = 'Orders';
+    protected $order;
 
-    private $titleUser = 'User';
+    /**
+     * @param CrudRepository $CrudRepo
+     */
+    public function __construct
+    (
+        CrudRepository $CrudRepo,
+        OrderRepository $order
+    )
+    {
+        $this->crud = $CrudRepo;
+        $this->order = $order;
+    }
 
     /**
      * Show the home page to the user.
@@ -66,183 +71,111 @@ class BackendController extends Controller
     {
         if (Auth::check() && Auth::user()->is('admin')) {
             $title = 'Admin Dashboard';
-        }else{
+        } else {
             $title = 'User Dashboard';
         }
         return view('backend/dashboard', compact('title'));
     }
 
+    /**
+     * Show products
+     * @return View
+     */
     public function products()
     {
-        $filter = \DataFilter::source(Product::with('brands', 'size', 'color', 'category'));
-        $filter->add('product_id', 'ID', 'text');
-        $filter->add('name', 'Name', 'text');
-        $filter->add('brands.brand', 'Brand', 'text');
-        $filter->add('category.cat', 'Category', 'text');
-        //$filter->add('quantity', 'Qty','text');
-        //$filter->add('price', 'Price','text');
-        $filter->submit('search');
-        $filter->reset('reset');
-        $filter->build();
-
-        $grid = DataGrid::source($filter);
-        $grid->label('Product List');
-        $grid->attributes(array("class" => "table table-striped"));
-        $grid->add('product_id', 'ID', true)->style("width:100px");
-        $grid->add('slug', 'Slug');
-        $grid->add('name', 'Name');
-        $grid->add('brands.brand', 'Brand');
-        $grid->add('category.cat', 'Category');
-        $grid->add('{{ implode(", ", $size->lists("size")->all()) }}', 'Sizes');
-        $grid->add('{{ implode(", ", $color->lists("color")->all()) }}', 'Colors');
-        $grid->add('<img src="/images/products/{{ $a_img }}" height="25" width="20">', 'Front');
-        $grid->add('<img src="/images/products/{{ $b_img }}"height="25" width="20">', 'Side');
-        //$grid->add('<img src="/images/products/{{ $c_img }}"height="25" width="20">', 'Back');
-        $grid->add('quantity', 'Qty');
-        $grid->add('price', 'Price');
-        $grid->edit('/backend/products/edit');
-        $grid->link('/backend/products/edit', "New Products", "TR");
-        $grid->orderBy('product_id', 'asc');
-        $grid->paginate(10);
-        $title = $this->title;
+        $filter = $this->crud->productsFilter();
+        $grid = $this->crud->productsGrid();
+        $title = $this->crud->getProductTable();
         return view('backend/content', compact('filter', 'grid', 'title'));
     }
 
-    public function productsEdit()
+    /**
+     * Edit Products
+     * @param Request $request
+     * @return string|View
+     */
+    public function productsEdit(Request $request)
     {
-        if (Input::get('do_delete') == 1) return "not the first";
-        $edit = DataEdit::source(new Product());
-        $edit->label('Edit Product');
-        $edit->add('slug', 'Slug', 'text')->rule('required|min:3');
-        $edit->add('name', 'Name', 'text')->rule('required|min:3');
-        $edit->add('description', 'Description', 'redactor');
-        $edit->add('brand_id', 'Brand', 'select')->options(Brand::lists("brand", "brand_id")->all());
-        $edit->add('cat_id', 'Category', 'select')->options(Category::lists("cat", "cat_id")->all());
-        $edit->add('size.size', 'Size', 'tags');
-        $edit->add('color.color', 'Color', 'tags');
-        $edit->add('a_img', 'Front', 'image')->move('images/products/')->fit(240, 160)->preview(120, 80);
-        $edit->add('b_img', 'Side', 'image')->move('images/products/')->fit(240, 160)->preview(120, 80);
-        //$edit->add('c_img','Back', 'image')->move('images/products/')->fit(240, 160)->preview(120,80);
-        $edit->add('quantity', 'Qty', 'text');
-        $edit->add('price', 'Price', 'text');
-        $edit->link('/backend/products', "Back", "TR");
-        $title = $this->title;
+        if ($request->get('do_delete') == 1) return "not the first";
+        $edit = $this->crud->productsEdit();
+        $title = $this->crud->getProductTable();
         return view('backend/content', compact('edit', 'title'));
     }
 
+    /**
+     * Show User profile
+     * @return View
+     */
     public function profile()
     {
-        $id = Auth::user()->id;
-        $grid = DataGrid::source(User::where('id', $id));
-        $grid->label('Your Profile');
-        $grid->attributes(array("class" => "table table-striped"));
-        $grid->add('name', 'Name');
-        $grid->add('<img src="/images/avatars/{{ $avatar }}" height="25" width="25">', 'Avatar');
-        $grid->add('email', 'Email');
-        $grid->edit('/backend/profile/edit', 'Edit', 'show|modify');
-        $grid->orderBy('id', 'asc');
-        $title = $this->titleUser;
+        $grid = $this->crud->profileGrid();
+        $title = Auth::user()->name;
         return view('backend/content', compact('grid', 'title'));
     }
 
+    /**
+     * Edit User Profile
+     * @return View
+     */
     public function profileEdit()
     {
-        $edit = DataEdit::source(new User());
-        $edit->label('Edit Profile');
-        $edit->add('avatar', 'Avatar', 'image')->move('images/avatars/')->fit(240, 160)->preview(120, 80);
-        $edit->link('/backend/profile', "Back", "TR");
-        $title = $this->titleUser;
+        $edit = $this->crud->profileEdit();
+        $title = Auth::user()->name;
         return view('backend/content', compact('edit', 'title'));
     }
 
+    /**
+     * Show all orders to admins
+     * @return View
+     */
     public function orders()
     {
-        $filter = \DataFilter::source(Order::with('users', 'products'));
-        $filter->add('id', 'ID', 'text');
-        $filter->add('users.name', 'Customer', 'text');
-        $filter->add('products.name', 'Product', 'text');
-        $filter->add('size', 'Size', 'text');
-        $filter->add('color', 'Color', 'text');
-        $filter->submit('search');
-        $filter->reset('reset');
-        $filter->build();
-
-        $grid = DataGrid::source($filter);
-        $grid->label('User Orders');
-        $grid->attributes(array("class" => "table table-striped"));
-        $grid->add('id', 'ID', true)->style("width:100px");
-        $grid->add('users.name', 'Customer', 'text');
-        $grid->add('order_date', 'Date');
-        $grid->add('<a href="/backend/products/edit?show={{ $products->product_id }}">{{ $products->name }}</a>', 'Product');
-        $grid->add('size', 'Size');
-        $grid->add('<img src="/images/products/{{ $img }}" height="25" width="25">', 'Image');
-        $grid->add('color', 'Color');
-        $grid->add('quantity', 'Qty');
-        $grid->add('amount', 'Amount');
-        $grid->edit('/backend/orders/edit');
-        $grid->link('/backend/orders/edit', "New Order", "TR");
-        $grid->orderBy('id', 'asc');
-        $grid->paginate(10);
-        $title = $this->titleOrders;
+        $filter = $this->crud->ordersFilter();
+        $grid = $this->crud->ordersGrid();
+        $title = $this->crud->getOrderTable();
         return view('backend/content', compact('filter', 'grid', 'title'));
     }
 
-    public function ordersEdit()
+    /**
+     * Edit Orders
+     * @param Request $request
+     * @return string|View
+     */
+    public function ordersEdit(Request $request)
     {
-        if (Input::get('do_delete') == 1) return "not the first";
-        $edit = DataEdit::source(new Order());
-        $edit->label('Edit Order');
-        $edit->add('users.name', 'Username', 'text');
-        $edit->add('order_date', 'Date', 'text');
-        $edit->add('products.name', 'Product', 'text');
-        $edit->add('size', 'Size', 'text');
-        $edit->add('img', 'Image', 'image')->move('images/products/')->fit(240, 160)->preview(120, 80);
-        $edit->add('color', 'Color', 'text');
-        $edit->add('quantity', 'Qty', 'text');
-        $edit->add('amount', 'Amount', 'text');
-        $edit->link('/backend/orders', "Back", "TR");
-        $title = $this->titleOrders;
+        if ($request->get('do_delete') == 1) return "not the first";
+        $edit = $this->crud->ordersEdit();
+        $title = $this->crud->getOrderTable();
         return view('backend/content', compact('edit', 'title'));
     }
 
+    /**
+     * Show customer orders
+     * @return View
+     */
     public function userOrders()
     {
-        $id = Auth::user()->id;
-        $grid = DataGrid::source(Order::with('products')->where('user_id', $id));
-        $grid->label('My Orders');
-        $grid->attributes(array("class" => "table table-striped"));
-        $grid->add('id', 'ID', true)->style("width:100px");
-        $grid->add('order_date', 'Date');
-        $grid->add('products.name', 'Product');
-        $grid->add('size', 'Size');
-        $grid->add('<img src="/images/products/{{ $img }}" height="25" width="25">', 'Image');
-        $grid->add('color', 'Color');
-        $grid->add('quantity', 'Qty');
-        $grid->add('amount', 'Amount');
-        $grid->edit('/backend/user-orders/edit', 'Curent Order', 'show');
-        $grid->orderBy('id', 'asc');
-        $grid->paginate(10);
-        $title = $this->titleOrders;
+        $grid = $this->crud->UserOrdersGrid();
+        $title = $this->crud->getOrderTable();
         return view('backend/content', compact('grid', 'title'));
     }
 
+    /**
+     * Edit customer orders
+     * @param Request $request
+     * @return View
+     */
     public function userOrdersEdit(Request $request)
     {
-        $order = Order::findOrFail($request->all())->first();
-        if (Gate::denies('show-resource', $order)) {
-            return redirect('backend/profile')->withErrors('Your are not autorized to view resources');;
+        $order = $this->order->getUserOrder($request);
+        //$this->authorize('view-resource', $order);
+        //authorize via AuthorizesRequests trait.
+        if (Gate::denies('view-resource', $order)) {
+            return redirect('backend/profile')
+                ->withErrors('Your are not autorized to view resources');
         }
-        $edit = DataEdit::source(new Order());
-        $edit->label('View Order');
-        $edit->add('order_date', 'Date', 'text');
-        $edit->add('products.name', 'Product', 'text');
-        $edit->add('size', 'Size', 'text');
-        $edit->add('img', 'Image', 'image')->move('images/products/')->fit(240, 160)->preview(120, 80);
-        $edit->add('color', 'Color', 'text');
-        $edit->add('quantity', 'Qty', 'text');
-        $edit->add('amount', 'Amount', 'text');
-        $edit->link('/backend/user-orders', "Back", "TR");
-        $title = $this->titleUser;
+        $edit = $this->crud->UsersOrdersEdit();
+        $title = $this->crud->getOrderTable();
         return view('backend/content', compact('edit', 'title'));
     }
 }

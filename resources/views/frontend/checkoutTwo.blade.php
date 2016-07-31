@@ -120,7 +120,7 @@
                         </tr>
                     </table>
                     <a class="btn active" href="{{ url('checkout/create') }}">Place Order</a>
-                    <a class="btn inactive" href="{{ url('checkout/shipping') }}">Go to previous
+                    <a class="btn inactive" href="{{ url(URL::previous()) }}">Go to previous
                         step</a>
                 </div>
                 <!-- //REGISTRATION FORM -->

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Composers;
+namespace App\Repositories;
 
-use App\Services\GlobalService;
-use View;
+use App\Models\Shipping;
 
-class GlobalComposer
+class ShippingRepository
 {
     /**
      * Ecommerce-CMS
@@ -28,29 +27,40 @@ class GlobalComposer
 
     /**
      *
-     * GlobalComopser Class for share global variables.
+     * Shipping repository Class for model Brand.
+     * Just move query outside from Eloquent model.
      *
      * @package ecommerce-cms
-     * @category Base Class
+     * @category Repository Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-    protected $globalData;
+
+    protected $shipping;
 
     /**
-     * @param GlobalService $globalService
+     * @param Shipping $shipping
      */
-    public function __construct(GlobalService $globalService)
+    public function __construct(Shipping $shipping)
     {
-        $this->globalData = $globalService;
+        $this->shipping = $shipping;
     }
 
     /**
-     * Share global data to all views.
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function compose()
+    public function all()
     {
-        $data = $this->globalData->globalData();
-        View::share($data);
+        return $this->shipping->all();
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function findOrFail($request)
+    {
+        return $this->shipping->findOrFail($request->session()
+            ->get('delivery'));
     }
 }

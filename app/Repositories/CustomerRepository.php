@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Composers;
+namespace App\Repositories;
 
-use App\Services\GlobalService;
-use View;
+use App\Models\Customer;
 
-class GlobalComposer
+class CustomerRepository
 {
     /**
      * Ecommerce-CMS
@@ -28,29 +27,30 @@ class GlobalComposer
 
     /**
      *
-     * GlobalComopser Class for share global variables.
+     * Customer repository Class for model Brand.
+     * Just move query outside from Eloquent model.
      *
      * @package ecommerce-cms
-     * @category Base Class
+     * @category Repository Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-    protected $globalData;
+    protected $customer;
 
     /**
-     * @param GlobalService $globalService
+     * @param Customer $customer
      */
-    public function __construct(GlobalService $globalService)
+    public function __construct(Customer $customer)
     {
-        $this->globalData = $globalService;
+        $this->customer = $customer;
     }
 
     /**
-     * Share global data to all views.
+     * @param $customer
+     * @return static
      */
-    public function compose()
+    public function create($customer)
     {
-        $data = $this->globalData->globalData();
-        View::share($data);
+        return $this->customer->create($customer);
     }
 }

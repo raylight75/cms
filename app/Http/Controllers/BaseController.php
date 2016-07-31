@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ShareRepository as Share;
-use App\Repositories\ProductRepository as Product;
-use App\Models\Product as Property;
+use App\Services\BaseService;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Auth, View, DB;
+use View;
 
 class BaseController extends Controller
 {
@@ -42,15 +40,14 @@ class BaseController extends Controller
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    protected $base;
+
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @param BaseService $baseService
      */
-    public function __construct()
+    public function __construct(BaseService $baseService)
     {
-        $data = Share::globalData();
-        View::share($data);
+        $this->base = $baseService;
     }
 
     /**
@@ -60,7 +57,7 @@ class BaseController extends Controller
      */
     public function index()
     {
-        $data = Product::getHome();
+        $data = $this->base->getHome();
         return view('frontend.body', $data);
     }
 
@@ -89,7 +86,7 @@ class BaseController extends Controller
      */
     public function filter(Request $request, $slug, $parent)
     {
-        $data = Product::getFilter($request,$parent);
+        $data = $this->base->getFilter($request, $parent);
         if ($request->ajax()) {
             return response()->json(view('frontend.ajax-products', $data)->render());
         } else {
@@ -105,7 +102,7 @@ class BaseController extends Controller
      */
     public function product($slug, $id)
     {
-        $data = Product::getProductInfo($slug, $id);
+        $data = $this->base->getProductInfo($slug, $id);
         return view('frontend.product_page', $data);
     }
 
@@ -115,7 +112,7 @@ class BaseController extends Controller
      */
     public function frame($id)
     {
-        $item = Property::ItemProperty($id);
+        $item = $this->base->getFrameContent($id);
         return view('frontend.frame', compact('item'));
     }
 
@@ -125,7 +122,7 @@ class BaseController extends Controller
      */
     public function search(Request $request, $parent)
     {
-        $data = Product::prepareSearch($request, $parent);
+        $data = $this->base->prepareSearch($request, $parent);
         if ($request->ajax()) {
             return response()->json(view('frontend.ajax-products', $data)->render());
         } else {
@@ -138,10 +135,10 @@ class BaseController extends Controller
      * @param string $currency
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function set_currency($currency = "")
+    public function set_currency(Request $request,$currency = "")
     {
         $currency = ($currency != "") ? $currency : "USD";
-        session(['currency' => $currency]);
+        $request->session()->put('currency', $currency);
         return redirect('cms');
     }
 
@@ -154,11 +151,11 @@ class BaseController extends Controller
         return view('frontend.login');
     }
 
-    public function welcome()
+    public function welcome(Guard $auth,Request $request)
     {
         //redirect trait AuthenticatesUsers getLogout()
-        $user = Auth::user()->name;
-        Session::flash('flash_message', 'You have been successfully Logged In!');
+        $user = $auth->user()->name;
+        $request->session()->flash('flash_message', 'You have been successfully Logged In!');
         return view('messages.welcome')->with('user', $user);
     }
 }

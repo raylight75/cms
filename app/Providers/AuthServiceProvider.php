@@ -12,21 +12,22 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
-    ];
+
+    //protected $policies = [
+    //    'App\Models\Order' => 'App\Policies\BackendPolicy',
+    //];
 
     /**
      * Register any application authentication / authorization services.
      *
-     * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
+     * @param  \Illuminate\Contracts\Auth\Access\Gate $gate
      * @return void
      */
     public function boot(GateContract $gate)
     {
-        parent::registerPolicies($gate);
+        $this->registerPolicies($gate);
 
-        $gate->define('show-resource', function ($user, $order) {
+        $gate->define('view-resource', function ($user, $order) {
             return $user->id === $order->user_id;
         });
     }

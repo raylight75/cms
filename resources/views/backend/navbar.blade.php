@@ -11,6 +11,7 @@
                     <li>User Panel</li>
                 @endif
                 <li class="active">{{Auth::user()->email}}</li>
+                    <li class="active"><a href="{{ url('cms') }}">Back to Site</a></li>
             </ol>
             <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
                 <i class="fa fa-th icon"></i>

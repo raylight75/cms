@@ -79,48 +79,4 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Color');
     }
-
-    /**
-     * Scope a query to latest users.
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeLatest($query)
-    {
-        return $query->orderBy('product_id', 'desc')
-            ->take('6')
-            ->get();
-    }
-
-    /**
-     * Scope a query to 6 per page.
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public static function scopeProducts($query)
-    {
-        return $query->with('category')
-            ->orderBy('product_id', 'desc')
-            ->get()
-            ->random(6);
-    }
-
-    /**
-     * Scope a query for property of the Items.
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeItemProperty($query, $id)
-    {
-        return $query->with('category', 'size', 'color')->findOrFail($id);
-    }
-
-    /**
-     * Get parent items for colors and sizes
-     * @param $query
-     * @param $parent
-     * @return mixed
-     */
-    public function scopeGetParents($query, $parent)
-    {
-        return $query->where(['parent_id' => $parent])
-            ->lists('product_id');
-    }
 }

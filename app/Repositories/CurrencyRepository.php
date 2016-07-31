@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Composers;
+namespace App\Repositories;
 
-use App\Services\GlobalService;
-use View;
+use App\Models\Currency;
 
-class GlobalComposer
+class CurrencyRepository
 {
     /**
      * Ecommerce-CMS
@@ -28,29 +27,29 @@ class GlobalComposer
 
     /**
      *
-     * GlobalComopser Class for share global variables.
+     * Currency repository Class for model Currency.
+     * Just move query outside from Eloquent model.
      *
      * @package ecommerce-cms
-     * @category Base Class
+     * @category Repository Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-    protected $globalData;
+    protected $currency;
 
     /**
-     * @param GlobalService $globalService
+     * @param Currency $currency
      */
-    public function __construct(GlobalService $globalService)
+    public function __construct(Currency $currency)
     {
-        $this->globalData = $globalService;
+        $this->currency = $currency;
     }
 
     /**
-     * Share global data to all views.
+     * @return mixed
      */
-    public function compose()
+    public function getCurrency()
     {
-        $data = $this->globalData->globalData();
-        View::share($data);
+        return $this->currency->all();
     }
 }

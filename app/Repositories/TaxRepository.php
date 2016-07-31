@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Composers;
+namespace App\Repositories;
 
-use App\Services\GlobalService;
-use View;
+use App\Models\Tax;
 
-class GlobalComposer
+class TaxRepository
 {
     /**
      * Ecommerce-CMS
@@ -28,29 +27,37 @@ class GlobalComposer
 
     /**
      *
-     * GlobalComopser Class for share global variables.
+     * Tax repository Class for model Brand.
+     * Just move query outside from Eloquent model.
      *
      * @package ecommerce-cms
-     * @category Base Class
+     * @category Repository Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-    protected $globalData;
+
+    protected $tax;
 
     /**
-     * @param GlobalService $globalService
+     * @param Tax $tax
      */
-    public function __construct(GlobalService $globalService)
+    public function __construct(Tax $tax)
     {
-        $this->globalData = $globalService;
+        $this->tax = $tax;
     }
 
     /**
-     * Share global data to all views.
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function compose()
+    public function all()
     {
-        $data = $this->globalData->globalData();
-        View::share($data);
+        return $this->tax->all();
     }
+
+    public function getCode($request)
+    {
+        return $this->tax->where('code', $request->input('discount'))
+            ->first();
+    }
+
 }

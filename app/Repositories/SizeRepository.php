@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Composers;
+namespace App\Repositories;
 
-use App\Services\GlobalService;
-use View;
+use App\Models\Size;
 
-class GlobalComposer
+class SizeRepository
 {
     /**
      * Ecommerce-CMS
@@ -28,29 +27,39 @@ class GlobalComposer
 
     /**
      *
-     * GlobalComopser Class for share global variables.
+     * Color repository Class for model Color.
+     * Just move query outside from Eloquent model.
      *
      * @package ecommerce-cms
-     * @category Base Class
+     * @category Repository Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-    protected $globalData;
 
     /**
-     * @param GlobalService $globalService
+     * Get data and count items for filters page.
+     * @return mixed
      */
-    public function __construct(GlobalService $globalService)
+    protected $size;
+
+    /**
+     * @param Brand $brand
+     */
+    public function __construct(Size $size)
     {
-        $this->globalData = $globalService;
+        $this->size = $size;
     }
 
     /**
-     * Share global data to all views.
+     * Get data and count items for filters page.
+     * @param $parents
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function compose()
+    public function withCount($parents)
     {
-        $data = $this->globalData->globalData();
-        View::share($data);
+        return $this->size->with(['sizeCount' => function ($q) use ($parents) {
+            $q->whereIn('product_id', $parents);
+        }])->get();
+        $this->size->first()->sizeCount;
     }
 }

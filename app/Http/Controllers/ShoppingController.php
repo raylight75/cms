@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\SubmitProduct;
 use App\Http\Requests\SubmitCheckout;
-use App\Repositories\ShareRepository as Share;
-use App\Repositories\PaymentRepository as Payment;
+use App\Services\ShoppingService;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Request;
 use Auth, View;
 
 class ShoppingController extends BaseController
@@ -42,6 +40,13 @@ class ShoppingController extends BaseController
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    protected $shopping;
+
+    public function __construct(ShoppingService $shoppingService)
+    {
+        $this->shopping = $shoppingService;
+    }
+
     /**
      * Show shopping cart to user.
      * @return View
@@ -57,7 +62,7 @@ class ShoppingController extends BaseController
      */
     public function checkout()
     {
-        $data = Payment::checkoutData();
+        $data = $this->shopping->checkoutData();
         return view('frontend.checkoutOne',$data);
     }
 
@@ -82,10 +87,10 @@ class ShoppingController extends BaseController
     {
         $country = $request->session()->get('country');
         if (!isset($country)) {
-            Session::flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
+            $request->session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
             return redirect('checkout/shipping');
         }
-        $data = Payment::prepareShow($request);
+        $data = $this->shopping->prepareShow($request);
         return view('frontend.checkoutTwo', $data);
     }
 
@@ -96,17 +101,17 @@ class ShoppingController extends BaseController
      */
     public function createOrder(Request $request)
     {
-        $cart = Cart::content();
+        $cart = Cart::instance(auth()->id())->content();
         if (!$request->session()->has('email')) {
-            Session::flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
+            $request->session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
             return redirect('checkout/shipping');
         } elseif ($cart->isEmpty()) {
-            Session::flash('flash_message', 'YOU MUST SELECT PRODUCT!');
+            $request->session()->flash('flash_message', 'YOU MUST SELECT PRODUCT!');
             return redirect()->back();
         }
-        Payment::createOrder($request);
-        Cart::destroy();
-        Share::forgetSessionKeys($request);
+        $this->shopping->createOrder($request);
+        Cart::instance(auth()->id())->destroy();
+        $this->shopping->forgetSessionKeys($request);
         return redirect('checkout/order');
     }
 
@@ -121,11 +126,11 @@ class ShoppingController extends BaseController
      */
     public function postStore(SubmitProduct $request)
     {
-        if (Payment::checkDiscount($request)) {
-            Session::flash('flash_message', 'You are entered invalid discount code!');
+        if ($this->shopping->checkDiscount($request)) {
+            $request->session()->flash('flash_message', 'You are entered invalid discount code!');
             return redirect()->back();
         }
-        $data = Payment::prepareStore($request);
+        $data = $this->shopping->prepareStore($request);
         //make new instance of the Cart for every user.
         //active instance of the cart is curent instance.
         Cart::instance(auth()->id())->add($data);
@@ -140,7 +145,8 @@ class ShoppingController extends BaseController
     {
         $content = $request->input('qty');
         foreach ($content as $id => $row) {
-            Cart::update($row['rowId'], $row['qty']);
+            Cart::instance(auth()->id())
+                ->update($row['rowId'], $row['qty']);
         }
         return redirect('cart');
     }
@@ -152,7 +158,7 @@ class ShoppingController extends BaseController
      */
     public function getEdit($rowId)
     {
-        Cart::remove($rowId);
+        Cart::instance(auth()->id())->remove($rowId);
         return redirect('cart');
     }
 
@@ -162,7 +168,7 @@ class ShoppingController extends BaseController
      */
     public function getDelete()
     {
-        Cart::destroy();
+        Cart::instance(auth()->id())->destroy();
         return redirect('cart');
     }
 
@@ -170,9 +176,9 @@ class ShoppingController extends BaseController
      * Show user confirmation for finalazing order.
      * @return View
      */
-    public function finalOrder()
+    public function finalOrder(Request $request)
     {
-        Session::flash('flash_message', 'YOUR ORDER HAVE BEEN SUCCESSFULY PLACED!');
+        $request->session()->flash('flash_message', 'YOUR ORDER HAVE BEEN SUCCESSFULY PLACED!');
         return view('frontend.placeOrder');
     }
 }

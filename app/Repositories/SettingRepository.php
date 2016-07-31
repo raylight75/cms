@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Composers;
+namespace App\Repositories;
 
-use App\Services\GlobalService;
-use View;
+use App\Models\Setting;
 
-class GlobalComposer
+class SettingRepository
 {
     /**
      * Ecommerce-CMS
@@ -28,29 +27,26 @@ class GlobalComposer
 
     /**
      *
-     * GlobalComopser Class for share global variables.
+     * Setting repository Class for model Setting.
+     * Just move query outside from Eloquent model.
      *
      * @package ecommerce-cms
-     * @category Base Class
+     * @category Repository Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-    protected $globalData;
+    protected $settings;
 
-    /**
-     * @param GlobalService $globalService
-     */
-    public function __construct(GlobalService $globalService)
+    public function __construct(Setting $setting)
     {
-        $this->globalData = $globalService;
+        $this->settings = $setting;
     }
 
     /**
-     * Share global data to all views.
+     * @return mixed
      */
-    public function compose()
+    public function findById()
     {
-        $data = $this->globalData->globalData();
-        View::share($data);
+        return $this->settings->find(1);
     }
 }

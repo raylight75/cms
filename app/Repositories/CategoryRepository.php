@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Composers;
+namespace App\Repositories;
 
-use App\Services\GlobalService;
-use View;
+use App\Models\Category;
 
-class GlobalComposer
+class CategoryRepository
 {
     /**
      * Ecommerce-CMS
@@ -28,29 +27,52 @@ class GlobalComposer
 
     /**
      *
-     * GlobalComopser Class for share global variables.
+     * Category repository Class for model Category.
+     * Just move query outside from Eloquent model.
      *
      * @package ecommerce-cms
-     * @category Base Class
+     * @category Repository Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-    protected $globalData;
+
+    protected $category;
 
     /**
-     * @param GlobalService $globalService
+     * @param Category $category
      */
-    public function __construct(GlobalService $globalService)
+    public function __construct(Category $category)
     {
-        $this->globalData = $globalService;
+        $this->category = $category;
     }
 
     /**
-     * Share global data to all views.
+     * @param $request
+     * @return mixed
      */
-    public function compose()
+    public function getBaner($request)
     {
-        $data = $this->globalData->globalData();
-        View::share($data);
+        return $this->category->whereIn('cat_id', $request->input('categ'))
+            ->first();
+    }
+
+    /**
+     * @param $parent_id
+     * @return mixed
+     */
+    public function getParent($parent_id)
+    {
+        return $this->category->where('parent_id', '=', $parent_id)
+            ->get();
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function getStaticBaner($request)
+    {
+        return $this->category->where('cat_id', $request->input('categ'))
+            ->first();
     }
 }

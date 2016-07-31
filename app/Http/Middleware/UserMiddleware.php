@@ -2,25 +2,52 @@
 
 namespace App\Http\Middleware;
 
-use Auth;
+use App\Repositories\UserRepository;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\Request;
 use Closure;
-use App\User;
 
 class UserMiddleware
 {
     /**
+     * The Guard implementation.
+     *
+     * @var Guard
+     */
+    protected $auth;
+
+    protected $user;
+
+    /**
+     * Create a new filter instance.
+     *
+     * @param  Guard $auth
+     * @return void
+     */
+    public function __construct(Guard $auth, UserRepository $user)
+    {
+        $this->auth = $auth;
+        $this->user = $user;
+    }
+
+    /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        $user = User::findOrFail($request->all())->first();
-        if ($user->id === Auth::user()->id) {
+        if ($request->has('update')) {
+            $user = $this->user->userWhereId($request);
+        } else {
+            $user = $this->user->findOrFailFirst($request);
+        }
+        if ($user->id === $this->auth->user()->id) {
             return $next($request);
         }
-        return redirect('backend/profile')->withErrors('Your are not autorized to view resources');
+        return redirect('backend/profile')
+            ->withErrors('Your are not autorized to view resources');
     }
 }

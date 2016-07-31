@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Models\Payment;
+use App\Models\Order;
 
-class PaymentRepository
+class OrderRepository
 {
     /**
      * Ecommerce-CMS
@@ -27,7 +27,7 @@ class PaymentRepository
 
     /**
      *
-     * Payment repository Class for model Brand.
+     * Order repository Class for model Brand.
      * Just move query outside from Eloquent model.
      *
      * @package ecommerce-cms
@@ -36,32 +36,57 @@ class PaymentRepository
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $payment;
-
+    protected $order;
 
     /**
-     * @param Country $country
+     * @param Customer $customer
      */
-    public function __construct(Payment $payment)
+    public function __construct(Order $order)
     {
-        $this->payment = $payment;
+        $this->order = $order;
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @param $customer
+     * @return static
      */
-    public function all()
+    public function create($order)
     {
-        return $this->payment->all();
+        return $this->order->create($order);
     }
 
     /**
      * @param $request
      * @return mixed
      */
-    public function findOrFail($request)
+    public function find($request)
     {
-        return $this->payment->findOrFail($request->session()
-            ->get('payment'));
+        return $this->order->findOrFail($request->all())
+            ->first();
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function whereId($request)
+    {
+        return $this->order->where('id', $request->input('update'))
+            ->first();
+    }
+
+    /**
+     * Get user order parameters.
+     * @param $request
+     * @return mixed
+     */
+    public function getUserOrder($request)
+    {
+        if ($request->has('update')) {
+            $order = $this->whereId($request);
+        } else {
+            $order = $this->find($request);
+        }
+        return $order;
     }
 }

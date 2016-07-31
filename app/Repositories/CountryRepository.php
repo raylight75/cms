@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Composers;
+namespace App\Repositories;
 
-use App\Services\GlobalService;
-use View;
+use App\Models\Country;
 
-class GlobalComposer
+class CountryRepository
 {
     /**
      * Ecommerce-CMS
@@ -28,29 +27,42 @@ class GlobalComposer
 
     /**
      *
-     * GlobalComopser Class for share global variables.
+     * Country repository Class for model Brand.
+     * Just move query outside from Eloquent model.
      *
      * @package ecommerce-cms
-     * @category Base Class
+     * @category Repository Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-    protected $globalData;
+
+    protected $country;
+
 
     /**
-     * @param GlobalService $globalService
+     * @param Country $country
      */
-    public function __construct(GlobalService $globalService)
+    public function __construct(Country $country)
     {
-        $this->globalData = $globalService;
+        $this->country = $country;
     }
 
     /**
-     * Share global data to all views.
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function compose()
+    public function all()
     {
-        $data = $this->globalData->globalData();
-        View::share($data);
+        return $this->country->all();
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function getVat($request)
+    {
+        $vat = $this->country->where('name', $request->session()->get('country'))
+            ->first();
+        return $vat->vat;
     }
 }

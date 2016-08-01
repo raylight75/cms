@@ -142,7 +142,7 @@ class UsersController extends Controller
      */
     public function update($id, EditUser $request)
     {
-        $user = $this->user->findById($id);
+        $user = $this->user->find($id);
         if (!Hash::check($request->input('old_password'), $user->password)) {
             return redirect()->back()->withErrors('Your old password does not match');
         } else {

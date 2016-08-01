@@ -152,7 +152,7 @@ class ShoppingService
     {
         $data['vat'] = $this->country->getVat($request);
         $data['payments'] = $this->payment->findOrFail($request);
-        $data['shippings'] = $this->shipping->findOrFail($request);
+        $data['shippings'] = $this->shipping->find($request->session()->get('delivery'));
         $data['customer'] = $request->session()->all();
         return $data;
     }

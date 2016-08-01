@@ -43,14 +43,4 @@ class ShippingRepository extends Repository
     {
         return 'App\Models\Shipping';
     }
-
-    /**
-     * @param $request
-     * @return mixed
-     */
-    public function findOrFail($request)
-    {
-        return $this->model->findOrFail($request->session()
-            ->get('delivery'));
-    }
 }

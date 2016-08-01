@@ -65,12 +65,11 @@ abstract class Repository implements RepositoryInterface
     abstract function model();
 
     /**
-     * @param array $columns
      * @return mixed
      */
-    public function all($columns = array('*'))
+    public function all()
     {
-        return $this->model->get($columns);
+        return $this->model->all();
     }
 
     /**
@@ -83,20 +82,26 @@ abstract class Repository implements RepositoryInterface
     }
 
     /**
-     * @param $attribute
      * @param $value
-     * @param array $columns
      * @return mixed
      */
-    public function findBy($attribute, $value, $columns = array('*'))
+    public function find($value)
     {
-        return $this->model->where($attribute, '=', $value)->first($columns);
+        return $this->model->findOrFail($value);
     }
 
     /**
      * @param $attribute
      * @param $value
-     * @param array $columns
+     * @return mixed
+     */
+    public function findBy($attribute, $value)
+    {
+        return $this->model->where($attribute,$value)->first();
+    }
+
+    /**
+     * @param $value
      * @return mixed
      */
     public function findOrFail($value)
@@ -106,23 +111,21 @@ abstract class Repository implements RepositoryInterface
     /**
      * @param $attribute
      * @param $value
-     * @param array $columns
      * @return mixed
      */
-    public function findAllBy($attribute, $value, $columns = array('*'))
+    public function findAllBy($attribute, $value)
     {
-        return $this->model->where($attribute, '=', $value)->get($columns);
+        return $this->model->where($attribute,$value)->get();
     }
 
     /**
      * @param $attribute
      * @param $value
-     * @param array $columns
      * @return mixed
      */
-    public function whereIn($attribute, $value = array(), $columns = array('*'))
+    public function whereIn($attribute, $value = array())
     {
-        return $this->model->whereIn($attribute,$value)->first($columns);
+        return $this->model->whereIn($attribute,$value)->first();
     }
 
     /**
@@ -146,7 +149,6 @@ abstract class Repository implements RepositoryInterface
 
     /**
      * @return Model
-     * @throws RepositoryException
      */
     public function makeModel()
     {

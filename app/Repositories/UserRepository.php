@@ -45,15 +45,6 @@ class UserRepository extends Repository
     }
 
     /**
-     * @param $id
-     * @return mixed
-     */
-    public function findById($id)
-    {
-        return $this->model->findOrFail($id);
-    }
-
-    /**
      * Get table name
      * @return string
      */

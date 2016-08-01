@@ -34,10 +34,9 @@ interface RepositoryInterface
      */
 
     /**
-     * @param array $columns
      * @return mixed
      */
-    public function all($columns = array('*'));
+    public function all();
 
     /**
      * @param array $data
@@ -52,17 +51,20 @@ interface RepositoryInterface
     public function delete($id);
 
     /**
-     * @param $field
      * @param $value
-     * @param array $columns
      * @return mixed
      */
-    public function findBy($field, $value, $columns = array('*'));
+    public function find($value);
 
     /**
      * @param $field
      * @param $value
-     * @param array $columns
+     * @return mixed
+     */
+    public function findBy($field, $value);
+
+    /**
+     * @param $field
      * @return mixed
      */
     public function findOrFail($value);
@@ -70,16 +72,14 @@ interface RepositoryInterface
     /**
      * @param $field
      * @param $value
-     * @param array $columns
      * @return mixed
      */
-    public function whereIn($field, $value = array(), $columns = array('*'));
+    public function whereIn($field, $value = array());
 
     /**
      * @param $field
      * @param $value
-     * @param array $columns
      * @return mixed
      */
-    public function findAllBy($field, $value, $columns = array('*'));
+    public function findAllBy($field, $value);
 }

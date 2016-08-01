@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Payment;
-
-class PaymentRepository
+class PaymentRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -36,32 +34,13 @@ class PaymentRepository
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $payment;
-
-
     /**
-     * @param Country $country
-     */
-    public function __construct(Payment $payment)
-    {
-        $this->payment = $payment;
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function all()
-    {
-        return $this->payment->all();
-    }
-
-    /**
-     * @param $request
+     * Specify Model class name
+     *
      * @return mixed
      */
-    public function findOrFail($request)
+    function model()
     {
-        return $this->payment->findOrFail($request->session()
-            ->get('payment'));
+        return 'App\Models\Payment';
     }
 }

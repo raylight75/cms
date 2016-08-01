@@ -151,7 +151,7 @@ class ShoppingService
     public function prepareShow($request)
     {
         $data['vat'] = $this->country->getVat($request);
-        $data['payments'] = $this->payment->findOrFail($request);
+        $data['payments'] = $this->payment->find($request->session()->get('payment'));
         $data['shippings'] = $this->shipping->find($request->session()->get('delivery'));
         $data['customer'] = $request->session()->all();
         return $data;

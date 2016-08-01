@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Category;
-
-class CategoryRepository
+class CategoryRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -28,7 +26,7 @@ class CategoryRepository
     /**
      *
      * Category repository Class for model Category.
-     * Just move query outside from Eloquent model.
+     * Repository for specific queries.
      *
      * @package ecommerce-cms
      * @category Repository Class
@@ -36,43 +34,13 @@ class CategoryRepository
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $category;
-
     /**
-     * @param Category $category
-     */
-    public function __construct(Category $category)
-    {
-        $this->category = $category;
-    }
-
-    /**
-     * @param $request
+     * Specify Model class name
+     *
      * @return mixed
      */
-    public function getBaner($request)
+    function model()
     {
-        return $this->category->whereIn('cat_id', $request->input('categ'))
-            ->first();
-    }
-
-    /**
-     * @param $parent_id
-     * @return mixed
-     */
-    public function getParent($parent_id)
-    {
-        return $this->category->where('parent_id', '=', $parent_id)
-            ->get();
-    }
-
-    /**
-     * @param $request
-     * @return mixed
-     */
-    public function getStaticBaner($request)
-    {
-        return $this->category->where('cat_id', $request->input('categ'))
-            ->first();
+        return 'App\Models\Category';
     }
 }

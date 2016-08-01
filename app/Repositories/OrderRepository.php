@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Order;
-
-class OrderRepository
+class OrderRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -36,23 +34,14 @@ class OrderRepository
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $order;
-
     /**
-     * @param Customer $customer
+     * Specify Model class name
+     *
+     * @return mixed
      */
-    public function __construct(Order $order)
+    function model()
     {
-        $this->order = $order;
-    }
-
-    /**
-     * @param $customer
-     * @return static
-     */
-    public function create($order)
-    {
-        return $this->order->create($order);
+        return 'App\Models\Order';
     }
 
     /**
@@ -61,8 +50,7 @@ class OrderRepository
      */
     public function find($request)
     {
-        return $this->order->findOrFail($request->all())
-            ->first();
+        return $this->findOrFail($request->all());
     }
 
     /**
@@ -71,8 +59,7 @@ class OrderRepository
      */
     public function whereId($request)
     {
-        return $this->order->where('id', $request->input('update'))
-            ->first();
+        return $this->findBy('id', $request->input('update'));
     }
 
     /**

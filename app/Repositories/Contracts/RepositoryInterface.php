@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Contracts;
 
-class ColorRepository extends Repository
+interface RepositoryInterface
 {
     /**
      * Ecommerce-CMS
@@ -25,35 +25,61 @@ class ColorRepository extends Repository
 
     /**
      *
-     * Color repository Class for model Color.
-     * Repository for specific queries.
+     * Interface for repositories.
      *
      * @package ecommerce-cms
-     * @category Repository Class
+     * @category Interface Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
     /**
-     * Specify Model class name
-     *
+     * @param array $columns
      * @return mixed
      */
-    function model()
-    {
-        return 'App\Models\Color';
-    }
+    public function all($columns = array('*'));
 
     /**
-     * Get data and count items for filters page.
-     * @param $parents
+     * @param array $data
      * @return mixed
      */
-    public function withCount($parents)
-    {
-        return $this->model->with(['colorCount' => function ($q) use ($parents) {
-            $q->whereIn('product_id', $parents);
-        }])->get();
-        $this->model->first()->colorCount;
-    }
+    public function create(array $data);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id);
+
+    /**
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function findBy($field, $value, $columns = array('*'));
+
+    /**
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function findOrFail($value);
+
+    /**
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function whereIn($field, $value = array(), $columns = array('*'));
+
+    /**
+     * @param $field
+     * @param $value
+     * @param array $columns
+     * @return mixed
+     */
+    public function findAllBy($field, $value, $columns = array('*'));
 }

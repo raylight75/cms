@@ -142,7 +142,7 @@ class UsersController extends Controller
      */
     public function update($id, EditUser $request)
     {
-        $user = $this->user->findOrFail($id);
+        $user = $this->user->findById($id);
         if (!Hash::check($request->input('old_password'), $user->password)) {
             return redirect()->back()->withErrors('Your old password does not match');
         } else {
@@ -166,7 +166,7 @@ class UsersController extends Controller
      */
     public function destroy(Request $request,$id)
     {
-        $this->user->findAndDelete($id);
+        $this->user->delete($id);
         //Without database OnDdelete Cascade
         //$product->size()->detach($id);
         $request->session()->flash('flash_message', 'User acount successfully deleted!');

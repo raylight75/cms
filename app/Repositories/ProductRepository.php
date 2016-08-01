@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Product;
-
-class ProductRepository
+class ProductRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -36,14 +34,14 @@ class ProductRepository
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $product;
-
     /**
-     * @param Product $product
+     * Specify Model class name
+     *
+     * @return mixed
      */
-    public function __construct(Product $product)
+    function model()
     {
-        $this->product = $product;
+        return 'App\Models\Product';
     }
 
     /**
@@ -52,7 +50,7 @@ class ProductRepository
      */
     public function getParents($parent)
     {
-        return $this->product->with('category')
+        return $this->model->with('category')
             ->where(['parent_id' => $parent])
             ->lists('product_id');
     }
@@ -63,7 +61,7 @@ class ProductRepository
      */
     public function ItemProperty($id)
     {
-        return $this->product->with('category', 'size', 'color')
+        return $this->model->with('category', 'size', 'color')
             ->findOrFail($id);
     }
 
@@ -72,7 +70,7 @@ class ProductRepository
      */
     public function latest()
     {
-        return $this->product->orderBy('product_id', 'desc')
+        return $this->model->orderBy('product_id', 'desc')
             ->take('6')
             ->get();
     }
@@ -84,7 +82,7 @@ class ProductRepository
      */
     public function paginate($request, $parent)
     {
-        $query = $this->product->whereHas('productsSizes', function ($q) use ($request) {
+        $query = $this->model->whereHas('productsSizes', function ($q) use ($request) {
             if (!empty($request->input('size'))) {
                 $sizes = $request->input('size');
                 $q->whereIn('size_id', $sizes);
@@ -118,7 +116,7 @@ class ProductRepository
      */
     public function product()
     {
-        return $this->product->with('category')
+        return $this->model->with('category')
             ->orderBy('product_id', 'desc')
             ->get()
             ->random(6);
@@ -130,7 +128,7 @@ class ProductRepository
      */
     public function whereLike($search)
     {
-        return $this->product->where('name', 'like', '%' . $search . '%')
+        return $this->model->where('name', 'like', '%' . $search . '%')
             ->orderBy('name')
             ->paginate(6);
     }

@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Customer;
-
-class CustomerRepository
+class CustomerRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -35,22 +33,14 @@ class CustomerRepository
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-    protected $customer;
 
     /**
-     * @param Customer $customer
+     * Specify Model class name
+     *
+     * @return mixed
      */
-    public function __construct(Customer $customer)
+    function model()
     {
-        $this->customer = $customer;
-    }
-
-    /**
-     * @param $customer
-     * @return static
-     */
-    public function create($customer)
-    {
-        return $this->customer->create($customer);
+        return 'App\Models\Customer';
     }
 }

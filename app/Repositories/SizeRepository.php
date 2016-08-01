@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Size;
-
-class SizeRepository
+class SizeRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -40,14 +38,15 @@ class SizeRepository
      * Get data and count items for filters page.
      * @return mixed
      */
-    protected $size;
 
     /**
-     * @param Brand $brand
+     * Specify Model class name
+     *
+     * @return mixed
      */
-    public function __construct(Size $size)
+    function model()
     {
-        $this->size = $size;
+        return 'App\Models\Size';
     }
 
     /**
@@ -57,9 +56,9 @@ class SizeRepository
      */
     public function withCount($parents)
     {
-        return $this->size->with(['sizeCount' => function ($q) use ($parents) {
+        return $this->model->with(['sizeCount' => function ($q) use ($parents) {
             $q->whereIn('product_id', $parents);
         }])->get();
-        $this->size->first()->sizeCount;
+        $this->model->first()->sizeCount;
     }
 }

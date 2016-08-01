@@ -67,7 +67,7 @@ class GlobalService
     public function getMenuData($parent_id)
     {
         $categories = array();
-        $result = $this->category->getParent($parent_id);
+        $result = $this->category->findAllBy('parent_id',$parent_id);
         foreach ($result as $parentCategory) {
             $category = array();
             $category['id'] = $parentCategory->cat_id;
@@ -100,11 +100,11 @@ class GlobalService
         }
         $data = array(
             'menu' => $this->getMenuData($this->parent_id),
-            'header' => $this->settings->findById(),
+            'header' => $this->settings->findOrFail(1),
             'rows' => $rows,
             'cart' => $cart,
             'grand_total' => $grandTotal,
-            'currencies' => $this->currency->getCurrency(),
+            'currencies' => $this->currency->all(),
         );
         return $data;
     }

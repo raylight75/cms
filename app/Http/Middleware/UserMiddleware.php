@@ -40,9 +40,9 @@ class UserMiddleware
     public function handle(Request $request, Closure $next)
     {
         if ($request->has('update')) {
-            $user = $this->user->userWhereId($request);
+            $user = $this->user->findBy('id', $request->input('update'));
         } else {
-            $user = $this->user->findOrFailFirst($request);
+            $user = $this->user->findOrFail($request->all());
         }
         if ($user->id === $this->auth->user()->id) {
             return $next($request);

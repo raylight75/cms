@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Setting;
-
-class SettingRepository
+class SettingRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -28,25 +26,20 @@ class SettingRepository
     /**
      *
      * Setting repository Class for model Setting.
-     * Just move query outside from Eloquent model.
+     * Repository for specific queries.
      *
      * @package ecommerce-cms
      * @category Repository Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-    protected $settings;
-
-    public function __construct(Setting $setting)
-    {
-        $this->settings = $setting;
-    }
-
     /**
+     * Specify Model class name
+     *
      * @return mixed
      */
-    public function findById()
+    function model()
     {
-        return $this->settings->find(1);
+        return 'App\Models\Setting';
     }
 }

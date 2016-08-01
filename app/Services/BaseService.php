@@ -110,7 +110,7 @@ class BaseService
     public function getFilter($request, $parent)
     {
         $data = $this->prepareFilter($request, $parent);
-        $data['banner'] = $this->category->getBaner($request);
+        $data['banner'] = $this->category->whereIn('cat_id',$request->input('categ'));
         $data['properties'] = $this->getAll($parent);
         $data['products'] = $this->pagination($request, $parent);
         return $data;
@@ -168,7 +168,7 @@ class BaseService
     {
         $search = $request->input('search');
         $data = $this->prepareFilter($request, $parent);
-        $data['banner'] = $this->category->getStaticBaner($request);
+        $data['banner'] = $this->category->findBy('cat_id', $request->input('categ'));
         $data['properties'] = $this->getAll($parent);
         $data['products'] = $this->product->whereLike($search);
         return $data;

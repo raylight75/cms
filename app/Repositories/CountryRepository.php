@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Country;
-
-class CountryRepository
+class CountryRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -28,7 +26,7 @@ class CountryRepository
     /**
      *
      * Country repository Class for model Brand.
-     * Just move query outside from Eloquent model.
+     * Repository for specific queries.
      *
      * @package ecommerce-cms
      * @category Repository Class
@@ -36,23 +34,14 @@ class CountryRepository
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $country;
-
-
     /**
-     * @param Country $country
+     * Specify Model class name
+     *
+     * @return mixed
      */
-    public function __construct(Country $country)
+    function model()
     {
-        $this->country = $country;
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function all()
-    {
-        return $this->country->all();
+        return 'App\Models\Country';
     }
 
     /**
@@ -61,8 +50,7 @@ class CountryRepository
      */
     public function getVat($request)
     {
-        $vat = $this->country->where('name', $request->session()->get('country'))
-            ->first();
+        $vat = $this->findBy('name', $request->session()->get('country'));
         return $vat->vat;
     }
 }

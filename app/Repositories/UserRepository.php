@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\User;
-
-class UserRepository
+class UserRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -36,54 +34,23 @@ class UserRepository
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $user;
-
     /**
-     * @param User $user
+     * Specify Model class name
+     *
+     * @return mixed
      */
-    public function __construct(User $user)
+    function model()
     {
-        $this->user = $user;
-    }
-
-    /**
-     * Create User
-     * @param $user
-     * @return static
-     */
-    public function create($user)
-    {
-        return $this->user->create($user);
+        return 'App\User';
     }
 
     /**
      * @param $id
      * @return mixed
      */
-    public function findOrFail($id)
+    public function findById($id)
     {
-        return $this->user->findOrFail($id);
-    }
-
-    /**
-     * Get user for midlleware check.
-     * @param $id
-     * @return mixed
-     */
-    public function findOrFailFirst($request)
-    {
-        return $this->user->findOrFail($request->all())
-            ->first();
-    }
-
-    /**
-     * Find by id and delete.
-     * @param $id
-     * @return mixed
-     */
-    public function findAndDelete($id)
-    {
-        return $this->user->findOrFail($id)->delete();
+        return $this->model->findOrFail($id);
     }
 
     /**
@@ -92,7 +59,7 @@ class UserRepository
      */
     public function getTableName()
     {
-        return $this->user->getTable();
+        return $this->model->getTable();
     }
 
     /**
@@ -101,7 +68,7 @@ class UserRepository
      */
     public function userWithPaginate()
     {
-        return $this->user->with('role')
+        return $this->model->with('role')
             ->paginate(10);
     }
 
@@ -111,7 +78,7 @@ class UserRepository
      */
     public function userWithFindbyId($id)
     {
-        return $this->user->with('role')->findOrFail($id);
+        return $this->model->with('role')->findOrFail($id);
     }
 
     /**
@@ -120,17 +87,6 @@ class UserRepository
      */
     public function userWithRole()
     {
-        return $this->user->with('role')->get();
-    }
-
-    /**
-     * Get user id for midlleware check.
-     * @param $request
-     * @return mixed
-     */
-    public function userWhereId($request)
-    {
-        return $this->user->where('id', $request->input('update'))
-            ->first();
+        return $this->model->with('role')->get();
     }
 }

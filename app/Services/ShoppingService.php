@@ -164,7 +164,7 @@ class ShoppingService
      */
     public function prepareStore($request)
     {
-        $code = $this->tax->getCode($request);
+        $code = $this->tax->findBy('code', $request->input('discount'));
         isset($code) ? $discount = $code->discount : $discount = 0;
         $productPrice = $request->input('price');
         $price = ((100 - $discount) / 100) * $productPrice;

@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Shipping;
-
-class ShippingRepository
+class ShippingRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -36,22 +34,14 @@ class ShippingRepository
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $shipping;
-
     /**
-     * @param Shipping $shipping
+     * Specify Model class name
+     *
+     * @return mixed
      */
-    public function __construct(Shipping $shipping)
+    function model()
     {
-        $this->shipping = $shipping;
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function all()
-    {
-        return $this->shipping->all();
+        return 'App\Models\Shipping';
     }
 
     /**
@@ -60,7 +50,7 @@ class ShippingRepository
      */
     public function findOrFail($request)
     {
-        return $this->shipping->findOrFail($request->session()
+        return $this->model->findOrFail($request->session()
             ->get('delivery'));
     }
 }

@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Currency;
-
-class CurrencyRepository
+class CurrencyRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -28,28 +26,21 @@ class CurrencyRepository
     /**
      *
      * Currency repository Class for model Currency.
-     * Just move query outside from Eloquent model.
+     * Repository for specific queries.
      *
      * @package ecommerce-cms
      * @category Repository Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-    protected $currency;
 
     /**
-     * @param Currency $currency
-     */
-    public function __construct(Currency $currency)
-    {
-        $this->currency = $currency;
-    }
-
-    /**
+     * Specify Model class name
+     *
      * @return mixed
      */
-    public function getCurrency()
+    function model()
     {
-        return $this->currency->all();
+        return 'App\Models\Currency';
     }
 }

@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Brand;
-
-class BrandRepository
+class BrandRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -28,7 +26,7 @@ class BrandRepository
     /**
      *
      * Brand repository Class for model Brand.
-     * Just move query outside from Eloquent model.
+     * Repository for specific queries.
      *
      * @package ecommerce-cms
      * @category Repository Class
@@ -36,22 +34,14 @@ class BrandRepository
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $brand;
-
     /**
-     * @param Brand $brand
+     * Specify Model class name
+     *
+     * @return mixed
      */
-    public function __construct(Brand $brand)
+    function model()
     {
-        $this->brand = $brand;
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function all()
-    {
-        return $this->brand->all();
+        return 'App\Models\Brand';
     }
 
     /**
@@ -61,9 +51,9 @@ class BrandRepository
      */
     public function withCount($parent)
     {
-        return $this->brand->with(['brandCount' => function ($q) use ($parent) {
+        return $this->model->with(['brandCount' => function ($q) use ($parent) {
             $q->where('parent_id', $parent);
         }])->get();
-        $this->brand->first()->brandCount;
+        $this->model->first()->brandCount;
     }
 }

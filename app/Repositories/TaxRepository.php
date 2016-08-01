@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Tax;
-
-class TaxRepository
+class TaxRepository extends Repository
 {
     /**
      * Ecommerce-CMS
@@ -36,28 +34,13 @@ class TaxRepository
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $tax;
-
     /**
-     * @param Tax $tax
+     * Specify Model class name
+     *
+     * @return mixed
      */
-    public function __construct(Tax $tax)
+    function model()
     {
-        $this->tax = $tax;
+        return 'App\Models\Tax';
     }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function all()
-    {
-        return $this->tax->all();
-    }
-
-    public function getCode($request)
-    {
-        return $this->tax->where('code', $request->input('discount'))
-            ->first();
-    }
-
 }

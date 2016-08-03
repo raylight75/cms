@@ -2,9 +2,7 @@
 
 namespace App\Http\Routes;
 
-use App\Repositories\ShareRepository as Share;
-use Illuminate\Support\Facades\File;
-use Route;
+use Route,DB;
 
 class RouteRegister
 {
@@ -30,7 +28,7 @@ class RouteRegister
 
     /**
      *
-     * RouteRegister class
+     * RouteRegister class building dinamic SEO routes.
      *
      * @package ecommerce-cms
      * @category Base Class
@@ -38,10 +36,14 @@ class RouteRegister
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    /**
+     * Build dinamic routes.
+     * @return routes
+     */
     public static function registerRoutes()
     {
         $parent_id = 0;
-        $categories = Share::getMenuData($parent_id);
+        $categories = self::getMenuData($parent_id);
         foreach ($categories as $row) {
             $parent_cat = $row['name'];
             foreach ($row['sub_cat'] as $sub_cat) {
@@ -50,6 +52,31 @@ class RouteRegister
                 Route::get('' . $slug . '/{slug}/{id}', 'BaseController@product');
             }
         }
+
+
+    }
+
+    /**
+     * Get all product categories and products.
+     * @param $parent_id
+     * @return array
+     */
+    public static function getMenuData($parent_id)
+    {
+        $categories = array();
+        $result = DB::table('categories')
+            ->where('parent_id', '=', $parent_id)
+            ->get();
+        foreach ($result as $parentCategory) {
+            $category = array();
+            $category['id'] = $parentCategory->cat_id;
+            $category['name'] = $parentCategory->cat;
+            $category['parent_id'] = $parentCategory->parent_id;
+            $category['banner'] = $parentCategory->m_img;
+            $category['sub_cat'] = self::getMenuData($category['id']);
+            $categories[$parentCategory->cat_id] = $category;
+        }
+        return $categories;
     }
 
     /*public static function writeRoutes()

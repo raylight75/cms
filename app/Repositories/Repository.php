@@ -29,7 +29,7 @@ abstract class Repository implements RepositoryInterface
 
     /**
      *
-     * Abstract repository Class.
+     * Abstract Repository Class with basic most used queries.
      *
      * @package ecommerce-cms
      * @category Repository Class
@@ -62,7 +62,7 @@ abstract class Repository implements RepositoryInterface
      *
      * @return mixed
      */
-    abstract function model();
+    abstract public function model();
 
     /**
      * @return mixed

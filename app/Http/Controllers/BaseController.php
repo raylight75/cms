@@ -139,7 +139,7 @@ class BaseController extends Controller
     {
         $currency = ($currency != "") ? $currency : "USD";
         $request->session()->put('currency', $currency);
-        return redirect('cms');
+        return redirect()->back();
     }
 
     /**

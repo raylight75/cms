@@ -22,4 +22,25 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         return $app;
     }
+
+    /*public static function writeRoutes()
+    {
+        $cotroller_parent = 'BaseController@filter';
+        $cotroller_sub = 'BaseController@product';
+        $category = self::getMenuData(0);
+        $data[] = "<?php";
+        foreach ($category as $row) {
+            $data[] = "Route::get('". $row['name'] . "/{slug}/{id}' , '". $cotroller_parent ."');";
+            foreach ($row['sub_cat'] as $sub_cat) {
+                $data[] = "Route::get('". $sub_cat['name'] ."/{slug}/{id}' , '". $cotroller_sub ."');";
+            }
+        }
+        $output = implode("\n", $data);
+        $file = app_path().'/Http/Routes/routes.php';
+        $bytes_written = File::put($file, $output);
+        if ($bytes_written === false)
+        {
+            die("Error writing to file");
+        }
+    } */
 }

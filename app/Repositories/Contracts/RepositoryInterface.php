@@ -64,7 +64,7 @@ interface RepositoryInterface
     public function findBy($field, $value);
 
     /**
-     * @param $field
+     * @param $value
      * @return mixed
      */
     public function findOrFail($value);
@@ -77,8 +77,7 @@ interface RepositoryInterface
     public function whereIn($field, $value = array());
 
     /**
-     * @param $field
-     * @param $value
+     * @param $relation
      * @return mixed
      */
     public function with($relation);

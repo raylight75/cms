@@ -41,16 +41,6 @@ class ProductRepository extends Repository
     }
 
     /**
-     * @param $id
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
-     */
-    public function ItemProperty($id)
-    {
-        return $this->model->with('category', 'size', 'color')
-            ->findOrFail($id);
-    }
-
-    /**
      * @return mixed
      */
     public function latest()

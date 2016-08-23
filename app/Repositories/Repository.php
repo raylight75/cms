@@ -48,6 +48,13 @@ abstract class Repository implements RepositoryInterface
     protected $model;
 
     /**
+     * The relations to eager load.
+     *
+     * @var
+     */
+    protected $with = [];
+
+    /**
      * @param App $app
      *
      */
@@ -129,14 +136,34 @@ abstract class Repository implements RepositoryInterface
     }
 
     /**
-     * @param array $relations
+     * Sets relations for eager loading.
+     *
+     * @param $relations
      * @return $this
      */
-    /*public function with(array $relations)
+    public function with($relations)
     {
-        $this->model = $this->model->with($relations);
+
+        if (is_string($relations))
+        {
+            $this->with = explode(',', $relations);
+
+            return $this;
+        }
+
+        $this->with = is_array($relations) ? $relations : [];
+
         return $this;
-    }*/
+    }
+
+    /**
+     * @param $value
+     * @return mixed
+     */
+    public function findId($value)
+    {
+        return $this->query()->findOrFail($value);
+    }
 
     /**
      * @param $id
@@ -154,5 +181,15 @@ abstract class Repository implements RepositoryInterface
     {
         $model = $this->app->make($this->model());
         return $this->model = $model;
+    }
+
+    /**
+     * Creates a new QueryBuilder instance including eager loads
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function query ()
+    {
+        return $this->model->newQuery()->with($this->with);
     }
 }

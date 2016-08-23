@@ -49,15 +49,6 @@ class UserRepository extends Repository
     }
 
     /**
-     * @param $id
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
-     */
-    public function userWithFindbyId($id)
-    {
-        return $this->model->with('role')->findOrFail($id);
-    }
-
-    /**
      * Users role
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */

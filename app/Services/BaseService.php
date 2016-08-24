@@ -127,7 +127,7 @@ class BaseService
     {
         $data['latest'] = $this->product->latest();;
         $data['products'] = $this->product->product();
-        $data['item'] = $this->product->with('category', 'size', 'color')->findId($id);
+        $data['item'] = $this->product->with('category', 'size', 'color')->withId($id);
         return $data;
     }
 
@@ -137,7 +137,7 @@ class BaseService
      */
     public function getFrameContent($id)
     {
-        $data = $this->product->with('category', 'size', 'color')->findId($id);
+        $data = $this->product->with('category', 'size', 'color')->withId($id);
         return $data;
     }
 

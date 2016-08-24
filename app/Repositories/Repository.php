@@ -98,13 +98,22 @@ abstract class Repository implements RepositoryInterface
     }
 
     /**
+     * Get table name
+     * @return string
+     */
+    public function getTableName()
+    {
+        return $this->model->getTable();
+    }
+
+    /**
      * @param $attribute
      * @param $value
      * @return mixed
      */
     public function findBy($attribute, $value)
     {
-        return $this->model->where($attribute,$value)->first();
+        return $this->model->where($attribute, $value)->first();
     }
 
     /**
@@ -115,6 +124,7 @@ abstract class Repository implements RepositoryInterface
     {
         return $this->model->findOrFail($value)->first();
     }
+
     /**
      * @param $attribute
      * @param $value
@@ -122,7 +132,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function findAllBy($attribute, $value)
     {
-        return $this->model->where($attribute,$value)->get();
+        return $this->model->where($attribute, $value)->get();
     }
 
     /**
@@ -132,7 +142,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function whereIn($attribute, $value = array())
     {
-        return $this->model->whereIn($attribute,$value)->first();
+        return $this->model->whereIn($attribute, $value)->first();
     }
 
     /**
@@ -143,16 +153,11 @@ abstract class Repository implements RepositoryInterface
      */
     public function with($relations)
     {
-
-        if (is_string($relations))
-        {
+        if (is_string($relations)) {
             $this->with = explode(',', $relations);
-
             return $this;
         }
-
         $this->with = is_array($relations) ? $relations : [];
-
         return $this;
     }
 
@@ -160,9 +165,9 @@ abstract class Repository implements RepositoryInterface
      * @param $value
      * @return mixed
      */
-    public function findId($value)
+    public function withId($value)
     {
-        return $this->query()->findOrFail($value);
+        return $this->model->with($this->with)->findOrFail($value);
     }
 
     /**
@@ -177,19 +182,9 @@ abstract class Repository implements RepositoryInterface
     /**
      * @return Model
      */
-    public function makeModel()
+    protected function makeModel()
     {
         $model = $this->app->make($this->model());
         return $this->model = $model;
-    }
-
-    /**
-     * Creates a new QueryBuilder instance including eager loads
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    protected function query ()
-    {
-        return $this->model->newQuery()->with($this->with);
     }
 }

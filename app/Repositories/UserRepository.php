@@ -30,15 +30,6 @@ class UserRepository extends Repository
     }
 
     /**
-     * Get table name
-     * @return string
-     */
-    public function getTableName()
-    {
-        return $this->model->getTable();
-    }
-
-    /**
      * Paginate table user.
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */

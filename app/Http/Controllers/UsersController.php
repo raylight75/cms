@@ -129,7 +129,7 @@ class UsersController extends Controller
     {
         $data['title'] = $this->user->getTableName();
         $data['roles'] = Role::all();
-        $data['user'] = $this->user->with('role')->findId($id);
+        $data['user'] = $this->user->with('role')->withId($id);
         return view('users.edit', $data);
     }
 
@@ -159,12 +159,11 @@ class UsersController extends Controller
     }
 
     /**
-     * Delete the specified user from database.
-     *
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
         $this->user->delete($id);
         //Without database OnDdelete Cascade

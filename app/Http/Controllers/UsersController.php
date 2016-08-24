@@ -129,7 +129,7 @@ class UsersController extends Controller
     {
         $data['title'] = $this->user->getTableName();
         $data['roles'] = Role::all();
-        $data['user'] = $this->user->with('role')->withId($id);
+        $data['user'] = $this->user->with('role')->findOrFail($id);
         return view('users.edit', $data);
     }
 

@@ -155,19 +155,10 @@ abstract class Repository implements RepositoryInterface
     {
         if (is_string($relations)) {
             $this->with = explode(',', $relations);
-            return $this;
+            return $this->model->with($this->with);
         }
         $this->with = is_array($relations) ? $relations : [];
         return $this;
-    }
-
-    /**
-     * @param $value
-     * @return mixed
-     */
-    public function withId($value)
-    {
-        return $this->model->with($this->with)->findOrFail($value);
     }
 
     /**

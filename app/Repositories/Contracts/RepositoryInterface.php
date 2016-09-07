@@ -81,11 +81,4 @@ interface RepositoryInterface
      * @return mixed
      */
     public function with($relation);
-
-    /**
-     * @param $field
-     * @param $value
-     * @return mixed
-     */
-    public function findAllBy($field, $value);
 }

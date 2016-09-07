@@ -98,15 +98,6 @@ abstract class Repository implements RepositoryInterface
     }
 
     /**
-     * Get table name
-     * @return string
-     */
-    public function getTableName()
-    {
-        return $this->model->getTable();
-    }
-
-    /**
      * @param $attribute
      * @param $value
      * @return mixed
@@ -126,13 +117,12 @@ abstract class Repository implements RepositoryInterface
     }
 
     /**
-     * @param $attribute
-     * @param $value
-     * @return mixed
+     * Get table name
+     * @return string
      */
-    public function findAllBy($attribute, $value)
+    public function getTableName()
     {
-        return $this->model->where($attribute, $value)->get();
+        return $this->model->getTable();
     }
 
     /**

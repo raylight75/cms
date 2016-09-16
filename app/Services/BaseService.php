@@ -74,6 +74,22 @@ class BaseService
     }
 
     /**
+     * @param $request
+     * @return array
+     */
+    public function autocomplete($request)
+    {
+        $results = array();
+        $search = $request->input('term');
+        $queries = $this->product->whereAuto($search);
+        foreach ($queries as $product)
+        {
+            $results[] = [ 'value' => $product->name];
+        }
+        return $results;
+    }
+
+    /**
      * Get data and count items for filters page.
      * @param $parent
      * @return mixed

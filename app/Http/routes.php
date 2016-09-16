@@ -31,6 +31,8 @@ Route::get('/login', 'BaseController@userlogin');
 
 Route::get('items/search/{id}', 'BaseController@search');
 
+Route::get('search/autocomplete', 'BaseController@autocomplete');
+
 Route::get('currency/{value}', 'BaseController@set_currency');
 
 Route::group(['middleware' => 'admin:user'], function () {

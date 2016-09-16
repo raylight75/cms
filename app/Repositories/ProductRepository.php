@@ -107,4 +107,12 @@ class ProductRepository extends Repository
             ->orderBy('name')
             ->paginate(6);
     }
+
+    public function whereAuto($search)
+    {
+        return $this->model->where('name', 'like', '%' . $search . '%')
+            ->orderBy('name')
+            ->take(5)
+            ->get();
+    }
 }

@@ -71,6 +71,20 @@ class BaseController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function autocomplete(Request $request)
+    {
+        $results = $this->base->autocomplete($request);
+        if ($request->ajax()) {
+            return response()->json($results);
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    /**
      * Show required page to user
      * @return View
      */

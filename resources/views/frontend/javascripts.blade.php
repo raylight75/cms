@@ -23,6 +23,19 @@ $(document).ready(function(){
         $(".fancybox").fancybox({});
     });
 </script>
+<script type="text/javascript">
+    $(function()
+    {
+        $( "#search_auto" ).autocomplete({
+            source: "{{ url('search/autocomplete') }}",
+            minLength: 3,
+            select: function(event, ui) {
+                console.log(source);
+                $('#search_auto').val(ui.item.value);
+            }
+        });
+    });
+</script>
 <script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/js/superfish.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/js/jquery.sticky.js') }}" type="text/javascript"></script>

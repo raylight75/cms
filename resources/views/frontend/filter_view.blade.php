@@ -63,8 +63,7 @@
                             <!-- SHOP BANNER -->
                     <div class="banner_block margbot15">
                         <a class="banner nobord" href="javascript:void(0);">
-                            <img src="{{ url('images/categories') }}/{{$menu[$parent]['name']}}.jpg"
-                                 alt=""/></a>
+                            <img src="{{ url('images/categories') }}/{{$menu[$parent]['name']}}.jpg" alt=""/></a>
                     </div>
                     @endif
                             <!-- //SHOP BANNER -->
@@ -73,16 +72,16 @@
                     <div class="sorting_options clearfix">
                         <div class="count_tovar_items">
                             <p><?= _('Products')?></p>
-                            <span><?php //echo $count;?> Items</span>
+                            <span>Items</span>
                         </div>
                         <!-- //COUNT TOVAR ITEMS -->
 
                         <!-- PRODUC SIZE -->
                         <div id="toggle-sizes">
                             <a class="view_box active" href="javascript:void(0);">
-                                <i class="fa fa-th-large"></i></a> <a class="view_full"
-                                                                      href="javascript:void(0);"><i
-                                        class="fa fa-th-list"></i></a>
+                                <i class="fa fa-th-large"></i></a>
+                            <a class="view_full" href="javascript:void(0);">
+                                <i class="fa fa-th-list"></i></a>
                         </div>
                         <!-- //PRODUC SIZE -->
                     </div>
@@ -93,15 +92,11 @@
                             classy experience their clients will just love</p>
 					<span>Gluten-free quinoa selfies carles, kogi gentrify retro marfa
 						viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh
-						synth blue bottle tofu tonx iphone. Blue bottle 90′s vice trust
-						fund gastropub gentrify retro marfa viral. Gluten-free quinoa
-						selfies carles, kogi gentrify retro marfa viral. Odd future photo
-						booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu
-						tonx iphone. Blue bottle 90′s vice trust fund gastropub gentrify
-						retro marfa viral.</span>
+						synth blue bottle iphone.
+                    </span>
                     </div>
-
-                    <hr>
+                <input type="text" name="search_text" id="search_text" placeholder="Live Search" class="form-control" />
+                <script type="text/javascript">var route = '{{ url('items/search') }}/{{$menu[$parent]['id']}}'; </script>
                     @include('frontend/product_container')
             </div>
             <!-- //SHOP PRODUCTS -->

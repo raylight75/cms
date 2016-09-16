@@ -2,10 +2,17 @@
 <project version="4">
   <component name="PublishConfigData" serverName="shop">
     <serverData>
-      <paths name="shop">
+      <paths name="Symfony3">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="cms" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="laravel.dev">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

@@ -108,6 +108,10 @@ class ProductRepository extends Repository
             ->paginate(6);
     }
 
+    /**
+     * @param $search
+     * @return mixed
+     */
     public function whereAuto($search)
     {
         return $this->model->where('name', 'like', '%' . $search . '%')

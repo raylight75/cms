@@ -27,24 +27,8 @@ $(document).ready(function () {
         $('#categories').submit();
     });
 });
-//Live Searxh AJAX
+//Fancybox
 $(document).ready(function () {
-    $('#search_text').keyup(function () {
-        var txt = $(this).val();
-        if (txt != '') {
-            $.ajax({
-                url: route,//var from filter_view.blade.php
-                method: "get",
-                data: {search: txt},
-                dataType: "json",
-                success: function (data) {
-                    $('#ajaxproducts').html(data);
-                }
-            });
-        }
-        else {
-            $('#ajaxproducts').html('');
-        }
-    });
+    $(".fancybox").fancybox({});
 });
-//End Live Search
+//End Fancybox

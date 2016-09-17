@@ -1,72 +1,72 @@
 @extends('frontend.master')
 @section('content')
-        <!-- BREADCRUMBS -->
-<section
-        class="breadcrumb {{$menu[$parent]['name']}} parallax margbot30">
-    <style>
-        .breadcrumb.{{$menu[$parent]['name']}}
- {
-            margin: 0;
-            padding: 179px 0 81px;
-            border-radius: 0;
-            border: 0;
-            background-color: inherit;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+    <!-- BREADCRUMBS -->
+    <section
+            class="breadcrumb {{$menu[$parent]['name']}} parallax margbot30">
+        <style>
+            .breadcrumb.{{$menu[$parent]['name']}}
+  {
+                margin: 0;
+                padding: 179px 0 81px;
+                border-radius: 0;
+                border: 0;
+                background-color: inherit;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
 
-        .breadcrumb.{{$menu[$parent]['name']}}
- {
-            background-image: url({{ url('images/categories') }}/{{$menu[$parent]['banner']}});
-        }
-    </style>
-    <!-- CONTAINER -->
-    <div class="container">
-        <h2>{{$menu[$parent]['name']}}</h2>
-    </div>
-    <!-- //CONTAINER -->
-</section>
-<!-- //BREADCRUMBS -->
+            .breadcrumb.{{$menu[$parent]['name']}}
+  {
+                background-image: url({{ url('images/categories') }}/{{$menu[$parent]['banner']}});
+            }
+        </style>
+        <!-- CONTAINER -->
+        <div class="container">
+            <h2>{{$menu[$parent]['name']}}</h2>
+        </div>
+        <!-- //CONTAINER -->
+    </section>
+    <!-- //BREADCRUMBS -->
 
-<section class="shop">
-    <div class="container">
-        @include('frontend/search', ['url'=>'/items/search/'.$menu[$parent]['id'].''])
-    </div>
-</section>
+    <section class="shop">
+        <div class="container">
+            @include('frontend/search', ['url'=>'/items/search/'.$menu[$parent]['id'].''])
+        </div>
+    </section>
 
-<!-- SHOP BLOCK -->
-<section class="shop">
+    <!-- SHOP BLOCK -->
+    <section class="shop">
 
-    <!-- CONTAINER -->
-    <div class="container">
-        <!-- ROW -->
-        <div class="row">
+        <!-- CONTAINER -->
+        <div class="container">
+            <!-- ROW -->
+            <div class="row">
 
-            <!-- SIDEBAR -->
-            <div id="sidebar" class="col-lg-3 col-md-3 col-sm-3 padbot50">
-                @include('frontend/shop_filter')
-            </div>
-            <!-- //SIDEBAR -->
+                <!-- SIDEBAR -->
+                <div id="sidebar" class="col-lg-3 col-md-3 col-sm-3 padbot50">
+                    @include('frontend/shop_filter')
+                </div>
+                <!-- //SIDEBAR -->
 
-            <!-- SHOP PRODUCTS -->
-            <div class="col-lg-9 col-sm-9 padbot20">
+                <!-- SHOP PRODUCTS -->
+                <div class="col-lg-9 col-sm-9 padbot20">
 
-                <!-- SHOP BANNER -->
-                @if (Input::exists('categ'))
+                    <!-- SHOP BANNER -->
+                    @if (Input::exists('categ'))
                         <div class="banner_block margbot15">
                             <a class="banner nobord">
                                 <img src="{{ url('images/categories') }}/{{$banner->f_img}}" alt=""/></a>
                         </div>
-                    <!-- //SHOP BANNER -->
+                        <!-- //SHOP BANNER -->
 
                     @else
-                            <!-- SHOP BANNER -->
-                    <div class="banner_block margbot15">
-                        <a class="banner nobord" href="javascript:void(0);">
-                            <img src="{{ url('images/categories') }}/{{$menu[$parent]['name']}}.jpg" alt=""/></a>
-                    </div>
+                    <!-- SHOP BANNER -->
+                        <div class="banner_block margbot15">
+                            <a class="banner nobord" href="javascript:void(0);">
+                                <img src="{{ url('images/categories') }}/{{$menu[$parent]['name']}}.jpg" alt=""/></a>
+                        </div>
                     @endif
-                            <!-- //SHOP BANNER -->
+                <!-- //SHOP BANNER -->
 
                     <!-- SORTING TOVAR PANEL -->
                     <div class="sorting_options clearfix">
@@ -90,20 +90,61 @@
                     <div class="padbot60 services_section_description">
                         <p>We empower WordPress developers with design-driven themes and a
                             classy experience their clients will just love</p>
-					<span>Gluten-free quinoa selfies carles, kogi gentrify retro marfa
+                        <span>Gluten-free quinoa selfies carles, kogi gentrify retro marfa
 						viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh
 						synth blue bottle iphone.
                     </span>
                     </div>
-                <input type="text" name="search_text" id="search_text" placeholder="Live Search" class="form-control" />
-                <script type="text/javascript">var route = '{{ url('items/search') }}/{{$menu[$parent]['id']}}'; </script>
+                    <!-- Live Search Form -->
+                    <input type="text" name="search_text" id="search_text" placeholder="Live Search" class="form-control"/>
+                    <!-- //Live Search Form -->
                     @include('frontend/product_container')
+                </div>
+                <!-- //SHOP PRODUCTS -->
             </div>
-            <!-- //SHOP PRODUCTS -->
+            <!-- //ROW -->
         </div>
-        <!-- //ROW -->
-    </div>
-    <!-- //CONTAINER -->
-</section>
+        <!-- //CONTAINER -->
+    </section>
+@section('script')
+    <script type="text/javascript">
+        var route = '{{ url('items/search') }}/{{$menu[$parent]['id']}}';
+        var autoRoute = '{{ url('search/autocomplete') }}';
+        //Live Search AJAX
+        $(document).ready(function () {
+            $('#search_text').keyup(function () {
+                var txt = $(this).val();
+                if (txt != '') {
+                    $.ajax({
+                        url: route,
+                        method: "get",
+                        data: {search: txt},
+                        dataType: "json",
+                        success: function (data) {
+                            $('#ajaxproducts').html(data);
+                        }
+                    });
+                }
+                else {
+                    $('#ajaxproducts').html('');
+                }
+            });
+        });
+        //End Live Search
+        //Autocomplete
+        $(autoComplete);
+        function autoComplete() {
+            $("#search_auto").autocomplete({
+                source: autoRoute,
+                minLength: 3,
+                select: function (event, ui) {
+                    console.log(source);
+                    $('#search_auto').val(ui.item.value);
+                }
+            });
+        }
+        //End Autocomplete
+    </script>
+@endsection
 <!-- //SHOP -->
 @endsection

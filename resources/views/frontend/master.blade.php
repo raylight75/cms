@@ -53,6 +53,7 @@
         @include('frontend.header')
                 <!-- //HEADER -->
         @yield('content')
+        @yield('script')
                 <!-- FOOTER -->
         @include('frontend.footer')
                 <!-- //FOOTER -->

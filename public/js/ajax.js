@@ -26,7 +26,7 @@ function getProducts(data, page) {
     }).done(function (data) {
         $('#ajaxproducts').html(data);
     }).fail(function () {
-        alert('Posts could not be loaded.');
+        alert('Products could not be loaded.');
     });
 }
 // End Ajax pagination

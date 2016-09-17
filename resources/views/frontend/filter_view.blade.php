@@ -137,10 +137,7 @@
             $("#search_auto").autocomplete({
                 source: autoRoute,
                 minLength: 3,
-                select: function (event, ui) {
-                    console.log(source);
-                    $('#search_auto').val(ui.item.value);
-                }
+                position: { my: "left top", at: "center"},
             });
         }
         //End Autocomplete

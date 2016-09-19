@@ -11,13 +11,28 @@ $(window).on('hashchange', function () {
 });
 $(function () {
     $('#ajaxproducts').on('click', '.pagination a', function (e) {
+        e.preventDefault();
         var url = $(this).attr('href');
         var hashes = url.split("?")[1];
         var page = $(this).attr('href').split('page=')[1];
         getProducts(hashes.split('page').reverse()[1], page);
-        e.preventDefault();
+        history.pushState({page: this.href}, '', this.href);
+    });
+    $(window).on('popstate', function (e) {
+        getHistory(e.originalEvent.state.page)
     });
 });
+function getHistory(url) {
+    $.ajax({
+        url: url,
+        type: "GET",
+        dataType: 'json',
+    }).done(function (data) {
+        $('#ajaxproducts').html(data);
+    }).fail(function () {
+        alert('Products could not be loaded.');
+    });
+}
 function getProducts(data, page) {
     $.ajax({
         url: '?' + data + 'page=' + page,
@@ -70,3 +85,12 @@ $(document).ready(function () {
     $(".submit").hide();
 });
 //End Ajax Form
+/*
+ $(document).ajaxComplete(function (ev, jqXHR, settings) {
+ var stateObj = {url: settings.url, innerhtml: document.body.innerHTML};
+ window.history.pushState(stateObj, settings.url, settings.url);
+ });
+ window.onpopstate = function (event) {
+ var currentState = history.state;
+ document.body.innerHTML = currentState.innerhtml;
+ };*/

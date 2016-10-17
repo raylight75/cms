@@ -1,2 +1,2 @@
 Hi, {{ $name }}
-Please active your account : {{ url('user/activation', $link)}}
+Please activate your account : {{ url('user/activation', $link)}}

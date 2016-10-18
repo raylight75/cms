@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Models\User_activation as Activation;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Guard;
 use Mail, Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -62,8 +62,8 @@ class AuthController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array $data
-     * @return User
+     * @param array $data
+     * @return static
      */
     protected function create(array $data)
     {
@@ -77,18 +77,19 @@ class AuthController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array $data
-     * @return User
+     * @param Guard $auth
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function postLogin(Request $request)
+    public function postLogin(Guard $auth, Request $request)
     {
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        if (auth()->attempt(array('email' => $request->input('email'), 'password' => $request->input('password')))) {
-            if (auth()->user()->is_activated == '0') {
-                Auth::logout();
+        if ($auth->attempt(array('email' => $request->input('email'), 'password' => $request->input('password')))) {
+            if ($auth->user()->is_activated == '0') {
+                $auth->logout();
                 return back()->with('warning', "First please activate your account.");
             }
             return redirect()->to('/welcome');

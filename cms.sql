@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2016 at 03:55 PM
+-- Generation Time: Oct 19, 2016 at 09:42 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -548,7 +548,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `email` varchar(100) NOT NULL,
   `adress` varchar(100) NOT NULL,
   `phone` varchar(45) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customers`
@@ -580,7 +580,9 @@ INSERT INTO `customers` (`id`, `user_id`, `country`, `city`, `postcode`, `name`,
 (36, 4, 'Bulgaria', 'Plovdiv', 4004, 'Ana', 'ana.blajeva@abv.bg', 'bul Hristo Botev 92B', '0898457832'),
 (37, 2, 'Czech Republic', 'Plovdiv', 4004, 'Ivan', 'tblajev@yahoo.com', 'bul Hristo Botev 92B', '0567124678'),
 (38, 4, 'Germany', 'Plovdiv', 4004, 'Ana', 'ana.blajeva@abv.bg', 'bul Hristo Botev 92B', '0567124678'),
-(39, 2, 'Czech Republic', 'Plovdiv', 4004, 'Ivan', 'tblajev@yahoo.com', 'bul Hristo Botev 92B', '0567124678');
+(39, 2, 'Czech Republic', 'Plovdiv', 4004, 'Ivan', 'tblajev@yahoo.com', 'bul Hristo Botev 92B', '0567124678'),
+(40, 5, 'Austria', 'Viena', 4003, 'Stoyan', 'botev@abv.bg', 'Wierbrudden Strase 45', '0567124678'),
+(41, 6, 'Austria', 'Viena', 4003, 'Pesho', 'loko@abv.bg', 'Wierbrudden Strase 45', '0567124678');
 
 -- --------------------------------------------------------
 
@@ -624,7 +626,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `color` varchar(32) NOT NULL,
   `quantity` int(64) NOT NULL,
   `amount` int(64) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `orders`
@@ -681,7 +683,12 @@ INSERT INTO `orders` (`id`, `user_id`, `order_date`, `status`, `product_id`, `si
 (48, 4, '2016-05-14 10:24:13', '', 65, 'XS', 'bc43c-image1xxl.jpg', 'red', 3, 82),
 (49, 2, '2016-05-14 12:43:47', '', 11, 'XXL', 'c6b37-pmtk001c.jpg', 'white', 1, 79),
 (50, 4, '2016-05-14 15:50:56', '', 59, 'S', '0122b-wsd000t.jpg', 'black', 3, 63),
-(51, 2, '2016-05-14 18:11:44', '', 23, 'M', 'ee72c-1.jpg', 'violet', 3, 22);
+(51, 2, '2016-05-14 18:11:44', '', 23, 'M', 'ee72c-1.jpg', 'violet', 3, 22),
+(52, 5, '2016-08-01 07:08:36', '', 17, 'L', '57e1d-pmtk001a.jpg', 'white', 2, 20),
+(53, 5, '2016-08-01 07:08:36', '', 18, 'XXL', 'be78d-pms004a.jpg', 'blue', 3, 96),
+(54, 5, '2016-08-01 07:08:36', '', 62, 'S', '53103-11000876_4923878_480.jpg', 'white', 3, 55),
+(55, 6, '2016-08-01 10:33:06', '', 24, 'XXL', '1d60f-2.jpg', 'blue', 2, 81),
+(56, 6, '2016-08-01 10:33:06', '', 22, 'XS', 'd52bb-pmtk005b.jpg', 'blue', 1, 21);
 
 --
 -- Triggers `orders`
@@ -872,14 +879,14 @@ INSERT INTO `products` (`product_id`, `slug`, `name`, `description`, `a_img`, `b
 (14, 'Fendi-Brown-Skinny-Jeans', 'Fendi Brown Skinny Jeans', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '56245-pmp002a.jpg', '1f543-pmp002b.jpg', '892a5-pmp002t.jpg', 7, 6, 1, 42, 54),
 (15, 'DKNY-Black-Neck-Sweater', 'DKNY Black Neck Sweater', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '10551-pmtk006a.jpg', '594d8-pmtk006t.jpg', '', 6, 3, 1, 32, 23),
 (16, 'Moschino-White-Hoodie', 'Moschino White Hoodie', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'ebd78-pmtk004a.jpg', '74d1c-pmtk004b.jpg', '405b7-pmtk004t.jpg', 3, 3, 1, 34, 12),
-(17, 'Pepe-Jeans-Stripe-Shirt', 'Pepe Jeans Stripe Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '57e1d-pmtk001a.jpg', '41715-pmtk001b.jpg', '', 4, 5, 1, 75, 10),
-(18, 'Fendi-Blue-Neck-Shirt', 'Fendi Blue Neck Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'be78d-pms004a.jpg', 'ee0c7-pms004b.jpg', 'e84e4-pms004t.jpg', 7, 8, 1, 21, 32),
+(17, 'Pepe-Jeans-Stripe-Shirt', 'Pepe Jeans Stripe Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '57e1d-pmtk001a.jpg', '41715-pmtk001b.jpg', '', 4, 5, 1, 73, 10),
+(18, 'Fendi-Blue-Neck-Shirt', 'Fendi Blue Neck Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'be78d-pms004a.jpg', 'ee0c7-pms004b.jpg', 'e84e4-pms004t.jpg', 7, 8, 1, 18, 32),
 (19, 'Gucci-White-Sleeve-Shirt', 'Gucci White Sleeve Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '04776-pms000a.jpg', 'ef015-pms000b.jpg', 'bd7a2-pms000t.jpg', 1, 5, 1, 3, 32),
 (20, 'CK-White-Heisen-Sweater', 'CK White Heisen Sweater', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'b2890-pmtk000a.jpg', 'd513f-pmtk000t.jpg', '', 5, 3, 1, 32, 23),
 (21, 'DKNY-Red-Neck-Shirt', 'DKNY Red Neck Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'ea72e-mpd006t.jpg', '02090-pms003a.jpg', '', 6, 5, 1, 72, 19),
-(22, 'Fendi-Navy-Front-Jacket', 'Fendi Navy Front Jacket', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'd52bb-pmtk005b.jpg', '93d69-pmtk005t.jpg', '', 7, 9, 1, 67, 21),
+(22, 'Fendi-Navy-Front-Jacket', 'Fendi Navy Front Jacket', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'd52bb-pmtk005b.jpg', '93d69-pmtk005t.jpg', '', 7, 9, 1, 66, 21),
 (23, 'Moschino-Shell-Viol-Shirt', 'Moschino Shell Viol Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', 'ee72c-1.jpg', 'a35ee-1_2.jpg', '', 3, 8, 1, 28, 9),
-(24, 'Pepe-Jeans-Blue-Shirt', 'Pepe Jeans Blue Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '1d60f-2.jpg', '43f35-2_2.jpg', '', 4, 8, 1, 71, 27),
+(24, 'Pepe-Jeans-Blue-Shirt', 'Pepe Jeans Blue Shirt', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '1d60f-2.jpg', '43f35-2_2.jpg', '', 4, 8, 1, 68, 27),
 (25, 'Moschino-White-Jacket', 'Moschino White Jacket', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '1ddb2-9.jpg', '88519-9_2.jpg', '', 3, 3, 1, 30, 23),
 (26, 'Gucci-Fine-Sweaters', 'Gucci Fine Sweaters', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>\r\n', '6201a-8.jpg', '646e6-8_2.jpg', '', 1, 3, 1, 34, 16),
 (27, 'Fendi-Black-Stripe-Shirt', 'Fendi Black Stripe Shirt', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', '9fee1-7_2.jpg', '5a8ba-7.jpg', '', 7, 5, 1, 23, 19),
@@ -912,7 +919,7 @@ INSERT INTO `products` (`product_id`, `slug`, `name`, `description`, `a_img`, `b
 (57, 'Fendi-Brown-Mini', 'Fendi Brown Mini', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.</span></p>\r\n', '27081-pwt004a.jpg', '01f42-pwt004b.jpg', '3f214-pwt004t.jpg', 7, 11, 2, 19, 14),
 (58, 'Pepe-Jeans-Black-Mini', 'Pepe Jeans Black Mini', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.</span></p>\r\n', 'e93d3-pwt003a.jpg', '9002f-pwt003t.jpg', '', 4, 11, 2, 34, 12),
 (59, 'Moschino-Brown-Mini', 'Moschino Brown Mini', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.</span></p>\r\n', '0122b-wsd000t.jpg', '9e31b-wsd000a.jpg', '64625-wsd000b.jpg', 3, 11, 2, 29, 21),
-(62, 'CK-White-Pleated-Top', 'CK White Pleated Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; font-size: 13px; line-height: 22px;">Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral. Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral.</span></p>\r\n', '53103-11000876_4923878_480.jpg', '6df9e-11000876_4923882_480.jpg', '25079-11000876_4923876_480.jpg', 5, 15, 2, 45, 23),
+(62, 'CK-White-Pleated-Top', 'CK White Pleated Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; font-size: 13px; line-height: 22px;">Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral. Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral.</span></p>\r\n', '53103-11000876_4923878_480.jpg', '6df9e-11000876_4923882_480.jpg', '25079-11000876_4923876_480.jpg', 5, 15, 2, 42, 23),
 (63, 'Dior-Brown-Tops', 'Dior Brown Tops', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; font-size: 13px; line-height: 22px;">Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral. Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral.</span></p>\r\n', '832bd-11087120_5289707_480.jpg', '554fe-11087120_5289711_480.jpg', 'd44ce-11087120_5289701_480.jpg', 2, 15, 2, 32, 45),
 (64, 'Gucci-Black-Top', 'Gucci Black Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; font-size: 13px; line-height: 22px;">Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral. Gluten-free quinoa selfies carles, kogi gentrify retro marfa viral. Odd future photo booth flannel ethnic pug, occupy keffiyeh synth blue bottle tofu tonx iphone. Blue bottle 90&prime;s vice trust fund gastropub gentrify retro marfa viral</span></p>\r\n', '2b287-image2xxl-1-.jpg', '40749-image3xxl.jpg', '78689-image4xxl-1-.jpg', 1, 15, 2, 3, 27),
 (65, 'Moschino-Red-Top', 'Moschino Red Top', '<p>\r\n	<span style="color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</span></p>\r\n', 'bc43c-image1xxl.jpg', '967a0-image2xxl.jpg', '21951-image4xxl.jpg', 3, 15, 2, 6, 34),
@@ -1132,7 +1139,7 @@ CREATE TABLE IF NOT EXISTS `role_user` (
   `user_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `role_user`
@@ -1141,7 +1148,9 @@ CREATE TABLE IF NOT EXISTS `role_user` (
 INSERT INTO `role_user` (`id`, `role_id`, `user_id`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, '2016-01-03 11:05:38', '2016-01-03 11:05:38'),
 (2, 2, 2, '2016-01-03 11:07:31', '2016-01-03 11:07:31'),
-(3, 2, 4, '2016-04-25 04:17:04', '2016-04-25 04:17:04');
+(3, 2, 4, '2016-04-25 04:17:04', '2016-04-25 04:17:04'),
+(4, 2, 5, '2016-08-01 07:06:52', '2016-08-01 07:06:52'),
+(5, 2, 6, '2016-08-01 10:28:28', '2016-08-01 10:28:28');
 
 -- --------------------------------------------------------
 
@@ -1259,18 +1268,34 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_activated` tinyint(1) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `avatar`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Tihomir', 'ui-zac.jpg', 'raylight75@gmail.com', '$2y$10$b17mr2swLgWrdJ2Mka6Ilegy0.kJPBgE1R/b1Y7Bsnc5VVBCDL.Rq', '7mvUfaX20SkCbwBGOyqOpZyLXSuHz9yLf5bmQM4wnqxnpZYHv2R0AR6x09aS', '2016-01-03 08:48:36', '2016-06-30 17:35:19'),
-(2, 'Ivan', 'ui-sherman.jpg', 'tblajev@yahoo.com', '$2y$10$uQSDi6zBHxVU83adaZHjFOHqFAQWHZSPvNl6.R6EuOcRa30HlcUIi', 'tD4CHQVFyVYk0QbOfVN83HP6yPOjmy1ohzhFTfvHmfuk3J59Iw8QpohUYPeg', '2016-01-03 10:58:24', '2016-07-03 06:26:05'),
-(4, 'Ana', 'avatar-ani.jpg', 'ana.blajeva@abv.bg', '$2y$10$EDFjGgQ/Q8i00mrbXMU5VOIYeS/pfwI3iZubj4v0yuYJB4NjrdEwi', '5uZYJVLbz63BHLy2ycRQGJ6YQTx1Vcu6aNgq8qlt3GoeHd6eagIn1XsdXKcv', '2016-04-19 06:02:27', '2016-07-03 06:25:30');
+INSERT INTO `users` (`id`, `name`, `avatar`, `email`, `password`, `remember_token`, `is_activated`, `created_at`, `updated_at`) VALUES
+(1, 'Tihomir', 'ui-zac.jpg', 'raylight75@gmail.com', '$2y$10$b17mr2swLgWrdJ2Mka6Ilegy0.kJPBgE1R/b1Y7Bsnc5VVBCDL.Rq', 'hm5Lt43tafJaZS6JK8PvW9rtsXeLWCagDwRUqiVSxGfCv35lUQv9O1bmekjm', 1, '2016-01-03 08:48:36', '2016-10-18 07:12:10'),
+(2, 'Ivan', 'ui-sherman.jpg', 'tblajev@yahoo.com', '$2y$10$uQSDi6zBHxVU83adaZHjFOHqFAQWHZSPvNl6.R6EuOcRa30HlcUIi', '0brbmZ8zXsKizk2d4N0KxQPTdg19e25vCzUSxPvlcKfM4NChSgsfA3YwyAIT', 0, '2016-01-03 10:58:24', '2016-09-21 08:53:31'),
+(4, 'Ana', 'avatar-ani.jpg', 'ana.blajeva@abv.bg', '$2y$10$EDFjGgQ/Q8i00mrbXMU5VOIYeS/pfwI3iZubj4v0yuYJB4NjrdEwi', 'iQzGz50yFnSVVh6bWVnXAKGJqCe6SLO79zTDOxrtMlR2Ss808llzf9Mal9yt', 1, '2016-04-19 06:02:27', '2016-10-17 03:51:37'),
+(5, 'Stoyan', 'pic-t4.jpg', 'botev@abv.bg', '$2y$10$r.3/lcXRp4wWmD/4kHt.AOi9hJlDvDlWvTASxeXyBynKMxSIoiMCa', 'zeWCorfoNkTQOyI5r3uOOCc3F1mcicXfPuxOqG5QW6Jo9ILBmFJylTAxS1jf', 0, '2016-08-01 07:06:39', '2016-08-24 11:25:24'),
+(6, 'Pesho', 'avatar3.jpg', 'loko@abv.bg', '$2y$10$KPOt1591MncSJZMRBAKFbuNHNPAR9/NfeWku8ii82qGqCqqFZwWYa', '46QI8ElJj8zczOHfxFSAMJsI1lwaeNR9krFI9tYEvjg3nbWQBs7RybkMMV8f', 0, '2016-08-01 10:28:13', '2016-10-18 10:36:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_activations`
+--
+
+CREATE TABLE IF NOT EXISTS `user_activations` (
+`id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `token` varchar(32) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -1433,6 +1458,12 @@ ALTER TABLE `users`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `user_activations`
+--
+ALTER TABLE `user_activations`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1475,12 +1506,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=57;
 --
 -- AUTO_INCREMENT for table `order_status`
 --
@@ -1530,7 +1561,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `role_user`
 --
 ALTER TABLE `role_user`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `settings`
 --
@@ -1555,7 +1586,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `user_activations`
+--
+ALTER TABLE `user_activations`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --

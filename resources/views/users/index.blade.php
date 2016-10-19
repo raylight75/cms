@@ -12,6 +12,7 @@
             <th>Name</th>
             <th>Email
             <th>Roles</th>
+            <th>Active</th>
             <th colspan="3">Actions</th>
         </tr>
         </thead>
@@ -22,6 +23,7 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email}}</td>
                 <td>{{implode(",", $user->role->lists("slug")->all())}}</td>
+                <td>{{ $user->is_activated == 1 ? 'Yes' : 'No' }}</td>
                 <td><a href="{{route('backend.users.edit',$user->id)}}" class="btn btn-warning">Update</a></td>
                 <td>
                     {!! Form::open(['method' => 'DELETE', 'route'=>['backend.users.destroy', $user->id]]) !!}

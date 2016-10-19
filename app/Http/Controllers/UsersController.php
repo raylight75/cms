@@ -150,6 +150,7 @@ class UsersController extends Controller
             $user->update([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
+                'is_activated' => $request->input('is_activated'),
                 'password' => bcrypt($request->input('password')),
             ]);
             $user->role()->sync($request->input('role'));

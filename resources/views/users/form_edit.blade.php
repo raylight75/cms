@@ -10,6 +10,10 @@
     {!! Form::email('email',null,['class'=>'form-control']) !!}
 </div>
 <div class="form-group">
+    {!! Form::label('Active', 'Active:') !!}
+    {!! Form::text('is_activated',null,['class'=>'form-control']) !!}
+</div>
+<div class="form-group">
     {!! Form::label('Old Password', 'Old Password') !!}
     {!! Form::password('old_password',['class'=>'form-control']) !!}
 </div>

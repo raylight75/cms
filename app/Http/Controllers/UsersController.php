@@ -95,8 +95,7 @@ class UsersController extends Controller
      */
     public function createRole(CreateRole $request)
     {
-        $data = $request->all();
-        Role::create($data);
+        Role::create($request->all());
         $request->session()->flash('flash_message', 'Role successfully added!');
         return redirect()->back();
     }
@@ -109,11 +108,9 @@ class UsersController extends Controller
      */
     public function store(CreateUser $request)
     {
-        $this->user->create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-        ]);
+        $data = $request->except(['password']);
+        $data['password']= bcrypt($request->input('password'));
+        $this->user->create($data);
         $request->session()->flash('flash_message', 'User successfully added!');
         return redirect()->back();
     }
@@ -147,12 +144,9 @@ class UsersController extends Controller
             return redirect()->back()->withErrors('Your old password does not match');
         } else {
             $user->find($id);
-            $user->update([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'is_activated' => $request->input('is_activated'),
-                'password' => bcrypt($request->input('password')),
-            ]);
+            $data = $request->except(['password']);
+            $data['password']= bcrypt($request->input('password'));
+            $user->update($data);
             $user->role()->sync($request->input('role'));
             $request->session()->flash('flash_message', 'User password and role successfully updated!');
             return redirect()->back();

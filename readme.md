@@ -17,6 +17,8 @@ You can test registration or use
 Username:demo@demo.com
 password:demodemo
 
+If you need full admin permission for backend write email to raylight75@gmail.com
+
 ## Contributing
 
 Thank you for considering contributing to this project!

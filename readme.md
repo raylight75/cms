@@ -13,6 +13,10 @@ clear user table with demo data and register new user with admin permission.
 Demo page for testing site navigation and functionality 
 http://www.shop.tihoblajev.com
 
+You can test registration or use 
+Username:demo@demo.com
+password:demodemo
+
 ## Contributing
 
 Thank you for considering contributing to this project!

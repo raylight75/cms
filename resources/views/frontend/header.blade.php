@@ -6,12 +6,12 @@
         <!-- CONTAINER -->
         <div class="container clearfix">
             <ul class="secondary_menu">
-                @if  (Auth::check() && Auth::user()->is('admin'))
+                @if  (Auth::check() && Auth::user()->hasRole('admin'))
                     <li><a href="{{ url('backend/admin') }}"><?= _('Admin Panel')?></a></li>
-                    <li><a href="{{ url('auth/logout') }}"><?= _('Logout')?></a></li>
-                @elseif(Auth::check() && Auth::user()->is('user'))
+                    <li><a href="{{ url('logout') }}"><?= _('Logout')?></a></li>
+                @elseif(Auth::check() && Auth::user()->hasRole('user'))
                     <li><a href="{{ url('backend/user') }}"><?= _('User Panel')?></a></li>
-                    <li><a href="{{ url('auth/logout') }}"><?= _('Logout')?></a></li>
+                    <li><a href="{{ url('logout') }}"><?= _('Logout')?></a></li>
                 @else
                     <li><a href=""><?= _('my account')?></a></li>
                     <li><a href="{{ url('auth/register') }}"><?= _('Register')?></a></li>
@@ -126,7 +126,7 @@
                         <li class="last sale_menu"><a href="{{ url('eshop') }}"><?= _('Sale')?></a></li>
                         <li class="normal menu"><a href="{{ url('contacts') }}"><?= _('Contacts')?></a>
                         <li class="normal menu"><a href="{{ url('aboutus') }}"><?= _('About Us')?></a>
-                        <li class="normal menu"><a href="{{ url('auth/login') }}"><?= _('Login')?></a>
+                        <li class="normal menu"><a href="{{ url('login') }}"><?= _('Login')?></a>
                         <li class="sub-menu"><a>{!! Helper::label() !!}</a>
                             <ul class="mega_menu megamenu_col1 clearfix">
                                 <li class="col">

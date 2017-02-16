@@ -24,8 +24,8 @@
     {!! Form::file('a_img', null) !!}
     {!! Form::hidden('old_img', $product->a_img) !!}
 </div>
-<?php $sizes_array = $product->size->lists("size_id")->all();
-$brands = $product->brands->lists('brand', 'brand_id');
+<?php $sizes_array = $product->size->pluck("size_id")->all();
+$brands = $product->brands->pluck('brand', 'brand_id');
 ?>
 <div class="form-group">
     {!! Form::label('Brand', 'Brand:') !!}
@@ -37,8 +37,8 @@ $brands = $product->brands->lists('brand', 'brand_id');
         {!! Form::checkbox( 'size[]',$s->size_id, in_array($s->size_id, $sizes_array),['id' => $s['size_id'],'class' => 'md-check'])!!}
     @endforeach
 </div>
-<?php $sizes_array = $product->category->lists("cat_id")->all();
-$category = $product->category->lists('cat', 'cat_id');
+<?php $sizes_array = $product->category->pluck("cat_id")->all();
+$category = $product->category->pluck('cat', 'cat_id');
 ?>
 <div class="form-group">
     {!! Form::label('Category', 'Category:') !!}

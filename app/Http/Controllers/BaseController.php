@@ -98,7 +98,7 @@ class BaseController extends Controller
      * @param $parent
      * @return View
      */
-    public function filter(Request $request, $slug, $parent)
+    public function filter(Request $request, $crud, $parent)
     {
         $data = $this->base->getFilter($request, $parent);
         if ($request->ajax()) {

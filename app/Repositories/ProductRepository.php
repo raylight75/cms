@@ -37,7 +37,7 @@ class ProductRepository extends Repository
     {
         return $this->model->with('category')
             ->where(['parent_id' => $parent])
-            ->lists('product_id');
+            ->pluck('product_id');
     }
 
     /**

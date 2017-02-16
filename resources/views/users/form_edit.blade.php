@@ -21,7 +21,7 @@
     {!! Form::label('New Password', 'New Password') !!}
     {!! Form::password('password',['class'=>'form-control']) !!}
 </div>
-<?php $roles_array = $user->role->lists("id")->all();?>
+<?php $roles_array = $user->role->pluck("id")->all();?>
 <div class="form-group">
     @foreach ($roles as $r)
         {!! Form::label($r->name,$r->name) !!}

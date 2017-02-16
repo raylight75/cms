@@ -25,7 +25,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('Size', 'Size:') !!}
-        {!! Form::text('size',implode(",",$product->size->lists("size")->all()),
+        {!! Form::text('size',implode(",",$product->size->pluck("size")->all()),
                       ['class'=>'form-control', 'readonly' => 'true']) !!}
     </div>
     <div class="form-group">

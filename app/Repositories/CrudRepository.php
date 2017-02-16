@@ -100,8 +100,8 @@ class CrudRepository
         $grid->add('name', 'Name');
         $grid->add('brands.brand', 'Brand');
         $grid->add('category.cat', 'Category');
-        $grid->add('{{ implode(", ", $size->lists("size")->all()) }}', 'Sizes');
-        $grid->add('{{ implode(", ", $color->lists("color")->all()) }}', 'Colors');
+        $grid->add('{{ implode(", ", $size->pluck("size")->all()) }}', 'Sizes');
+        $grid->add('{{ implode(", ", $color->pluck("color")->all()) }}', 'Colors');
         $grid->add('<img src="/images/products/{{ $a_img }}" height="25" width="20">', 'Front');
         $grid->add('<img src="/images/products/{{ $b_img }}"height="25" width="20">', 'Side');
         $grid->add('quantity', 'Qty');
@@ -124,8 +124,8 @@ class CrudRepository
         $edit->add('slug', 'Slug', 'text')->rule('required|min:3');
         $edit->add('name', 'Name', 'text')->rule('required|min:3');
         $edit->add('description', 'Description', 'redactor');
-        $edit->add('brand_id', 'Brand', 'select')->options($this->brand->lists("brand", "brand_id")->all());
-        $edit->add('cat_id', 'Category', 'select')->options($this->category->lists("cat", "cat_id")->all());
+        $edit->add('brand_id', 'Brand', 'select')->options($this->brand->pluck("brand", "brand_id")->all());
+        $edit->add('cat_id', 'Category', 'select')->options($this->category->pluck("cat", "cat_id")->all());
         $edit->add('size.size', 'Size', 'tags');
         $edit->add('color.color', 'Color', 'tags');
         $edit->add('a_img', 'Front', 'image')->move('images/products/')->fit(240, 160)->preview(120, 80);

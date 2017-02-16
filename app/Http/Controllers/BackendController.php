@@ -69,7 +69,7 @@ class BackendController extends Controller
 
     public function dashboard()
     {
-        if (Auth::check() && Auth::user()->is('admin')) {
+        if (Auth::check() && Auth::user()->hasRole('admin')) {
             $title = 'Admin Dashboard';
         } else {
             $title = 'User Dashboard';

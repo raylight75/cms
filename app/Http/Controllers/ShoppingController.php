@@ -51,7 +51,7 @@ class ShoppingController extends BaseController
      * Show shopping cart to user.
      * @return View
      */
-    public function getIndex()
+    public function index()
     {
         return view('frontend/shopping_cart');
     }
@@ -124,7 +124,7 @@ class ShoppingController extends BaseController
      * @param float $price Price of one item
      * @param Array $options Array of additional options, such as 'size' or 'color'
      */
-    public function postStore(SubmitProduct $request)
+    public function storeItem(SubmitProduct $request)
     {
         if ($this->shopping->checkDiscount($request)) {
             $request->session()->flash('flash_message', 'You are entered invalid discount code!');
@@ -141,7 +141,7 @@ class ShoppingController extends BaseController
      * Update products in shopping cart.
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function postUpdate(Request $request)
+    public function updateItem(Request $request)
     {
         $content = $request->input('qty');
         foreach ($content as $id => $row) {
@@ -156,7 +156,7 @@ class ShoppingController extends BaseController
      * @param $rowId
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function getEdit($rowId)
+    public function removeItem($rowId)
     {
         Cart::instance(auth()->id())->remove($rowId);
         return redirect('cart');
@@ -166,7 +166,7 @@ class ShoppingController extends BaseController
      * Clear shopping cart.
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function getDelete()
+    public function delete()
     {
         Cart::instance(auth()->id())->destroy();
         return redirect('cart');

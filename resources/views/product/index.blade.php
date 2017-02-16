@@ -29,7 +29,7 @@
                 <td>{{ $p->slug }}</td>
                 <td>{{ $p->name}}</td>
                 <td>{{ $p->brands->brand }}</td>
-                <td>{{implode(",", $p->size->lists("size")->all())}}</td>
+                <td>{{implode(",", $p->size->pluck("size")->all())}}</td>
                 <td>{{ $p->category->cat }}</td>
                 <td>{{ $p->quantity }}</td>
                 <td>{{ $p->price }}</td>
@@ -37,10 +37,10 @@
                 <td><img src="{{asset('images/products/'.$p->a_img)}}" height="35" width="25"></td>
                 <td><img src="{{asset('images/products/'.$p->b_img)}}" height="35" width="25"></td>
                 <td><img src="{{asset('images/products/'.$p->c_img)}}" height="35" width="25"></td>
-                <td><a href="{{url('backend/articles',$p->product_id)}}" class="btn btn-primary">Read</a></td>
-                <td><a href="{{route('backend.articles.edit',$p->product_id)}}" class="btn btn-warning">Update</a></td>
+                <td><a href="{{route('articles.show',$p->product_id)}}" class="btn btn-primary">Read</a></td>
+                <td><a href="{{route('articles.edit',$p->product_id)}}" class="btn btn-warning">Update</a></td>
                 <td>
-                    {!! Form::open(['method' => 'DELETE', 'route'=>['backend.articles.destroy', $p->product_id]]) !!}
+                    {!! Form::open(['method' => 'DELETE', 'route'=>['articles.destroy', $p->product_id]]) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
                 </td>

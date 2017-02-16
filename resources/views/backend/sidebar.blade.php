@@ -4,9 +4,9 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
                     <div class="icon fa fa-paper-plane"></div>
-                    @if  (Auth::check() && Auth::user()->is('admin'))
+                    @if  (Auth::check() && Auth::user()->hasRole('admin'))
                         <div class="title">Menu Backend</div>
-                    @else(Auth::check() && Auth::user()->is('user'))
+                    @else(Auth::check() && Auth::user()->hasRole('user'))
                         <div class="title">User Menu</div>
                     @endif
                 </a>
@@ -15,7 +15,7 @@
                 </button>
             </div>
             <ul class="nav navbar-nav">
-                @if  (Auth::check() && Auth::user()->is('admin'))
+                @if  (Auth::check() && Auth::user()->hasRole('admin'))
                     <li class="menu">
                         <a href="{{ url('backend/admin') }}">
                             <span class="icon fa fa-tachometer"></span><span class="title">Dashboard</span>
@@ -52,7 +52,7 @@
                         </div>
                         <!-- End Dropdown-->
                     </li>
-                @else (Auth::check() && Auth::user()->is('user'))
+                @else (Auth::check() && Auth::user()->hasRole('user'))
                     <li class="menu">
                         <a href="{{ url('backend/user') }}">
                             <span class="icon fa fa-tachometer"></span><span class="title">User Dashboard</span>

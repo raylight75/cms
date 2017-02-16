@@ -19,7 +19,7 @@ class Color extends Model
      * @var array
      */
 
-    protected $primaryKey = 'color_id';
+    //protected $primaryKey = 'color_id';
 
     protected $fillable = [
         'color',

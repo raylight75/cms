@@ -22,11 +22,11 @@
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email}}</td>
-                <td>{{implode(",", $user->role->lists("slug")->all())}}</td>
+                <td>{{implode(",", $user->role->pluck("slug")->all())}}</td>
                 <td>{{ $user->is_activated == 1 ? 'Yes' : 'No' }}</td>
-                <td><a href="{{route('backend.users.edit',$user->id)}}" class="btn btn-warning">Update</a></td>
+                <td><a href="{{route('users.edit',$user->id)}}" class="btn btn-warning">Update</a></td>
                 <td>
-                    {!! Form::open(['method' => 'DELETE', 'route'=>['backend.users.destroy', $user->id]]) !!}
+                    {!! Form::open(['method' => 'DELETE', 'route'=>['users.destroy', $user->id]]) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
                 </td>

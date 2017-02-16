@@ -79,7 +79,7 @@
                                              width="100px" alt=""/></a></td>
                                 <td>{{$i++}}</td>
                                 <td class="product-name">
-                                    <a href="{{ url() }}/{{$item->name}}/{{$item->id}}">{{$item->name}}</a>
+                                    <a href="{{ url('/') }}/{{$item->name}}/{{$item->id}}">{{$item->name}}</a>
                                     <ul class="variation">
                                         <li class="variation-Color"><?= _('Color:')?>
                                             <span>{{$item->options->color}}</span>
@@ -95,7 +95,7 @@
                                     {!! Helper::currency($item->price) !!}&nbsp{!! Helper::label() !!}
                                 </td>
                                 <td>
-                                    {!! Form::open(['url' => 'cart/update']) !!}
+                                    {!! Form::open(['url' => 'cart/update', 'method' => 'put']) !!}
                                     {!! Form::hidden('qty['.$item->id.'][rowId]', $item->rowId) !!}
                                     {!! Form::text('qty['.$item->id.'][qty]',$item->qty,
                                         ['size' => '1','style' => 'text-align: center','maxlength' => '3']) !!}
@@ -104,7 +104,7 @@
                                     {!! Helper::currency($item->subtotal) !!}&nbsp{!! Helper::label() !!}
                                 </td>
                                 <td class="product-remove">
-                                    <a href="{{ url('cart/edit') }}/{{$item->rowId}}">
+                                    <a href="{{ url('cart/remove') }}/{{$item->rowId}}">
                                         <span><?= _('Delete')?></span><i>X</i></a>
                                 </td>
                                 @endforeach

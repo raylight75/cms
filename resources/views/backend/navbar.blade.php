@@ -5,9 +5,9 @@
                 <i class="fa fa-bars icon"></i>
             </button>
             <ol class="breadcrumb navbar-breadcrumb">
-                @if  (Auth::check() && Auth::user()->is('admin'))
+                @if  (Auth::check() && Auth::user()->hasRole('admin'))
                     <li>Admin Panel</li>
-                @else(Auth::check() && Auth::user()->is('user'))
+                @else(Auth::check() && Auth::user()->hasRole('user'))
                     <li>User Panel</li>
                 @endif
                 <li class="active">{{Auth::user()->email}}</li>
@@ -33,9 +33,9 @@
 
                             <div class="btn-group margin-bottom-2x" role="group">
                                 <button type="button" class="btn btn-default"><i class="fa fa-user"></i>
-                                    @if  (Auth::check() && Auth::user()->is('admin'))
+                                    @if  (Auth::check() && Auth::user()->hasRole('admin'))
                                         <a href="{{ url('backend/admin') }}"><?= _('Profile')?></a>
-                                    @else(Auth::check() && Auth::user()->is('user'))
+                                    @else(Auth::check() && Auth::user()->hasRole('user'))
                                         <a href="{{ url('backend/user') }}"><?= _('Profile')?></a>
                                     @endif
                                 </button>

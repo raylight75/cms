@@ -19,7 +19,7 @@ class Size extends Model
      * @var array
      */
 
-    protected $primaryKey = 'size_id';
+    //protected $primaryKey = 'size_id';
 
     protected $fillable = [
         'size',

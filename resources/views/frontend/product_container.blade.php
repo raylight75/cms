@@ -13,12 +13,12 @@
                     </div>
                     <div class="tovar_item_btns">
                         <a class="open-project tovar_view"
-                           href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
+                           href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
                             <span><?= _('product')?></span> <?= _(' view')?>
                         </a>
-                        @if (Auth::check() && Auth::user()->is('user'))
+                        @if (Auth::check() && Auth::user()->hasRole('user'))
                             <a class="add_bag"
-                               href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
+                               href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
                                 <i class="fa fa-shopping-cart"></i></a>
                         @else
                             <a class="add_bag" href="{{ url('user') }}">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="tovar_description clearfix">
                     <a class="tovar_title"
-                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">{{$row->name}}</a>
+                       href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">{{$row->name}}</a>
                     <span class="tovar_price">{!! Helper::currency($row->price) !!}&nbsp{!! Helper::label() !!}</span>
                 </div>
                 <div class="tovar_content">{{$row->description}}</div>

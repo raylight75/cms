@@ -6,7 +6,7 @@ use App\Http\Requests\CreateRole;
 use App\Http\Requests\CreateUser;
 use App\Http\Requests\EditUser;
 use App\Repositories\UserRepository;
-use Bican\Roles\Models\Role;
+use Ultraware\Roles\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use View;

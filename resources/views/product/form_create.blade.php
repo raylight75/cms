@@ -18,7 +18,7 @@
     {!! Form::file('a_img', null) !!}
 </div>
 @foreach ($products as $p)
-    <?php $brands = $p->brands->lists('brand', 'brand_id') ?>
+    <?php $brands = $p->brands->pluck('brand', 'brand_id') ?>
 @endforeach
 <div class="form-group">
     {!! Form::label('Brand', 'Brand:') !!}
@@ -31,7 +31,7 @@
     @endforeach
 </div>
 @foreach ($products as $p)
-    <?php $category = $p->category->lists('cat', 'cat_id') ?>
+    <?php $category = $p->category->pluck('cat', 'cat_id') ?>
 @endforeach
 <div class="form-group">
     {!! Form::label('Category', 'Category:') !!}

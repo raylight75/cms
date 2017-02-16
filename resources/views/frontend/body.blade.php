@@ -35,14 +35,14 @@
                                 </div>
                                 <div class="tovar_item_btns">
                                     <a class="open-project tovar_view"
-                                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
+                                       href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
                                         <span><?= _('product')?></span> <?= _('view')?></a>
                                     <a class="add_bag" href="{{ url('login') }}"><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                             </div>
                             <div class="tovar_description clearfix">
                                 <a class="tovar_title"
-                                   href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">{{$row->name}}</a>
+                                   href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">{{$row->name}}</a>
                                 <span class="tovar_price">{!! Helper::currency($row->price) !!}&nbsp{!! Helper::label() !!}</span>
                             </div>
                         </div>
@@ -124,12 +124,12 @@
                                 <div class="tovar_img">
                                     <img src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/>
                                     <a class="open-project tovar_view"
-                                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
+                                       href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
                                         <?= _('quick view')?></a>
                                 </div>
                                 <div class="tovar_description clearfix">
                                     <a class="tovar_title"
-                                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">{{$row->name}}</a>
+                                       href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">{{$row->name}}</a>
 
                                 </div>
                             </div>
@@ -168,8 +168,8 @@
                 <ul>
                     <?php $i = 1;?>
                     @foreach ($brands as $row)
-                        <li><a href="{{ url() }}/brand/{{$row->brand}}/{{$row->brand_id}}">
-                                <img src="{{ url() }}/images/brands/{{$i++}}.jpg" alt=""/></a>
+                        <li><a href="{{ url('/') }}/brand/{{$row->brand}}/{{$row->brand_id}}">
+                                <img src="{{ url('/') }}/images/brands/{{$i++}}.jpg" alt=""/></a>
                         </li>
                     @endforeach
                 </ul>

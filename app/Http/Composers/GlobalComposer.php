@@ -82,6 +82,7 @@ class GlobalComposer
             $cart = null;
             $grandTotal = null;
         } else {
+            //$rows = Cart::instance(auth()->id())->content()->count();
             $rows = Cart::instance(auth()->id())
                 ->count(false);
             $cart = Cart::instance(auth()->id())

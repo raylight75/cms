@@ -24,7 +24,7 @@
                         <li class="clearfix">
                             <img class="tovar_item_small_img"
                                  src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/>
-                            <a href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}"
+                            <a href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}"
                                class="tovar_item_small_title"><?php echo $row->name;?></a>
                             <span class="tovar_item_small_price">
                                 {!! Helper::currency($row->price) !!}&nbsp{!! Helper::label() !!}
@@ -151,11 +151,11 @@
                                 <div class="tovar_img">
                                     <img src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/>
                                     <a class="open-project tovar_view"
-                                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}"><?= _('quick view')?></a>
+                                       href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}"><?= _('quick view')?></a>
                                 </div>
                                 <div class="tovar_description clearfix">
                                     <a class="tovar_title"
-                                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">{{$row->name}}</a>
+                                       href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">{{$row->name}}</a>
                                     <span class="tovar_price">{!! Helper::currency($row->price) !!}
                                         &nbsp{!! Helper::label() !!}</span>
                                 </div>

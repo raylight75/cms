@@ -20,8 +20,6 @@ class Product extends Model
      * @var array
      */
 
-    protected $primaryKey = 'product_id';
-
     protected $fillable = [
         'slug',
         'name',
@@ -40,6 +38,15 @@ class Product extends Model
      */
 
     public $timestamps = false;
+
+    /**
+     * Override primary key
+     * @return string
+     */
+    public function getKeyName()
+    {
+        return 'product_id';
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

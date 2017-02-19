@@ -11,7 +11,7 @@
                     <li>User Panel</li>
                 @endif
                 <li class="active">{{Auth::user()->email}}</li>
-                    <li class="active"><a href="{{ url('cms') }}">Back to Site</a></li>
+                <li class="active"><a href="{{ url('cms') }}">Back to Site</a></li>
             </ol>
             <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
                 <i class="fa fa-th icon"></i>
@@ -40,7 +40,15 @@
                                     @endif
                                 </button>
                                 <button type="button" class="btn btn-default"><i class="fa fa-sign-out"></i>
-                                    <a href="{{ url('auth/logout') }}"><?= _('Logout')?></a>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                        <?= _('Logout')?>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
                                 </button>
                             </div>
                         </div>

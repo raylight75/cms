@@ -16,10 +16,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SomeEvent' => [
             'App\Listeners\EventListener',
         ],
-        'auth.login' => [
+        'Illuminate\Auth\Events\Login' => [
             'App\Listeners\RestoreCartOnLogin',
         ],
-        'auth.logout' => [
+        'Illuminate\Auth\Events\Logout' => [
             'App\Listeners\StoreCartOnLogout',
         ],
     ];

@@ -29,7 +29,7 @@ Route::get('/contacts', 'BaseController@contacts');
 
 Route::get('/welcome', 'BaseController@welcome');
 
-//Route::get('user/activation/{token}', 'Auth\AuthController@userActivation');
+Route::get('user/activation/{token}', 'Auth\LoginController@userActivation');
 
 Route::get('/frame/{id}', 'BaseController@frame');
 

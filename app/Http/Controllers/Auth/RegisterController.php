@@ -68,4 +68,27 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    /**
+     * Register new user
+     *
+     * @param  array $data
+     * @return User
+     */
+    public function postRegister(Request $request)
+    {
+        $validator = $this->validator($request->all());
+        if ($validator->passes()) {
+            $user = $this->create($request->all())->toArray();
+            $user['link'] = str_random(30);
+            Activation::create(['id_user' => $user['id'], 'token' => $user['link']]);
+            Mail::send('emails.activation', $user, function ($message) use ($user) {
+                $message->to($user['email']);
+                $message->subject('Site - Activation Code');
+            });
+            return redirect()->to('login')
+                ->with('success', "We sent activation code. Please check your mail.");
+        }
+        return back()->with('errors', $validator->errors());
+    }
 }

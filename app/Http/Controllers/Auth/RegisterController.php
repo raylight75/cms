@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Http\Request;
+use App\Models\User_activation as Activation;
+use App\Mail\Activate;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -29,14 +33,17 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/home';
 
+    protected $activation;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Activation $activation)
     {
         $this->middleware('guest');
+        $this->activation = $activation;
     }
 
     /**
@@ -75,17 +82,14 @@ class RegisterController extends Controller
      * @param  array $data
      * @return User
      */
-    public function postRegister(Request $request)
+    public function register(Request $request)
     {
         $validator = $this->validator($request->all());
         if ($validator->passes()) {
-            $user = $this->create($request->all())->toArray();
+            $user = $this->create($request->all());
             $user['link'] = str_random(30);
-            Activation::create(['id_user' => $user['id'], 'token' => $user['link']]);
-            Mail::send('emails.activation', $user, function ($message) use ($user) {
-                $message->to($user['email']);
-                $message->subject('Site - Activation Code');
-            });
+            $this->activation->create(['id_user' => $user->id, 'token' => $user->link]);
+            Mail::to($user->email)->send(new Activate($user));
             return redirect()->to('login')
                 ->with('success', "We sent activation code. Please check your mail.");
         }

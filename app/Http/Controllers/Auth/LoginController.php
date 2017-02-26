@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use App\Models\User_activation as Activation;
@@ -32,14 +33,20 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/cms';
 
+    protected $activation;
+
+    protected $user;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Activation $activation, User $user )
     {
         $this->middleware('guest', ['except' => 'logout']);
+        $this->activation = $activation;
+        $this->user = $user;
     }
 
     /**
@@ -56,7 +63,7 @@ class LoginController extends Controller
     public function login(Guard $auth, Request $request)
     {
         $this->validateLogin($request);
-        if ($auth->attempt(array('email' => $request->input('email'), 'password' => $request->input('password')))) {
+        if ($this->attemptLogin($request)) {
             if ($auth->user()->is_activated == '0') {
                 $auth->logout();
                 return back()->with('warning', "First please activate your account.");
@@ -75,15 +82,15 @@ class LoginController extends Controller
      */
     public function userActivation($token)
     {
-        $check = Activation::where('token', $token)->first();
+        $check = $this->activation->where('token', $token)->first();
         if (!is_null($check)) {
-            $user = User::find($check->id_user);
+            $user = $this->user->find($check->id_user);
             if ($user->is_activated == 1) {
                 return redirect()->to('login')
                     ->with('success', "User are already actived.");
             }
             $user->update(['is_activated' => 1]);
-            Activation::where('token', $token)->delete();
+            $this->activation->where('token', $token)->delete();
             return redirect()->to('login')
                 ->with('success', "User activated successfully.");
         }

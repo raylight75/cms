@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Http\Request;
 use App\Http\Requests\SubmitProduct;
 use App\Http\Requests\SubmitCheckout;
 use App\Services\ShoppingService;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Auth, View;
 
 class ShoppingController extends BaseController
@@ -40,10 +40,13 @@ class ShoppingController extends BaseController
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    protected $cart;
+
     protected $shopping;
 
-    public function __construct(ShoppingService $shoppingService)
+    public function __construct(ShoppingService $shoppingService, Cart $cart)
     {
+        $this->cart = $cart;
         $this->shopping = $shoppingService;
     }
 
@@ -101,7 +104,7 @@ class ShoppingController extends BaseController
      */
     public function createOrder(Request $request)
     {
-        $cart = Cart::instance(auth()->id())->content();
+        $cart = $this->cart->instance(auth()->id())->content();
         if (!$request->session()->has('email')) {
             $request->session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
             return redirect('checkout/shipping');
@@ -110,7 +113,7 @@ class ShoppingController extends BaseController
             return redirect()->back();
         }
         $this->shopping->createOrder($request);
-        Cart::instance(auth()->id())->destroy();
+        $this->cart->instance(auth()->id())->destroy();
         $this->shopping->forgetSessionKeys($request);
         return redirect('checkout/order');
     }
@@ -133,7 +136,7 @@ class ShoppingController extends BaseController
         $data = $this->shopping->prepareStore($request);
         //make new instance of the Cart for every user.
         //active instance of the cart is curent instance.
-        Cart::instance(auth()->id())->add($data);
+        $this->cart->instance(auth()->id())->add($data);
         return redirect('cart');
     }
 
@@ -145,7 +148,7 @@ class ShoppingController extends BaseController
     {
         $content = $request->input('qty');
         foreach ($content as $id => $row) {
-            Cart::instance(auth()->id())
+            $this->cart->instance(auth()->id())
                 ->update($row['rowId'], $row['qty']);
         }
         return redirect('cart');
@@ -158,7 +161,7 @@ class ShoppingController extends BaseController
      */
     public function removeItem($rowId)
     {
-        Cart::instance(auth()->id())->remove($rowId);
+        $this->cart->instance(auth()->id())->remove($rowId);
         return redirect('cart');
     }
 
@@ -168,7 +171,7 @@ class ShoppingController extends BaseController
      */
     public function delete()
     {
-        Cart::instance(auth()->id())->destroy();
+        $this->cart->instance(auth()->id())->destroy();
         return redirect('cart');
     }
 

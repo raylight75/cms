@@ -136,6 +136,16 @@ abstract class Repository implements RepositoryInterface
     }
 
     /**
+     * @param $attribute
+     * @param $value
+     * @return mixed
+     */
+    public function where($attribute, $value)
+    {
+        return $this->model->where($attribute, $value)->get();
+    }
+
+    /**
      * Sets relations for eager loading.
      *
      * @param $relations

@@ -11,13 +11,16 @@
 |
 */
 
+use Facades\App\Http\Routes\RouteRegister;
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
 
-Routers::registerRoutes();
+RouteRegister::registerRoutes();
 
 Route::get('/home', 'HomeController@index');
 

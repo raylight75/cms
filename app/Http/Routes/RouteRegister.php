@@ -2,8 +2,8 @@
 
 namespace App\Http\Routes;
 
-use Route, DB;
 use App\Http\Composers\GlobalComposer;
+use Route;
 
 class RouteRegister
 {
@@ -17,14 +17,24 @@ class RouteRegister
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    protected $global;
+
+    /**
+     * RouteRegister constructor.
+     */
+    public function __construct(GlobalComposer $global)
+    {
+        $this->global = $global;
+    }
+
     /**
      * Build dinamic SEO routes.
      * @return routes
      */
-    public static function registerRoutes()
+    public function registerRoutes()
     {
         $parent_id = 0;
-        $categories = GlobalComposer::getMenuData($parent_id);
+        $categories = $this->global->getMenuData($parent_id);
         foreach ($categories as $row) {
             $parent_cat = $row['name'];
             foreach ($row['sub_cat'] as $sub_cat) {

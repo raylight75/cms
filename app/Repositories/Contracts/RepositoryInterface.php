@@ -77,6 +77,13 @@ interface RepositoryInterface
     public function whereIn($field, $value = array());
 
     /**
+     * @param $field
+     * @param $value
+     * @return mixed
+     */
+    public function where($field, $value);
+
+    /**
      * @param $relation
      * @return mixed
      */

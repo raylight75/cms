@@ -7,14 +7,14 @@
         <div class="container clearfix">
             <ul class="secondary_menu">
                 @if  (Auth::check() && Auth::user()->hasRole('admin'))
-                    <li><a href="{{ url('backend/admin') }}"><?= _('Admin Panel')?></a></li>
+                    <li><a href="{{ url('backend/admin') }}">@lang('site.admin panel')</a></li>
                     @include('frontend.logout')
                 @elseif(Auth::check() && Auth::user()->hasRole('user'))
-                    <li><a href="{{ url('backend/user') }}"><?= _('User Panel')?></a></li>
+                    <li><a href="{{ url('backend/user') }}">@lang('site.user panel')</a></li>
                     @include('frontend.logout')
                 @else
-                    <li><a href=""><?= _('my account')?></a></li>
-                    <li><a href="{{ url('auth/register') }}"><?= _('Register')?></a></li>
+                    <li><a href="">@lang('site.my account')</a></li>
+                    <li><a href="{{ url('auth/register') }}">@lang('site.register')</a></li>
 
                 @endif
             </ul>
@@ -36,12 +36,11 @@
                 <div class="shopping_bag">
                     <a class="shopping_bag_btn" href="javascript:void(0);"><i class="fa fa-shopping-cart"></i>
 
-                        <p><?= _('shopping bag')?></p><span>{{$rows}}</span></a>
+                        <p>@lang('site.shopping bag')</p><span>{{$rows}}</span></a>
 
                     <div class="cart">
                         <ul class="cart-items">
-                            <li class="clearfix"><span class="cart_item_price">
-									<?= _('To add products to your shopping cart click on "Add to Bag" Button')?></span>
+                            <li class="clearfix"><span class="cart_item_price">@lang('site.shopping bag message')</span>
                             </li>
                         </ul>
                     </div>
@@ -52,7 +51,7 @@
                 <div class="shopping_bag">
                     <a class="shopping_bag_btn" href="javascript:void(0);"><i class="fa fa-shopping-cart"></i>
 
-                        <p><?= _('shopping bag')?></p>
+                        <p>@lang('site.shopping bag')</p>
                         <span>{{$rows}}</span></a>
 
                     <div class="cart">
@@ -69,12 +68,12 @@
                         @endforeach
                         <div class="cart_total">
                             <div class="clearfix">
-										<span class="cart_subtotal"><?= _('bag subtotal:')?>
+										<span class="cart_subtotal">@lang('site.bag subtotal')
                                             <b>{!! Helper::currency($grand_total) !!}
                                                 &nbsp{!! Helper::label() !!}</b></span>
                             </div>
                             <a class="btn active"
-                               href="{{ url('checkout/shipping') }}"><?= _('Checkout')?></a>
+                               href="{{ url('checkout/shipping') }}">@lang('site.checkout')</a>
                         </div>
                     </div>
                 </div>
@@ -83,20 +82,13 @@
                 @endif
                         <!-- MENU -->
                 <ul class="navmenu center">
-                    <li class="sub-menu first"><a href="{{ url('cms') }}"><?= _('Home')?></a>
+                    <li class="normal menu"><a href="{{ url('cms') }}">@lang('site.home')</a>
                         <!-- MEGA MENU -->
-                        <ul class="mega_menu megamenu_col1 clearfix">
-                            <li class="col">
-                                <ol>
-                                    <li class="active"><a href="index.html"><?= _('Home slider')?></a></li>
-                                </ol>
-                            </li>
-                        </ul>
                     </li>
                     <!-- //MEGA MENU -->
                     <!-- MEGA MENU-->
                     @foreach($menu as $row)
-                        <li class="sub-menu"><a><?= _($row['name'])?></a>
+                        <li class="sub-menu"><a>{{$row['name']}}</a>
                             <ul class="mega_menu megamenu_col1 clearfix">
                                 <li class="col">
                                     @foreach($row['sub_cat'] as $item)
@@ -113,20 +105,12 @@
                         @endforeach
                                 <!-- //MEGA MENU -->
                         <!-- MEGA MENU -->
-                        <li class=" sub-menu"><a href="{{ url('blog') }}"><?= _('Blog')?></a>
-                            <ul class="mega_menu megamenu_col1 clearfix">
-                                <li class="col">
-                                    <ol>
-                                        <li><a href="{{ url('blog') }}"><?= _('Blog')?></a></li>
-                                    </ol>
-                                </li>
-                            </ul>
-                        </li>
+                        <li class=" normal menu"><a href="{{ url('blog') }}">@lang('site.blog')</a></li>
                         <!-- //MEGA MENU -->
-                        <li class="last sale_menu"><a href="{{ url('eshop') }}"><?= _('Sale')?></a></li>
-                        <li class="normal menu"><a href="{{ url('contacts') }}"><?= _('Contacts')?></a>
-                        <li class="normal menu"><a href="{{ url('aboutus') }}"><?= _('About Us')?></a>
-                        <li class="normal menu"><a href="{{ url('login') }}"><?= _('Login')?></a>
+                        <li class="last sale_menu"><a href="{{ url('eshop') }}">@lang('site.blog')</a></li>
+                        <li class="normal menu"><a href="{{ url('contacts') }}">@lang('site.contacts')</a>
+                        <li class="normal menu"><a href="{{ url('aboutus') }}">@lang('site.about us')</a>
+                        <li class="normal menu"><a href="{{ url('login') }}">@lang('site.login')</a>
                         <li class="sub-menu"><a>{!! Helper::label() !!}</a>
                             <ul class="mega_menu megamenu_col1 clearfix">
                                 <li class="col">

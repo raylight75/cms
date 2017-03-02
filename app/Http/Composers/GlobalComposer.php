@@ -2,11 +2,7 @@
 
 namespace App\Http\Composers;
 
-use App\Repositories\CategoryRepository;
-use App\Repositories\CurrencyRepository;
-use App\Repositories\SettingRepository;
-use Gloudemans\Shoppingcart\Cart;
-use Illuminate\Contracts\Auth\Guard;
+use App\Services\ShareService;
 use View;
 
 class GlobalComposer
@@ -40,36 +36,15 @@ class GlobalComposer
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $cat;
-
-    protected $cart;
-
-    protected $currency;
-
-    protected $auth;
-
-    protected $setting;
-
-    protected $parent_id = 0;
+    protected $share;
 
     /**
      * GlobalService constructor.
      * @param CategoryRepository $cat
      */
-    public function __construct
-    (
-        CategoryRepository $cat,
-        Cart $cart,
-        CurrencyRepository $currency,
-        Guard $auth,
-        SettingRepository $setting
-    )
+    public function __construct(ShareService $share)
     {
-        $this->cat = $cat;
-        $this->cart = $cart;
-        $this->currency = $currency;
-        $this->auth = $auth;
-        $this->setting = $setting;
+        $this->share = $share;
     }
 
     /**
@@ -77,58 +52,7 @@ class GlobalComposer
      */
     public function compose()
     {
-        $data = $this->globalData();
+        $data = $this->share->globalData();
         View::share($data);
-    }
-
-    /**
-     * Get Menu Items
-     * @param $parent_id
-     * @return array
-     */
-    public function getMenuData($parent_id)
-    {
-        $categories = array();
-        $result = $this->cat->where('parent_id', $parent_id);
-        foreach ($result as $parentCategory) {
-            $category = array();
-            $category['id'] = $parentCategory->cat_id;
-            $category['name'] = $parentCategory->cat;
-            $category['parent_id'] = $parentCategory->parent_id;
-            $category['banner'] = $parentCategory->m_img;
-            $category['sub_cat'] = $this->getMenuData($category['id']);
-            $categories[$parentCategory->cat_id] = $category;
-        }
-        return $categories;
-    }
-
-    /**
-     * Prepare global variables.
-     * @return array
-     */
-    public function globalData()
-    {
-        if (!$this->auth->check()) {
-            $rows = null;
-            $cart = null;
-            $grandTotal = null;
-        } else {
-            $rows = $this->cart->instance(auth()->id())
-                ->content()
-                ->count(false);
-            $cart = $this->cart->instance(auth()->id())
-                ->content();
-            $grandTotal = $this->cart->instance(auth()->id())
-                ->total();
-        }
-        $data = array(
-            'menu' => $this->getMenuData($this->parent_id),
-            'header' => $this->setting->findOrFail(1),
-            'rows' => $rows,
-            'cart' => $cart,
-            'grand_total' => $grandTotal,
-            'currencies' => $this->currency->all(),
-        );
-        return $data;
     }
 }

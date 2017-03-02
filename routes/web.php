@@ -11,7 +11,7 @@
 |
 */
 
-use Facades\App\Http\Routes\RouteRegister;
+use Facades\App\Http\Routes\Register;
 
 
 Route::get('/', function () {
@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-RouteRegister::registerRoutes();
+Register::seoRoutes();
 
 Route::get('/home', 'HomeController@index');
 

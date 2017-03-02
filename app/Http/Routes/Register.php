@@ -2,10 +2,10 @@
 
 namespace App\Http\Routes;
 
-use App\Http\Composers\GlobalComposer;
+use App\Services\ShareService;
 use Route;
 
-class RouteRegister
+class Register
 {
     /**
      *
@@ -17,24 +17,24 @@ class RouteRegister
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $global;
+    protected $share;
 
     /**
      * RouteRegister constructor.
      */
-    public function __construct(GlobalComposer $global)
+    public function __construct(ShareService $share)
     {
-        $this->global = $global;
+        $this->share = $share;
     }
 
     /**
      * Build dinamic SEO routes.
      * @return routes
      */
-    public function registerRoutes()
+    public function seoRoutes()
     {
         $parent_id = 0;
-        $categories = $this->global->getMenuData($parent_id);
+        $categories = $this->share->getMenuData($parent_id);
         foreach ($categories as $row) {
             $parent_cat = $row['name'];
             foreach ($row['sub_cat'] as $sub_cat) {

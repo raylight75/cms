@@ -1,6 +1,6 @@
 <!-- SHOP FILTER -->
 <div class="sidepanel widget_sizes">
-    <h3><?= _('SHOP BY CATEGORIES')?></h3>
+    <h3>@lang('site.by cats')</h3>
 
     <form class="login_form" name="pr_cat" id="categories" role="form"
           method="GET" action="{{ url('filter/products/'.$menu[$parent]['id'].'') }}">
@@ -21,7 +21,7 @@
 
         <div class="sidepanel widget_sized">
 
-            <h3><?= _('SORT BY SIZE')?></h3>
+            <h3>@lang('site.by size')</h3>
             @foreach($properties['size'] as $row)
                 <input type="checkbox" id="{{$row->size}}"
                 <a class="size{{$row->size}}" name="size[]" value="{{$row->size_id}}"
@@ -35,7 +35,7 @@
 
         <div class="sidepanel widget_color">
 
-            <h3><?= _('SORT BY COLOR')?></h3>
+            <h3>@lang('site.by color')</h3>
             @foreach($properties['color'] as $row)
                 <input type="checkbox" id="{{$row->color}}"
                 <a class="color{{$row->color_id}}"
@@ -57,7 +57,7 @@
 
         <div class="sidepanel widget_brands">
 
-            <h3><?= _('SORT BY BRANDS')?></h3>
+            <h3>@lang('site.by brands')</h3>
             @foreach($properties['brand'] as $row)
                 <input type="checkbox" id="{{$row->brand}}" name="brand[]" value="{{$row->brand_id}}"
                         {{(in_array($row->brand_id, $brand)) ? 'checked="checked"' : ''}}/>

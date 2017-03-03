@@ -14,15 +14,13 @@
                     <div class="tovar_item_btns">
                         <a class="open-project tovar_view"
                            href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
-                            <span><?= _('product')?></span> <?= _(' view')?>
-                        </a>
+                            <span>@lang('site.product')</span> @lang('site.view')</a>
                         @if (Auth::check() && Auth::user()->hasRole('user'))
                             <a class="add_bag"
                                href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
                                 <i class="fa fa-shopping-cart"></i></a>
                         @else
-                            <a class="add_bag" href="{{ url('user') }}">
-                                <i class="fa fa-shopping-cart"></i></a>
+                            <a class="add_bag" href="{{ url('user') }}"><i class="fa fa-shopping-cart"></i></a>
                         @endif
                     </div>
                 </div>
@@ -34,13 +32,13 @@
                 <div class="tovar_content">{{$row->description}}</div>
             </div>
         </div>
-        @endforeach
-                <!-- //TOVAR1 -->
-        <div class="clearfix">
-            <!-- PAGINATION -->
-            {!! $products->appends(Input::except('page'))->render() !!}
-                    <!-- //PAGINATION -->
-        </div>
-        <hr>
+@endforeach
+<!-- //TOVAR1 -->
+    <div class="clearfix">
+        <!-- PAGINATION -->
+    {!! $products->appends(Input::except('page'))->render() !!}
+    <!-- //PAGINATION -->
+    </div>
+    <hr>
 </div>
 <!-- //ROW -->

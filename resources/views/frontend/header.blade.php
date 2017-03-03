@@ -107,7 +107,7 @@
                         <!-- MEGA MENU -->
                         <li class=" normal menu"><a href="{{ url('blog') }}">@lang('site.blog')</a></li>
                         <!-- //MEGA MENU -->
-                        <li class="last sale_menu"><a href="{{ url('eshop') }}">@lang('site.blog')</a></li>
+                        <li class="last sale_menu"><a href="{{ url('eshop') }}">@lang('site.sale')</a></li>
                         <li class="normal menu"><a href="{{ url('contacts') }}">@lang('site.contacts')</a>
                         <li class="normal menu"><a href="{{ url('aboutus') }}">@lang('site.about us')</a>
                         <li class="normal menu"><a href="{{ url('login') }}">@lang('site.login')</a>
@@ -123,6 +123,14 @@
                                 </li>
                             </ul>
                         </li>
+                    <li class="sub-menu"><a>@lang('site.lng')</a>
+                        <ul class="mega_menu megamenu_col1 clearfix">
+                            <li class="col">
+                                    <ol><li><a href="{{ url('lg') }}/en">en</a></li></ol>
+                                    <ol><li><a href="{{ url('lg') }}/bg">bg</a></li></ol>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
                 <!-- //MENU -->
         </div>

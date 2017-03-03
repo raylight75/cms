@@ -8,8 +8,8 @@
 				<!-- CONTAINER -->
 				<div class="container">
 					<div class="flex_caption1">
-						<p class="title1 captionDelay2 FromTop"><?= _('mega sell')?></p>
-						<p class="title2 captionDelay3 FromTop"><?= _('last week of sales')?></p>
+						<p class="title1 captionDelay2 FromTop">mega sell</p>
+						<p class="title2 captionDelay3 FromTop">last week of sales</p>
 					</div>
 					<a class="flex_caption2" href="javascript:void(0);"><div
 							class="middle">
@@ -34,8 +34,8 @@
 				<!-- CONTAINER -->
 				<div class="container">
 					<div class="flex_caption1">
-						<p class="title1 captionDelay2 FromTop"><?= _('mega sell')?></p>
-						<p class="title2 captionDelay3 FromTop"><?= _('last week of sales')?></p>
+						<p class="title1 captionDelay2 FromTop">mega sell</p>
+						<p class="title2 captionDelay3 FromTop">last week of sales</p>
 					</div>
 					<a class="flex_caption2" href="javascript:void(0);"><div
 							class="middle">
@@ -60,8 +60,8 @@
 				<!-- CONTAINER -->
 				<div class="container">
 					<div class="flex_caption1">
-						<p class="title1 captionDelay2 FromTop"><?= _('mega sell')?></p>
-						<p class="title2 captionDelay3 FromTop"><?= _('last week of sales')?></p>
+						<p class="title1 captionDelay2 FromTop">mega sell</p>
+						<p class="title2 captionDelay3 FromTop">last week of sales</p>
 					</div>
 					<a class="flex_caption2" href="javascript:void(0);"><div
 							class="middle">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\BaseService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use View;
 
 class BaseController extends Controller
@@ -153,6 +154,18 @@ class BaseController extends Controller
     {
         $currency = ($currency != "") ? $currency : "USD";
         $request->session()->put('currency', $currency);
+        return redirect()->back();
+    }
+
+    /**
+     * Set language to session
+     * @param string $locale
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function set_language(Request $request,$locale = "")
+    {
+        $locale = ($locale != "") ? $locale : "en";
+        $request->session()->put('locale', $locale);
         return redirect()->back();
     }
 

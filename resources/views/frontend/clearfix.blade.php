@@ -30,14 +30,14 @@
             </div>
         </div>
         <div class="tovar_color_select">
-            <p><?= _('Available color')?></p>
+            <p>@lang('site.аvailable color')</p>
             @foreach($item->color as $c)
                 <a class="color{{$c->color_id}}"></a>
             @endforeach
         </div>
         <div class="tovar_size_select">
             <div class="clearfix">
-                <p class="pull-left"><?= _('Available SIZE')?></p>
+                <p class="pull-left">@lang('site.аvailable size')</p>
             </div>
             @foreach($item->size as $s)
                 <a class="sizeXXXL">{{$s->size}}</a>
@@ -48,17 +48,17 @@
             <div class="tovar_color_select">
                 <input type="text" name="discount" value="" id=""
                        maxlength="7" size="50" style="width: 24%"/>
-                <span><?= _('DISCOUNT CODE')?></span>
+                <span>@lang('site.discount code')</span>
                 @include('messages.flash_message')
             </div>
             <select name="color" class="basic">
-                <option value=""><?= _('COLOR')?></option>
+                <option value="">@lang('site.color')</option>
                 @foreach($item->color as $c)
                     <option value="{{$c->color}}">{{$c->color}}</option>
                 @endforeach
             </select>
             <select name="size" class="basic">
-                <option value=""><?= _('SIZE')?></option>
+                <option value="">@lang('site.size')</option>
                 @foreach($item->size as $s)
                     <option value="{{$s->size}}">{{$s->size}}</option>
                 @endforeach
@@ -72,7 +72,7 @@
                 @include('errors.error_layout')
                 @if (!Auth::check())
                     <a class="add_bag" href="{{ url('login') }}">
-                        <i class="fa fa-shopping-cart"></i><?= _('Add to bag')?></a>
+                        <i class="fa fa-shopping-cart"></i>@lang('site.аdd to bag')</a>
                 @else
                     {!! Form::hidden('id', $item->product_id) !!}
                     {!! Form::hidden('name', $item->name) !!}
@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="tovar_shared clearfix">
-            <p><?= _('Share item with friends')?></p>
+            <p>@lang('site.share')</p>
             <ul>
                 <li><a class="facebook" href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
                 <li><a class="twitter" href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>

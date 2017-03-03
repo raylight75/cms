@@ -7,7 +7,7 @@
 		<div class="row">
 
 			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 col-ss-12 padbot30">
-				<h4><?= _('Contacts')?></h4>
+				<h4>@lang('site.contacts')</h4>
 				<div class="foot_address">
 					<span>Mvc Shop</span>55 Ney York 6515, Grand Tower
 				</div>
@@ -20,21 +20,21 @@
 			</div>
 
 			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 col-ss-12 padbot30">
-				<h4><?= _('Information')?></h4>
+				<h4>@lang('site.information')</h4>
 				<ul class="foot_menu">
-					<li><a href="about.html"><?= _('About us')?></a></li>
-					<li><a href="javascript:void(0);"><?= _('Delivery')?></a></li>
-					<li><a href="javascript:void(0);"><?= _('Privacy police')?></a></li>
-					<li><a href="blog.html"><?= _('Blog')?></a></li>
-					<li><a href="faq.html"><?= _('Faqs')?></a></li>
-					<li><a href="contacts.html"><?= _('countact us')?></a></li>
+					<li><a href="about.html">@lang('site.about us')</a></li>
+					<li><a href="javascript:void(0);">@lang('site.delivery')</a></li>
+					<li><a href="javascript:void(0);">@lang('site.privacy')</a></li>
+					<li><a href="blog.html">@lang('site.blog')</a></li>
+					<li><a href="faq.html">@lang('site.faqs')</a></li>
+					<li><a href="contacts.html">@lang('site.contacts')</a></li>
 				</ul>
 			</div>
 
 			<div class="respond_clear_480"></div>
 
 			<div class="col-lg-4 col-md-4 col-sm-6 padbot30">
-				<h4><?= _('About shop')?></h4>
+				<h4>@lang('site.about shop')</h4>
 				<p>We ask for your name, telephone number, home address, email
 					address and age for competitions, prize draws or newsletter sign
 					ups. When a purchase is made on our site, in addition to the above,
@@ -47,7 +47,7 @@
 			<div class="respond_clear_768"></div>
 
 			<div class="col-lg-4 col-md-4 padbot30">
-				<h4><?= _('Newsletter')?></h4>
+				<h4>@lang('site.newsletter')</h4>
 				<form class="newsletter_form clearfix" action="javascript:void(0);"
 					method="get">
 					<input type="text" name="newsletter"
@@ -57,7 +57,7 @@
 					<input class="btn newsletter_btn" type="submit" value="SIGN UP">
 				</form>
 
-				<h4><?= _('we are in social networks')?></h4>
+				<h4>@lang('site.social')</h4>
 				<div class="social">
 					<a href="javascript:void(0);"><i class="fa fa-twitter"></i></a> <a
 						href="javascript:void(0);"><i class="fa fa-facebook"></i></a> <a
@@ -78,11 +78,7 @@
 		<!-- CONTAINER -->
 		<div class="container clearfix">
 			<div class="copyright_inf">
-				<span>Mvc Shop© 2014</span> | <span>Theme modified by Tihomir
-					Blajev</span> | <a class="back_top" href="javascript:void(0);">
-					<?= _('Back to Top')?>
-					<i class="fa fa-angle-up"></i>
-				</a>
+				<span>Mvc Shop© 2014</span> | <span>Theme modified by Tihomir Blajev</span>
 			</div>
 		</div>
 		<!-- //CONTAINER -->

@@ -22,6 +22,8 @@ Auth::routes();
 
 Register::seoRoutes();
 
+Route::get('/lg/{locale}', 'BaseController@set_language');
+
 Route::get('/home', 'HomeController@index');
 
 Route::get('/aboutus', 'BaseController@aboutus');

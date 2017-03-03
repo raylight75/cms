@@ -17,7 +17,7 @@
             <!-- SIDEBAR TOVAR DETAILS -->
             <div class="col-lg-3 col-md-3 sidebar_tovar_details">
                     <h3>
-                        <b><?= _('other products')?></b>
+                        <b>@lang('site.other')</b>
                     </h3>
                 <ul class="tovar_items_small clearfix">
                     @foreach($products as $row)
@@ -50,8 +50,8 @@
                         <!-- TOVAR INFORMATION -->
                 <div class="tovar_information">
                     <ul class="tabs clearfix">
-                        <li class="current"><?= _('Description')?></li>
-                        <li><?= _('Information')?></li>
+                        <li class="current">@lang('site.description')</li>
+                        <li>@lang('site.information')</li>
                     </ul>
                     <div class="box visible">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
@@ -137,7 +137,7 @@
 
     <!-- CONTAINER -->
     <div class="container">
-        <h2><?= _('new arrivals')?></h2>
+        <h2>@lang('site.arrivals')</h2>
 
         <!-- JCAROUSEL -->
         <div class="jcarousel-wrapper">

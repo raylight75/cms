@@ -71,7 +71,7 @@
                     <!-- SORTING TOVAR PANEL -->
                     <div class="sorting_options clearfix">
                         <div class="count_tovar_items">
-                            <p><?= _('Products')?></p>
+                            <p>@lang('site.products')</p>
                             <span>Items</span>
                         </div>
                         <!-- //COUNT TOVAR ITEMS -->

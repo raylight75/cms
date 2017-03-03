@@ -6,7 +6,7 @@
 
     <!-- CONTAINER -->
     <div class="container">
-        <h2><?= _('Featured products')?></h2>
+        <h2>@lang('site.featured')</h2>
 
         <!-- ROW -->
         <div class="row">
@@ -36,7 +36,7 @@
                                 <div class="tovar_item_btns">
                                     <a class="open-project tovar_view"
                                        href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
-                                        <span><?= _('product')?></span> <?= _('view')?></a>
+                                        <span>@lang('site.product')</span> @lang('site.view')</a>
                                     <a class="add_bag" href="{{ url('login') }}"><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
 
     <!-- CONTAINER -->
     <div class="container">
-        <h2><?= _('new arrivals')?></h2>
+        <h2>@lang('site.arrivals')</h2>
 
         <!-- JCAROUSEL -->
         <div class="jcarousel-wrapper">

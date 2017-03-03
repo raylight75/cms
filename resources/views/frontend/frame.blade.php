@@ -28,7 +28,7 @@
     </div>
 
     <div class="tovar_view_description">
-        <div class="tovar_view_title"><h1><?= _('QUICK VIEW')?></h1></div>
+        <div class="tovar_view_title"><h1>@lang('site.quick view')</h1></div>
         <div class="tovar_view_title">{{$item->name}}</div>
         <div class="tovar_article">88-305-676</div>
         <div class="clearfix tovar_brend_price">
@@ -38,14 +38,14 @@
             </div>
         </div>
         <div class="tovar_color_select">
-            <p><?= _('Available color')?></p>
+            <p>@lang('site.аvailable color')</p>
             @foreach($item->color as $c)
                 <a class="color{{$c->color_id}}"></a>
             @endforeach
         </div>
         <div class="tovar_size_select">
             <div class="clearfix">
-                <p class="pull-left"><?= _('Available SIZE')?></p>
+                <p class="pull-left">@lang('site.аvailable size')</p>
                 <span><?= _('Size & Fit')?></span>
             </div>
             @foreach($item->size as $s)
@@ -62,7 +62,7 @@
             </p>
         </div>
         <div class="tovar_shared clearfix">
-            <p><?= _('Share item with friends')?></p>
+            <p>@lang('site.share')</p>
             <ul>
                 <li><a class="facebook" href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
                 <li><a class="twitter" href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>

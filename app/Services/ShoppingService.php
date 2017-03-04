@@ -8,8 +8,8 @@ use App\Repositories\OrderRepository;
 use App\Repositories\PaymentRepository;
 use App\Repositories\ShippingRepository;
 use App\Repositories\TaxRepository;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use Auth;
+use Gloudemans\Shoppingcart\Cart;
+use Illuminate\Contracts\Auth\Guard;
 use Carbon\Carbon;
 
 class ShoppingService
@@ -43,7 +43,12 @@ class ShoppingService
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
+
+    protected $auth;
+
     protected $country;
+
+    protected $cart;
 
     protected $customer;
 
@@ -55,17 +60,32 @@ class ShoppingService
 
     protected $tax;
 
+    /**
+     * ShoppingService constructor.
+     * @param CountryRepository $country
+     * @param Cart $cart
+     * @param CustomerRepository $customer
+     * @param Guard $auth
+     * @param OrderRepository $order
+     * @param PaymentRepository $payment
+     * @param ShippingRepository $shipping
+     * @param TaxRepository $tax
+     */
     public function __construct
     (
         CountryRepository $country,
+        Cart $cart,
         CustomerRepository $customer,
+        Guard $auth,
         OrderRepository $order,
         PaymentRepository $payment,
         ShippingRepository $shipping,
         TaxRepository $tax
     )
     {
+        $this->auth = $auth;
         $this->country = $country;
+        $this->cart = $cart;
         $this->customer = $customer;
         $this->order = $order;
         $this->payment = $payment;
@@ -90,19 +110,20 @@ class ShoppingService
         }
     }
 
+
     /**
      * Prepare order and customer data for database.
-     * @param Request $request
+     * @param $request
      */
     public function createOrder($request)
     {
-        $cart = Cart::content();
+        $cart = $this->cart->instance(auth()->id())->content();
         $customer = $request->session()->all();
-        $customer['user_id'] = Auth::user()->id;
+        $customer['user_id'] = $this->auth->user()->id;
         $this->customer->create($customer);
         foreach ($cart as $item) {
             $this->order->create([
-                'user_id' => Auth::user()->id,
+                'user_id' => $this->auth->user()->id,
                 'order_date' => Carbon::now(),
                 'product_id' => $item->id,
                 'quantity' => $item->qty,

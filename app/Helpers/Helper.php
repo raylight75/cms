@@ -35,7 +35,7 @@ class Helper
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    public static function currency($input)
+    public static function price($input)
     {
         $var = session('currency');
         if (isset($var)) {
@@ -46,16 +46,5 @@ class Helper
         }
         $total = (double)$input * (double)$rate;
         return number_format((double)$total, 2);
-    }
-
-    public static function label()
-    {
-        $var = session('currency');
-        if (isset($var)) {
-            $result = $var;
-        } else {
-            $result = "usd";
-        }
-        return $result;
     }
 }

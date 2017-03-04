@@ -92,7 +92,7 @@
                                     </ul>
                                 </td>
                                 <td class="product-price">
-                                    {!! Helper::currency($item->price) !!}&nbsp{!! Helper::label() !!}
+                                    {!! Helper::price($item->price) !!}&nbsp{!! $label !!}
                                 </td>
                                 <td>
                                     {!! Form::open(['url' => 'cart/update', 'method' => 'put']) !!}
@@ -101,7 +101,7 @@
                                         ['size' => '1','style' => 'text-align: center','maxlength' => '3']) !!}
                                 </td>
                                 <td class="product-subtotal">
-                                    {!! Helper::currency($item->subtotal) !!}&nbsp{!! Helper::label() !!}
+                                    {!! Helper::price($item->subtotal) !!}&nbsp{!! $label !!}
                                 </td>
                                 <td class="product-remove">
                                     <a href="{{ url('cart/remove') }}/{{$item->rowId}}">
@@ -129,7 +129,7 @@
                         <tr class="total clearfix">
                             <th><?= _('Total')?></th>
                             @if ($cart)
-                                <td>{!! Helper::currency($grand_total) !!}&nbsp{!! Helper::label() !!}</td>
+                                <td>{!! Helper::price($grand_total) !!}&nbsp{!! $label !!}</td>
                             @endif
                         </tr>
                     </table>

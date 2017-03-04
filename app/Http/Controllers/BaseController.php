@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\BaseService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use View;
 
 class BaseController extends Controller
@@ -43,17 +42,22 @@ class BaseController extends Controller
 
     protected $base;
 
+    protected $request;
+
+
     /**
+     * BaseController constructor.
      * @param BaseService $baseService
+     * @param Request $request
      */
-    public function __construct(BaseService $baseService)
+    public function __construct(BaseService $baseService, Request $request)
     {
         $this->base = $baseService;
+        $this->request = $request;
     }
 
     /**
-     * Show the home page to the user.
-     *
+     * Show the home page to the user.     *
      * @return Response
      */
     public function index()
@@ -71,14 +75,14 @@ class BaseController extends Controller
         return view('frontend.aboutus');
     }
 
+
     /**
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function autocomplete(Request $request)
+    public function autocomplete()
     {
-        $results = $this->base->autocomplete($request);
-        if ($request->ajax()) {
+        $results = $this->base->autocomplete($this->request);
+        if ($this->request->ajax()) {
             return response()->json($results);
         } else {
             return redirect()->back();
@@ -99,10 +103,10 @@ class BaseController extends Controller
      * @param $parent
      * @return View
      */
-    public function filter(Request $request, $crud, $parent)
+    public function filter($crud, $parent)
     {
-        $data = $this->base->getFilter($request, $parent);
-        if ($request->ajax()) {
+        $data = $this->base->getFilter($this->request, $parent);
+        if ($this->request->ajax()) {
             return response()->json(view('frontend.ajax-products', $data)->render());
         } else {
             return view('frontend.filter_view', $data);
@@ -135,37 +139,25 @@ class BaseController extends Controller
      * @param $parent
      * @return \Illuminate\Http\JsonResponse|View
      */
-    public function search(Request $request, $parent)
+    public function search($parent)
     {
-        $data = $this->base->prepareSearch($request, $parent);
-        if ($request->ajax()) {
+        $data = $this->base->prepareSearch($this->request, $parent);
+        if ($this->request->ajax()) {
             return response()->json(view('frontend.ajax-products', $data)->render());
         } else {
             return view('frontend.filter_view', $data);
         }
     }
 
-    /**
-     * Set currency to session
-     * @param string $currency
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function set_currency(Request $request,$currency = "")
-    {
-        $currency = ($currency != "") ? $currency : "USD";
-        $request->session()->put('currency', $currency);
-        return redirect()->back();
-    }
 
     /**
-     * Set language to session
-     * @param string $locale
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param string $value
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function set_language(Request $request,$locale = "")
+    public function set_Session($value = "")
     {
-        $locale = ($locale != "") ? $locale : "en";
-        $request->session()->put('locale', $locale);
+        $field = $this->request->segment(1);
+        $this->request->session()->put($field, $value);
         return redirect()->back();
     }
 
@@ -178,11 +170,11 @@ class BaseController extends Controller
         return view('frontend.login');
     }
 
-    public function welcome(Guard $auth,Request $request)
+    public function welcome(Guard $auth)
     {
         //redirect trait AuthenticatesUsers getLogout()
         $user = $auth->user()->name;
-        $request->session()->flash('flash_message', 'You have been successfully Logged In!');
+        $this->request->session()->flash('flash_message', 'You have been successfully Logged In!');
         return view('messages.welcome')->with('user', $user);
     }
 }

@@ -62,15 +62,15 @@
                                          src="{{ url('images/products') }}/{{$item->options->img}}" alt=""/>
                                     <a href="{{ url('cart') }}" class="cart_item_title">{{$item->name}}</a>
 										<span class="cart_item_price">{{$item->qty}}
-                                            x{!! Helper::currency($item->price) !!}&nbsp{!! Helper::label() !!}</span>
+                                            x{!! Helper::price($item->price) !!}&nbsp{!! $label !!}</span>
                                 </li>
                             </ul>
                         @endforeach
                         <div class="cart_total">
                             <div class="clearfix">
 										<span class="cart_subtotal">@lang('site.bag subtotal')
-                                            <b>{!! Helper::currency($grand_total) !!}
-                                                &nbsp{!! Helper::label() !!}</b></span>
+                                            <b>{!! Helper::price($grand_total) !!}
+                                                &nbsp{!! $label !!}</b></span>
                             </div>
                             <a class="btn active"
                                href="{{ url('checkout/shipping') }}">@lang('site.checkout')</a>
@@ -111,7 +111,7 @@
                         <li class="normal menu"><a href="{{ url('contacts') }}">@lang('site.contacts')</a>
                         <li class="normal menu"><a href="{{ url('aboutus') }}">@lang('site.about us')</a>
                         <li class="normal menu"><a href="{{ url('login') }}">@lang('site.login')</a>
-                        <li class="sub-menu"><a>{!! Helper::label() !!}</a>
+                        <li class="sub-menu"><a>{!! $label !!}</a>
                             <ul class="mega_menu megamenu_col1 clearfix">
                                 <li class="col">
                                     @foreach($currencies as $row)
@@ -123,11 +123,11 @@
                                 </li>
                             </ul>
                         </li>
-                    <li class="sub-menu"><a>@lang('site.lng')</a>
+                    <li class="sub-menu"><a>{{$locale}}</a>
                         <ul class="mega_menu megamenu_col1 clearfix">
                             <li class="col">
-                                    <ol><li><a href="{{ url('lg') }}/en">en</a></li></ol>
-                                    <ol><li><a href="{{ url('lg') }}/bg">bg</a></li></ol>
+                                    <ol><li><a href="{{ url('locale') }}/en">en</a></li></ol>
+                                    <ol><li><a href="{{ url('locale') }}/bg">bg</a></li></ol>
                             </li>
                         </ul>
                     </li>

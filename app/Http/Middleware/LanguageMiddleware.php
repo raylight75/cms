@@ -29,7 +29,7 @@ class LanguageMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $locale = $request->session()->get('locale');
+        $locale = $request->session()->get('locale', config('app.locale'));
         $this->app->setLocale($locale);
         return $next($request);
     }

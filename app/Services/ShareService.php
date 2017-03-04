@@ -7,6 +7,7 @@ use App\Repositories\CurrencyRepository;
 use App\Repositories\SettingRepository;
 use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Foundation\Application;
 use View;
 
 class ShareService
@@ -40,24 +41,33 @@ class ShareService
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    protected $auth;
+
+    protected $app;
+
     protected $cat;
 
     protected $cart;
 
     protected $currency;
 
-    protected $auth;
-
     protected $setting;
 
     protected $parent_id = 0;
 
+
     /**
-     * GlobalService constructor.
+     * ShareService constructor.
+     * @param Application $app
      * @param CategoryRepository $cat
+     * @param Cart $cart
+     * @param CurrencyRepository $currency
+     * @param Guard $auth
+     * @param SettingRepository $setting
      */
     public function __construct
     (
+        Application $app,
         CategoryRepository $cat,
         Cart $cart,
         CurrencyRepository $currency,
@@ -65,10 +75,11 @@ class ShareService
         SettingRepository $setting
     )
     {
+        $this->auth = $auth;
+        $this->app = $app;
         $this->cat = $cat;
         $this->cart = $cart;
         $this->currency = $currency;
-        $this->auth = $auth;
         $this->setting = $setting;
     }
 
@@ -115,6 +126,8 @@ class ShareService
         $data = array(
             'menu' => $this->getMenuData($this->parent_id),
             'header' => $this->setting->findOrFail(1),
+            'locale' => $this->app->getLocale(),
+            'label' => session('currency', config('app.currency')),
             'rows' => $rows,
             'cart' => $cart,
             'grand_total' => $grandTotal,

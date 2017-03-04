@@ -82,7 +82,7 @@
                                        class="cart_item_title">{{$item->name}}</a>
 										<span class="cart_item_price">
 										{{$item->qty}}
-                                            x{!! Helper::currency($item->price) !!}&nbsp{!! Helper::label() !!}</span>
+                                            x{!! Helper::price($item->price) !!}&nbsp{!! $label !!}</span>
                                 </li>
                             </ul>
                         @endforeach
@@ -99,16 +99,16 @@
                     <table class="bag_total">
                         <tr class="shipping clearfix">
                             <th>Products</th>
-                            <td>{!! Helper::currency($grand_total) !!}&nbsp{!! Helper::label() !!}</td>
+                            <td>{!! Helper::price($grand_total) !!}&nbsp{!! $label !!}</td>
                         </tr>
                         <tr class="shipping clearfix">
                             <th>SHIPPING RATE</th>
-                            <td>{!! Helper::currency($shippings->rate) !!}&nbsp{!! Helper::label() !!}</td>
+                            <td>{!! Helper::price($shippings->rate) !!}&nbsp{!! $label !!}</td>
                         </tr>
                         <tr class="shipping clearfix">
                             <th>+ 20% VAT applicable</th>
                             <?php $vat_total = $grand_total * $vat;?>
-                            <td>{!! Helper::currency($vat_total) !!}&nbsp{!! Helper::label() !!}</td>
+                            <td>{!! Helper::price($vat_total) !!}&nbsp{!! $label !!}</td>
                         </tr>
                         <tr class="total clearfix">
                             <th>Total</th>
@@ -116,7 +116,7 @@
                             $shipping_rate = $shippings->rate;
                             $grand_total = $grand_total + $shipping_rate + $vat_total;
                             ?>
-                            <td>{!! Helper::currency($grand_total) !!}&nbsp{!! Helper::label() !!}</td>
+                            <td>{!! Helper::price($grand_total) !!}&nbsp{!! $label !!}</td>
                         </tr>
                     </table>
                     <a class="btn active" href="{{ url('checkout/create') }}">Place Order</a>

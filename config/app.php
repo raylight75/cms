@@ -81,6 +81,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Currency label for products
+    |--------------------------------------------------------------------------
+    |
+    | The application currency label determines the default label that will be used
+    | by the products. You are free to set this value
+    | to any of the currency label which will be supported by the products.
+    |
+    */
+
+    'currency' => 'usd',
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Fallback Locale
     |--------------------------------------------------------------------------
     |

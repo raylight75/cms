@@ -44,9 +44,23 @@ class ShoppingController extends BaseController
 
     protected $shopping;
 
-    public function __construct(ShoppingService $shoppingService, Cart $cart)
+    protected $request;
+
+    /**
+     * ShoppingController constructor.
+     * @param ShoppingService $shoppingService
+     * @param Cart $cart
+     * @param Request $request
+     */
+    public function __construct
+    (
+        ShoppingService $shoppingService,
+        Cart $cart,
+        Request $request
+    )
     {
         $this->cart = $cart;
+        $this->request = $request;
         $this->shopping = $shoppingService;
     }
 
@@ -82,39 +96,37 @@ class ShoppingController extends BaseController
     }
 
     /**
-     * Show order information from session.
-     * @param Request $request
+     * Show order information from session.     *
      * @return View
      */
-    public function checkoutShow(Request $request)
+    public function checkoutShow()
     {
-        $country = $request->session()->get('country');
+        $country = $this->request->session()->get('country');
         if (!isset($country)) {
-            $request->session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
+            $this->request->session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
             return redirect('checkout/shipping');
         }
-        $data = $this->shopping->prepareShow($request);
+        $data = $this->shopping->prepareShow($this->request);
         return view('frontend.checkoutTwo', $data);
     }
 
     /**
-     * Create Order and Customer in Database.
-     * @param Request $request
+     * Create Order and Customer in Database.     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function createOrder(Request $request)
+    public function createOrder()
     {
         $cart = $this->cart->instance(auth()->id())->content();
-        if (!$request->session()->has('email')) {
-            $request->session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
+        if (!$this->request->session()->has('email')) {
+            $this->request->session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
             return redirect('checkout/shipping');
         } elseif ($cart->isEmpty()) {
-            $request->session()->flash('flash_message', 'YOU MUST SELECT PRODUCT!');
+            $this->request->session()->flash('flash_message', 'YOU MUST SELECT PRODUCT!');
             return redirect()->back();
         }
-        $this->shopping->createOrder($request);
+        $this->shopping->createOrder($this->request);
         $this->cart->instance(auth()->id())->destroy();
-        $this->shopping->forgetSessionKeys($request);
+        $this->shopping->forgetSessionKeys($this->request);
         return redirect('checkout/order');
     }
 
@@ -144,9 +156,9 @@ class ShoppingController extends BaseController
      * Update products in shopping cart.
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function updateItem(Request $request)
+    public function updateItem()
     {
-        $content = $request->input('qty');
+        $content = $this->request->input('qty');
         foreach ($content as $id => $row) {
             $this->cart->instance(auth()->id())
                 ->update($row['rowId'], $row['qty']);
@@ -179,9 +191,9 @@ class ShoppingController extends BaseController
      * Show user confirmation for finalazing order.
      * @return View
      */
-    public function finalOrder(Request $request)
+    public function finalOrder()
     {
-        $request->session()->flash('flash_message', 'YOUR ORDER HAVE BEEN SUCCESSFULY PLACED!');
+        $this->request->session()->flash('flash_message', 'YOUR ORDER HAVE BEEN SUCCESSFULY PLACED!');
         return view('frontend.placeOrder');
     }
 }

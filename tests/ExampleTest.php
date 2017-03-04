@@ -43,4 +43,15 @@ class ExampleTest extends TestCase
         }
         return $data;*/
     }
+
+    /*public static function label()
+    {
+        $var = session('currency');
+        if (isset($var)) {
+            $result = $var;
+        } else {
+            $result = "usd";
+        }
+        return $result;
+    }*/
 }

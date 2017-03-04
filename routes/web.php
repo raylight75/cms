@@ -22,7 +22,9 @@ Auth::routes();
 
 Register::seoRoutes();
 
-Route::get('/lg/{locale}', 'BaseController@set_language');
+Route::get('/locale/{locale}', 'BaseController@set_Session');
+
+Route::get('currency/{value}', 'BaseController@set_Session');
 
 Route::get('/home', 'HomeController@index');
 
@@ -41,8 +43,6 @@ Route::get('/frame/{id}', 'BaseController@frame');
 Route::get('items/search/{id}', 'BaseController@search');
 
 Route::get('search/autocomplete', 'BaseController@autocomplete');
-
-Route::get('currency/{value}', 'BaseController@set_currency');
 
 Route::group(['middleware' => 'admin:user'], function () {
     Route::get('cart', 'ShoppingController@index');

@@ -22,27 +22,27 @@ Auth::routes();
 
 Register::seoRoutes();
 
-Route::get('/locale/{locale}', 'BaseController@set_Session');
+Route::get('/locale/{locale}', 'MainController@set_Session');
 
-Route::get('currency/{value}', 'BaseController@set_Session');
+Route::get('currency/{value}', 'MainController@set_Session');
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/aboutus', 'BaseController@aboutus');
+Route::get('/aboutus', 'MainController@aboutus');
 
-Route::get('/cms', 'BaseController@index');
+Route::get('/cms', 'MainController@index');
 
-Route::get('/contacts', 'BaseController@contacts');
+Route::get('/contacts', 'MainController@contacts');
 
-Route::get('/welcome', 'BaseController@welcome');
+Route::get('/welcome', 'MainController@welcome');
 
 Route::get('user/activation/{token}', 'Auth\LoginController@userActivation');
 
-Route::get('/frame/{id}', 'BaseController@frame');
+Route::get('/frame/{id}', 'MainController@frame');
 
-Route::get('items/search/{id}', 'BaseController@search');
+Route::get('items/search/{id}', 'MainController@search');
 
-Route::get('search/autocomplete', 'BaseController@autocomplete');
+Route::get('search/autocomplete', 'MainController@autocomplete');
 
 Route::group(['middleware' => 'admin:user'], function () {
     Route::get('cart', 'ShoppingController@index');
@@ -83,13 +83,13 @@ Route::group(['prefix' => 'backend', 'middleware' => 'admin:admin'], function ()
     Route::resource('articles', 'ArticlesController');
 });
 
-Route::get('/filter/{slug}/{id}', 'BaseController@filter');
+Route::get('/filter/{slug}/{id}', 'MainController@filter');
 
 //Route::get('api', 'ApiController@api');
 
 //Route::get('frontpage', 'ApiController@index');
 
-//Route::get('/cache', 'BaseController@write');
+//Route::get('/cache', 'MainController@write');
 
 //App::make('Helper')->registerRoutes();
 

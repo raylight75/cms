@@ -2,17 +2,9 @@
 
 namespace App\Services;
 
-use App\Repositories\CountryRepository;
-use App\Repositories\CustomerRepository;
-use App\Repositories\OrderRepository;
-use App\Repositories\PaymentRepository;
-use App\Repositories\ShippingRepository;
-use App\Repositories\TaxRepository;
-use Gloudemans\Shoppingcart\Cart;
-use Illuminate\Contracts\Auth\Guard;
 use Carbon\Carbon;
 
-class ShoppingService
+class ShoppingService extends BaseService
 {
     /**
      * Ecommerce-CMS
@@ -43,55 +35,6 @@ class ShoppingService
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-
-    protected $auth;
-
-    protected $country;
-
-    protected $cart;
-
-    protected $customer;
-
-    protected $order;
-
-    protected $payment;
-
-    protected $shipping;
-
-    protected $tax;
-
-    /**
-     * ShoppingService constructor.
-     * @param CountryRepository $country
-     * @param Cart $cart
-     * @param CustomerRepository $customer
-     * @param Guard $auth
-     * @param OrderRepository $order
-     * @param PaymentRepository $payment
-     * @param ShippingRepository $shipping
-     * @param TaxRepository $tax
-     */
-    public function __construct
-    (
-        CountryRepository $country,
-        Cart $cart,
-        CustomerRepository $customer,
-        Guard $auth,
-        OrderRepository $order,
-        PaymentRepository $payment,
-        ShippingRepository $shipping,
-        TaxRepository $tax
-    )
-    {
-        $this->auth = $auth;
-        $this->country = $country;
-        $this->cart = $cart;
-        $this->customer = $customer;
-        $this->order = $order;
-        $this->payment = $payment;
-        $this->shipping = $shipping;
-        $this->tax = $tax;
-    }
 
     /**
      * Check for discount code.

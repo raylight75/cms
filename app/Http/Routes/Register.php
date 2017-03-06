@@ -33,14 +33,13 @@ class Register
      */
     public function seoRoutes()
     {
-        $parent_id = 0;
-        $categories = $this->share->getMenuData($parent_id);
+        $categories = $this->share->getMenuData($this->share->getParent());
         foreach ($categories as $row) {
             $parent_cat = $row['name'];
             foreach ($row['sub_cat'] as $sub_cat) {
                 $slug = $sub_cat['name'];
-                Route::get('' . $parent_cat . '/{slug}/{id}', 'BaseController@filter');
-                Route::get('' . $slug . '/{slug}/{id}', 'BaseController@product');
+                Route::get('' . $parent_cat . '/{slug}/{id}', 'MainController@filter');
+                Route::get('' . $slug . '/{slug}/{id}', 'MainController@product');
             }
         }
     }

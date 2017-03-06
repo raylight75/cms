@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\BaseService;
+use App\Services\mainService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use View;
 
-class BaseController extends Controller
+class MainController extends Controller
 {
 
 
@@ -32,27 +32,27 @@ class BaseController extends Controller
 
     /**
      *
-     * Base Class
+     * main Class
      *
      * @package ecommerce-cms
-     * @category Base Class
+     * @category main Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $base;
+    protected $main;
 
     protected $request;
 
 
     /**
-     * BaseController constructor.
-     * @param BaseService $baseService
+     * mainController constructor.
+     * @param mainService $mainService
      * @param Request $request
      */
-    public function __construct(BaseService $baseService, Request $request)
+    public function __construct(MainService $mainService, Request $request)
     {
-        $this->base = $baseService;
+        $this->main = $mainService;
         $this->request = $request;
     }
 
@@ -62,7 +62,7 @@ class BaseController extends Controller
      */
     public function index()
     {
-        $data = $this->base->getHome();
+        $data = $this->main->getHome();
         return view('frontend.body', $data);
     }
 
@@ -81,7 +81,7 @@ class BaseController extends Controller
      */
     public function autocomplete()
     {
-        $results = $this->base->autocomplete($this->request);
+        $results = $this->main->autocomplete($this->request);
         if ($this->request->ajax()) {
             return response()->json($results);
         } else {
@@ -105,7 +105,7 @@ class BaseController extends Controller
      */
     public function filter($crud, $parent)
     {
-        $data = $this->base->getFilter($this->request, $parent);
+        $data = $this->main->getFilter($this->request, $parent);
         if ($this->request->ajax()) {
             return response()->json(view('frontend.ajax-products', $data)->render());
         } else {
@@ -121,7 +121,7 @@ class BaseController extends Controller
      */
     public function product($slug, $id)
     {
-        $data = $this->base->getProductInfo($slug, $id);
+        $data = $this->main->getProductInfo($slug, $id);
         return view('frontend.product_page', $data);
     }
 
@@ -131,7 +131,7 @@ class BaseController extends Controller
      */
     public function frame($id)
     {
-        $item = $this->base->getFrameContent($id);
+        $item = $this->main->getFrameContent($id);
         return view('frontend.frame', compact('item'));
     }
 
@@ -141,7 +141,7 @@ class BaseController extends Controller
      */
     public function search($parent)
     {
-        $data = $this->base->prepareSearch($this->request, $parent);
+        $data = $this->main->prepareSearch($this->request, $parent);
         if ($this->request->ajax()) {
             return response()->json(view('frontend.ajax-products', $data)->render());
         } else {

@@ -3,6 +3,10 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use App\Repositories\BrandRepository;
+use App\Repositories\ColorRepository;
+use App\Repositories\ProductRepository;
+use App\Repositories\SizeRepository;
 
 class MainService extends BaseService
 {
@@ -35,6 +39,21 @@ class MainService extends BaseService
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    public function __construct
+    (
+        BrandRepository $brand,
+        ColorRepository $color,
+        ProductRepository $product,
+        SizeRepository $size
+    )
+    {
+        parent::__construct();
+        $this->brand = $brand;
+        $this->color = $color;
+        $this->product = $product;
+        $this->size = $size;
+    }
+
     /**
      * @param $request
      * @return array
@@ -44,9 +63,8 @@ class MainService extends BaseService
         $results = array();
         $search = $request->input('term');
         $queries = $this->product->whereAuto($search);
-        foreach ($queries as $product)
-        {
-            $results[] = [ 'value' => $product->name];
+        foreach ($queries as $product) {
+            $results[] = ['value' => $product->name];
         }
         return $results;
     }
@@ -88,7 +106,7 @@ class MainService extends BaseService
     public function getFilter($request, $parent)
     {
         $data = $this->prepareFilter($request, $parent);
-        $data['banner'] = $this->cat->whereIn('cat_id',$request->input('categ'));
+        $data['banner'] = $this->cat->whereIn('cat_id', $request->input('categ'));
         $data['properties'] = $this->getAll($parent);
         $data['products'] = $this->pagination($request, $parent);
         return $data;

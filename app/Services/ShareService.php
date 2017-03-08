@@ -3,6 +3,9 @@
 namespace App\Services;
 
 use View;
+use Illuminate\Foundation\Application;
+use App\Repositories\CurrencyRepository;
+use App\Repositories\SettingRepository;
 
 class ShareService extends BaseService
 {
@@ -34,6 +37,19 @@ class ShareService extends BaseService
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
+
+    public function __construct
+    (
+        Application $app,
+        CurrencyRepository $currency,
+        SettingRepository $setting
+    )
+    {
+        parent::__construct();
+        $this->app = $app;
+        $this->currency = $currency;
+        $this->setting = $setting;
+    }
 
     /**
      * @return parent id

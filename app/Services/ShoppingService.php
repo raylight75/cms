@@ -3,6 +3,12 @@
 namespace App\Services;
 
 use Carbon\Carbon;
+use App\Repositories\CountryRepository;
+use App\Repositories\CustomerRepository;
+use App\Repositories\OrderRepository;
+use App\Repositories\PaymentRepository;
+use App\Repositories\ShippingRepository;
+use App\Repositories\TaxRepository;
 
 class ShoppingService extends BaseService
 {
@@ -35,6 +41,26 @@ class ShoppingService extends BaseService
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
+
+    public function __construct
+    (
+        CountryRepository $country,
+        CustomerRepository $customer,
+        OrderRepository $order,
+        PaymentRepository $payment,
+        ShippingRepository $shipping,
+        TaxRepository $tax
+
+    )
+    {
+        parent::__construct();
+        $this->country = $country;
+        $this->customer = $customer;
+        $this->order = $order;
+        $this->payment = $payment;
+        $this->shipping = $shipping;
+        $this->tax = $tax;
+    }
 
     /**
      * Check for discount code.

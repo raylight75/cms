@@ -76,7 +76,8 @@ class ShoppingService extends BaseService
 
 
     /**
-     * Prepare order and customer data for database.
+     * @param CustomerRepository $customer
+     * @param OrderRepository $order
      * @param $request
      */
     public function createOrder(CustomerRepository $customer, OrderRepository $order, $request)
@@ -142,10 +143,11 @@ class ShoppingService extends BaseService
         return $data;
     }
 
+
     /**
-     * Add a row to the cart
-     * @param Request $request
-     * @return array
+     * @param TaxRepository $tax
+     * @param $request
+     * @return mixed
      */
     public function prepareStore(TaxRepository $tax, $request)
     {

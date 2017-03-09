@@ -113,8 +113,11 @@ class ShoppingController extends Controller
         return view('frontend.checkoutTwo', $data);
     }
 
+
     /**
-     * Create Order and Customer in Database.     *
+     * Create Order
+     * @param CustomerRepository $customer
+     * @param OrderRepository $order
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function createOrder(CustomerRepository $customer, OrderRepository $order)
@@ -133,14 +136,12 @@ class ShoppingController extends Controller
         return redirect('checkout/order');
     }
 
+
     /**
      * Add a row to the cart
-     *
-     * @param string|Array $id Unique ID of the item|Item formated as array|Array of items
-     * @param string $name Name of the item
-     * @param int $qty Item qty to add to the cart
-     * @param float $price Price of one item
-     * @param Array $options Array of additional options, such as 'size' or 'color'
+     * @param SubmitProduct $request
+     * @param TaxRepository $tax
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function storeItem(SubmitProduct $request, TaxRepository $tax)
     {

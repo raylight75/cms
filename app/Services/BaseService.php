@@ -21,7 +21,7 @@ abstract class BaseService
 
     protected $cart;
 
-    protected  $cat;
+    protected $cat;
 
     protected $product;
 

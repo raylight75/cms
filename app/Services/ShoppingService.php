@@ -9,6 +9,7 @@ use App\Repositories\OrderRepository;
 use App\Repositories\PaymentRepository;
 use App\Repositories\ShippingRepository;
 use App\Repositories\TaxRepository;
+use Illuminate\Support\Facades\Auth;
 
 class ShoppingService extends BaseService
 {
@@ -45,21 +46,15 @@ class ShoppingService extends BaseService
     public function __construct
     (
         CountryRepository $country,
-        CustomerRepository $customer,
-        OrderRepository $order,
         PaymentRepository $payment,
-        ShippingRepository $shipping,
-        TaxRepository $tax
+        ShippingRepository $shipping
 
     )
     {
         parent::__construct();
         $this->country = $country;
-        $this->customer = $customer;
-        $this->order = $order;
         $this->payment = $payment;
         $this->shipping = $shipping;
-        $this->tax = $tax;
     }
 
     /**
@@ -67,9 +62,9 @@ class ShoppingService extends BaseService
      * @param Request $request
      * @return bool
      */
-    public function checkDiscount($request)
+    public function checkDiscount(TaxRepository $tax, $request)
     {
-        $codes = $this->tax->all();
+        $codes = $tax->all();
         foreach ($codes as $code) {
             if ($request->has('discount') && $request->input('discount') !== $code->code) {
                 return true;
@@ -84,15 +79,15 @@ class ShoppingService extends BaseService
      * Prepare order and customer data for database.
      * @param $request
      */
-    public function createOrder($request)
+    public function createOrder(CustomerRepository $customer, OrderRepository $order, $request)
     {
         $cart = $this->cart->instance(auth()->id())->content();
-        $customer = $request->session()->all();
-        $customer['user_id'] = $this->auth->user()->id;
-        $this->customer->create($customer);
+        $user = $request->session()->all();
+        $user['user_id'] = Auth::user()->id;
+        $customer->create($user);
         foreach ($cart as $item) {
-            $this->order->create([
-                'user_id' => $this->auth->user()->id,
+            $order->create([
+                'user_id' => Auth::user()->id,
                 'order_date' => Carbon::now(),
                 'product_id' => $item->id,
                 'quantity' => $item->qty,
@@ -152,9 +147,9 @@ class ShoppingService extends BaseService
      * @param Request $request
      * @return array
      */
-    public function prepareStore($request)
+    public function prepareStore(TaxRepository $tax, $request)
     {
-        $code = $this->tax->findBy('code', $request->input('discount'));
+        $code = $tax->findBy('code', $request->input('discount'));
         isset($code) ? $discount = $code->discount : $discount = 0;
         $productPrice = $request->input('price');
         $price = ((100 - $discount) / 100) * $productPrice;

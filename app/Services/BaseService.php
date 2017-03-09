@@ -3,6 +3,9 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\App;
+use Gloudemans\Shoppingcart\Cart;
+use App\Repositories\CategoryRepository;
+use App\Repositories\ProductRepository;
 
 abstract class BaseService
 {
@@ -20,12 +23,15 @@ abstract class BaseService
 
     protected  $cat;
 
-    protected $auth;
+    protected $product;
 
+    /**
+     * BaseService constructor.
+     */
     public function __construct()
     {
-        $this->cart = App::make('Gloudemans\Shoppingcart\Cart');
-        $this->cat = App::make('App\Repositories\CategoryRepository');
-        $this->auth = App::make('Illuminate\Contracts\Auth\Guard');
+        $this->cart = App::make(Cart::class);
+        $this->cat = App::make(CategoryRepository::class);
+        $this->product = App::make(ProductRepository::class);
     }
 }

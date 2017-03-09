@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\CustomerRepository;
+use App\Repositories\OrderRepository;
+use App\Repositories\TaxRepository;
 use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Http\Request;
 use App\Http\Requests\SubmitProduct;
@@ -9,7 +12,7 @@ use App\Http\Requests\SubmitCheckout;
 use App\Services\ShoppingService;
 use Auth, View;
 
-class ShoppingController extends BaseController
+class ShoppingController extends Controller
 {
     /**
      * Ecommerce-CMS
@@ -114,7 +117,7 @@ class ShoppingController extends BaseController
      * Create Order and Customer in Database.     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function createOrder()
+    public function createOrder(CustomerRepository $customer, OrderRepository $order)
     {
         $cart = $this->cart->instance(auth()->id())->content();
         if (!$this->request->session()->has('email')) {
@@ -124,7 +127,7 @@ class ShoppingController extends BaseController
             $this->request->session()->flash('flash_message', 'YOU MUST SELECT PRODUCT!');
             return redirect()->back();
         }
-        $this->shopping->createOrder($this->request);
+        $this->shopping->createOrder($customer, $order, $this->request);
         $this->cart->instance(auth()->id())->destroy();
         $this->shopping->forgetSessionKeys($this->request);
         return redirect('checkout/order');
@@ -139,13 +142,13 @@ class ShoppingController extends BaseController
      * @param float $price Price of one item
      * @param Array $options Array of additional options, such as 'size' or 'color'
      */
-    public function storeItem(SubmitProduct $request)
+    public function storeItem(SubmitProduct $request, TaxRepository $tax)
     {
-        if ($this->shopping->checkDiscount($request)) {
+        if ($this->shopping->checkDiscount($tax, $request)) {
             $request->session()->flash('flash_message', 'You are entered invalid discount code!');
             return redirect()->back();
         }
-        $data = $this->shopping->prepareStore($request);
+        $data = $this->shopping->prepareStore($tax, $request);
         //make new instance of the Cart for every user.
         //active instance of the cart is curent instance.
         $this->cart->instance(auth()->id())->add($data);

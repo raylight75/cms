@@ -3,7 +3,8 @@
 namespace App\Services;
 
 use View;
-use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\CurrencyRepository;
 use App\Repositories\SettingRepository;
 
@@ -38,15 +39,9 @@ class ShareService extends BaseService
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    public function __construct
-    (
-        Application $app,
-        CurrencyRepository $currency,
-        SettingRepository $setting
-    )
+    public function __construct(CurrencyRepository $currency, SettingRepository $setting)
     {
         parent::__construct();
-        $this->app = $app;
         $this->currency = $currency;
         $this->setting = $setting;
     }
@@ -86,7 +81,7 @@ class ShareService extends BaseService
      */
     public function globalData()
     {
-        if (!$this->auth->check()) {
+        if (!Auth::check()) {
             $rows = null;
             $cart = null;
             $grandTotal = null;
@@ -102,7 +97,7 @@ class ShareService extends BaseService
         $data = array(
             'menu' => $this->getMenuData($this->getParent()),
             'header' => $this->setting->findOrFail(1),
-            'locale' => $this->app->getLocale(),
+            'locale' => App::getLocale(),
             'label' => session('currency', config('app.currency')),
             'rows' => $rows,
             'cart' => $cart,

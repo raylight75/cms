@@ -5,7 +5,6 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\BrandRepository;
 use App\Repositories\ColorRepository;
-use App\Repositories\ProductRepository;
 use App\Repositories\SizeRepository;
 
 class MainService extends BaseService
@@ -43,14 +42,12 @@ class MainService extends BaseService
     (
         BrandRepository $brand,
         ColorRepository $color,
-        ProductRepository $product,
         SizeRepository $size
     )
     {
         parent::__construct();
         $this->brand = $brand;
         $this->color = $color;
-        $this->product = $product;
         $this->size = $size;
     }
 

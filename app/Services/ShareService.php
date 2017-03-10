@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Repositories\CategoryRepository;
 use View;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\CategoryRepository;
 use App\Repositories\CurrencyRepository;
 use App\Repositories\SettingRepository;
 

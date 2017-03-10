@@ -57,9 +57,11 @@ class ShoppingService extends BaseService
         $this->shipping = $shipping;
     }
 
+
     /**
      * Check for discount code.
-     * @param Request $request
+     * @param TaxRepository $tax
+     * @param $request
      * @return bool
      */
     public function checkDiscount(TaxRepository $tax, $request)

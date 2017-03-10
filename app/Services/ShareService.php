@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\CategoryRepository;
 use View;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -39,9 +40,14 @@ class ShareService extends BaseService
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    public function __construct(CurrencyRepository $currency, SettingRepository $setting)
+    public function __construct
+    (
+        CategoryRepository $cat,
+        CurrencyRepository $currency,
+        SettingRepository $setting)
     {
         parent::__construct();
+        $this->cat = $cat;
         $this->currency = $currency;
         $this->setting = $setting;
     }

@@ -2,12 +2,11 @@
 
 namespace App\Services;
 
+use App\Repositories\CategoryRepository;
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
-use App\Repositories\BrandRepository;
-use App\Repositories\ColorRepository;
-use App\Repositories\SizeRepository;
 
-class MainService extends BaseService
+class MainService
 {
     /**
      * Ecommerce-CMS
@@ -40,15 +39,14 @@ class MainService extends BaseService
 
     public function __construct
     (
-        BrandRepository $brand,
-        ColorRepository $color,
-        SizeRepository $size
+        CategoryRepository $cat,
+        ProductRepository $product,
+        Properties $params
     )
     {
-        parent::__construct();
-        $this->brand = $brand;
-        $this->color = $color;
-        $this->size = $size;
+        $this->cat = $cat;
+        $this->product = $product;
+        $this->params = $params;
     }
 
     /**
@@ -73,10 +71,8 @@ class MainService extends BaseService
      */
     public function getAll($parent)
     {
-        $parents = $this->product->getParents($parent);
-        $data['brand'] = $this->brand->withCount($parent);
-        $data['color'] = $this->color->withCount($parents);
-        $data['size'] = $this->size->withCount($parents);
+        $id = $this->product->getParents($parent);
+        $data = $this->params->getCount($parent, $id);
         return $data;
     }
 
@@ -87,7 +83,7 @@ class MainService extends BaseService
      */
     public function getHome()
     {
-        $data['brands'] = $this->brand->all();
+        $data = $this->params->getBrands();
         $data['latest'] = $this->product->latest();
         $data['products'] = $this->product->product();
         return $data;

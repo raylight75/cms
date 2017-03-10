@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\mainService;
+use App\Services\MainService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use View;

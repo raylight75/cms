@@ -3,12 +3,12 @@
 namespace App\Services;
 
 use View;
-use Illuminate\Foundation\Application;
+use App\Models\Category;
+use App\Models\Currency;
+use App\Models\Setting;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Cart;
-use App\Repositories\CategoryRepository;
-use App\Repositories\CurrencyRepository;
-use App\Repositories\SettingRepository;
 
 class ShareService
 {
@@ -35,15 +35,18 @@ class ShareService
      *
      * ShareService Class for share global variables.
      *
+     * If we need only few times table result is better
+     * to call models to retrieve result.
+     * Othetwise use coresponded repository.
+     *
      * @package ecommerce-cms
      * @category Service Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    public function __construct(Application $app, Cart $cart )
+    public function __construct(Cart $cart )
     {
-        $this->app = $app;
         $this->cart = $cart;
     }
 
@@ -63,8 +66,7 @@ class ShareService
     public function getMenuData($parent_id)
     {
         $categories = array();
-        $cat = $this->app->make(CategoryRepository::class);
-        $result = $cat->where('parent_id', $parent_id);
+        $result = Category::where('parent_id', $parent_id)->get();
         foreach ($result as $parentCategory) {
             $category = array();
             $category['id'] = $parentCategory->cat_id;
@@ -96,17 +98,15 @@ class ShareService
             $grandTotal = $this->cart->instance(auth()->id())
                 ->total();
         }
-        $setting = $this->app->make(SettingRepository::class);
-        $currency = $this->app->make(CurrencyRepository::class);
         $data = array(
             'menu' => $this->getMenuData($this->getParent()),
-            'header' => $setting->findOrFail(1),
-            'locale' => $this->app->getLocale(),
+            'header' => Setting::findOrFail(1),
+            'locale' => App::getLocale(),
             'label' => session('currency', config('app.currency')),
             'rows' => $rows,
             'cart' => $cart,
             'grand_total' => $grandTotal,
-            'currencies' => $currency->all(),
+            'currencies' => Currency::all(),
         );
         return $data;
     }

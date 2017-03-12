@@ -2,12 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Customer;
+use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Foundation\Application;
-use App\Repositories\CustomerRepository;
-use App\Repositories\OrderRepository;
 use App\Repositories\TaxRepository;
 
 class ShoppingService
@@ -36,33 +35,28 @@ class ShoppingService
      * ShoppingService Class for prepare and store product
      * in shopping cart and databes.
      *
+     * If we need only few times table result is better
+     * to call models to retrieve result.
+     * Othetwise use coresponded repository.
+     *
      * @package ecommerce-cms
      * @category Service Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    public function __construct(Application $app)
+    public function __construct(TaxRepository $tax)
     {
-        $this->app = $app;
+        $this->tax = $tax;
     }
-
-    private function setTax()
-    {
-        $tax = $this->app->make(TaxRepository::class);
-        return $tax;
-    }
-
 
     /**
-     * Check for discount code.
-     * @param TaxRepository $tax
      * @param $request
      * @return bool
      */
     public function checkDiscount($request)
     {
-        $codes = $this->setTax()->all();
+        $codes = $this->tax->all();
         foreach ($codes as $code) {
             if ($request->has('discount') && $request->input('discount') !== $code->code) {
                 return true;
@@ -72,10 +66,7 @@ class ShoppingService
         }
     }
 
-
     /**
-     * @param CustomerRepository $customer
-     * @param OrderRepository $order
      * @param $request
      */
     public function createOrder($request)
@@ -83,11 +74,9 @@ class ShoppingService
         $cart = Cart::instance(auth()->id())->content();
         $user = $request->session()->all();
         $user['user_id'] = Auth::user()->id;
-        $customer = $this->app->make(CustomerRepository::class);
-        $customer->create($user);
-        $order = $this->app->make(OrderRepository::class);
+        Customer::create($user);
         foreach ($cart as $item) {
-            $order->create([
+            Order::create([
                 'user_id' => Auth::user()->id,
                 'order_date' => Carbon::now(),
                 'product_id' => $item->id,
@@ -118,13 +107,12 @@ class ShoppingService
     }
 
     /**
-     * @param TaxRepository $tax
      * @param $request
      * @return mixed
      */
     public function prepareStore($request)
     {
-        $code = $this->setTax()->findBy('code', $request->input('discount'));
+        $code = $this->tax->findBy('code', $request->input('discount'));
         isset($code) ? $discount = $code->discount : $discount = 0;
         $productPrice = $request->input('price');
         $price = ((100 - $discount) / 100) * $productPrice;

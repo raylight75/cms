@@ -3,7 +3,11 @@
 namespace App\Services;
 
 use App\Repositories\CategoryRepository;
+use App\Repositories\BrandRepository;
+use App\Repositories\ColorRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\SizeRepository;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
 class MainService
@@ -37,16 +41,41 @@ class MainService
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    public function __construct
-    (
-        CategoryRepository $cat,
-        ProductRepository $product,
-        Properties $params
-    )
+    protected $app;
+
+    protected $product;
+
+    /**
+     * MainService constructor.
+     * @param Application $app
+     * @param ProductRepository $product
+     */
+    public function __construct(Application $app, ProductRepository $product)
     {
-        $this->cat = $cat;
+        $this->app = $app;
         $this->product = $product;
-        $this->params = $params;
+    }
+
+    /**
+     * Resolve repository out of the container.
+     * Set BrandRepository
+     * @return mixed
+     */
+    private function setBrand()
+    {
+        $brand = $this->app->make(BrandRepository::class);
+        return $brand;
+    }
+
+    /**
+     * Resolve repository out of the container.
+     * Set CategoryRepository
+     * @return mixed
+     */
+    private function setCat()
+    {
+        $cat = $this->app->make(CategoryRepository::class);
+        return $cat;
     }
 
     /**
@@ -71,8 +100,13 @@ class MainService
      */
     public function getAll($parent)
     {
+        //No need DI for this classes because they called once.
+        $color = $this->app->make(ColorRepository::class);
+        $size = $this->app->make(SizeRepository::class);
         $id = $this->product->getParents($parent);
-        $data = $this->params->getCount($parent, $id);
+        $data['brand'] = $this->setBrand()->withCount($parent);
+        $data['color'] = $color->withCount($id);
+        $data['size'] = $size->withCount($id);
         return $data;
     }
 
@@ -83,7 +117,7 @@ class MainService
      */
     public function getHome()
     {
-        $data = $this->params->getBrands();
+        $data['brands'] = $this->setBrand()->all();
         $data['latest'] = $this->product->latest();
         $data['products'] = $this->product->product();
         return $data;
@@ -99,7 +133,7 @@ class MainService
     public function getFilter($request, $parent)
     {
         $data = $this->prepareFilter($request, $parent);
-        $data['banner'] = $this->cat->whereIn('cat_id', $request->input('categ'));
+        $data['banner'] = $this->setCat()->whereIn('cat_id', $request->input('categ'));
         $data['properties'] = $this->getAll($parent);
         $data['products'] = $this->pagination($request, $parent);
         return $data;
@@ -157,7 +191,7 @@ class MainService
     {
         $search = $request->input('search');
         $data = $this->prepareFilter($request, $parent);
-        $data['banner'] = $this->cat->findBy('cat_id', $request->input('categ'));
+        $data['banner'] = $this->setCat()->findBy('cat_id', $request->input('categ'));
         $data['properties'] = $this->getAll($parent);
         $data['products'] = $this->product->whereLike($search);
         return $data;

@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Repositories\BrandRepository;
-use App\Repositories\ColorRepository;
-use App\Repositories\SizeRepository;
+use App\Repositories\CountryRepository;
+use App\Repositories\PaymentRepository;
+use App\Repositories\ShippingRepository;
 
-class Properties
+class CheckoutService
 {
     /**
      * Ecommerce-CMS
@@ -29,7 +29,8 @@ class Properties
 
     /**
      *
-     * Product Properties.
+     * ShoppingService Class for prepare and store product
+     * in shopping cart and databes.
      *
      * @package ecommerce-cms
      * @category Service Class
@@ -39,36 +40,40 @@ class Properties
 
     public function __construct
     (
-        BrandRepository $brand,
-        ColorRepository $color,
-        SizeRepository $size
+        CountryRepository $country,
+        PaymentRepository $payment,
+        ShippingRepository $shipping
+
     )
     {
-        $this->brand = $brand;
-        $this->color = $color;
-        $this->size = $size;
+        $this->country = $country;
+        $this->payment = $payment;
+        $this->shipping = $shipping;
     }
 
     /**
-     * Get data and count items for filters page.
-     * @param $parent
+     * Prepare data to checkout page
      * @return mixed
      */
-    public function getCount($parent,$id)
+    public function checkoutData()
     {
-        $data['brand'] = $this->brand->withCount($parent);
-        $data['color'] = $this->color->withCount($id);
-        $data['size'] = $this->size->withCount($id);
+        $data['countries'] = $this->country->all();
+        $data['payments'] = $this->payment->all();
+        $data['shippings'] = $this->shipping->all();
         return $data;
     }
 
     /**
-     * Get data for Home page.
+     * Show order information from session.
+     * @param Request $request
      * @return mixed
      */
-    public function getBrands()
+    public function checkoutShow($request)
     {
-        $data['brands'] = $this->brand->all();
+        $data['vat'] = $this->country->getVat($request);
+        $data['payments'] = $this->payment->find($request->session()->get('payment'));
+        $data['shippings'] = $this->shipping->find($request->session()->get('delivery'));
+        $data['customer'] = $request->session()->all();
         return $data;
     }
 }

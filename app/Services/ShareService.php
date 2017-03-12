@@ -3,13 +3,14 @@
 namespace App\Services;
 
 use View;
-use Illuminate\Support\Facades\App;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Cart;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CurrencyRepository;
 use App\Repositories\SettingRepository;
 
-class ShareService extends BaseService
+class ShareService
 {
     /**
      * Ecommerce-CMS
@@ -40,16 +41,10 @@ class ShareService extends BaseService
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    public function __construct
-    (
-        CategoryRepository $cat,
-        CurrencyRepository $currency,
-        SettingRepository $setting)
+    public function __construct(Application $app, Cart $cart )
     {
-        parent::__construct();
-        $this->cat = $cat;
-        $this->currency = $currency;
-        $this->setting = $setting;
+        $this->app = $app;
+        $this->cart = $cart;
     }
 
     /**
@@ -68,7 +63,8 @@ class ShareService extends BaseService
     public function getMenuData($parent_id)
     {
         $categories = array();
-        $result = $this->cat->where('parent_id', $parent_id);
+        $cat = $this->app->make(CategoryRepository::class);
+        $result = $cat->where('parent_id', $parent_id);
         foreach ($result as $parentCategory) {
             $category = array();
             $category['id'] = $parentCategory->cat_id;
@@ -100,15 +96,17 @@ class ShareService extends BaseService
             $grandTotal = $this->cart->instance(auth()->id())
                 ->total();
         }
+        $setting = $this->app->make(SettingRepository::class);
+        $currency = $this->app->make(CurrencyRepository::class);
         $data = array(
             'menu' => $this->getMenuData($this->getParent()),
-            'header' => $this->setting->findOrFail(1),
-            'locale' => App::getLocale(),
+            'header' => $setting->findOrFail(1),
+            'locale' => $this->app->getLocale(),
             'label' => session('currency', config('app.currency')),
             'rows' => $rows,
             'cart' => $cart,
             'grand_total' => $grandTotal,
-            'currencies' => $this->currency->all(),
+            'currencies' => $currency->all(),
         );
         return $data;
     }

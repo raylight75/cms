@@ -53,9 +53,9 @@ Route::group(['middleware' => 'admin:user'], function () {
 });
 
 Route::group(['prefix' => 'checkout', 'middleware' => 'admin:user'], function () {
-    Route::get('/shipping', 'ShoppingController@checkout');
+    Route::get('/shipping', 'CheckoutController@checkout');
     Route::post('/store', 'ShoppingController@customerStore');
-    Route::get('/show', 'ShoppingController@checkoutShow');
+    Route::get('/show', 'CheckoutController@checkoutShow');
     Route::get('/create', 'ShoppingController@createOrder');
     Route::get('/order', 'ShoppingController@finalOrder');
 });

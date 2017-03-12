@@ -3,15 +3,14 @@
 namespace App\Services;
 
 use Carbon\Carbon;
-use App\Repositories\CountryRepository;
+use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Foundation\Application;
 use App\Repositories\CustomerRepository;
 use App\Repositories\OrderRepository;
-use App\Repositories\PaymentRepository;
-use App\Repositories\ShippingRepository;
 use App\Repositories\TaxRepository;
-use Illuminate\Support\Facades\Auth;
 
-class ShoppingService extends BaseService
+class ShoppingService
 {
     /**
      * Ecommerce-CMS
@@ -43,18 +42,15 @@ class ShoppingService extends BaseService
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    public function __construct
-    (
-        CountryRepository $country,
-        PaymentRepository $payment,
-        ShippingRepository $shipping
-
-    )
+    public function __construct(Application $app)
     {
-        parent::__construct();
-        $this->country = $country;
-        $this->payment = $payment;
-        $this->shipping = $shipping;
+        $this->app = $app;
+    }
+
+    private function setTax()
+    {
+        $tax = $this->app->make(TaxRepository::class);
+        return $tax;
     }
 
 
@@ -64,9 +60,9 @@ class ShoppingService extends BaseService
      * @param $request
      * @return bool
      */
-    public function checkDiscount(TaxRepository $tax, $request)
+    public function checkDiscount($request)
     {
-        $codes = $tax->all();
+        $codes = $this->setTax()->all();
         foreach ($codes as $code) {
             if ($request->has('discount') && $request->input('discount') !== $code->code) {
                 return true;
@@ -82,12 +78,14 @@ class ShoppingService extends BaseService
      * @param OrderRepository $order
      * @param $request
      */
-    public function createOrder(CustomerRepository $customer, OrderRepository $order, $request)
+    public function createOrder($request)
     {
-        $cart = $this->cart->instance(auth()->id())->content();
+        $cart = Cart::instance(auth()->id())->content();
         $user = $request->session()->all();
         $user['user_id'] = Auth::user()->id;
+        $customer = $this->app->make(CustomerRepository::class);
         $customer->create($user);
+        $order = $this->app->make(OrderRepository::class);
         foreach ($cart as $item) {
             $order->create([
                 'user_id' => Auth::user()->id,
@@ -120,40 +118,13 @@ class ShoppingService extends BaseService
     }
 
     /**
-     * Prepare data to checkout page
-     * @return mixed
-     */
-    public function checkoutData()
-    {
-        $data['countries'] = $this->country->all();
-        $data['payments'] = $this->payment->all();
-        $data['shippings'] = $this->shipping->all();
-        return $data;
-    }
-
-    /**
-     * Show order information from session.
-     * @param Request $request
-     * @return mixed
-     */
-    public function prepareShow($request)
-    {
-        $data['vat'] = $this->country->getVat($request);
-        $data['payments'] = $this->payment->find($request->session()->get('payment'));
-        $data['shippings'] = $this->shipping->find($request->session()->get('delivery'));
-        $data['customer'] = $request->session()->all();
-        return $data;
-    }
-
-
-    /**
      * @param TaxRepository $tax
      * @param $request
      * @return mixed
      */
-    public function prepareStore(TaxRepository $tax, $request)
+    public function prepareStore($request)
     {
-        $code = $tax->findBy('code', $request->input('discount'));
+        $code = $this->setTax()->findBy('code', $request->input('discount'));
         isset($code) ? $discount = $code->discount : $discount = 0;
         $productPrice = $request->input('price');
         $price = ((100 - $discount) / 100) * $productPrice;

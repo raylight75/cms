@@ -29,8 +29,7 @@ class CheckoutService
 
     /**
      *
-     * ShoppingService Class for prepare and store product
-     * in shopping cart and databes.
+     * CheckoutService Class for checkout processing.
      *
      * @package ecommerce-cms
      * @category Service Class

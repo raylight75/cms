@@ -74,16 +74,6 @@ class ShoppingController extends Controller
     }
 
     /**
-     * Pass data to checkout view.
-     * @return View
-     */
-    public function checkout()
-    {
-        $data = $this->shopping->checkoutData();
-        return view('frontend.checkoutOne',$data);
-    }
-
-    /**
      * Store customer data to Session.
      * @param Request $request
      * @return View
@@ -94,22 +84,6 @@ class ShoppingController extends Controller
         $request->session()->put($input);
         return redirect('checkout/show');
     }
-
-    /**
-     * Show order information from session.     *
-     * @return View
-     */
-    public function checkoutShow()
-    {
-        $country = $this->request->session()->get('country');
-        if (!isset($country)) {
-            $this->request->session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
-            return redirect('checkout/shipping');
-        }
-        $data = $this->shopping->prepareShow($this->request);
-        return view('frontend.checkoutTwo', $data);
-    }
-
 
     /**
      * Create Order     *

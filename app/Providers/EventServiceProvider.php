@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        'App\Events\AddCustomer' => [
+            'App\Listeners\CreateCustomer',
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\RestoreCartOnLogin',
@@ -32,7 +32,5 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        //
     }
 }

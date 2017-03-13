@@ -3,7 +3,7 @@
 namespace App\Http\Composers;
 
 use App\Services\ShareService;
-use View;
+use Illuminate\View\View;
 
 class GlobalComposer
 {
@@ -50,9 +50,9 @@ class GlobalComposer
     /**
      * Share global data to all views.
      */
-    public function compose()
+    public function compose(View $view)
     {
         $data = $this->share->globalData();
-        View::share($data);
+        $view->with($data);
     }
 }

@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
-use App\Models\Customer;
+use App\Events\AddCustomer;
 use App\Models\Order;
+use App\Repositories\TaxRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use App\Repositories\TaxRepository;
+use Illuminate\Support\Facades\Event;
 
 class ShoppingService
 {
@@ -74,7 +75,6 @@ class ShoppingService
         $cart = Cart::instance(auth()->id())->content();
         $user = $request->session()->all();
         $user['user_id'] = Auth::user()->id;
-        Customer::create($user);
         foreach ($cart as $item) {
             Order::create([
                 'user_id' => Auth::user()->id,
@@ -87,6 +87,7 @@ class ShoppingService
                 'color' => $item->options->color,
             ]);
         }
+        Event::fire(new AddCustomer($user));
     }
 
     /**
@@ -95,15 +96,17 @@ class ShoppingService
      */
     public function forgetSessionKeys($request)
     {
-        $request->session()->forget('country');
-        $request->session()->forget('city');
-        $request->session()->forget('postcode');
-        $request->session()->forget('adress');
-        $request->session()->forget('name');
-        $request->session()->forget('phone');
-        $request->session()->forget('email');
-        $request->session()->forget('delivery');
-        $request->session()->forget('payment');
+        $request->session()->forget([
+            'country',
+            'city',
+            'postcode',
+            'adress',
+            'name',
+            'phone',
+            'email',
+            'delivery',
+            'payment'
+        ]);
     }
 
     /**

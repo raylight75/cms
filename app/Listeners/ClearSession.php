@@ -20,7 +20,7 @@ class ClearSession
     /**
      * Handle the event.
      *
-     * @param AddCustomer $event
+     * @param ForgetSession $event
      */
     public function handle(ForgetSession $event)
     {

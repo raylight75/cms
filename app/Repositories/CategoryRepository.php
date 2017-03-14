@@ -28,4 +28,24 @@ class CategoryRepository extends Repository
     {
         return 'App\Models\Category';
     }
+
+    /**
+     * @param $parent_id
+     * @return array
+     */
+    public function navMenu($parent_id = 0)
+    {
+        $categories = array();
+        $result = $this->where('parent_id', $parent_id);
+        foreach ($result as $parentCategory) {
+            $category = array();
+            $category['id'] = $parentCategory->cat_id;
+            $category['name'] = $parentCategory->cat;
+            $category['parent_id'] = $parentCategory->parent_id;
+            $category['banner'] = $parentCategory->m_img;
+            $category['sub_cat'] = $this->navMenu($category['id']);
+            $categories[$parentCategory->cat_id] = $category;
+        }
+        return $categories;
+    }
 }

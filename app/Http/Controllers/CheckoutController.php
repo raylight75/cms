@@ -38,6 +38,8 @@ class CheckoutController extends Controller
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    protected $checkout;
+
     /**
      * ShoppingController constructor.
      * @param ShoppingService $shoppingService

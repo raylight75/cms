@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\AddCustomer' => [
             'App\Listeners\CreateCustomer',
         ],
+        'App\Events\ForgetSession' => [
+            'App\Listeners\ClearSession',
+        ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\RestoreCartOnLogin',
         ],

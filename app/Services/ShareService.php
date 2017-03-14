@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use View;
-use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Setting;
+use App\Repositories\CategoryRepository;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Cart;
@@ -45,38 +45,10 @@ class ShareService
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    public function __construct(Cart $cart )
+    public function __construct(CategoryRepository $cat, Cart $cart )
     {
+        $this->cat = $cat;
         $this->cart = $cart;
-    }
-
-    /**
-     * @return parent id
-     */
-    public function getParent()
-    {
-        return $parent_id = 0;
-    }
-
-    /**
-     * Get Menu Items
-     * @param $parent_id
-     * @return array
-     */
-    public function getMenuData($parent_id)
-    {
-        $categories = array();
-        $result = Category::where('parent_id', $parent_id)->get();
-        foreach ($result as $parentCategory) {
-            $category = array();
-            $category['id'] = $parentCategory->cat_id;
-            $category['name'] = $parentCategory->cat;
-            $category['parent_id'] = $parentCategory->parent_id;
-            $category['banner'] = $parentCategory->m_img;
-            $category['sub_cat'] = $this->getMenuData($category['id']);
-            $categories[$parentCategory->cat_id] = $category;
-        }
-        return $categories;
     }
 
     /**
@@ -99,7 +71,7 @@ class ShareService
                 ->total();
         }
         $data = array(
-            'menu' => $this->getMenuData($this->getParent()),
+            'menu' => $this->cat->navMenu(),
             'header' => Setting::findOrFail(1),
             'locale' => App::getLocale(),
             'label' => session('currency', config('app.currency')),

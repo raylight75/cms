@@ -2,6 +2,9 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 class OrderRepository extends Repository
 {
     /**
@@ -36,6 +39,26 @@ class OrderRepository extends Repository
     public function find($request)
     {
         return $this->findOrFail($request->all());
+    }
+
+    /**
+     * @param $cart
+     * @return mixed
+     */
+    public function makeOrder($cart)
+    {
+        foreach ($cart as $item) {
+            $this->create([
+                'user_id' => Auth::user()->id,
+                'order_date' => Carbon::now(),
+                'product_id' => $item->id,
+                'quantity' => $item->qty,
+                'amount' => $item->subtotal,
+                'size' => $item->options->size,
+                'img' => $item->options->img,
+                'color' => $item->options->color,
+            ]);
+        }
     }
 
     /**

@@ -3,11 +3,10 @@
 namespace App\Services;
 
 use App\Events\AddCustomer;
-use App\Models\Order;
-use App\Repositories\TaxRepository;
-use Carbon\Carbon;
+use App\Events\ForgetSession;
+use App\Repositories\OrderRepository;
+use App\Repositories\TaxRepository;;
 use Illuminate\Support\Facades\Auth;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Event;
 
 class ShoppingService
@@ -46,8 +45,9 @@ class ShoppingService
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    public function __construct(TaxRepository $tax)
+    public function __construct(OrderRepository $order, TaxRepository $tax)
     {
+        $this->order = $order;
         $this->tax = $tax;
     }
 
@@ -70,43 +70,13 @@ class ShoppingService
     /**
      * @param $request
      */
-    public function createOrder($request)
+    public function createOrder($request, $cart)
     {
-        $cart = Cart::instance(auth()->id())->content();
         $user = $request->session()->all();
         $user['user_id'] = Auth::user()->id;
-        foreach ($cart as $item) {
-            Order::create([
-                'user_id' => Auth::user()->id,
-                'order_date' => Carbon::now(),
-                'product_id' => $item->id,
-                'quantity' => $item->qty,
-                'amount' => $item->subtotal,
-                'size' => $item->options->size,
-                'img' => $item->options->img,
-                'color' => $item->options->color,
-            ]);
-        }
+        $this->order->makeOrder($cart);
         Event::fire(new AddCustomer($user));
-    }
-
-    /**
-     * Remove all user piece of data from the session.
-     * @param Request $request
-     */
-    public function forgetSessionKeys($request)
-    {
-        $request->session()->forget([
-            'country',
-            'city',
-            'postcode',
-            'adress',
-            'name',
-            'phone',
-            'email',
-            'delivery',
-            'payment'
-        ]);
+        Event::fire(new ForgetSession($request));
     }
 
     /**

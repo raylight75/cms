@@ -99,9 +99,8 @@ class ShoppingController extends Controller
             $this->request->session()->flash('flash_message', 'YOU MUST SELECT PRODUCT!');
             return redirect()->back();
         }
-        $this->shopping->createOrder($this->request);
+        $this->shopping->createOrder($this->request, $cart);
         $this->cart->instance(auth()->id())->destroy();
-        $this->shopping->forgetSessionKeys($this->request);
         return redirect('checkout/order');
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Routes;
 
+use App\Repositories\CategoryRepository;
 use App\Services\ShareService;
 use Route;
 
@@ -17,14 +18,14 @@ class Register
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
-    protected $share;
+    protected $cat;
 
     /**
      * RouteRegister constructor.
      */
-    public function __construct(ShareService $share)
+    public function __construct(CategoryRepository $cat)
     {
-        $this->share = $share;
+        $this->cat = $cat;
     }
 
     /**
@@ -33,7 +34,7 @@ class Register
      */
     public function seoRoutes()
     {
-        $categories = $this->share->getMenuData($this->share->getParent());
+        $categories = $this->cat->navMenu();
         foreach ($categories as $row) {
             $parent_cat = $row['name'];
             foreach ($row['sub_cat'] as $sub_cat) {

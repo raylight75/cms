@@ -45,6 +45,15 @@ class ShareService
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    protected $cat;
+
+    protected $cart;
+
+    /**
+     * ShareService constructor.
+     * @param CategoryRepository $cat
+     * @param Cart $cart
+     */
     public function __construct(CategoryRepository $cat, Cart $cart )
     {
         $this->cat = $cat;

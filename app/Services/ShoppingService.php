@@ -45,6 +45,15 @@ class ShoppingService
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    protected  $order;
+
+    protected $tax;
+
+    /**
+     * ShoppingService constructor.
+     * @param OrderRepository $order
+     * @param TaxRepository $tax
+     */
     public function __construct(OrderRepository $order, TaxRepository $tax)
     {
         $this->order = $order;
@@ -69,6 +78,7 @@ class ShoppingService
 
     /**
      * @param $request
+     * @param $cart
      */
     public function createOrder($request, $cart)
     {

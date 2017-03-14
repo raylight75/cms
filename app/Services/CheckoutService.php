@@ -37,6 +37,13 @@ class CheckoutService
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    /**
+     * CheckoutService constructor.
+     * @param CountryRepository $country
+     * @param PaymentRepository $payment
+     * @param ShippingRepository $shipping
+     */
+
     public function __construct
     (
         CountryRepository $country,

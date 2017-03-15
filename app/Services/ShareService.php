@@ -2,16 +2,13 @@
 
 namespace App\Services;
 
-use View;
-use App\Models\Currency;
-use App\Models\Setting;
+use App\Repositories\CartRepository;
 use App\Repositories\CategoryRepository;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
-use Gloudemans\Shoppingcart\Cart;
 
 class ShareService
 {
+    use Settings;
+
     /**
      * Ecommerce-CMS
      *
@@ -52,42 +49,30 @@ class ShareService
     /**
      * ShareService constructor.
      * @param CategoryRepository $cat
-     * @param Cart $cart
+     * @param CartRepository $cart
      */
-    public function __construct(CategoryRepository $cat, Cart $cart )
+    public function __construct(CategoryRepository $cat, CartRepository $cart)
     {
         $this->cat = $cat;
         $this->cart = $cart;
     }
 
     /**
-     * Prepare global variables.
      * @return array
      */
     public function globalData()
     {
-        if (!Auth::check()) {
-            $rows = null;
-            $cart = null;
-            $grandTotal = null;
-        } else {
-            $rows = $this->cart->instance(auth()->id())
-                ->content()
-                ->count(false);
-            $cart = $this->cart->instance(auth()->id())
-                ->content();
-            $grandTotal = $this->cart->instance(auth()->id())
-                ->total();
-        }
+        $cart = $this->cart->setCart();
+        $var = $this->setVars();
         $data = array(
             'menu' => $this->cat->navMenu(),
-            'header' => Setting::findOrFail(1),
-            'locale' => App::getLocale(),
+            'header' => $var['header'],
+            'locale' => $var['locale'],
+            'currencies' => $var['currency'],
+            'rows' => $cart['rows'],
+            'cart' => $cart['cart'],
+            'grand_total' => $cart['grandTotal'],
             'label' => session('currency', config('app.currency')),
-            'rows' => $rows,
-            'cart' => $cart,
-            'grand_total' => $grandTotal,
-            'currencies' => Currency::all(),
         );
         return $data;
     }

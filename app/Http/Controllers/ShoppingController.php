@@ -44,23 +44,15 @@ class ShoppingController extends Controller
 
     protected $shopping;
 
-    protected $request;
-
     /**
      * ShoppingController constructor.
      * @param ShoppingService $shoppingService
      * @param Cart $cart
      * @param Request $request
      */
-    public function __construct
-    (
-        ShoppingService $shoppingService,
-        Cart $cart,
-        Request $request
-    )
+    public function __construct(ShoppingService $shoppingService, Cart $cart)
     {
         $this->cart = $cart;
-        $this->request = $request;
         $this->shopping = $shoppingService;
     }
 
@@ -85,21 +77,22 @@ class ShoppingController extends Controller
         return redirect('checkout/show');
     }
 
+
     /**
-     * Create Order     *
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function createOrder()
+    public function createOrder(Request $request)
     {
         $cart = $this->cart->instance(auth()->id())->content();
-        if (!$this->request->session()->has('email')) {
-            $this->request->session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
+        if (!$request->session()->has('email')) {
+            $request->session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
             return redirect('checkout/shipping');
         } elseif ($cart->isEmpty()) {
-            $this->request->session()->flash('flash_message', 'YOU MUST SELECT PRODUCT!');
+            $request->session()->flash('flash_message', 'YOU MUST SELECT PRODUCT!');
             return redirect()->back();
         }
-        $this->shopping->createOrder($this->request, $cart);
+        $this->shopping->createOrder($request, $cart);
         $this->cart->instance(auth()->id())->destroy();
         return redirect('checkout/order');
     }
@@ -107,7 +100,7 @@ class ShoppingController extends Controller
 
     /**
      * Add a row to the cart
-     * @param SubmitProduct $request     *
+     * @param SubmitProduct $request *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function storeItem(SubmitProduct $request)
@@ -123,13 +116,15 @@ class ShoppingController extends Controller
         return redirect('cart');
     }
 
+
     /**
      * Update products in shopping cart.
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function updateItem()
+    public function updateItem(Request $request)
     {
-        $content = $this->request->input('qty');
+        $content = $request->input('qty');
         foreach ($content as $id => $row) {
             $this->cart->instance(auth()->id())
                 ->update($row['rowId'], $row['qty']);
@@ -160,11 +155,12 @@ class ShoppingController extends Controller
 
     /**
      * Show user confirmation for finalazing order.
+     * @param Request $request
      * @return View
      */
-    public function finalOrder()
+    public function finalOrder(Request $request)
     {
-        $this->request->session()->flash('flash_message', 'YOUR ORDER HAVE BEEN SUCCESSFULY PLACED!');
+        $request->session()->flash('flash_message', 'YOUR ORDER HAVE BEEN SUCCESSFULY PLACED!');
         return view('frontend.placeOrder');
     }
 }

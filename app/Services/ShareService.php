@@ -5,9 +5,8 @@ namespace App\Services;
 use App\Repositories\CartRepository;
 use App\Repositories\CategoryRepository;
 
-class ShareService
+class ShareService extends BaseService
 {
-    use Settings;
 
     /**
      * Ecommerce-CMS

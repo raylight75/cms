@@ -7,7 +7,7 @@ use App\Repositories\BrandRepository;
 use App\Repositories\ColorRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\SizeRepository;
-use Illuminate\Foundation\Application;
+use Illuminate\Container\Container as App;
 use Illuminate\Http\Request;
 
 class MainService
@@ -48,7 +48,7 @@ class MainService
      */
     public function __construct
     (
-        Application $app,
+        App $app,
         BrandRepository $brand,
         CategoryRepository $cat,
         ProductRepository $product

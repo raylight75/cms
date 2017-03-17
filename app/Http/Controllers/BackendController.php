@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\CrudRepository;
 use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
-use Auth, View, Gate;
+use Gate;
 
 class BackendController extends Controller
 {
@@ -69,7 +69,7 @@ class BackendController extends Controller
 
     public function dashboard()
     {
-        if (Auth::check() && Auth::user()->hasRole('admin')) {
+        if (auth()->check() && auth()->user()->hasRole('admin')) {
             $title = 'Admin Dashboard';
         } else {
             $title = 'User Dashboard';
@@ -109,7 +109,7 @@ class BackendController extends Controller
     public function profile()
     {
         $grid = $this->crud->profileGrid();
-        $title = Auth::user()->name;
+        $title = auth()->user()->name;
         return view('backend/content', compact('grid', 'title'));
     }
 
@@ -120,7 +120,7 @@ class BackendController extends Controller
     public function profileEdit()
     {
         $edit = $this->crud->profileEdit();
-        $title = Auth::user()->name;
+        $title = auth()->user()->name;
         return view('backend/content', compact('edit', 'title'));
     }
 

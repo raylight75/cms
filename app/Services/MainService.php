@@ -7,7 +7,6 @@ use App\Repositories\BrandRepository;
 use App\Repositories\ColorRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\SizeRepository;
-use Illuminate\Container\Container as App;
 use Illuminate\Http\Request;
 
 class MainService
@@ -35,6 +34,8 @@ class MainService
      *
      * MainService Class.
      *
+     * We use app helper for some repositories.
+     *
      * @package ecommerce-cms
      * @category Service Class
      * @author Tihomir Blazhev <raylight75@gmail.com>
@@ -46,17 +47,8 @@ class MainService
      * @param Application $app
      * @param ProductRepository $product
      */
-    public function __construct
-    (
-        App $app,
-        BrandRepository $brand,
-        CategoryRepository $cat,
-        ProductRepository $product
-    )
+    public function __construct(ProductRepository $product)
     {
-        $this->app = $app;
-        $this->brand = $brand;
-        $this->cat = $cat;
         $this->product = $product;
     }
 
@@ -82,13 +74,11 @@ class MainService
      */
     public function getAll($parent)
     {
-        //No need DI for this classes because they called once.
-        $color = $this->app->make(ColorRepository::class);
-        $size = $this->app->make(SizeRepository::class);
         $id = $this->product->getParents($parent);
-        $data['brand'] = $this->brand->withCount($parent);
-        $data['color'] = $color->withCount($id);
-        $data['size'] = $size->withCount($id);
+        $data['brand'] = app(BrandRepository::class)->withCount($parent);
+        //No need DI for this classes because they called once.
+        $data['color'] = app(ColorRepository::class)->withCount($id);
+        $data['size'] = app(SizeRepository::class)->withCount($id);
         return $data;
     }
 
@@ -99,7 +89,7 @@ class MainService
      */
     public function getHome()
     {
-        $data['brands'] = $this->brand->all();
+        $data['brands'] = app(BrandRepository::class)->all();
         $data['latest'] = $this->product->latest();
         $data['products'] = $this->product->product();
         return $data;
@@ -115,7 +105,7 @@ class MainService
     public function getFilter($request, $parent)
     {
         $data = $this->prepareFilter($request, $parent);
-        $data['banner'] = $this->cat->whereIn('cat_id', $request->input('categ'));
+        $data['banner'] = app(CategoryRepository::class)->whereIn('cat_id', $request->input('categ'));
         $data['properties'] = $this->getAll($parent);
         $data['products'] = $this->pagination($request, $parent);
         return $data;
@@ -173,7 +163,7 @@ class MainService
     {
         $search = $request->input('search');
         $data = $this->prepareFilter($request, $parent);
-        $data['banner'] = $this->cat->findBy('cat_id', $request->input('categ'));
+        $data['banner'] = app(CategoryRepository::class)->findBy('cat_id', $request->input('categ'));
         $data['properties'] = $this->getAll($parent);
         $data['products'] = $this->product->whereLike($search);
         return $data;

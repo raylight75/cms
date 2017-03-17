@@ -6,8 +6,6 @@ use App\Events\AddCustomer;
 use App\Events\ForgetSession;
 use App\Repositories\OrderRepository;
 use App\Repositories\TaxRepository;;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Event;
 
 class ShoppingService
 {
@@ -83,10 +81,10 @@ class ShoppingService
     public function createOrder($request, $cart)
     {
         $user = $request->session()->all();
-        $user['user_id'] = Auth::user()->id;
+        $user['user_id'] = auth()->user()->id;
         $this->order->makeOrder($cart);
-        Event::fire(new AddCustomer($user));
-        Event::fire(new ForgetSession($request));
+        event(new AddCustomer($user));
+        event(new ForgetSession($request));
     }
 
     /**

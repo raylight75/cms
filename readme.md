@@ -6,7 +6,7 @@ Ecommerce-cms is simple starting project to create ecommerce sites.
 
 Documentation for the this project it's not ready yet.
 If you want to test repository just clone it and import cms.sql file in MySql Database,
-clear user table with demo data and register new user with admin permission.
+use username admin@admin.com pass adminadmin, create or register new user and make test order.
 
 ## Demo Page
 

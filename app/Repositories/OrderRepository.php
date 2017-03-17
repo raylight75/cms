@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class OrderRepository extends Repository
 {
@@ -49,7 +48,7 @@ class OrderRepository extends Repository
     {
         foreach ($cart as $item) {
             $this->create([
-                'user_id' => Auth::user()->id,
+                'user_id' => auth()->user()->id,
                 'order_date' => Carbon::now(),
                 'product_id' => $item->id,
                 'quantity' => $item->qty,

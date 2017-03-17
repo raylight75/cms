@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SubmitProduct;
 use App\Http\Requests\SubmitCheckout;
 use App\Services\ShoppingService;
-use Auth, View;
 
 class ShoppingController extends Controller
 {

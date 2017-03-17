@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\ForgetSession;
-use App\Models\Customer;
 
 class ClearSession
 {

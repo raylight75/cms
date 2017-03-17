@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\CheckoutService;
 use Gloudemans\Shoppingcart\Cart;
 use Illuminate\Http\Request;
-use Auth, View;
 
 class CheckoutController extends Controller
 {

@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Cart;
 
 class CartRepository
@@ -34,7 +33,7 @@ class CartRepository
 
     public function setCart()
     {
-        if (!Auth::check()) {
+        if (!auth()->check()) {
             $data['rows'] = null;
             $data['cart'] = null;
             $data['grandTotal'] = null;

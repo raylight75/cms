@@ -3,16 +3,16 @@
     <table class="bag_total">
         <tr class="shipping clearfix">
             <th>Products</th>
-            <td>{!! Helper::price($grand_total) !!}&nbsp{!! $label !!}</td>
+            <td>{!! Helper::price($grand_total) !!}&nbsp{!! $currency !!}</td>
         </tr>
         <tr class="shipping clearfix">
             <th>SHIPPING RATE</th>
-            <td>{!! Helper::price($shippings->rate) !!}&nbsp{!! $label !!}</td>
+            <td>{!! Helper::price($shippings->rate) !!}&nbsp{!! $currency !!}</td>
         </tr>
         <tr class="shipping clearfix">
             <th>+ 20% VAT applicable</th>
             <?php $vat_total = $grand_total * $vat;?>
-            <td>{!! Helper::price($vat_total) !!}&nbsp{!! $label !!}</td>
+            <td>{!! Helper::price($vat_total) !!}&nbsp{!! $currency !!}</td>
         </tr>
         <tr class="total clearfix">
             <th>Total</th>
@@ -20,7 +20,7 @@
             $shipping_rate = $shippings->rate;
             $grand_total = $grand_total + $shipping_rate + $vat_total;
             ?>
-            <td>{!! Helper::price($grand_total) !!}&nbsp{!! $label !!}</td>
+            <td>{!! Helper::price($grand_total) !!}&nbsp{!! $currency !!}</td>
         </tr>
     </table>
     <a class="btn active" href="{{ url('checkout/create') }}">Place Order</a>

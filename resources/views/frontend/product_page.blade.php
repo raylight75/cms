@@ -27,7 +27,7 @@
                                 <a href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}"
                                    class="tovar_item_small_title"><?php echo $row->name;?></a>
                                 <span class="tovar_item_small_price">
-                                {!! Helper::price($row->price) !!}&nbsp{!! $label !!}
+                                {!! Helper::price($row->price) !!}&nbsp{!! $currency !!}
                             </span>
                             </li>
                         @endforeach
@@ -122,7 +122,7 @@
                                         <a class="tovar_title"
                                            href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">{{$row->name}}</a>
                                         <span class="tovar_price">{!! Helper::price($row->price) !!}
-                                            &nbsp{!! $label !!}</span>
+                                            &nbsp{!! $currency !!}</span>
                                     </div>
                                 </div>
                                 <!-- //TOVAR -->

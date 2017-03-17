@@ -48,7 +48,7 @@
                                              src="{{ url('images/products') }}/{{$item->options->img}}" alt=""/>
                                         <a href="{{ url('cart') }}" class="cart_item_title">{{$item->name}}</a>
                                         <span class="cart_item_price">{{$item->qty}}
-                                            x{!! Helper::price($item->price) !!}&nbsp{!! $label !!}</span>
+                                            x{!! Helper::price($item->price) !!}&nbsp{!! $currency !!}</span>
                                     </li>
                                 </ul>
                             @endforeach
@@ -56,7 +56,7 @@
                                 <div class="clearfix">
 										<span class="cart_subtotal">@lang('site.bag subtotal')
                                             <b>{!! Helper::price($grand_total) !!}
-                                                &nbsp{!! $label !!}</b></span>
+                                                &nbsp{!! $currency !!}</b></span>
                                 </div>
                                 <a class="btn active"
                                    href="{{ url('checkout/shipping') }}">@lang('site.checkout')</a>

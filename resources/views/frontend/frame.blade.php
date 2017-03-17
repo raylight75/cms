@@ -34,7 +34,7 @@
         <div class="clearfix tovar_brend_price">
             <div class="pull-left tovar_brend">{{$item->brand}}</div>
             <div class="pull-right tovar_view_price">
-                {!! Helper::price($item->price) !!}&nbsp{!! $label !!}
+                {!! Helper::price($item->price) !!}&nbsp{!! $currency !!}
             </div>
         </div>
         <div class="tovar_color_select">

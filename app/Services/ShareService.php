@@ -71,7 +71,7 @@ class ShareService extends BaseService
             'rows' => $cart['rows'],
             'cart' => $cart['cart'],
             'grand_total' => $cart['grandTotal'],
-            'label' => session('currency', config('app.currency')),
+            'currency' => session('currency', config('app.currency')),
         );
         return $data;
     }

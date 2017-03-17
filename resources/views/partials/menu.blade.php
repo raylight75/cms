@@ -29,7 +29,7 @@
     <li class="normal menu"><a href="{{ url('contacts') }}">@lang('site.contacts')</a>
     <li class="normal menu"><a href="{{ url('aboutus') }}">@lang('site.about us')</a>
     <li class="normal menu"><a href="{{ url('login') }}">@lang('site.login')</a>
-    <li class="sub-menu"><a>{!! $label !!}</a>
+    <li class="sub-menu"><a>{!! $currency !!}</a>
         <ul class="mega_menu megamenu_col1 clearfix">
             <li class="col">
                 @foreach($currencies as $row)

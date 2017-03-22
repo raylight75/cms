@@ -12,6 +12,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.4.*",
         "nesbot/carbon": "^1.21",
+        "netshell/paypal": "dev-master",
         "ultraware/roles": "^5.4",
         "zofe/rapyd": "2.1.*"
     },

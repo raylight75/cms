@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\MainService;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -169,10 +168,10 @@ class MainController extends Controller
         return view('frontend.login');
     }
 
-    public function welcome(Guard $auth)
+    public function welcome()
     {
         //redirect trait AuthenticatesUsers getLogout()
-        $user = $auth->user()->name;
+        $user = auth()->user()->name;
         $this->request->session()->flash('flash_message', 'You have been successfully Logged In!');
         return view('messages.welcome')->with('user', $user);
     }

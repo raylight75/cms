@@ -179,6 +179,7 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Ultraware\Roles\RolesServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Netshell\Paypal\PaypalServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -248,6 +249,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Helper' => App\Helpers\Helper::class,
         'Query' => App\Repositories\ModelFactory::class,
+        'PayPal' => Netshell\Paypal\Facades\Paypal::class,
     ],
 
 ];

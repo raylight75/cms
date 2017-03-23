@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="eb8c846b-bdae-4d27-a6c8-b6229f07e8ae" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/app.php" afterPath="$PROJECT_DIR$/config/app.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/services.php" afterPath="$PROJECT_DIR$/config/services.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
     </list>
     <ignored path="cms.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -487,14 +484,7 @@
       <workItem from="1489737080237" duration="9244000" />
       <workItem from="1490194726753" duration="24000" />
       <workItem from="1490195071095" duration="1328000" />
-      <workItem from="1490251964408" duration="708000" />
-    </task>
-    <task id="LOCAL-00072" summary="Checkout">
-      <created>1462634776759</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1462634776761</updated>
+      <workItem from="1490251964408" duration="752000" />
     </task>
     <task id="LOCAL-00073" summary="Checkout">
       <created>1462650164248</created>
@@ -832,11 +822,18 @@
       <option name="project" value="LOCAL" />
       <updated>1490196436615</updated>
     </task>
-    <option name="localTasksCounter" value="121" />
+    <task id="LOCAL-00121" summary="added Netshell-paypal">
+      <created>1490252697202</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1490252697203</updated>
+    </task>
+    <option name="localTasksCounter" value="122" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="310789000" />
+    <option name="totallyTimeSpent" value="310833000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1426" extended-state="6" />

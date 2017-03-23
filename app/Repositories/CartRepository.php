@@ -48,4 +48,10 @@ class CartRepository
         }
         return $data;
     }
+
+    public function getContent()
+    {
+        $cart = $this->cart->instance(auth()->id())->content();
+        return $cart;
+    }
 }

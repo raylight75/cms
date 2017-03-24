@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Gloudemans\Shoppingcart\Cart;
+use App\Repositories\CartRepository;
+use App\Services\CheckoutService;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use PayPal;
 use Redirect;
 use Illuminate\Http\Request;
@@ -40,11 +42,10 @@ class PaymentController extends Controller
 
     private $_apiContext;
 
-    protected $cart;
-
-    public function __construct(Cart $cart)
+    public function __construct(CartRepository $cart, CheckoutService $checkout)
     {
         $this->cart = $cart;
+        $this->checkout = $checkout;
         $this->_apiContext = PayPal::ApiContext(
             config('services.paypal.client_id'),
             config('services.paypal.secret'));
@@ -60,33 +61,42 @@ class PaymentController extends Controller
 
     }
 
-    public function getCheckout()
+    public function getCheckout(Request $request)
     {
-        $cart = $this->cart->instance(auth()->id())->content();
+        $cart = Cart::instance(auth()->id())->content();
+        //dd($cart);
         $payer = PayPal::Payer();
         $payer->setPaymentMethod('paypal');
         foreach ($cart as $item) {
-            $data[] = $item->rowId;
-            foreach ($item->rowId as $i) {
-                $i->setName($i->name)
-                    ->setDescription($i->name)
-                    ->setCurrency("USD")
-                    ->setQuantity((int)$i->qty)
-                    ->setPrice($i->price);
-            }
+            $subtotal = $item->subtotal;
+            $data[$item->id] = PayPal::Item();
+            $data[$item->id]->setName($item->name)
+                ->setDescription($item->name)
+                ->setCurrency("USD")
+                ->setQuantity((int)$item->qty)
+                ->setPrice($item->price);
         }
-        //dd($data);
+        $items = (array_values($data));
         $itemList = PayPal::ItemList();
-        //$itemList->addItem($data[0]);
-        $itemList->setItems($data);
+        //$itemList->addItem($data[50]);
+        $itemList->setItems($items);
         $details = PayPal::Details();
-        $details->setShipping(2)
-            ->setTax(0.0)
-            ->setSubTotal(83);
+
+        //taxes
+        $tax = $this->checkout->checkoutShow($request);
+        $total = $this->cart->setCart();
+        $vat_total = $total['grandTotal'] * $tax['vat'];
+        $grand_total = $total['grandTotal'] + $tax['shippings']->rate + $vat_total;
+
+        //dd($grand_total);
+
+        $details->setShipping($tax['shippings']->rate)
+            ->setTax($vat_total)
+            ->setSubTotal((int)$total['grandTotal']);
         //Payment Amount
         $amount = PayPal::Amount();
         $amount->setCurrency("USD")
-            ->setTotal(85)
+            ->setTotal($grand_total)
             ->setDetails($details);
 
         $transaction = PayPal::Transaction();

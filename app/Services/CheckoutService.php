@@ -83,7 +83,7 @@ class CheckoutService
         $data['shippings'] = $this->shipping->find($request->session()->get('delivery'));
         $data['customer'] = $request->session()->all();
         $data['vat_total'] = $this->vat($request);
-        $data['grand_total'] = $cart['grandTotal'] + $data['shippings']->rate + $data['vat_total'];
+        $data['finalTotal'] = $cart['grandTotal'] + $data['shippings']->rate + $data['vat_total'];
         return $data;
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use PayPal;
 use Redirect;
 use Illuminate\Http\Request;
+use App\Events\ForgetSession;
 use App\Services\CheckoutService;
 use Gloudemans\Shoppingcart\Cart;
 
@@ -59,6 +60,15 @@ class PaymentController extends Controller
 
     }
 
+    /**
+     * Alert for demo payment with Paypal sanbox.
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getAlert()
+    {
+        return view('frontend/alert');
+    }
+
     public function getCheckout(Request $request, Cart $cart)
     {
         $content = $cart->instance(auth()->id())
@@ -101,8 +111,8 @@ class PaymentController extends Controller
             ->setDescription('What are you selling?');
 
         $redirectUrls = PayPal:: RedirectUrls();
-        $redirectUrls->setReturnUrl(url('checkout/done'));
-        $redirectUrls->setCancelUrl(url('checkout/cancel'));
+        $redirectUrls->setReturnUrl(url('payment/done'));
+        $redirectUrls->setCancelUrl(url('payment/cancel'));
 
         $payment = PayPal::Payment();
         $payment->setIntent('sale');
@@ -119,7 +129,7 @@ class PaymentController extends Controller
         return Redirect::to($redirectUrl);
     }
 
-    public function getDone(Request $request)
+    public function getDone(Cart $cart, Request $request)
     {
         $id = $request->get('paymentId');
         $token = $request->get('token');
@@ -131,20 +141,32 @@ class PaymentController extends Controller
 
         $paymentExecution->setPayerId($payer_id);
         $result = $payment->execute($paymentExecution, $this->_apiContext);
-        $customer = $result->getPayer()
+        //customer info
+        $payer = $result->getPayer()
             ->getPayerInfo();
-        dd($customer->email);
-        // Clear the shopping cart, write to database, send notifications, etc.
+        $data['email'] = $payer->email;
+        $data['first_name'] = $payer->first_name;
+        $data['last_name'] = $payer->last_name;
+        //transaction info
+        /*$transaction = $result->getTransactions();
+        dd($transaction);
+        //    ->getAmount();
+        $data['total'] = $transaction->total;
+        $data['currency'] = $transaction->currency;*/
+        //dd($customer->email);
 
-        // Thank the user for the purchase
-        return view('frontend/payment')->with('executePayment', $result);
+        // Clear the shopping cart, write to database, send notifications, etc.
+        $cart->instance(auth()->id())->destroy();
+        //event(new ForgetSession($request));
+
+        return view('frontend/paypal_info',$data);
     }
 
     public function getCancel()
     {
         // Curse and humiliate the user for cancelling this most sacred payment (yours)
         $executePayment = null;
-        return view('frontend/payment')->with('executePayment', $executePayment);
+        return redirect('/cms');
     }
 
     public function createWebProfile()
@@ -155,9 +177,9 @@ class PaymentController extends Controller
         $webProfile = PayPal::WebProfile();
         //$flowConfig->setLandingPageType("Billing"); //Set the page type
         //NB: Paypal recommended to use https for the logo's address and the size set to 190x60.
-        $presentation->setLogoImage("https://www.example.com/images/logo.jpg")->setBrandName("Example ltd");
+        $presentation->setLogoImage(asset('/images/payment.jpg'))->setBrandName(config('app.name'));
         //$inputFields->setAllowNote(true)->setNoShipping(1)->setAddressOverride(1);
-        $webProfile->setName("Example " . uniqid())
+        $webProfile->setName(config('app.name') . uniqid())
             //->setFlowConfig($flowConfig)
             // Parameters for style and presentation.
             ->setPresentation($presentation);

@@ -58,7 +58,11 @@ Route::group(['prefix' => 'checkout', 'middleware' => 'admin:user'], function ()
     Route::get('/show', 'CheckoutController@checkoutShow');
     Route::get('/create', 'ShoppingController@createOrder');
     Route::get('/order', 'ShoppingController@finalOrder');
-    Route::get('/payment', 'PaymentController@getCheckout');
+});
+
+Route::group(['prefix' => 'payment', 'middleware' => 'admin:user'], function () {
+    Route::get('/alert', 'PaymentController@getAlert');
+    Route::get('/checkout', 'PaymentController@getCheckout');
     Route::get('/done', 'PaymentController@getDone');
     Route::get('/cancel', 'PaymentController@getCancel');
 });

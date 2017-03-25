@@ -15,11 +15,11 @@
         </tr>
         <tr class="total clearfix">
             <th>Total</th>
-            <td>{!! Helper::price($grand_total) !!}&nbsp{!! $currency !!}</td>
+            <td>{!! Helper::price($finalTotal) !!}&nbsp{!! $currency !!}</td>
         </tr>
     </table>
     <a class="btn active" href="{{ url('checkout/create') }}">Place Test Order</a>
-    <a class="btn active" href="{{ url('checkout/payment') }}">Proceed to PayPal</a>
+    <a class="btn active" href="{{ url('payment/alert') }}">Proceed to PayPal</a>
     <a class="btn inactive" href="{{ url(URL::previous()) }}">Go to previous
         step</a>
 </div>

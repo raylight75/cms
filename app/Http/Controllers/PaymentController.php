@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\CartRepository;
-use App\Services\CheckoutService;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use PayPal;
 use Redirect;
 use Illuminate\Http\Request;
+use App\Services\CheckoutService;
+use Gloudemans\Shoppingcart\Cart;
 
 class PaymentController extends Controller
 {
@@ -42,9 +41,8 @@ class PaymentController extends Controller
 
     private $_apiContext;
 
-    public function __construct(CartRepository $cart, CheckoutService $checkout)
+    public function __construct(CheckoutService $checkout)
     {
-        $this->cart = $cart;
         $this->checkout = $checkout;
         $this->_apiContext = PayPal::ApiContext(
             config('services.paypal.client_id'),
@@ -61,14 +59,14 @@ class PaymentController extends Controller
 
     }
 
-    public function getCheckout(Request $request)
+    public function getCheckout(Request $request, Cart $cart)
     {
-        $cart = Cart::instance(auth()->id())->content();
+        $content = $cart->instance(auth()->id())
+            ->content();
         //dd($cart);
         $payer = PayPal::Payer();
         $payer->setPaymentMethod('paypal');
-        foreach ($cart as $item) {
-            $subtotal = $item->subtotal;
+        foreach ($content as $item) {
             $data[$item->id] = PayPal::Item();
             $data[$item->id]->setName($item->name)
                 ->setDescription($item->name)
@@ -78,27 +76,24 @@ class PaymentController extends Controller
         }
         $items = (array_values($data));
         $itemList = PayPal::ItemList();
+        //Add single item
         //$itemList->addItem($data[50]);
         $itemList->setItems($items);
         $details = PayPal::Details();
-
         //taxes
         $tax = $this->checkout->checkoutShow($request);
-        $total = $this->cart->setCart();
-        $vat_total = $total['grandTotal'] * $tax['vat'];
-        $grand_total = $total['grandTotal'] + $tax['shippings']->rate + $vat_total;
-
-        //dd($grand_total);
-
+        $vat_total = $this->checkout->vat($request);
+        $grand_total = $tax['cartTotal'] + $tax['shippings']->rate + $vat_total;
+        //Details
         $details->setShipping($tax['shippings']->rate)
             ->setTax($vat_total)
-            ->setSubTotal((int)$total['grandTotal']);
+            ->setSubTotal((int)$tax['cartTotal']);
         //Payment Amount
         $amount = PayPal::Amount();
         $amount->setCurrency("USD")
             ->setTotal($grand_total)
             ->setDetails($details);
-
+        //Transaction
         $transaction = PayPal::Transaction();
         $transaction->setAmount($amount)
             ->setItemList($itemList)
@@ -154,26 +149,21 @@ class PaymentController extends Controller
 
     public function createWebProfile()
     {
-
         //$flowConfig = PayPal::FlowConfig();
         $presentation = PayPal::Presentation();
         //$inputFields = PayPal::InputFields();
         $webProfile = PayPal::WebProfile();
         //$flowConfig->setLandingPageType("Billing"); //Set the page type
-
-        $presentation->setLogoImage("https://www.example.com/images/logo.jpg")->setBrandName("Example ltd"); //NB: Paypal recommended to use https for the logo's address and the size set to 190x60.
-
+        //NB: Paypal recommended to use https for the logo's address and the size set to 190x60.
+        $presentation->setLogoImage("https://www.example.com/images/logo.jpg")->setBrandName("Example ltd");
         //$inputFields->setAllowNote(true)->setNoShipping(1)->setAddressOverride(1);
-
         $webProfile->setName("Example " . uniqid())
             //->setFlowConfig($flowConfig)
             // Parameters for style and presentation.
             ->setPresentation($presentation);
         // Parameters for input field customization.
         //->setInputFields($inputFields);
-
         $createProfileResponse = $webProfile->create($this->_apiContext);
-
         return $createProfileResponse->getId(); //The new webprofile's id
     }
 }

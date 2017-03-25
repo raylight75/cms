@@ -124,7 +124,7 @@
                     <table class="bag_total">
                         <tr class="shipping clearfix">
                             <th><?= _('SHIPPING')?></th>
-                            <td><?= _('Free')?></td>
+                            <td><?= _('Not Calculated')?></td>
                         </tr>
                         <tr class="total clearfix">
                             <th><?= _('Total')?></th>

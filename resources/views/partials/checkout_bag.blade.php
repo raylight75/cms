@@ -11,15 +11,10 @@
         </tr>
         <tr class="shipping clearfix">
             <th>+ 20% VAT applicable</th>
-            <?php $vat_total = $grand_total * $vat;?>
             <td>{!! Helper::price($vat_total) !!}&nbsp{!! $currency !!}</td>
         </tr>
         <tr class="total clearfix">
             <th>Total</th>
-            <?php
-            $shipping_rate = $shippings->rate;
-            $grand_total = $grand_total + $shipping_rate + $vat_total;
-            ?>
             <td>{!! Helper::price($grand_total) !!}&nbsp{!! $currency !!}</td>
         </tr>
     </table>

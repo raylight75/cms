@@ -28,6 +28,19 @@ Ecommerce-cms is simple starting project to create ecommerce sites.
 - Simple discounts
 - PayPal checkout Express demo payments
 
+TODO:
+
+Laravel based PHP Ecommerce-cms it's not complete ecommerce platform
+project is starting point for simple ecommerce sites.
+
+- Need more strong and complete validation
+- Complete support and managment for vat, taxes and shippings
+- Complete support for Paypal payments, orders, transactions
+  including Credit Card support etc.
+
+
+
+
 ## Official Documentation
 
 Complete documentation for the this project it's not ready yet.

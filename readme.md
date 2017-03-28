@@ -10,6 +10,7 @@ Ecommerce-cms is simple starting project to create ecommerce sites.
 - Repository Patterns and Services
 - Translation
 - Currency change
+- SEO friendly Routes
 - Ajax and non ajax search
 - Autocomplete and normal search
 - Ajax and non ajax Pagination
@@ -33,10 +34,11 @@ TODO:
 Laravel based PHP Ecommerce-cms it's not complete ecommerce platform
 project is starting point for simple ecommerce sites.
 
-- Need more strong and complete validation
-- Complete support and managment for vat, taxes and shippings
+- Need more strong and complete validation.
+- Complete support and managment for vat, taxes and shippings.
 - Complete support for Paypal payments, orders, transactions
   including Credit Card support etc.
+- Shopping cart improvements.
 
 
 

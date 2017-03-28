@@ -2,9 +2,35 @@
 
 Ecommerce-cms is simple starting project to create ecommerce sites.
 
+## Basic Features
+
+- Laravel framework 5.4
+- Bootstrap
+- Thin Controllers
+- Repository Patterns and Services
+- Translation
+- Currency change
+- Ajax and non ajax search
+- Autocomplete and normal search
+- Ajax and non ajax Pagination
+- Products filters
+- Product Iframe with fancySelect.js
+- User roles and Permission
+- Change user roles and permission
+- Demo users
+- CRUD for products, orders in backend
+- Backend admin and user panel
+- Login
+- Registration and Email Verification with Activation Code
+- Simple taxes and countries vats
+- Test demo orders
+- Complete Shopping Cart
+- Simple discounts
+- PayPal checkout Express demo payments
+
 ## Official Documentation
 
-Documentation for the this project it's not ready yet.
+Complete documentation for the this project it's not ready yet.
 If you want to test repository just clone it and import cms.sql file in MySql Database,
 use username admin@admin.com pass adminadmin, create or register new user and make test order.
 

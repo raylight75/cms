@@ -42,6 +42,10 @@ class PaymentController extends Controller
 
     private $_apiContext;
 
+    /**
+     * PaymentController constructor.
+     * @param CheckoutService $checkout
+     */
     public function __construct(CheckoutService $checkout)
     {
         $this->checkout = $checkout;
@@ -69,6 +73,11 @@ class PaymentController extends Controller
         return view('frontend/alert');
     }
 
+    /**
+     * @param Request $request
+     * @param Cart $cart
+     * @return mixed
+     */
     public function getCheckout(Request $request, Cart $cart)
     {
         $content = $cart->instance(auth()->id())
@@ -129,6 +138,11 @@ class PaymentController extends Controller
         return Redirect::to($redirectUrl);
     }
 
+    /**
+     * @param Cart $cart
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getDone(Cart $cart, Request $request)
     {
         $id = $request->get('paymentId');
@@ -162,6 +176,9 @@ class PaymentController extends Controller
         return view('frontend/paypal_info',$data);
     }
 
+    /**
+     * @return Redirect
+     */
     public function getCancel()
     {
         // Curse and humiliate the user for cancelling this most sacred payment (yours)
@@ -169,6 +186,9 @@ class PaymentController extends Controller
         return redirect('/cms');
     }
 
+    /**
+     * @return mixed
+     */
     public function createWebProfile()
     {
         //$flowConfig = PayPal::FlowConfig();

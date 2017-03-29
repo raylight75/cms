@@ -170,10 +170,10 @@ class PaymentController extends Controller
         //dd($customer->email);
 
         // Clear the shopping cart, write to database, send notifications, etc.
-        $cart->instance(auth()->id())->destroy();
+        //$cart->instance(auth()->id())->destroy();
         //event(new ForgetSession($request));
 
-        return view('frontend/paypal_info',$data);
+        return redirect('checkout/create');
     }
 
     /**

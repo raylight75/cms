@@ -279,15 +279,11 @@ class CrudRepository
     public function UsersOrdersEdit()
     {
         $edit = DataEdit::source(new Order());
-        $edit->label('Edit Order');
+        $edit->label('View Order');
         $edit->add('users.name', 'Username', 'text');
-        $edit->add('order_date', 'Date', 'text');
         $edit->add('products.name', 'Product', 'text');
         $edit->add('size', 'Size', 'text');
-        $edit->add('img', 'Image', 'image')->move('images/products/')->fit(240, 160)->preview(120, 80);
         $edit->add('color', 'Color', 'text');
-        $edit->add('quantity', 'Qty', 'text');
-        $edit->add('amount', 'Amount', 'text');
         $edit->link('/backend/user-orders', "Back", "TR");
         return $edit;
     }

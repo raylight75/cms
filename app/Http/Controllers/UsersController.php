@@ -140,6 +140,8 @@ class UsersController extends Controller
     public function update($id, EditUser $request)
     {
         $user = $this->user->find($id);
+        //$user = $this->user->find(auth()->id()); Get admin password
+        // Only admin can change user settings
         if (!Hash::check($request->input('old_password'), $user->password)) {
             return redirect()->back()->withErrors('Your old password does not match');
         } else {

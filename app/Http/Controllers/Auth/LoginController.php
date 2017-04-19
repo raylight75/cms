@@ -42,7 +42,7 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct(Activation $activation, User $user )
+    public function __construct(Activation $activation, User $user)
     {
         $this->middleware('guest', ['except' => 'logout']);
         $this->activation = $activation;
@@ -68,10 +68,12 @@ class LoginController extends Controller
                 $auth->logout();
                 return back()->with('warning', "First please activate your account.");
             }
-            //Demo user role
-            $role = $this->user->find(auth()->id());
-            $role->role()->sync(array(auth()->id() => 2)); //2 for Demo users
-            //End add Demo User
+            if ($auth->user()->hasRole('user')) {
+                //Demo user role
+                $role = $this->user->find(auth()->id());
+                $role->role()->sync(array(auth()->id() => 2)); //2 for Demo users
+                //End add Demo User
+            }
             return redirect()->to('/welcome');
         } else {
             return back()->with('error', 'Your username or password are wrong.');

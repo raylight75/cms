@@ -99,7 +99,7 @@
                                         <img src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/>
                                         <a class="open-project tovar_view"
                                            href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
-                                            <?= _('quick view')?></a>
+                                            @lang('site.quick view')</a>
                                     </div>
                                     <div class="tovar_description clearfix">
                                         <a class="tovar_title"
@@ -124,7 +124,7 @@
 
         <!-- CONTAINER -->
         <div class="container">
-
+            <h2>@lang('site.brands')</h2>
             <!-- JCAROUSEL -->
             <div class="jcarousel-wrapper">
 
@@ -142,8 +142,8 @@
                     <ul>
                         <?php $i = 1;?>
                         @foreach ($brands as $row)
-                            <li><a href="{{ url('/') }}/brand/{{$row->brand}}/{{$row->brand_id}}">
-                                    <img src="{{ url('/') }}/images/brands/{{$i++}}.jpg" alt=""/></a>
+                            <li>
+                                <a><img src="{{ url('/') }}/images/brands/{{$i++}}.jpg" alt=""/></a>
                             </li>
                         @endforeach
                     </ul>

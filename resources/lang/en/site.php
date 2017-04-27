@@ -29,6 +29,7 @@ return [
     'login' => 'Login',
     'featured' => 'Featured products',
     'arrivals' => 'New arrivals',
+    'brands' => 'Available Brands',
     'аvailable color' => 'Available color',
     'аvailable size' => 'Available size',
     'discount code' => 'Discount code',

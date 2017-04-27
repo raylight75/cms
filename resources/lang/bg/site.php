@@ -29,6 +29,7 @@ return [
     'login' => 'Влез',
     'featured' => 'Актуални продукти',
     'arrivals' => 'Нови продукти',
+    'brands' => 'Съществуващи Брандове',
     'аvailable color' => 'Налични цветове',
     'аvailable size' => 'Налични размери',
     'discount code' => 'Код за отстъпка',

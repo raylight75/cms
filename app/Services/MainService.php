@@ -105,7 +105,11 @@ class MainService
     public function getFilter($request, $parent)
     {
         $data = $this->prepareFilter($request, $parent);
-        $data['banner'] = app(CategoryRepository::class)->whereIn('cat_id', $request->input('categ'));
+        $catId = array($parent);
+        if($request->exists('categ')){
+            $catId = $request->input('categ');
+        }
+        $data['banner'] = app(CategoryRepository::class)->whereIn('cat_id', $catId);
         $data['properties'] = $this->getAll($parent);
         $data['products'] = $this->pagination($request, $parent);
         return $data;

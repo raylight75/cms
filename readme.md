@@ -18,7 +18,7 @@ Ecommerce-cms is simple starting project to create ecommerce sites.
 - Product Iframe with fancySelect.js
 - User roles and Permission
 - Change user roles and permission
-- Demo users
+- Test Demo users
 - CRUD for products, orders in backend
 - Backend admin and user panel
 - Login
@@ -31,7 +31,7 @@ Ecommerce-cms is simple starting project to create ecommerce sites.
 
 TODO:
 
-Laravel based PHP Ecommerce-cms it's not complete ecommerce platform
+Laravel based PHP Ecommerce-cms it's not complete ecommerce platform,
 project is starting point for simple ecommerce sites.
 
 - Need more strong and complete validation.

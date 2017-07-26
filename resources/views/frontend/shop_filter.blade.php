@@ -47,11 +47,11 @@
                         {{(in_array($row->color_id, $color)) ? 'checked="checked"' : ''}}/>
                 <label for="{{$row->color}}">
                     <li><a class="color{{$row->color_id}}"></a></li>
-                    @if($row->colorCount)
+                     @if($row->colorCount)
                         {{$row->color}}<span>({{$row->colorCount->aggregate}})</span></label>
-                @else
-                    <span>Out of Stock</span>
-                @endif
+                     @else
+                         <span>Out of Stock</span>
+                     @endif
                 <style>
                     .widget_color li a.color{{$row->color_id}}
 					           {

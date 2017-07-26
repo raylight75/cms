@@ -28,7 +28,11 @@
                         {{(in_array($row->size_id, $size)) ? 'checked="checked"' : ''}}/>
                 <label for="{{$row->size}}">
                     <li><a>{{$row->size}}</a></li>
-                    <span>({{$row->sizeCount->aggregate}})</span>
+                    @if($row->sizeCount)
+                        <span>({{$row->sizeCount->aggregate}})</span>
+                    @else
+                        <span>Out of Stock</span>
+                    @endif
                 </label>
             @endforeach
         </div>
@@ -46,8 +50,11 @@
                     {{$row->color}}<span>({{$row->colorCount->aggregate}})</span></label>
                 <style>
                     .widget_color li a.color{{$row->color_id}}
-					       {
+					          {
                         background-color: {{$row->web}}
+
+
+
 
 
                     }

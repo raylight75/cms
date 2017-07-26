@@ -128,8 +128,8 @@ class CrudRepository
         $edit->add('cat_id', 'Category', 'select')->options($this->category->pluck("cat", "cat_id")->all());
         $edit->add('size.size', 'Size', 'tags');
         $edit->add('color.color', 'Color', 'tags');
-        $edit->add('a_img', 'Front', 'image')->move('images/products/')->fit(240, 160)->preview(120, 80);
-        $edit->add('b_img', 'Side', 'image')->move('images/products/')->fit(240, 160)->preview(120, 80);
+        $edit->add('a_img', 'Front', 'image')->move('images/products/')->fit(370, 507)->preview(120, 80);
+        $edit->add('b_img', 'Side', 'image')->move('images/products/')->fit(370, 507)->preview(120, 80);
         $edit->add('quantity', 'Qty', 'text');
         $edit->add('price', 'Price', 'text');
         $edit->link('/backend/products', "Back", "TR");

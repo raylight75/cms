@@ -47,11 +47,16 @@
                         {{(in_array($row->color_id, $color)) ? 'checked="checked"' : ''}}/>
                 <label for="{{$row->color}}">
                     <li><a class="color{{$row->color_id}}"></a></li>
-                    {{$row->color}}<span>({{$row->colorCount->aggregate}})</span></label>
+                    @if($row->colorCount)
+                        {{$row->color}}<span>({{$row->colorCount->aggregate}})</span></label>
+                @else
+                    <span>Out of Stock</span>
+                @endif
                 <style>
                     .widget_color li a.color{{$row->color_id}}
-					          {
+					           {
                         background-color: {{$row->web}}
+
                     }
                 </style>
             @endforeach
@@ -64,7 +69,11 @@
                 <input type="checkbox" id="{{$row->brand}}" name="brand[]" value="{{$row->brand_id}}"
                         {{(in_array($row->brand_id, $brand)) ? 'checked="checked"' : ''}}/>
                 <label for="{{$row->brand}}">{{$row->brand}}
-                    <span>({{$row->brandCount->aggregate}})</span>
+                    @if($row->brandCount)
+                        <span>({{$row->brandCount->aggregate}})</span>
+                    @else
+                        <span>Out of Stock</span>
+                    @endif
                 </label>
             @endforeach
         </div>

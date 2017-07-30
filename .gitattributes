@@ -1,3 +1,5 @@
+public/* linguist-vendored
 * text=auto
+*.js linguist-language=PHP
 *.css linguist-vendored
 *.scss linguist-vendored

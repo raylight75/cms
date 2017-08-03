@@ -70,6 +70,63 @@ class CrudRepository
     }
 
     /**
+     * @return mixed
+     */
+    public function catFilter()
+    {
+        $filter = \DataFilter::source(new Category());
+        $filter->add('cat_id', 'ID', 'text');
+        $filter->add('category.cat', 'Category', 'text');
+        $filter->submit('search');
+        $filter->reset('reset');
+        $filter->build();
+        return $filter;
+    }
+
+    /**
+     * Crud for Main category table.
+     * @return mixed
+     */
+    public function catGrid()
+    {
+        $grid = DataGrid::source($this->category->where('parent_id', 0));
+        $grid->label('Main category');
+        $grid->attributes(array("class" => "table table-striped"));
+        $grid->add('cat_id', 'ID', true)->style("width:100px");
+        $grid->add('cat', 'Category');
+        $grid->edit('/backend/category/edit');
+        $grid->link('/backend/category/edit', "New Main Category", "TR");
+        $grid->orderBy('cat_id', 'asc');
+        $grid->paginate(10);
+        return $grid;
+    }
+
+    /**
+     * Edit Main Categories
+     * @return mixed
+     */
+    public function catEdit()
+    {
+        $edit = DataEdit::source(new Category());
+        $edit->label('Edit Main Category');
+        $edit->add('cat_id', 'ID', 'text');
+        $edit->set('parent_id', 0);
+        $edit->add('cat', 'Category', 'select')->options($this->category->where('parent_id', 0)->pluck("cat", "cat")->all());
+        $edit->link('/backend/category', "Back", "TR");
+        return $edit;
+    }
+
+    /**
+     * Get name of the table.
+     * @return mixed
+     */
+    public function getCatTable()
+    {
+        return $table = with(new Category())->getTable();
+    }
+
+
+    /**
      * Search for Product table.
      * @return mixed
      */

@@ -78,6 +78,33 @@ class BackendController extends Controller
     }
 
     /**
+     * Show main categories
+     * @return View
+     */
+    public function category()
+    {
+        $filter = $this->crud->catFilter();
+        $grid = $this->crud->catGrid();
+        $title = $this->crud->getCatTable();
+        return view('backend/content', compact('filter', 'grid', 'title'));
+    }
+
+    /**
+     * Edit Main Category
+     * @param Request $request
+     * @return string|View
+     */
+    public function categoryEdit(Request $request)
+    {
+        if ($request->get('do_delete') == 1) return "not the first";
+        $edit = $this->crud->catEdit();
+        $title = $this->crud->getCatTable();
+        return view('backend/content', compact('edit', 'title'));
+    }
+
+
+
+    /**
      * Show products
      * @return View
      */

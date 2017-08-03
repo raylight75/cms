@@ -35,6 +35,10 @@ class Helper
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
 
+    /**
+     * @param $input
+     * @return mixed
+     */
     public static function price($input)
     {
         $var = session('currency');
@@ -46,5 +50,15 @@ class Helper
         }
         $total = (double)$input * (double)$rate;
         return number_format((double)$total, 2);
+    }
+
+    /**
+     * @param $path
+     * @param string $active
+     * @return string
+     */
+    public static function setActive($path, $active = 'active')
+    {
+        return request()->segment(2) === $path ? $active : '';
     }
 }

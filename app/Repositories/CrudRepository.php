@@ -89,13 +89,24 @@ class CrudRepository
      */
     public function catGrid()
     {
-        $grid = DataGrid::source($this->category->where('parent_id', 0));
-        $grid->label('Main category');
-        $grid->attributes(array("class" => "table table-striped"));
-        $grid->add('cat_id', 'ID', true)->style("width:100px");
-        $grid->add('cat', 'Category');
-        $grid->edit('/backend/category/edit');
-        $grid->link('/backend/category/edit', "New Main Category", "TR");
+        if (request()->segment(2) === 'subcategory') {
+            $grid = DataGrid::source(Category::with('parent')->where('parent_id','>', 0));
+            $grid->label('Subcategory');
+            $grid->attributes(array("class" => "table table-striped"));
+            $grid->add('cat_id', 'ID', true)->style("width:100px");
+            $grid->add('cat', 'Subategory');
+            $grid->add('{{ $parent->cat }}','Parent', 'cat_id');
+            $grid->edit('/backend/subcategory/edit');
+            $grid->link('/backend/subcategory/edit', "New Subategory", "TR");
+        } else {
+            $grid = DataGrid::source($this->category->where('parent_id', 0));
+            $grid->label('Main category');
+            $grid->attributes(array("class" => "table table-striped"));
+            $grid->add('cat_id', 'ID', true)->style("width:100px");
+            $grid->add('cat', 'Category');
+            $grid->edit('/backend/category/edit');
+            $grid->link('/backend/category/edit', "New Main Category", "TR");
+        }
         $grid->orderBy('cat_id', 'asc');
         $grid->paginate(10);
         return $grid;

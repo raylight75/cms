@@ -38,4 +38,13 @@ class Category extends Model
     {
         return $this->belongsTo('App\Models\Product','cat_id', 'cat_id');
     }
+
+    /**
+     * Get parent category
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Category', 'parent_id');
+    }
 }

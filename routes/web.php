@@ -98,6 +98,8 @@ Route::middleware('admin:admin')
         Route::get('/admin', 'BackendController@dashboard');
         Route::get('roles', 'UsersController@role');
         Route::post('roles', 'UsersController@createRole');
+        Route::get('subcategory', 'BackendController@category');
+        Route::any('subcategory/edit', 'BackendController@CategoryEdit');
         Route::resource('users', 'UsersController');
         Route::get('articles/search', 'ArticlesController@search');
         Route::resource('articles', 'ArticlesController');

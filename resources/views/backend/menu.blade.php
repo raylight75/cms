@@ -24,6 +24,11 @@
     @slot('icon')icon fa fa-list @endslot
     @slot('name')Categories @endslot
     @endcomponent
+    @component('backend.link')
+    @slot('link'){{ url('backend/subcategory') }}@endslot
+    @slot('icon')icon fa fa-list @endslot
+    @slot('name')Subcategories @endslot
+    @endcomponent
     @component('backend.dropdown')
     {!! Helper::setActive('products') !!}
     @slot('link'){{ url('backend/products') }}@endslot

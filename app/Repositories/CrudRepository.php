@@ -118,12 +118,23 @@ class CrudRepository
      */
     public function catEdit()
     {
-        $edit = DataEdit::source(new Category());
-        $edit->label('Edit Main Category');
-        $edit->add('cat_id', 'ID', 'text');
-        $edit->set('parent_id', 0);
-        $edit->add('cat', 'Category', 'select')->options($this->category->where('parent_id', 0)->pluck("cat", "cat")->all());
-        $edit->link('/backend/category', "Back", "TR");
+        if(request()->segment(2) === 'subcategory'){
+            $edit = DataEdit::source(new Category());
+            $edit->label('Edit Subategory');
+            $edit->add('cat_id', 'ID', 'text');
+            $edit->add('cat', 'Subategory', 'select')->options($this->category->where('parent_id','>', 0)->pluck("cat", "cat")->all());
+            $edit->add('parent.cat', 'Parent', 'select')->options($this->category->where('parent_id',0)->pluck("cat", "cat_id")->all());
+            $edit->link('/backend/subcategory', "Back", "TR");
+
+        }else{
+            $edit = DataEdit::source(new Category());
+            $edit->label('Edit Main Category');
+            $edit->add('cat_id', 'ID', 'text');
+            $edit->set('parent_id', 0);
+            $edit->add('cat', 'Category', 'select')->options($this->category->where('parent_id', 0)->pluck("cat", "cat")->all());
+            $edit->link('/backend/category', "Back", "TR");
+
+        }
         return $edit;
     }
 

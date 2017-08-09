@@ -131,7 +131,7 @@ class CrudRepository
             $edit->label('Edit Main Category');
             $edit->add('cat_id', 'ID', 'text');
             $edit->set('parent_id', 0);
-            $edit->add('cat', 'Category', 'select')->options($this->category->where('parent_id', 0)->pluck("cat", "cat")->all());
+            $edit->add('cat', 'Category', 'text');
             $edit->link('/backend/category', "Back", "TR");
 
         }

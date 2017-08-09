@@ -2,9 +2,9 @@
 @section('content')
     <!-- BREADCRUMBS -->
     <section
-            class="breadcrumb {{$menu[$parent]['name']}} parallax margbot30">
+            class="breadcrumb {{$cats[$parent]['name']}} parallax margbot30">
         <style>
-            .breadcrumb.{{$menu[$parent]['name']}}
+            .breadcrumb.{{$cats[$parent]['name']}}
   {
                 margin: 0;
                 padding: 179px 0 81px;
@@ -15,14 +15,14 @@
                 background-size: cover;
             }
 
-            .breadcrumb.{{$menu[$parent]['name']}}
+            .breadcrumb.{{$cats[$parent]['name']}}
   {
-                background-image: url({{ url('images/categories') }}/{{$menu[$parent]['banner']}});
+                background-image: url({{ url('images/categories') }}/{{$cats[$parent]['banner']}});
             }
         </style>
         <!-- CONTAINER -->
         <div class="container">
-            <h2>{{$menu[$parent]['name']}}</h2>
+            <h2>{{$cats[$parent]['name']}}</h2>
         </div>
         <!-- //CONTAINER -->
     </section>
@@ -30,7 +30,7 @@
 
     <section class="shop">
         <div class="container">
-            @include('frontend/search', ['url'=>'/items/search/'.$menu[$parent]['id'].''])
+            @include('frontend/search', ['url'=>'/items/search/'.$cats[$parent]['id'].''])
         </div>
     </section>
 
@@ -63,7 +63,7 @@
                     <!-- SHOP BANNER -->
                         <div class="banner_block margbot15">
                             <a class="banner nobord" href="javascript:void(0);">
-                                <img src="{{ url('images/categories') }}/{{$menu[$parent]['name']}}.jpg" alt=""/></a>
+                                <img src="{{ url('images/categories') }}/{{$cats[$parent]['name']}}.jpg" alt=""/></a>
                         </div>
                     @endif
                 <!-- //SHOP BANNER -->
@@ -108,7 +108,7 @@
     </section>
 @section('script')
     <script type="text/javascript">
-        var route = '{{ url('items/search') }}/{{$menu[$parent]['id']}}';
+        var route = '{{ url('items/search') }}/{{$cats[$parent]['id']}}';
         var autoRoute = '{{ url('search/autocomplete') }}';
         //Live Search AJAX
         $(document).ready(function () {

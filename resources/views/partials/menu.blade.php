@@ -5,22 +5,22 @@
     </li>
     <!-- //MEGA MENU -->
     <!-- MEGA MENU-->
-    @foreach($menu as $row)
-        <li class="sub-menu"><a>{{$row['name']}}</a>
+    @foreach($menu as $parent)
+        <li class="sub-menu"><a>{{$parent->cat}}</a>
             <ul class="mega_menu megamenu_col1 clearfix">
                 <li class="col">
-                    @foreach($row['sub_cat'] as $item)
+                    @foreach($parent->children as $child)
                         <ol>
                             <li>
-                                <a href="{{ url('') }}/{{$row['name']}}/{{$item['name']}}/{{$item['parent_id']}}?categ[]={{$item['id']}}">
-                                    {{$item['name']}}</a>
+                                <a href="{{ url('') }}/{{$parent->cat}}/{{$child->cat}}/{{$child->parent_id}}?categ[]={{$child->cat_id}}">
+                                    {{$child->cat}}</a>
                             </li>
                         </ol>
                     @endforeach
                 </li>
             </ul>
         </li>
-@endforeach
+    @endforeach
 <!-- //MEGA MENU -->
     <!-- MEGA MENU -->
     <li class=" normal menu"><a href="{{ url('blog') }}">@lang('site.blog')</a></li>

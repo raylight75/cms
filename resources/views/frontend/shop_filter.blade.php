@@ -3,9 +3,9 @@
     <h3>@lang('site.by cats')</h3>
 
     <form class="login_form" name="pr_cat" id="categories" role="form"
-          method="GET" action="{{ url('filter/products/'.$menu[$parent]['id'].'') }}">
+          method="GET" action="{{ url('filter/products/'.$cats[$parent]['id'].'') }}">
 
-        @foreach($menu[$parent]['sub_cat'] as $row)
+        @foreach($cats[$parent]['sub_cat'] as $row)
             <input type="checkbox" id="{{$row['name']}}" name="categ[]" value="{{$row['id']}}"
                     {{ (in_array($row['id'],$category))?'checked="checked"':''}} />
             <label for="{{$row['name']}}">

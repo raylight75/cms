@@ -45,6 +45,14 @@ class Category extends Model
      */
     public function parent()
     {
-        return $this->belongsTo('App\Models\Category', 'parent_id');
+        return $this->belongsTo(static::class, 'parent_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(static::class, 'parent_id');
     }
 }

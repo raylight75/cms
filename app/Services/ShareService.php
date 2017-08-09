@@ -65,6 +65,7 @@ class ShareService extends BaseService
         $var = $this->setVars();
         $data = array(
             'menu' => $this->cat->navMenu(),
+            'cats' => $this->cat->filterCat(),
             'meta' => $var['header'],
             'locale' => $var['locale'],
             'currencies' => $var['currency'],

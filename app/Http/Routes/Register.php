@@ -3,7 +3,6 @@
 namespace App\Http\Routes;
 
 use App\Repositories\CategoryRepository;
-use App\Services\ShareService;
 use Route;
 
 class Register
@@ -34,7 +33,7 @@ class Register
      */
     public function seoRoutes()
     {
-        $categories = $this->cat->navMenu();
+        $categories = $this->cat->filterCat();
         foreach ($categories as $row) {
             $parent_cat = $row['name'];
             foreach ($row['sub_cat'] as $sub_cat) {

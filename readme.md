@@ -7,6 +7,7 @@ Ecommerce-cms is simple starting project to create ecommerce sites.
 - Laravel framework 5.4
 - Bootstrap
 - Thin Controllers
+- Easy migration and auto generated seed
 - Repository Patterns and Services
 - Translation
 - Currency change
@@ -18,6 +19,7 @@ Ecommerce-cms is simple starting project to create ecommerce sites.
 - Product Iframe with fancySelect.js
 - User roles and Permission
 - Change user roles and permission
+- Change Parent and subcategories
 - Test Demo users
 - CRUD for products, orders in backend
 - Backend admin and user panel
@@ -29,8 +31,7 @@ Ecommerce-cms is simple starting project to create ecommerce sites.
 - Simple discounts
 - PayPal checkout Express demo payments
 
-TODO:
-
+##  Todo:
 Laravel based PHP Ecommerce-cms it's not complete ecommerce platform,
 project is starting point for simple ecommerce sites.
 
@@ -40,7 +41,10 @@ project is starting point for simple ecommerce sites.
   including Credit Card support etc.
 - Shopping cart improvements.
 
+## Notice:
 
+- The project is free to use but I can't offer support for it because I am very busy,
+so pull request are welcome. I will provide only minor updates.
 
 
 ## Official Documentation
@@ -81,8 +85,8 @@ Username:demo@demo.com
 password:demodemo
 
 If you need full admin permission for backend use: 
-Username:demo@demo.com
-password:demodemo
+Username:admin@admin.com
+password:adminadmin
 
 ## Contributing
 

@@ -40,6 +40,8 @@ project is starting point for simple ecommerce sites.
 - Complete support for Paypal payments, orders, transactions
   including Credit Card support etc.
 - Shopping cart improvements.
+- Ecommerce-cms use https://github.com/zofe/rapyd-laravel for CRUD so 
+if you need CRUD for more tables add appropriate methods and routes.
 
 ## Notice:
 

@@ -180,6 +180,7 @@ return [
         Ultraware\Roles\RolesServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Netshell\Paypal\PaypalServiceProvider::class,
+        Orangehill\Iseed\IseedServiceProvider::class,
 
         /*
          * Package Service Providers...

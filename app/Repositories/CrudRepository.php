@@ -70,13 +70,67 @@ class CrudRepository
     }
 
     /**
+     * Crud for Brand table.
+     * @return mixed
+     */
+    public function brandsFilter()
+    {
+        $filter = \DataFilter::source(new Brand());
+        $filter->add('brand_id', 'ID', 'text');
+        $filter->add('brand', 'Brand', 'text');
+        $filter->submit('search');
+        $filter->reset('reset');
+        $filter->build();
+        return $filter;
+    }
+
+    /**
+     * Crud for Brand table.
+     * @return mixed
+     */
+    public function brandsGrid()
+    {
+        $grid = DataGrid::source($this->brandsFilter());
+        $grid->label('Brands');
+        $grid->attributes(array("class" => "table table-striped"));
+        $grid->add('brand_id', 'ID', true)->style("width:100px");
+        $grid->add('brand', 'Brand');
+        $grid->edit('/backend/brands/edit');
+        $grid->link('/backend/brands/edit', "New Brand", "TR");
+        $grid->orderBy('brand_id', 'asc');
+        $grid->paginate(5);
+        return $grid;
+    }
+
+    /**
+     * Crud for Brand table.
+     * @return mixed
+     */
+    public function brandsEdit()
+    {
+        $edit = DataEdit::source(new Brand());
+        $edit->add('brand', 'Brand', 'text');
+        $edit->link('/backend/brands', "Back", "TR");
+        return $edit;
+    }
+
+    /**
+     * Get table name.
+     * @return mixed
+     */
+    public function getBrandTable()
+    {
+        return $table = with(new Brand())->getTable();
+    }
+
+    /**
      * @return mixed
      */
     public function catFilter()
     {
         $filter = \DataFilter::source(new Category());
         $filter->add('cat_id', 'ID', 'text');
-        $filter->add('category.cat', 'Category', 'text');
+        $filter->add('cat', 'Category', 'text');
         $filter->submit('search');
         $filter->reset('reset');
         $filter->build();
@@ -179,6 +233,7 @@ class CrudRepository
         $grid->add('name', 'Name');
         $grid->add('brands.brand', 'Brand');
         $grid->add('category.cat', 'Category');
+        $grid->add('category.parent_id','Parent Category');
         $grid->add('{{ implode(", ", $size->pluck("size")->all()) }}', 'Sizes');
         $grid->add('{{ implode(", ", $color->pluck("color")->all()) }}', 'Colors');
         $grid->add('<img src="/images/products/{{ $a_img }}" height="25" width="20">', 'Front');
@@ -204,7 +259,8 @@ class CrudRepository
         $edit->add('name', 'Name', 'text')->rule('required|min:3');
         $edit->add('description', 'Description', 'redactor');
         $edit->add('brand_id', 'Brand', 'select')->options($this->brand->pluck("brand", "brand_id")->all());
-        $edit->add('cat_id', 'Category', 'select')->options($this->category->pluck("cat", "cat_id")->all());
+        $edit->add('cat_id', 'Category', 'select')->options($this->category->where('parent_id','>',0)->pluck("cat", "cat_id")->all());
+        $edit->add('parent_id', 'Parent Category', 'select')->options($this->category->where('parent_id',0)->pluck("cat", "cat_id")->all());;
         $edit->add('size.size', 'Size', 'tags');
         $edit->add('color.color', 'Color', 'tags');
         $edit->add('a_img', 'Front', 'image')->move('images/products/')->fit(370, 507)->preview(120, 80);

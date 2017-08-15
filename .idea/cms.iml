@@ -28,6 +28,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/netshell/paypal" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nicolaslopezj/searchable" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/orangehill/iseed" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/paypal/rest-api-sdk-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
@@ -109,6 +110,7 @@
           <root url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
           <root url="file://$MODULE_DIR$/vendor/netshell/paypal" />
           <root url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
+          <root url="file://$MODULE_DIR$/vendor/orangehill/iseed" />
           <root url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
           <root url="file://$MODULE_DIR$/vendor/paypal/rest-api-sdk-php" />
           <root url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
@@ -181,6 +183,7 @@
           <root url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
           <root url="file://$MODULE_DIR$/vendor/netshell/paypal" />
           <root url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
+          <root url="file://$MODULE_DIR$/vendor/orangehill/iseed" />
           <root url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
           <root url="file://$MODULE_DIR$/vendor/paypal/rest-api-sdk-php" />
           <root url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />

@@ -13,6 +13,7 @@
         "laravelcollective/html": "5.4.*",
         "nesbot/carbon": "^1.21",
         "netshell/paypal": "dev-master",
+        "orangehill/iseed": "^2.5",
         "ultraware/roles": "^5.4",
         "zofe/rapyd": "2.1.*"
     },

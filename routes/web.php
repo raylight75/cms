@@ -89,6 +89,8 @@ Route::middleware('admin:user')
 Route::middleware('admin:admin')
     ->prefix('backend')
     ->group(function () {
+        Route::get('brands', 'BackendController@brand');
+        Route::any('brands/edit', 'BackendController@brandsEdit');
         Route::get('category', 'BackendController@category');
         Route::any('category/edit', 'BackendController@CategoryEdit');
         Route::get('products', 'BackendController@products');

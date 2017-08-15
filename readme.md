@@ -46,19 +46,43 @@ project is starting point for simple ecommerce sites.
 ## Official Documentation
 
 Complete documentation for the this project it's not ready yet.
-If you want to test repository just clone it and import cms.sql file in MySql Database,
-use username admin@admin.com pass adminadmin, create or register new user and make test order.
+If you want to test repository you must:
+* Clone the repo
+* Run by performing on the repo's folder to install all dependencies:
+  * `$ composer update`
+* Database
+  * `create database with name cms`
+  * `create user root`
+  * `leave password blank`
+* Now
+  * `$ php artisan migrate`
+* Fill the database
+  * `$ php artisan db:seed`
+* then run
+  * `$ php artisan serve`  
+* And access
+  * `http://127.0.0.1:8000/cms`
+  
+use admin username:
+* `admin@admin.com pass adminadmin` for admin acount.
+You are not be able to make test order with admin acount.
+
+use demo username:
+* `demo@demo.com pass demodemo` for demo user to make test order.
+create or register new user if you want.
 
 ## Demo Page
 
 Demo page for testing site navigation and functionality 
 http://www.shop.tihoblajev.com
 
-You can test registration or use 
+You can test registration or use: 
 Username:demo@demo.com
 password:demodemo
 
-If you need full admin permission for backend write email to raylight75@gmail.com
+If you need full admin permission for backend use: 
+Username:demo@demo.com
+password:demodemo
 
 ## Contributing
 

@@ -81,6 +81,31 @@ class BackendController extends Controller
      * Show main categories
      * @return View
      */
+    public function brand()
+    {
+        $filter = $this->crud->brandsFilter();
+        $grid = $this->crud->brandsGrid();
+        $title = $this->crud->getBrandTable();
+        return view('backend/content', compact('filter', 'grid', 'title'));
+    }
+
+    /**
+     * Edit Main Category
+     * @param Request $request
+     * @return string|View
+     */
+    public function brandsEdit(Request $request)
+    {
+        if ($request->get('do_delete') == 1) return "not the first";
+        $edit = $this->crud->brandsEdit();
+        $title = $this->crud->getBrandTable();
+        return view('backend/content', compact('edit', 'title'));
+    }
+
+    /**
+     * Show main categories
+     * @return View
+     */
     public function category()
     {
         $filter = $this->crud->catFilter();

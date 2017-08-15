@@ -20,13 +20,18 @@
     @slot('name')Orders @endslot
     @endcomponent
     @component('backend.link')
+    @slot('link'){{ url('backend/brands') }}@endslot
+    @slot('icon')icon fa fa-th-large @endslot
+    @slot('name')Brands @endslot
+    @endcomponent
+    @component('backend.link')
     @slot('link'){{ url('backend/category') }}@endslot
     @slot('icon')icon fa fa-list @endslot
     @slot('name')Categories @endslot
     @endcomponent
     @component('backend.link')
     @slot('link'){{ url('backend/subcategory') }}@endslot
-    @slot('icon')icon fa fa-list @endslot
+    @slot('icon')icon fa fa-list-alt @endslot
     @slot('name')Subcategories @endslot
     @endcomponent
     @component('backend.dropdown')

@@ -80,7 +80,7 @@ create or register new user if you want.
 ## Demo Page
 
 Demo page for testing site navigation and functionality 
-http://www.shop.tihoblajev.com
+http://shop.tihoblajev.com
 
 You can test registration or use: 
 Username:demo@demo.com

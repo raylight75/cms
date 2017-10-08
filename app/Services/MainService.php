@@ -7,7 +7,6 @@ use App\Repositories\BrandRepository;
 use App\Repositories\ColorRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\SizeRepository;
-use Illuminate\Http\Request;
 
 class MainService
 {
@@ -53,13 +52,12 @@ class MainService
     }
 
     /**
-     * @param $request
      * @return array
      */
-    public function autocomplete($request)
+    public function autocomplete()
     {
         $results = array();
-        $search = $request->input('term');
+        $search = request()->input('term');
         $queries = $this->product->whereAuto($search);
         foreach ($queries as $product) {
             $results[] = ['value' => $product->name];
@@ -98,17 +96,16 @@ class MainService
 
     /**
      * Get data for search filters.
-     * @param $request
      * @param $parent
      * @return array
      */
-    public function getFilter($request, $parent)
+    public function getFilter($parent)
     {
-        $data = $this->prepareFilter($request, $parent);
-        $catId = ($request->exists('categ') ? $request->input('categ') : array($parent));
+        $data = $this->prepareFilter($parent);
+        $catId = (request()->exists('categ') ? request()->input('categ') : array($parent));
         $data['banner'] = app(CategoryRepository::class)->whereIn('cat_id', $catId);
         $data['properties'] = $this->getAll($parent);
-        $data['products'] = $this->pagination($request, $parent);
+        $data['products'] = $this->pagination($parent);
         return $data;
     }
 
@@ -138,33 +135,31 @@ class MainService
     }
 
     /**
-     * @param Request $request
      * @param $parent
      * @return array
      */
-    public function prepareFilter($request, $parent)
+    public function prepareFilter($parent)
     {
         $data = array(
             'parent' => $parent,
-            'size' => (array)$request->input('size'),
-            'color' => (array)$request->input('color'),
-            'brand' => (array)$request->input('brand'),
-            'category' => (array)$request->input('categ')
+            'size' => (array)request()->input('size'),
+            'color' => (array)request()->input('color'),
+            'brand' => (array)request()->input('brand'),
+            'category' => (array)request()->input('categ')
         );
         return $data;
     }
 
     /**
      * Get products details.
-     * @param $request
      * @param $parent
      * @return array
      */
-    public function prepareSearch($request, $parent)
+    public function prepareSearch($parent)
     {
-        $search = $request->input('search');
-        $data = $this->prepareFilter($request, $parent);
-        $data['banner'] = app(CategoryRepository::class)->findBy('cat_id', $request->input('categ'));
+        $search = request()->input('search');
+        $data = $this->prepareFilter($parent);
+        $data['banner'] = app(CategoryRepository::class)->findBy('cat_id', request()->input('categ'));
         $data['properties'] = $this->getAll($parent);
         $data['products'] = $this->product->whereLike($search);
         return $data;
@@ -173,13 +168,12 @@ class MainService
 
     /**
      * Paginate product.
-     * @param $request
      * @param $parent
      * @return mixed
      */
-    public function pagination($request, $parent)
+    public function pagination($parent)
     {
-        $result = $this->product->paginate($request, $parent);
+        $result = $this->product->paginate($parent);
         return $result;
     }
 }

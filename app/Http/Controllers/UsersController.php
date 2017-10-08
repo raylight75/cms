@@ -134,7 +134,7 @@ class UsersController extends Controller
      * Update the specified user.
      *
      * @param $id
-     * @param CreateProduct $request
+     * @param EditUser $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update($id, EditUser $request)
@@ -160,12 +160,12 @@ class UsersController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
         $this->user->delete($id);
         //Without database OnDdelete Cascade
         //$product->size()->detach($id);
-        $request->session()->flash('flash_message', 'User acount successfully deleted!');
+        session()->flash('flash_message', 'User acount successfully deleted!');
         return redirect()->back();
     }
 }

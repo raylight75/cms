@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Repositories\CrudRepository;
 use App\Repositories\OrderRepository;
-use Illuminate\Http\Request;
 use Gate;
 
 class BackendController extends Controller
@@ -51,14 +50,9 @@ class BackendController extends Controller
     /**
      * @param CrudRepository $CrudRepo
      */
-    public function __construct
-    (
-        CrudRepository $CrudRepo,
-        OrderRepository $order
-    )
+    public function __construct(CrudRepository $CrudRepo)
     {
         $this->crud = $CrudRepo;
-        $this->order = $order;
     }
 
     /**
@@ -91,12 +85,11 @@ class BackendController extends Controller
 
     /**
      * Edit Main Category
-     * @param Request $request
      * @return string|View
      */
-    public function brandsEdit(Request $request)
+    public function brandsEdit()
     {
-        if ($request->get('do_delete') == 1) return "not the first";
+        if (request()->get('do_delete') == 1) return "not the first";
         $edit = $this->crud->brandsEdit();
         $title = $this->crud->getBrandTable();
         return view('backend/content', compact('edit', 'title'));
@@ -116,12 +109,11 @@ class BackendController extends Controller
 
     /**
      * Edit Main Category
-     * @param Request $request
      * @return string|View
      */
-    public function categoryEdit(Request $request)
+    public function categoryEdit()
     {
-        if ($request->get('do_delete') == 1) return "not the first";
+        if (request()->get('do_delete') == 1) return "not the first";
         $edit = $this->crud->catEdit();
         $title = $this->crud->getCatTable();
         return view('backend/content', compact('edit', 'title'));
@@ -143,12 +135,11 @@ class BackendController extends Controller
 
     /**
      * Edit Products
-     * @param Request $request
      * @return string|View
      */
-    public function productsEdit(Request $request)
+    public function productsEdit()
     {
-        if ($request->get('do_delete') == 1) return "not the first";
+        if (request()->get('do_delete') == 1) return "not the first";
         $edit = $this->crud->productsEdit();
         $title = $this->crud->getProductTable();
         return view('backend/content', compact('edit', 'title'));
@@ -190,12 +181,11 @@ class BackendController extends Controller
 
     /**
      * Edit Orders
-     * @param Request $request
      * @return string|View
      */
-    public function ordersEdit(Request $request)
+    public function ordersEdit()
     {
-        if ($request->get('do_delete') == 1) return "not the first";
+        if (request()->get('do_delete') == 1) return "not the first";
         $edit = $this->crud->ordersEdit();
         $title = $this->crud->getOrderTable();
         return view('backend/content', compact('edit', 'title'));
@@ -214,12 +204,11 @@ class BackendController extends Controller
 
     /**
      * Edit customer orders
-     * @param Request $request
      * @return View
      */
-    public function userOrdersEdit(Request $request)
+    public function userOrdersEdit()
     {
-        $order = $this->order->getUserOrder($request);
+        $order = app(OrderRepository::class)->getUserOrder();
         //$this->authorize('view-resource', $order);
         //authorize via AuthorizesRequests trait.
         if (Gate::denies('view-resource', $order)) {

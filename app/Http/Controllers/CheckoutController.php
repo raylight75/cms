@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\CheckoutService;
-use Gloudemans\Shoppingcart\Cart;
-use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
@@ -42,8 +40,6 @@ class CheckoutController extends Controller
     /**
      * ShoppingController constructor.
      * @param ShoppingService $shoppingService
-     * @param Cart $cart
-     * @param Request $request
      */
     public function __construct(CheckoutService $checkout)
     {
@@ -64,14 +60,14 @@ class CheckoutController extends Controller
      * Show order information from session.     *
      * @return View
      */
-    public function checkoutShow(Request $request)
+    public function checkoutShow()
     {
-        $country = $request->session()->get('country');
+        $country = session()->get('country');
         if (!isset($country)) {
-            $request->session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
+            session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
             return redirect('checkout/shipping');
         }
-        $data = $this->checkout->checkoutShow($request);
+        $data = $this->checkout->checkoutShow();
         return view('frontend.checkoutTwo', $data);
     }
 }

@@ -72,29 +72,27 @@ class CheckoutService
 
     /**
      * Show order information and final cost from session.
-     * @param Request $request
      * @return mixed
      */
-    public function checkoutShow($request)
+    public function checkoutShow()
     {
         $cart = $this->cartContent();
         $data['cartTotal'] = $cart['grandTotal'];
-        $data['payments'] = $this->payment->find($request->session()->get('payment'));
-        $data['shippings'] = $this->shipping->find($request->session()->get('delivery'));
-        $data['customer'] = $request->session()->all();
-        $data['vat_total'] = $this->vat($request);
+        $data['payments'] = $this->payment->find(session()->get('payment'));
+        $data['shippings'] = $this->shipping->find(session()->get('delivery'));
+        $data['customer'] = session()->all();
+        $data['vat_total'] = $this->vat();
         $data['finalTotal'] = $cart['grandTotal'] + $data['shippings']->rate + $data['vat_total'];
         return $data;
     }
 
     /**
-     * @param $request
      * @return mixed
      */
-    public function vat($request)
+    public function vat()
     {
         $cart = $this->cartContent();
-        $vat = $this->country->getVat($request);
+        $vat = $this->country->getVat();
         $vat_total = $cart['grandTotal'] * $vat;
         return $vat_total;
     }

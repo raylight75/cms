@@ -62,11 +62,11 @@ class ShoppingService
      * @param $request
      * @return bool
      */
-    public function checkDiscount($request)
+    public function checkDiscount()
     {
         $codes = $this->tax->all();
         foreach ($codes as $code) {
-            if ($request->has('discount') && $request->input('discount') !== $code->code) {
+            if (request()->has('discount') && request()->input('discount') !== $code->code) {
                 return true;
             } else {
                 return false;
@@ -78,9 +78,10 @@ class ShoppingService
      * @param $request
      * @param $cart
      */
-    public function createOrder($request, $cart)
+    public function createOrder($cart)
     {
-        $user = $request->session()->all();
+        $request = request();
+        $user = session()->all();
         $user['user_id'] = auth()->user()->id;
         $this->order->makeOrder($cart);
         event(new AddCustomer($user));
@@ -91,15 +92,15 @@ class ShoppingService
      * @param $request
      * @return mixed
      */
-    public function prepareStore($request)
+    public function prepareStore()
     {
-        $code = $this->tax->findBy('code', $request->input('discount'));
+        $code = $this->tax->findBy('code', request()->input('discount'));
         isset($code) ? $discount = $code->discount : $discount = 0;
-        $productPrice = $request->input('price');
+        $productPrice = request()->input('price');
         $price = ((100 - $discount) / 100) * $productPrice;
-        $data = $request->except(['_token', 'discount', 'price', 'color', 'size', 'img']);
+        $data = request()->except(['_token', 'discount', 'price', 'color', 'size', 'img']);
         $data['price'] = $price;
-        $data['options'] = $request->except(['_token', 'id', 'name', 'qty', 'price']);
+        $data['options'] = request()->except(['_token', 'id', 'name', 'qty', 'price']);
         return $data;
     }
 

@@ -32,15 +32,6 @@ class OrderRepository extends Repository
     }
 
     /**
-     * @param $request
-     * @return mixed
-     */
-    public function find($request)
-    {
-        return $this->findOrFail($request->all());
-    }
-
-    /**
      * @param $cart
      * @return mixed
      */
@@ -61,25 +52,15 @@ class OrderRepository extends Repository
     }
 
     /**
-     * @param $request
-     * @return mixed
-     */
-    public function whereId($request)
-    {
-        return $this->findBy('id', $request->input('update'));
-    }
-
-    /**
      * Get user order parameters.
-     * @param $request
      * @return mixed
      */
-    public function getUserOrder($request)
+    public function getUserOrder()
     {
-        if ($request->has('update')) {
-            $order = $this->whereId($request);
+        if (request()->has('update')) {
+            $order = $this->findBy('id', request()->input('update'));
         } else {
-            $order = $this->find($request);
+            $order = $this->findOrFail(request()->all());
         }
         return $order;
     }

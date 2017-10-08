@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use PayPal;
-use Redirect;
-use Illuminate\Http\Request;
-use App\Events\ForgetSession;
 use App\Services\CheckoutService;
 use Gloudemans\Shoppingcart\Cart;
 
@@ -74,11 +71,10 @@ class PaymentController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param Cart $cart
      * @return mixed
      */
-    public function getCheckout(Request $request, Cart $cart)
+    public function getCheckout(Cart $cart)
     {
         $content = $cart->instance(auth()->id())
             ->content();
@@ -100,8 +96,8 @@ class PaymentController extends Controller
         $itemList->setItems($items);
         $details = PayPal::Details();
         //taxes
-        $tax = $this->checkout->checkoutShow($request);
-        $vat_total = $this->checkout->vat($request);
+        $tax = $this->checkout->checkoutShow();
+        $vat_total = $this->checkout->vat();
         $grand_total = $tax['cartTotal'] + $tax['shippings']->rate + $vat_total;
         //Details
         $details->setShipping($tax['shippings']->rate)
@@ -135,19 +131,17 @@ class PaymentController extends Controller
         $response = $payment->create($this->_apiContext);
         $redirectUrl = $response->links[1]->href;
 
-        return Redirect::to($redirectUrl);
+        return redirect($redirectUrl);
     }
 
     /**
-     * @param Cart $cart
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getDone(Cart $cart, Request $request)
+    public function getDone()
     {
-        $id = $request->get('paymentId');
-        $token = $request->get('token');
-        $payer_id = $request->get('PayerID');
+        $id = request()->get('paymentId');
+        $token = request()->get('token');
+        $payer_id = request()->get('PayerID');
 
         $payment = PayPal::getById($id, $this->_apiContext);
 

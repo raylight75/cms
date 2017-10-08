@@ -47,7 +47,6 @@ class ShoppingController extends Controller
      * ShoppingController constructor.
      * @param ShoppingService $shoppingService
      * @param Cart $cart
-     * @param Request $request
      */
     public function __construct(ShoppingService $shoppingService, Cart $cart)
     {
@@ -71,27 +70,26 @@ class ShoppingController extends Controller
      */
     public function customerStore(SubmitCheckout $request)
     {
-        $input = $request->all();
-        $request->session()->put($input);
+        $input = request()->all();
+        session()->put($input);
         return redirect('checkout/show');
     }
 
 
     /**
-     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function createOrder(Request $request)
+    public function createOrder()
     {
         $cart = $this->cart->instance(auth()->id())->content();
-        if (!$request->session()->has('email')) {
-            $request->session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
+        if (!session()->has('email')) {
+            session()->flash('flash_message', 'YOUR MUST FILL REQUIRED FIELDS!');
             return redirect('checkout/shipping');
         } elseif ($cart->isEmpty()) {
-            $request->session()->flash('flash_message', 'YOU MUST SELECT PRODUCT!');
+            session()->flash('flash_message', 'YOU MUST SELECT PRODUCT!');
             return redirect()->back();
         }
-        $this->shopping->createOrder($request, $cart);
+        $this->shopping->createOrder($cart);
         $this->cart->instance(auth()->id())->destroy();
         return redirect('checkout/order');
     }
@@ -104,11 +102,11 @@ class ShoppingController extends Controller
      */
     public function storeItem(SubmitProduct $request)
     {
-        if ($this->shopping->checkDiscount($request)) {
-            $request->session()->flash('flash_message', 'You are entered invalid discount code!');
+        if ($this->shopping->checkDiscount()) {
+            session()->flash('flash_message', 'You are entered invalid discount code!');
             return redirect()->back();
         }
-        $data = $this->shopping->prepareStore($request);
+        $data = $this->shopping->prepareStore();
         //make new instance of the Cart for every user.
         //active instance of the cart is curent instance.
         $this->cart->instance(auth()->id())->add($data);
@@ -118,12 +116,11 @@ class ShoppingController extends Controller
 
     /**
      * Update products in shopping cart.
-     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function updateItem(Request $request)
+    public function updateItem()
     {
-        $content = $request->input('qty');
+        $content = request()->input('qty');
         foreach ($content as $id => $row) {
             $this->cart->instance(auth()->id())
                 ->update($row['rowId'], $row['qty']);
@@ -154,12 +151,11 @@ class ShoppingController extends Controller
 
     /**
      * Show user confirmation for finalazing order.
-     * @param Request $request
      * @return View
      */
-    public function finalOrder(Request $request)
+    public function finalOrder()
     {
-        $request->session()->flash('flash_message', 'YOUR ORDER HAVE BEEN SUCCESSFULY PLACED!');
+        session()->flash('flash_message', 'YOUR ORDER HAVE BEEN SUCCESSFULY PLACED!');
         return view('frontend.placeOrder');
     }
 }

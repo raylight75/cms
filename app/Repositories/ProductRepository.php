@@ -55,8 +55,9 @@ class ProductRepository extends Repository
      * @param $parent
      * @return mixed
      */
-    public function paginate($request, $parent)
+    public function paginate($parent)
     {
+        $request = request();
         $query = $this->model->whereHas('productsSizes', function ($q) use ($request) {
             if (!empty($request->input('size'))) {
                 $sizes = $request->input('size');

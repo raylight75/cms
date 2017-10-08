@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\MainService;
-use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
@@ -40,18 +39,13 @@ class MainController extends Controller
 
     protected $main;
 
-    protected $request;
-
-
     /**
      * mainController constructor.
      * @param mainService $mainService
-     * @param Request $request
      */
-    public function __construct(MainService $mainService, Request $request)
+    public function __construct(MainService $mainService)
     {
         $this->main = $mainService;
-        $this->request = $request;
     }
 
     /**
@@ -79,8 +73,8 @@ class MainController extends Controller
      */
     public function autocomplete()
     {
-        $results = $this->main->autocomplete($this->request);
-        if ($this->request->ajax()) {
+        $results = $this->main->autocomplete();
+        if (request()->ajax()) {
             return response()->json($results);
         } else {
             return redirect()->back();
@@ -103,8 +97,8 @@ class MainController extends Controller
      */
     public function filter($crud, $parent)
     {
-        $data = $this->main->getFilter($this->request, $parent);
-        if ($this->request->ajax()) {
+        $data = $this->main->getFilter($parent);
+        if (request()->ajax()) {
             return response()->json(view('frontend.ajax-products', $data)->render());
         } else {
             return view('frontend.filter_view', $data);
@@ -139,8 +133,8 @@ class MainController extends Controller
      */
     public function search($parent)
     {
-        $data = $this->main->prepareSearch($this->request, $parent);
-        if ($this->request->ajax()) {
+        $data = $this->main->prepareSearch($parent);
+        if (request()->ajax()) {
             return response()->json(view('frontend.ajax-products', $data)->render());
         } else {
             return view('frontend.filter_view', $data);
@@ -154,8 +148,8 @@ class MainController extends Controller
      */
     public function set_Session($value = "")
     {
-        $field = $this->request->segment(1);
-        $this->request->session()->put($field, $value);
+        $field = request()->segment(1);
+        session()->put($field, $value);
         return redirect()->back();
     }
 
@@ -172,7 +166,7 @@ class MainController extends Controller
     {
         //redirect trait AuthenticatesUsers getLogout()
         $user = auth()->user()->name;
-        $this->request->session()->flash('flash_message', 'You have been successfully Logged In!');
+        session()->flash('flash_message', 'You have been successfully Logged In!');
         return view('messages.welcome')->with('user', $user);
     }
 }

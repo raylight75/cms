@@ -33,9 +33,9 @@ class CountryRepository extends Repository
      * @param $request
      * @return mixed
      */
-    public function getVat($request)
+    public function getVat()
     {
-        $vat = $this->findBy('name', $request->session()->get('country'));
+        $vat = $this->findBy('name', session()->get('country'));
         return $vat->vat;
     }
 }

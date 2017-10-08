@@ -131,7 +131,7 @@ class PaymentController extends Controller
         $response = $payment->create($this->_apiContext);
         $redirectUrl = $response->links[1]->href;
 
-        return redirect($redirectUrl);
+        return redirect()->to($redirectUrl);
     }
 
     /**

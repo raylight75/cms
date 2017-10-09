@@ -49,7 +49,7 @@ class MainController extends Controller
     }
 
     /**
-     * Show the home page to the user.     *
+     * Show the home page to the user.*
      * @return Response
      */
     public function index()

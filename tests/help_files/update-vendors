@@ -1,4 +1,0 @@
-Gloudemsn/shopping cart:
-- Fix count method in Cart.php
-- Fix tax rate in config file
-AuthenticatedUsers->getLogout

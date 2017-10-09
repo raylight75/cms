@@ -7,9 +7,7 @@ use App\Http\Requests\CreateUser;
 use App\Http\Requests\EditUser;
 use App\Repositories\UserRepository;
 use Ultraware\Roles\Models\Role;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use View;
 
 class UsersController extends Controller
 {
@@ -96,7 +94,7 @@ class UsersController extends Controller
     public function createRole(CreateRole $request)
     {
         Role::create($request->all());
-        $request->session()->flash('flash_message', 'Role successfully added!');
+        session()->flash('flash_message', 'Role successfully added!');
         return redirect()->back();
     }
 
@@ -111,7 +109,7 @@ class UsersController extends Controller
         $data = $request->except(['password']);
         $data['password']= bcrypt($request->input('password'));
         $this->user->create($data);
-        $request->session()->flash('flash_message', 'User successfully added!');
+        session()->flash('flash_message', 'User successfully added!');
         return redirect()->back();
     }
 
@@ -150,13 +148,12 @@ class UsersController extends Controller
             $data['password']= bcrypt($request->input('password'));
             $user->update($data);
             $user->role()->sync($request->input('role'));
-            $request->session()->flash('flash_message', 'User password and role successfully updated!');
+            session()->flash('flash_message', 'User password and role successfully updated!');
             return redirect()->back();
         }
     }
 
     /**
-     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */

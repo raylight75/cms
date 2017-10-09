@@ -106,19 +106,3 @@ Route::middleware('admin:admin')
         Route::get('articles/search', 'ArticlesController@search');
         Route::resource('articles', 'ArticlesController');
     });
-
-//////////////////Old routes/////////////////////////////
-
-//Route::get('api', 'ApiController@api');
-
-//Route::get('frontpage', 'ApiController@index');
-
-//Route::get('/cache', 'MainController@write');
-
-//App::make('Helper')->registerRoutes();
-
-//require app_path().'/Http/Routes/routes.php';
-
-//Route::get('role/create_role', 'RolesController@create_role');
-
-//Route::get('role/attach_role', 'RolesController@attach_role');

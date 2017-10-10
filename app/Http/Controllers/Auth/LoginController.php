@@ -68,7 +68,7 @@ class LoginController extends Controller
                 $auth->logout();
                 return back()->with('warning', "First please activate your account.");
             }
-            if ($auth->user()->hasRole('user')) {
+            if ($auth->user()->is_activated == '1') {
                 //Demo user role
                 $role = $this->user->find(auth()->id());
                 $role->role()->sync(array(auth()->id() => 2)); //2 for Demo users

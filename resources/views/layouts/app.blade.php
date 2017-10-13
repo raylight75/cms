@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ asset('/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>

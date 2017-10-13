@@ -86,6 +86,16 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="panel-heading">CMS Social Login</div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="login" class="col-md-4 control-label">Login With</label>
+                            <div class="col-md-6 col-md-offset-4">
+                                <a href="{{ route('oauth', 'github') }}" class="btn btn-github"><i class="fa fa-github"></i> Github</a>
+                                <a href="{{ route('oauth', 'twitter') }}" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
+                                <a href="{{ route('oauth', 'google') }}" class="btn btn-google"><i class="fa fa-google-plus"></i> Google</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

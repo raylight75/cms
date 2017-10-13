@@ -181,6 +181,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Netshell\Paypal\PaypalServiceProvider::class,
         Orangehill\Iseed\IseedServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -251,6 +252,7 @@ return [
         'Helper' => App\Helpers\Helper::class,
         'Query' => App\Repositories\ModelFactory::class,
         'PayPal' => Netshell\Paypal\Facades\Paypal::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

@@ -22,6 +22,12 @@ Auth::routes();
 
 Register::seoRoutes();
 
+Route::get('oauth/{provider}', 'Auth\SocialAuthController@redirectToProvider')
+    ->name('oauth');
+
+Route::get('oauth/{provider}/callback', 'Auth\SocialAuthController@handleProviderCallback')
+    ->name('callback');
+
 Route::get('/locale/{locale}', 'MainController@set_Session');
 
 Route::get('currency/{value}', 'MainController@set_Session');

@@ -14,7 +14,7 @@ class CreateSocialAccountsTable extends Migration
 
     /**
      * Run the migrations.
-     * @table users
+     * @table social_accounts
      *
      * @return void
      */
@@ -22,7 +22,7 @@ class CreateSocialAccountsTable extends Migration
     {
         Schema::create($this->set_table, function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id', 11);
+            $table->integer('user_id');
             $table->string('provider_user_id', 32);
             $table->string('provider', 32);
             $table->string('access_token', 255);

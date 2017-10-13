@@ -39,22 +39,4 @@ return [
         'client_id' => '',
         'secret' => ''
     ],
-
-    'google' => [
-        'client_id' => '181201617551-3om9634bq8sg9g34nhn64ea68nteng52.apps.googleusercontent.com',
-        'client_secret' => 'FRv6Km_YAzF9qTjjpm6Xq6KX',
-        'redirect' => 'http://laravel.dev/oauth/google/callback',
-    ],
-
-    'github' => [
-        'client_id' => '16904df5413529e29e81',
-        'client_secret' => '049480ac5497f3ddc3e98645684fb9c366565dd9',
-        'redirect' => 'http://laravel.dev/oauth/github/callback',
-    ],
-
-    'twitter' => [
-        'client_id' => 'dbZlfbagX3NLoA9dTgbSkgL3I',
-        'client_secret' => 'IMgdb0GwxiIOss7ADhdlwmSRYhti4upfGVEaCOWobNBgWnK5qz',
-        'redirect' => 'http://laravel.dev/oauth/twitter/callback',
-    ],
 ];

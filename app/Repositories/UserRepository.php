@@ -63,4 +63,21 @@ class UserRepository extends Repository
             //End add Demo User
         }
     }
+
+    /**
+     * @param $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function attachRoleSocial($user)
+    {
+        if ($user->is_activated == '1') {
+            if ($user->hasRole('admin')) {
+                return redirect()->to('/welcome');
+            }
+            //Demo user role
+            $role = $this->find($user->id);
+            $role->role()->sync(array($user->id => 2)); //2 for Demo users
+            //End add Demo User
+        }
+    }
 }

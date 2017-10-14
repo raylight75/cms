@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\Guard;
 use App\Models\User_activation as Activation;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -33,8 +32,6 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/cms';
 
-    protected $activation;
-
     protected $user;
 
     /**
@@ -42,10 +39,9 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct(Activation $activation, User $user)
+    public function __construct(UserRepository $user)
     {
         $this->middleware('guest', ['except' => 'logout']);
-        $this->activation = $activation;
         $this->user = $user;
     }
 
@@ -60,20 +56,19 @@ class LoginController extends Controller
         return redirect('/cms');
     }
 
-    public function login(Guard $auth, Request $request)
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function login(Request $request)
     {
         $this->validateLogin($request);
         if ($this->attemptLogin($request)) {
-            if ($auth->user()->is_activated == '0') {
-                $auth->logout();
+            if (auth()->user()->is_activated == '0') {
+                auth()->logout();
                 return back()->with('warning', "First please activate your account.");
             }
-            if ($auth->user()->is_activated == '1') {
-                //Demo user role
-                $role = $this->user->find(auth()->id());
-                $role->role()->sync(array(auth()->id() => 2)); //2 for Demo users
-                //End add Demo User
-            }
+            $this->user->attachRole();
             return redirect()->to('/welcome');
         } else {
             return back()->with('error', 'Your username or password are wrong.');
@@ -86,9 +81,9 @@ class LoginController extends Controller
      * @param  array $data
      * @return User
      */
-    public function userActivation($token)
+    public function userActivation(Activation $activation, $token)
     {
-        $check = $this->activation->where('token', $token)->first();
+        $check = $activation->where('token', $token)->first();
         if (!is_null($check)) {
             $user = $this->user->find($check->id_user);
             if ($user->is_activated == 1) {
@@ -96,7 +91,7 @@ class LoginController extends Controller
                     ->with('success', "User are already actived.");
             }
             $user->update(['is_activated' => 1]);
-            $this->activation->where('token', $token)->delete();
+            $activation->where('token', $token)->delete();
             return redirect()->to('login')
                 ->with('success', "User activated successfully.");
         }

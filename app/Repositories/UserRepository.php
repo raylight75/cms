@@ -47,4 +47,20 @@ class UserRepository extends Repository
     {
         return $this->model->with('role')->get();
     }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function attachRole()
+    {
+        if (auth()->user()->is_activated == '1') {
+            if (auth()->user()->hasRole('admin')) {
+                return redirect()->to('/welcome');
+            }
+            //Demo user role
+            $role = $this->find(auth()->id());
+            $role->role()->sync(array(auth()->id() => 2)); //2 for Demo users
+            //End add Demo User
+        }
+    }
 }

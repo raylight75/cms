@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository;
 use App\Services\SocialAccountService;
 use Socialite, Exception;
 
@@ -69,6 +70,7 @@ class SocialAuthController extends Controller
         $account = $service->getAccount($providerUser->id);
 
         if ($account->provider_user_id === (string)$providerUser->id) {
+            app(UserRepository::class)->attachRole();
             auth()->login($user);
             return redirect()->to('/home');
         }

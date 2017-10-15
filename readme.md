@@ -30,6 +30,7 @@ Ecommerce-cms is simple starting project to create ecommerce sites.
 - Complete Shopping Cart
 - Simple discounts
 - PayPal checkout Express demo payments
+- Social Authentication with Socialite
 
 ##  Todo:
 Laravel based PHP Ecommerce-cms it's not complete ecommerce platform,
@@ -47,6 +48,10 @@ if you need CRUD for more tables add appropriate methods and routes.
 
 - The project is free to use but I can't offer support for it because I am very busy,
 so pull request are welcome. I will provide only minor updates.
+- Database will be reset every month.
+- For local development like PayPal test payments and social login you need to set your own 
+apps with proper user  data in config files and services.
+
 
 
 ## Official Documentation

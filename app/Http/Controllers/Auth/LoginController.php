@@ -68,7 +68,7 @@ class LoginController extends Controller
                 auth()->logout();
                 return back()->with('warning', "First please activate your account.");
             }
-            $this->user->attachRole();
+            $this->user->attachRole(auth()->user());
             return redirect()->to('/welcome');
         } else {
             return back()->with('error', 'Your username or password are wrong.');

@@ -70,7 +70,7 @@ class SocialAuthController extends Controller
         $account = $service->getAccount($providerUser->id);
 
         if ($account->provider_user_id === (string)$providerUser->id) {
-            app(UserRepository::class)->attachRoleSocial($user);
+            app(UserRepository::class)->attachRole($user);
             auth()->login($user);
             return redirect()->to('/home');
         }

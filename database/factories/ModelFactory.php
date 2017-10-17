@@ -23,6 +23,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+/** Seed Database for test with random data */
+
 /** @var \App\Models\Product $factory */
 $factory->define(App\Models\Product::class, function (Faker\Generator $faker) {
     return [

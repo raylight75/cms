@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\CrudRepository;
 use App\Repositories\OrderRepository;
-use Gate;
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 
 class BackendController extends Controller
 {
@@ -45,7 +45,6 @@ class BackendController extends Controller
 
     protected $crud;
 
-    protected $order;
 
     /**
      * @param CrudRepository $CrudRepo
@@ -206,12 +205,16 @@ class BackendController extends Controller
      * Edit customer orders
      * @return View
      */
-    public function userOrdersEdit()
+    public function userOrdersEdit(OrderRepository $order, GateContract $gate)
     {
-        $order = app(OrderRepository::class)->getUserOrder();
+        if (request()->has('update')) {
+            $result = $order->findBy('id', request()->input('update'));
+        } else {
+            $result = $order->findOrFail(request()->all());
+        }
         //$this->authorize('view-resource', $order);
         //authorize via AuthorizesRequests trait.
-        if (Gate::denies('view-resource', $order)) {
+        if ($gate->denies('view-resource', $result)) {
             return redirect('backend/profile')
                 ->withErrors('Your are not autorized to view resources');
         }

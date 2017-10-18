@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use App\Events\AddCustomer;
 use App\Events\ForgetSession;
 use App\Repositories\OrderRepository;
@@ -83,9 +84,29 @@ class ShoppingService
         $request = request();
         $user = session()->all();
         $user['user_id'] = auth()->user()->id;
-        $this->order->makeOrder($cart);
+        $this->makeOrder($cart);
         event(new AddCustomer($user));
         event(new ForgetSession($request));
+    }
+
+    /**
+     * @param $cart
+     * @return mixed
+     */
+    public function makeOrder($cart)
+    {
+        foreach ($cart as $item) {
+            $this->order->create([
+                'user_id' => auth()->user()->id,
+                'order_date' => Carbon::now(),
+                'product_id' => $item->id,
+                'quantity' => $item->qty,
+                'amount' => $item->subtotal,
+                'size' => $item->options->size,
+                'img' => $item->options->img,
+                'color' => $item->options->color,
+            ]);
+        }
     }
 
     /**

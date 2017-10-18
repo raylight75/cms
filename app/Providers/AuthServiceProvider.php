@@ -12,9 +12,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
-    ];
+    protected $policies = [];
 
     /**
      * Register any application authentication / authorization services.
@@ -25,9 +23,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(GateContract $gate)
     {
         $this->registerPolicies($gate);
-
-        $gate->define('view-resource', function ($user, $order) {
-            return $user->id === (int)$order->user_id;
-        });
+        $gate->define('view-resource', 'App\Policies\BackendPolicy@view');
     }
 }

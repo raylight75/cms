@@ -2,8 +2,6 @@
 
 namespace App\Repositories;
 
-use Carbon\Carbon;
-
 class OrderRepository extends Repository
 {
     /**
@@ -29,39 +27,5 @@ class OrderRepository extends Repository
     public function model()
     {
         return 'App\Models\Order';
-    }
-
-    /**
-     * @param $cart
-     * @return mixed
-     */
-    public function makeOrder($cart)
-    {
-        foreach ($cart as $item) {
-            $this->create([
-                'user_id' => auth()->user()->id,
-                'order_date' => Carbon::now(),
-                'product_id' => $item->id,
-                'quantity' => $item->qty,
-                'amount' => $item->subtotal,
-                'size' => $item->options->size,
-                'img' => $item->options->img,
-                'color' => $item->options->color,
-            ]);
-        }
-    }
-
-    /**
-     * Get user order parameters.
-     * @return mixed
-     */
-    public function getUserOrder()
-    {
-        if (request()->has('update')) {
-            $order = $this->findBy('id', request()->input('update'));
-        } else {
-            $order = $this->findOrFail(request()->all());
-        }
-        return $order;
     }
 }

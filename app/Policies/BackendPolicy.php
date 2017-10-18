@@ -17,6 +17,6 @@ class BackendPolicy
      */
     public function view(User $user, Order $order)
     {
-        return $user->id === $order->user_id;
+        return $user->id === (int)$order->user_id;
     }
 }

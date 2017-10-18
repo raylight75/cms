@@ -88,6 +88,8 @@
                     <!-- //SORTING TOVAR PANEL -->
 
                     <div class="padbot60 services_section_description">
+                        <p>Gluten-free quinoa selfies carles, kogi gentrify retro marfa
+                            viral.</p>
                         <p>We empower WordPress developers with design-driven themes and a
                             classy experience their clients will just love</p>
                         <span>Gluten-free quinoa selfies carles, kogi gentrify retro marfa
@@ -96,7 +98,7 @@
                     </span>
                     </div>
                     <!-- Live Search Form -->
-                    <input type="text" name="search_text" id="search_text" placeholder="Live Search" class="form-control"/>
+                    <!--<input type="text" name="search_text" id="search_text" placeholder="Live Search" class="form-control"/> -->
                     <!-- //Live Search Form -->
                     @include('frontend/product_container')
                 </div>

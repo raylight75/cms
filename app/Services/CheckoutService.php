@@ -92,8 +92,8 @@ class CheckoutService
     public function vat()
     {
         $cart = $this->cartContent();
-        $vat = $this->country->getVat();
-        $vat_total = $cart['grandTotal'] * $vat;
+        $vat = $this->country->findBy('name', session()->get('country'));
+        $vat_total = $cart['grandTotal'] * $vat->vat;
         return $vat_total;
     }
 

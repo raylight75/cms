@@ -20,38 +20,4 @@ class CartRepository
      * @author Tihomir Blazhev <raylight75@gmail.com>
      * @link https://raylight75@bitbucket.org/raylight75/ecommerce-cms.git
      */
-
-    /**
-     * Cart constructor.
-     *
-     * @param Cart $cart
-     */
-    public function __construct(Cart $cart)
-    {
-        $this->cart = $cart;
-    }
-
-    public function setCart()
-    {
-        if (!auth()->check()) {
-            $data['rows'] = null;
-            $data['cart'] = null;
-            $data['grandTotal'] = null;
-        } else {
-            $data['rows'] = $this->cart->instance(auth()->id())
-                ->content()
-                ->count(false);
-            $data['cart'] = $this->cart->instance(auth()->id())
-                ->content();
-            $data['grandTotal'] = $this->cart->instance(auth()->id())
-                ->total();
-        }
-        return $data;
-    }
-
-    public function getContent()
-    {
-        $cart = $this->cart->instance(auth()->id())->content();
-        return $cart;
-    }
 }

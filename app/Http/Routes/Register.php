@@ -2,7 +2,7 @@
 
 namespace App\Http\Routes;
 
-use App\Repositories\CategoryRepository;
+use App\Services\ShareService;
 use Illuminate\Support\Facades\Schema;
 use Route;
 
@@ -23,9 +23,9 @@ class Register
     /**
      * RouteRegister constructor.
      */
-    public function __construct(CategoryRepository $cat)
+    public function __construct(ShareService $share)
     {
-        $this->cat = $cat;
+        $this->share = $share;
     }
 
     /**
@@ -35,7 +35,7 @@ class Register
     public function seoRoutes()
     {
         if (Schema::hasTable('categories')) {
-            $categories = $this->cat->filterCat();
+            $categories = $this->share->filterCat();
             foreach ($categories as $row) {
                 $parent_cat = $row['name'];
                 foreach ($row['sub_cat'] as $sub_cat) {

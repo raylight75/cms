@@ -2,12 +2,11 @@
 
 namespace App\Services;
 
-use App\Repositories\CartRepository;
 use App\Repositories\CountryRepository;
 use App\Repositories\PaymentRepository;
 use App\Repositories\ShippingRepository;
 
-class CheckoutService
+class CheckoutService extends BaseService
 {
     /**
      * Ecommerce-CMS
@@ -76,7 +75,7 @@ class CheckoutService
      */
     public function checkoutShow()
     {
-        $cart = $this->cartContent();
+        $cart = $this->setCart();
         $data['cartTotal'] = $cart['grandTotal'];
         $data['payments'] = $this->payment->find(session()->get('payment'));
         $data['shippings'] = $this->shipping->find(session()->get('delivery'));
@@ -91,18 +90,9 @@ class CheckoutService
      */
     public function vat()
     {
-        $cart = $this->cartContent();
+        $cart = $this->setCart();
         $vat = $this->country->findBy('name', session()->get('country'));
         $vat_total = $cart['grandTotal'] * $vat->vat;
         return $vat_total;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function cartContent()
-    {
-        $cart = app(CartRepository::class)->setCart();
-        return $cart;
     }
 }

@@ -28,35 +28,4 @@ class CategoryRepository extends Repository
     {
         return 'App\Models\Category';
     }
-
-    /**
-     * Category self recursion
-     * @param $parent_id
-     * @return array
-     */
-    public function filterCat($parent_id = 0)
-    {
-        $categories = array();
-        $result = $this->where('parent_id', $parent_id);
-        foreach ($result as $parentCategory) {
-            $category = array();
-            $category['id'] = $parentCategory->cat_id;
-            $category['name'] = $parentCategory->cat;
-            $category['parent_id'] = $parentCategory->parent_id;
-            $category['banner'] = $parentCategory->m_img;
-            $category['sub_cat'] = $this->filterCat($category['id']);
-            $categories[$parentCategory->cat_id] = $category;
-        }
-        return $categories;
-    }
-
-    /**
-     * Get NavMenu
-     * @return mixed
-     */
-    public function navMenu()
-    {
-        $menu = $this->with('children')->where('parent_id', 0)->get();
-        return $menu;
-    }
 }

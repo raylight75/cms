@@ -59,12 +59,14 @@ apps with proper user  data in config files and services.
 Complete documentation for the this project it's not ready yet.
 If you want to test repository you must:
 * Clone the repo
-* Run by performing on the repo's folder to install all dependencies:
-  * `$ composer update`
 * Database
   * `create database with name cms`
-  * `create user root`
+* Create .env file and set
+  * `DB_DATABASE=cms`
+  * `DB_USERNAME=root`
   * `leave password blank`
+* Run by performing on the repo's folder to install all dependencies:
+  * `$ composer update`
 * Now
   * `$ php artisan migrate`
 * Fill the database

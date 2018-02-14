@@ -4,7 +4,7 @@ Ecommerce-cms is simple starting project to create ecommerce sites.
 
 ## Basic Features
 
-- Laravel framework 5.4
+- Laravel framework 5.5 LTS
 - Bootstrap
 - Thin Controllers
 - Easy migration and auto generated seed

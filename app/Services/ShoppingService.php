@@ -67,7 +67,8 @@ class ShoppingService
     {
         $codes = $this->tax->all();
         foreach ($codes as $code) {
-            if (request()->has('discount') && request()->input('discount') !== $code->code) {
+            if (is_null(request()->has('discount')) && request()->input('discount') !== $code->code) {
+                //dd(request()->all());
                 return true;
             } else {
                 return false;

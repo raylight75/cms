@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call(BrandsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(ColorsTableSeeder::class);
-        //factory(App\Models\Colors_products::class, 600)->create();$this->call(ColorProductTableSeeder::class);
+        //factory(App\Models\Colors_products::class, 600)->create();
+        $this->call(ColorProductTableSeeder::class);
         $this->call(CountriesTableSeeder::class);
         $this->call(CurrenciesTableSeeder::class);
         $this->call(OrdersTableSeeder::class);

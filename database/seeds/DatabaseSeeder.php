@@ -5,7 +5,8 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Uncomment factory lines if you want to fill database with random data.
+     * Uncomment factory lines and comment associated
+     * table seeder if you want to fill database with random (600 Items) data.
      *
      * Run the database seeds.
      *

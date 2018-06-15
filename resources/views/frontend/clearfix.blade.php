@@ -70,17 +70,21 @@
 
             <div class="tovar_view_btn">
                 @include('errors.error_layout')
-                @if (!Auth::check())
+                @admin
+                    <a class="add_bag" href="{{ url('backend/products') }}"><i class="fa fa-pencil-square-o"></i></a>
+                @endadmin
+                @guest
                     <a class="add_bag" href="{{ url('login') }}">
                         <i class="fa fa-shopping-cart"></i>@lang('site.аdd to bag')</a>
-                @else
+                @endguest
+                @user
                     {!! Form::hidden('id', $item->product_id) !!}
                     {!! Form::hidden('name', $item->name) !!}
                     {!! Form::hidden('price', $item->price) !!}
                     {!! Form::hidden('img', $item->a_img) !!}
                     {!! Form::submit('Add to bag', ['class' => 'add_bag']) !!}
                     {!! Form::close() !!}
-                @endif
+                @enduser
             </div>
         </div>
         <div class="tovar_shared clearfix">

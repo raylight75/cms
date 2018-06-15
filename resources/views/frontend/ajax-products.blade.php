@@ -11,17 +11,19 @@
                 </div>
                 <div class="tovar_item_btns">
                     <a class="open-project tovar_view"
-                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
-                        <span><?= _('product')?></span> <?= _(' view')?>
-                    </a>
-                    @if (Auth::check() && Auth::user()->is('user'))
+                       href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
+                        <span>@lang('site.product')</span> @lang('site.view')</a>
+                    @user
                     <a class="add_bag"
-                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
+                       href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
                         <i class="fa fa-shopping-cart"></i></a>
-                    @else
-                    <a class="add_bag" href="{{ url('user') }}">
-                        <i class="fa fa-shopping-cart"></i></a>
-                    @endif
+                    @enduser
+                    @guest
+                    <a class="add_bag" href="{{ url('login') }}"><i class="fa fa-shopping-cart"></i></a>
+                    @endguest
+                    @admin
+                    <a class="add_bag" href="{{ url('backend/products') }}"><i class="fa fa-pencil-square-o"></i></a>
+                    @endadmin
                 </div>
             </div>
             <div class="tovar_description clearfix">

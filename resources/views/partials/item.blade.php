@@ -13,7 +13,17 @@
                     <a class="open-project tovar_view"
                        href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
                         <span>@lang('site.product')</span> @lang('site.view')</a>
-                    <a class="add_bag" href="{{ url('login') }}"><i class="fa fa-shopping-cart"></i></a>
+                    @user
+                    <a class="add_bag"
+                       href="{{ url('/') }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
+                        <i class="fa fa-shopping-cart"></i></a>
+                    @enduser
+                    @guest
+                        <a class="add_bag" href="{{ url('login') }}"><i class="fa fa-shopping-cart"></i></a>
+                    @endguest
+                    @admin
+                        <a class="add_bag" href="{{ url('backend/products') }}"><i class="fa fa-pencil-square-o"></i></a>
+                    @endadmin
                 </div>
             </div>
             <div class="tovar_description clearfix">

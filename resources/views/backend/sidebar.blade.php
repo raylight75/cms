@@ -4,11 +4,12 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
                     <div class="icon fa fa-paper-plane"></div>
-                    @if  (Auth::check() && Auth::user()->hasRole('admin'))
+                    @admin
                         <div class="title">Menu Backend</div>
-                    @else(Auth::check() && Auth::user()->hasRole('user'))
+                    @endadmin
+                    @user
                         <div class="title">User Menu</div>
-                    @endif
+                    @enduser
                 </a>
                 <button type="button" class="navbar-expand-toggle pull-right visible-xs">
                     <i class="fa fa-times icon"></i>

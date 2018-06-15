@@ -11,11 +11,11 @@
                 <h2>Welcome Back,{{$user}}!</h2>
                 @include('messages/flash_message')
                 <li>
-                    @if  (Auth::check() && Auth::user()->hasRole('admin'))
+                    @admin
                         <p>With button Admin Panel above you can visit area for Administrators.</p>
                     @else
                         <p>With button User Panel above you can visit area for our Customer.</p>
-                    @endif
+                    @endadmin
                 </li>
             </div>
             <div class="new_customers">

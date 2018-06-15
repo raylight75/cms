@@ -1,4 +1,4 @@
-@if  (Auth::check() && Auth::user()->hasRole('admin'))
+@admin
     @component('backend.link')
     @slot('link'){{ url('backend/admin') }}@endslot
     @slot('icon')icon fa fa-tachometer @endslot
@@ -42,7 +42,8 @@
     @slot('s_icon')icon fa fa-pencil-square-o @endslot
     @slot('s_name')Edit Products @endslot
     @endcomponent
-@else (Auth::check() && Auth::user()->hasRole('user'))
+@endadmin
+@user
     @component('backend.link')
     @slot('link'){{ url('backend/user') }}@endslot
     @slot('icon')icon fa fa-tachometer @endslot
@@ -58,4 +59,4 @@
     @slot('icon')icon fa fa-money @endslot
     @slot('name')My Orders @endslot
     @endcomponent
-@endif
+@enduser

@@ -24,7 +24,23 @@ class SubmitProduct extends Request
         return [
             'color' => 'required',
             'size' => 'required',
-            'qty' => 'required|numeric',
+            'qty' => 'required|numeric|integer|max:20',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'color.required' => 'You must select a color',
+            'size.required'  => 'You must select a size',
+            'qty.numeric'  => 'Quantity must be a number',
+            'qty.integer'  => 'Enter valid quantity',
+            'qty.max'  => 'Max avalible quantity 20',
         ];
     }
 }

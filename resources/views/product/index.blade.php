@@ -37,8 +37,8 @@
                 <td><img src="{{asset('images/products/'.$p->a_img)}}" height="35" width="25"></td>
                 <td><img src="{{asset('images/products/'.$p->b_img)}}" height="35" width="25"></td>
                 <td><img src="{{asset('images/products/'.$p->c_img)}}" height="35" width="25"></td>
-                <td><a href="{{route('articles.show',$p->product_id)}}" class="btn btn-primary">Read</a></td>
-                <td><a href="{{route('articles.edit',$p->product_id)}}" class="btn btn-warning">Update</a></td>
+                <td><a href="{{route('articles.show',$p->id)}}" class="btn btn-primary">Read</a></td>
+                <td><a href="{{route('articles.edit',$p->id)}}" class="btn btn-warning">Update</a></td>
                 <td>
                     {!! Form::open(['method' => 'DELETE', 'route'=>['articles.destroy', $p->product_id]]) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}

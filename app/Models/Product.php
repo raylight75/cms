@@ -14,6 +14,8 @@ class Product extends Model
 
     protected $table = 'products';
 
+    //protected $primaryKey = 'product_id';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -40,15 +42,6 @@ class Product extends Model
     public $timestamps = false;
 
     /**
-     * Override primary key
-     * @return string
-     */
-    public function getKeyName()
-    {
-        return 'product_id';
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      * Just example with singular name of the method
      */
@@ -64,7 +57,7 @@ class Product extends Model
 
     public function order()
     {
-        return $this->belongsTo('App\Models\Order', 'product_id', 'product_id');
+        return $this->belongsTo('App\Models\Order', 'product_id', 'id');
     }
 
     public function productsSizes()

@@ -138,12 +138,12 @@
                                 <div class="tovar_img">
                                     <img src="{{ url('images/products') }}/{{$row->a_img}}" alt=""/>
                                     <a class="open-project tovar_view"
-                                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">
+                                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->id}}">
                                         <?= _('quick view')?></a>
                                 </div>
                                 <div class="tovar_description clearfix">
                                     <a class="tovar_title"
-                                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->product_id}}">{{$row->name}}</a>
+                                       href="{{ url() }}/{{$row->category->cat}}/{{$row->slug}}/{{$row->id}}">{{$row->name}}</a>
 
                                 </div>
                             </div>

@@ -78,7 +78,7 @@
                         <i class="fa fa-shopping-cart"></i>@lang('site.аdd to bag')</a>
                 @endguest
                 @user
-                    {!! Form::hidden('id', $item->product_id) !!}
+                    {!! Form::hidden('id', $item->id) !!}
                     {!! Form::hidden('name', $item->name) !!}
                     {!! Form::hidden('price', $item->price) !!}
                     {!! Form::hidden('img', $item->a_img) !!}

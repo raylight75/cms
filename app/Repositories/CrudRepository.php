@@ -228,7 +228,7 @@ class CrudRepository
         $grid = DataGrid::source($this->productsFilter());
         $grid->label('Product List');
         $grid->attributes(array("class" => "table table-striped"));
-        $grid->add('product_id', 'ID', true)->style("width:100px");
+        $grid->add('id', 'ID', true)->style("width:100px");
         $grid->add('slug', 'Slug');
         $grid->add('name', 'Name');
         $grid->add('brands.brand', 'Brand');
@@ -242,7 +242,7 @@ class CrudRepository
         $grid->add('price', 'Price');
         $grid->edit('/backend/products/edit');
         $grid->link('/backend/products/edit', "New Products", "TR");
-        $grid->orderBy('product_id', 'asc');
+        $grid->orderBy('id', 'asc');
         $grid->paginate(10);
         return $grid;
     }

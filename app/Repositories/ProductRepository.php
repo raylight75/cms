@@ -37,7 +37,7 @@ class ProductRepository extends Repository
     {
         return $this->model->with('category')
             ->where(['parent_id' => $parent])
-            ->pluck('product_id');
+            ->pluck('id');
     }
 
     /**
@@ -45,7 +45,7 @@ class ProductRepository extends Repository
      */
     public function latest()
     {
-        return $this->model->orderBy('product_id', 'desc')
+        return $this->model->orderBy('id', 'desc')
             ->take('6')
             ->get();
     }
@@ -82,7 +82,7 @@ class ProductRepository extends Repository
         } else {
             $query->orderBy('price', $request->input('price'));
         }
-        $query->groupBy('product_id');
+        $query->groupBy('id');
         $result = $query->paginate(6);
         return $result;
     }
@@ -93,7 +93,7 @@ class ProductRepository extends Repository
     public function product()
     {
         return $this->model->with('category')
-            ->orderBy('product_id', 'desc')
+            ->orderBy('id', 'desc')
             ->get()
             ->random(6);
     }

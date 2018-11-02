@@ -25,7 +25,7 @@
         @foreach ($products as $p)
             {{-- {{ dd($p->size) }}--}}
             <tr>
-                <td>{{ $p->product_id }}</td>
+                <td>{{ $p->id }}</td>
                 <td>{{ $p->slug }}</td>
                 <td>{{ $p->name}}</td>
                 <td>{{ $p->brands->brand }}</td>

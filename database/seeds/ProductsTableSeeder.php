@@ -19,7 +19,7 @@ class ProductsTableSeeder extends Seeder
         \DB::table('products')->insert(array (
             0 => 
             array (
-                'product_id' => 1,
+                'id' => 1,
                 'slug' => 'CK-Blue-Schoolboy-Blazer',
                 'name' => 'CK Blue Schoolboy Blazer',
                 'description' => '<p>
@@ -36,7 +36,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             1 => 
             array (
-                'product_id' => 2,
+                'id' => 2,
                 'slug' => 'Dior-Blue-Peacoat-Trench',
                 'name' => 'Dior Blue Peacoat Trench',
                 'description' => '<p>
@@ -53,7 +53,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             2 => 
             array (
-                'product_id' => 3,
+                'id' => 3,
                 'slug' => 'Fendi-Waxed-Blue-Jacket',
                 'name' => 'Fendi Waxed Blue Jacket',
                 'description' => '<p>
@@ -70,7 +70,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             3 => 
             array (
-                'product_id' => 4,
+                'id' => 4,
                 'slug' => 'Gucci-Red-Neck-Sweater',
                 'name' => 'Gucci Red Neck Sweater',
                 'description' => '<p>
@@ -87,7 +87,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             4 => 
             array (
-                'product_id' => 5,
+                'id' => 5,
                 'slug' => 'Pepe-Jeans-Outwear-Jeans',
                 'name' => 'Pepe Jeans Outwear Jeans',
                 'description' => '<p>
@@ -104,7 +104,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             5 => 
             array (
-                'product_id' => 6,
+                'id' => 6,
                 'slug' => 'DKNY-Brown-Line-Jeans',
                 'name' => 'DKNY Brown Line Jeans',
                 'description' => '<p>
@@ -121,7 +121,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             6 => 
             array (
-                'product_id' => 7,
+                'id' => 7,
                 'slug' => 'Moschino-Violet-Shirt ',
                 'name' => 'Moschino Violet Shirt ',
                 'description' => '<p>
@@ -138,7 +138,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             7 => 
             array (
-                'product_id' => 8,
+                'id' => 8,
                 'slug' => 'Pepe-Jeans-Blue-Retro',
                 'name' => 'Pepe Jeans Blue Retro',
                 'description' => '<p>
@@ -155,7 +155,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             8 => 
             array (
-                'product_id' => 9,
+                'id' => 9,
                 'slug' => 'Gucci-Brown-Jeans',
                 'name' => 'Gucci Brown Jeans',
                 'description' => '<p>
@@ -172,7 +172,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             9 => 
             array (
-                'product_id' => 10,
+                'id' => 10,
                 'slug' => 'Dior-Brown-Mens-Shirt',
                 'name' => 'Dior Brown Mens Shirt',
                 'description' => '<p>
@@ -189,7 +189,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             10 => 
             array (
-                'product_id' => 11,
+                'id' => 11,
                 'slug' => 'Fendi-White-Jacket',
                 'name' => 'Fendi White Jacket',
                 'description' => '<p>
@@ -206,7 +206,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             11 => 
             array (
-                'product_id' => 12,
+                'id' => 12,
                 'slug' => 'Dior-Black-Long-Blazer',
                 'name' => 'Dior Black Long Blazer',
                 'description' => '<p>
@@ -223,7 +223,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             12 => 
             array (
-                'product_id' => 13,
+                'id' => 13,
                 'slug' => 'CK-Shell-Black-Blazer',
                 'name' => 'CK Shell Black Blazer',
                 'description' => '<p>
@@ -240,7 +240,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             13 => 
             array (
-                'product_id' => 14,
+                'id' => 14,
                 'slug' => 'Fendi-Brown-Skinny-Jeans',
                 'name' => 'Fendi Brown Skinny Jeans',
                 'description' => '<p>
@@ -257,7 +257,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             14 => 
             array (
-                'product_id' => 15,
+                'id' => 15,
                 'slug' => 'DKNY-Black-Neck-Sweater',
                 'name' => 'DKNY Black Neck Sweater',
                 'description' => '<p>
@@ -274,7 +274,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             15 => 
             array (
-                'product_id' => 16,
+                'id' => 16,
                 'slug' => 'Moschino-White-Hoodie',
                 'name' => 'Moschino White Hoodie',
                 'description' => '<p>
@@ -291,7 +291,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             16 => 
             array (
-                'product_id' => 17,
+                'id' => 17,
                 'slug' => 'Pepe-Jeans-Stripe-Shirt',
                 'name' => 'Pepe Jeans Stripe Shirt',
                 'description' => '<p>
@@ -308,7 +308,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             17 => 
             array (
-                'product_id' => 18,
+                'id' => 18,
                 'slug' => 'Fendi-Blue-Neck-Shirt',
                 'name' => 'Fendi Blue Neck Shirt',
                 'description' => '<p>
@@ -325,7 +325,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             18 => 
             array (
-                'product_id' => 19,
+                'id' => 19,
                 'slug' => 'Gucci-White-Sleeve-Shirt',
                 'name' => 'Gucci White Sleeve Shirt',
                 'description' => '<p>
@@ -342,7 +342,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             19 => 
             array (
-                'product_id' => 20,
+                'id' => 20,
                 'slug' => 'CK-White-Heisen-Sweater',
                 'name' => 'CK White Heisen Sweater',
                 'description' => '<p>
@@ -359,7 +359,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             20 => 
             array (
-                'product_id' => 21,
+                'id' => 21,
                 'slug' => 'DKNY-Red-Neck-Shirt',
                 'name' => 'DKNY Red Neck Shirt',
                 'description' => '<p>
@@ -376,7 +376,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             21 => 
             array (
-                'product_id' => 22,
+                'id' => 22,
                 'slug' => 'Fendi-Navy-Front-Jacket',
                 'name' => 'Fendi Navy Front Jacket',
                 'description' => '<p>
@@ -393,7 +393,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             22 => 
             array (
-                'product_id' => 23,
+                'id' => 23,
                 'slug' => 'Moschino-Shell-Viol-Shirt',
                 'name' => 'Moschino Shell Viol Shirt',
                 'description' => '<p>
@@ -410,7 +410,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             23 => 
             array (
-                'product_id' => 24,
+                'id' => 24,
                 'slug' => 'Pepe-Jeans-Blue-Shirt',
                 'name' => 'Pepe Jeans Blue Shirt',
                 'description' => '<p>
@@ -427,7 +427,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             24 => 
             array (
-                'product_id' => 25,
+                'id' => 25,
                 'slug' => 'Moschino-White-Jacket',
                 'name' => 'Moschino White Jacket',
                 'description' => '<p>
@@ -444,7 +444,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             25 => 
             array (
-                'product_id' => 26,
+                'id' => 26,
                 'slug' => 'Gucci-Fine-Sweaters',
                 'name' => 'Gucci Fine Sweaters',
                 'description' => '<p>
@@ -461,7 +461,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             26 => 
             array (
-                'product_id' => 27,
+                'id' => 27,
                 'slug' => 'Fendi-Black-Stripe-Shirt',
                 'name' => 'Fendi Black Stripe Shirt',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
@@ -476,7 +476,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             27 => 
             array (
-                'product_id' => 28,
+                'id' => 28,
                 'slug' => 'CK-Blue-Nautical-Shirt',
                 'name' => 'CK Blue Nautical Shirt',
                 'description' => '<p>
@@ -493,7 +493,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             28 => 
             array (
-                'product_id' => 29,
+                'id' => 29,
                 'slug' => 'Dior-White-Shirt',
                 'name' => 'Dior White Shirt',
                 'description' => '<p>
@@ -510,7 +510,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             29 => 
             array (
-                'product_id' => 30,
+                'id' => 30,
                 'slug' => 'DKNY-Blue-Sleeve-Shirt ',
                 'name' => 'DKNY Blue Sleeve Shirt ',
                 'description' => '<p>
@@ -527,7 +527,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             30 => 
             array (
-                'product_id' => 31,
+                'id' => 31,
                 'slug' => 'CK-Jeans-Mid-Wash',
                 'name' => 'CK Jeans Mid Wash',
                 'description' => '<p>
@@ -544,7 +544,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             31 => 
             array (
-                'product_id' => 32,
+                'id' => 32,
                 'slug' => 'DKNY-White-Lapell-Blazer',
                 'name' => 'DKNY White Lapell Blazer',
                 'description' => '<p>
@@ -561,7 +561,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             32 => 
             array (
-                'product_id' => 36,
+                'id' => 36,
                 'slug' => 'Moschino-Red-Jacket',
                 'name' => 'Moschino Red Jacket',
                 'description' => '<p>
@@ -578,7 +578,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.&gt;</p>
             ),
             33 => 
             array (
-                'product_id' => 37,
+                'id' => 37,
                 'slug' => 'CK-Violet-Jacket-Arc',
                 'name' => 'CK Violet Jacket Arc',
                 'description' => '<p>
@@ -595,7 +595,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             34 => 
             array (
-                'product_id' => 38,
+                'id' => 38,
                 'slug' => 'Fendi-Blue-Jacket ',
                 'name' => 'Fendi Blue Jacket ',
                 'description' => '<p>
@@ -612,7 +612,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             35 => 
             array (
-                'product_id' => 39,
+                'id' => 39,
                 'slug' => 'Pepe-Jeans-Violet-Blazer',
                 'name' => 'Pepe Jeans Violet Blazer',
                 'description' => '<p>
@@ -629,7 +629,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             36 => 
             array (
-                'product_id' => 40,
+                'id' => 40,
                 'slug' => 'Pepe-Jeans-Vintage-1969',
                 'name' => 'Pepe Jeans Vintage 1969',
                 'description' => '<p>
@@ -646,7 +646,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             37 => 
             array (
-                'product_id' => 41,
+                'id' => 41,
                 'slug' => 'Moschino-Blue-Sweater',
                 'name' => 'Moschin Blue Sweater',
                 'description' => '<p>
@@ -663,7 +663,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             38 => 
             array (
-                'product_id' => 42,
+                'id' => 42,
                 'slug' => 'Fendi-Tuxedo-Blazer',
                 'name' => 'Fendi Tuxedo Blazer',
                 'description' => '<p>
@@ -680,7 +680,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             39 => 
             array (
-                'product_id' => 43,
+                'id' => 43,
                 'slug' => 'CK-Violet-Blazer',
                 'name' => 'CK Violet Blazer',
                 'description' => '<p>
@@ -697,7 +697,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             40 => 
             array (
-                'product_id' => 44,
+                'id' => 44,
                 'slug' => 'Dior-Black-Shirt-Stripe',
                 'name' => 'Dior Black Shirt Stripe',
                 'description' => '<p>
@@ -714,7 +714,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             41 => 
             array (
-                'product_id' => 45,
+                'id' => 45,
                 'slug' => 'Fendi-Red-T-Shirt',
                 'name' => 'Fendi Red T-Shirt',
                 'description' => '<p>
@@ -731,7 +731,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             42 => 
             array (
-                'product_id' => 46,
+                'id' => 46,
                 'slug' => 'DKNY-Black-Jacket',
                 'name' => 'DKNY Black Jacket',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -747,7 +747,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             ),
             43 => 
             array (
-                'product_id' => 47,
+                'id' => 47,
                 'slug' => 'Dior-Blue-Women-Wrap',
                 'name' => 'Dior Blue Women Wrap',
                 'description' => '<p>
@@ -764,7 +764,7 @@ Nice blue stylish wrap from famous brand Dior</p>
             ),
             44 => 
             array (
-                'product_id' => 48,
+                'id' => 48,
                 'slug' => 'CK-Nice-Women-Blue-Wrap',
                 'name' => 'CK Nice Women Blue Wrap',
                 'description' => '<p>
@@ -781,7 +781,7 @@ K Nice Women Blue Wrap.&nbsp;Pellentesque habitant morbi tristique senectus et n
             ),
             45 => 
             array (
-                'product_id' => 49,
+                'id' => 49,
                 'slug' => 'CK-Wrap-Women-Blue ',
                 'name' => 'CK Wrap Women Blue ',
                 'description' => '<p>
@@ -798,7 +798,7 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
             ),
             46 => 
             array (
-                'product_id' => 50,
+                'id' => 50,
                 'slug' => 'CK-Women-Wrap',
                 'name' => 'CK Women Wrap',
                 'description' => '<p>
@@ -815,7 +815,7 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
             ),
             47 => 
             array (
-                'product_id' => 51,
+                'id' => 51,
                 'slug' => 'CL-Light-Blue-Wrap',
                 'name' => 'CL Light Blue Wrap',
                 'description' => '<p>
@@ -832,7 +832,7 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
             ),
             48 => 
             array (
-                'product_id' => 52,
+                'id' => 52,
                 'slug' => 'CK-Wrap-Blue-Jeans',
                 'name' => 'CK Wrap Blue Jeans',
                 'description' => '<p>
@@ -849,7 +849,7 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
             ),
             49 => 
             array (
-                'product_id' => 53,
+                'id' => 53,
                 'slug' => 'CK-Blue-Wrap-Shirt',
                 'name' => 'CK Blue Wrap Shirt',
                 'description' => '<p>
@@ -866,7 +866,7 @@ Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac tu
             ),
             50 => 
             array (
-                'product_id' => 54,
+                'id' => 54,
                 'slug' => 'Dior-White-Mini',
                 'name' => 'Dior White Mini',
             'description' => '<p style="box-sizing: border-box; margin: 0px 0px 20px; color: rgb(102, 102, 102); font-family: Roboto, sans-serif; line-height: 18px;">
@@ -883,7 +883,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             51 => 
             array (
-                'product_id' => 55,
+                'id' => 55,
                 'slug' => 'DKNY-Black-Mini',
                 'name' => 'DKNY Black Mini',
                 'description' => '<p>
@@ -900,7 +900,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             52 => 
             array (
-                'product_id' => 56,
+                'id' => 56,
                 'slug' => 'Gucci-White-Mini',
                 'name' => 'Gucci White Mini',
                 'description' => '<p>
@@ -917,7 +917,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             53 => 
             array (
-                'product_id' => 57,
+                'id' => 57,
                 'slug' => 'Fendi-Brown-Mini',
                 'name' => 'Fendi Brown Mini',
                 'description' => '<p>
@@ -934,7 +934,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             54 => 
             array (
-                'product_id' => 58,
+                'id' => 58,
                 'slug' => 'Pepe-Jeans-Black-Mini',
                 'name' => 'Pepe Jeans Black Mini',
                 'description' => '<p>
@@ -951,7 +951,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             55 => 
             array (
-                'product_id' => 59,
+                'id' => 59,
                 'slug' => 'Moschino-Brown-Mini',
                 'name' => 'Moschino Brown Mini',
                 'description' => '<p>
@@ -968,7 +968,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             56 => 
             array (
-                'product_id' => 62,
+                'id' => 62,
                 'slug' => 'CK-White-Pleated-Top',
                 'name' => 'CK White Pleated Top',
                 'description' => '<p>
@@ -985,7 +985,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             57 => 
             array (
-                'product_id' => 63,
+                'id' => 63,
                 'slug' => 'Dior-Brown-Tops',
                 'name' => 'Dior Brown Tops',
                 'description' => '<p>
@@ -1002,7 +1002,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             58 => 
             array (
-                'product_id' => 64,
+                'id' => 64,
                 'slug' => 'Gucci-Black-Top',
                 'name' => 'Gucci Black Top',
                 'description' => '<p>
@@ -1019,7 +1019,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             59 => 
             array (
-                'product_id' => 65,
+                'id' => 65,
                 'slug' => 'Moschino-Red-Top',
                 'name' => 'Moschino Red Top',
                 'description' => '<p>
@@ -1036,7 +1036,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             60 => 
             array (
-                'product_id' => 66,
+                'id' => 66,
                 'slug' => 'DKNY-Black-Crop-Top',
                 'name' => 'DKNY Black Crop Top',
                 'description' => '<p>
@@ -1053,7 +1053,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             61 => 
             array (
-                'product_id' => 67,
+                'id' => 67,
                 'slug' => 'Pepe-Jeans-Mini',
                 'name' => 'Pepe Jeans Mini',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -1068,7 +1068,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             62 => 
             array (
-                'product_id' => 68,
+                'id' => 68,
                 'slug' => 'Fendi-Red-Top',
                 'name' => 'Fendi Red Top',
                 'description' => 'Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat.
@@ -1084,7 +1084,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             63 => 
             array (
-                'product_id' => 69,
+                'id' => 69,
                 'slug' => 'CK-Graphic-Top',
                 'name' => 'CK Graphic Top',
                 'description' => '<p>
@@ -1100,7 +1100,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             64 => 
             array (
-                'product_id' => 70,
+                'id' => 70,
                 'slug' => 'Pepe-Green-Shirt',
                 'name' => 'Pepe Green Shirt',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt rhoncus malesuada. Cras consequat pharetra accumsan. Vivamus condimentum nibh sapien, eget lobortis libero feugiat ultricies. Curabitur ac libero tempus, congue magna sit amet, hendrerit tellus. Curabitur laoreet mattis maximus. In egestas ex in neque molestie, at lobortis odio luctus. Cras porta arcu vel mi commodo sodales. Mauris porttitor ante orci, id gravida lorem rhoncus nec. Praesent dapibus sapien a lacus egestas, vitae dapibus nibh dictum. Integer vel mauris diam. Mauris eleifend pulvinar augue. Mauris sollicitudin ligula id mattis condimentum. Duis ac tristique est. Integer facilisis, diam nec tempor congue, leo massa pulvinar purus, interdum laoreet nibh sem sed felis. Fusce tristique cursus urna a bibendum.',
@@ -1115,7 +1115,7 @@ Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, tur
             ),
             65 => 
             array (
-                'product_id' => 79,
+                'id' => 79,
                 'slug' => 'Gucci-Black-Top',
                 'name' => 'Gucci Black Top',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur consequat faucibus sollicitudin. Sed nec fringilla nibh. Sed maximus finibus purus, eu volutpat arcu aliquet sit amet. Sed cursus ipsum sit amet elit sagittis, ac faucibus libero ultricies. In tempor velit vel dictum rhoncus. Morbi in ante commodo, condimentum felis in, lobortis ante. Praesent vitae magna ultricies, rutrum lorem et, iaculis nunc. Curabitur finibus neque neque, at consectetur tellus tristique ac. Praesent eu sollicitudin magna, in placerat nisi.
@@ -1131,7 +1131,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur consequat fau
             ),
             66 => 
             array (
-                'product_id' => 80,
+                'id' => 80,
                 'slug' => 'DKNY-Green-Shirt',
                 'name' => 'DKNY Green Shirt',
                 'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum nibh nulla, eget gravida libero venenatis ac. Praesent sit amet metus cursus, ultricies ligula ut, sollicitudin libero. Phasellus sagittis posuere nisl sit amet eleifend. Ut nec metus feugiat, mollis ante vel, auctor orci. Phasellus sit amet vestibulum tortor. Praesent dignissim magna ut arcu ornare, a fringilla ipsum ultrices. Integer eros dolor, volutpat eget orci viverra, suscipit rhoncus arcu. Phasellus bibendum non turpis nec cursus. Pellentesque fringilla venenatis justo, ac pretium enim malesuada sit amet.

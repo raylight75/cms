@@ -7,6 +7,8 @@ use App\Repositories\BrandRepository;
 use App\Repositories\ColorRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\SizeRepository;
+use App\Models\Category;
+use App\Models\Product;
 
 class MainService
 {
@@ -90,6 +92,7 @@ class MainService
         $data['brands'] = app(BrandRepository::class)->all();
         $data['latest'] = $this->product->latest();
         $data['products'] = $this->product->product();
+       // dd($data);
         return $data;
     }
 
@@ -102,10 +105,36 @@ class MainService
     public function getFilter($parent)
     {
         $data = $this->prepareFilter($parent);
-        $catId = (request()->exists('categ') ? request()->input('categ') : array($parent));
-        $data['banner'] = app(CategoryRepository::class)->whereIn('cat_id', $catId);
-        $data['properties'] = $this->getAll($parent);
-        $data['products'] = $this->pagination($parent);
+        //dd($data["brand"]);
+
+       
+        // $catId = (request()->exists('categ') ? request()->input('categ') : array($parent));
+        // $data['banner'] = app(CategoryRepository::class)->whereIn('cat_id', $catId);
+        // $data['properties'] = $this->getAll($parent);
+        // $data['products'] = $this->pagination($parent);
+
+
+        //You can use this method as a reference for query part
+        //Query to get the product filter based on the category
+        $cat = $data["category"];
+        //Query to get the type of product and category as well as the details.
+        $data = Product::where("cat_id",$data["category"])->whereHas('category',function($query) use($cat){
+            $query->where("cat_id",$cat);
+        })->get();
+       
+        //The tranformed array is to convert the collection and store it into an array 
+        $transformed = [];
+        foreach($data as $key => $product){
+            $transformed[$key]["name"] = $product["name"];
+            $transformed[$key]["description"] = $product["description"];
+            $transformed[$key]["a_img"] = $product["a_img"];
+            $transformed[$key]["brands"] = $product->brands->brand; //Products has the realtion of brands 
+        }
+
+        //DD to see the output of array for transformed from browser
+        dd($transformed);
+  
+       
         return $data;
     }
 
